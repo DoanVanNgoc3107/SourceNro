@@ -1,0 +1,92 @@
+Name=Whis zoneId=13 mapName=Hành tinh Bill 2: 18h39 04/12/2025
+Name=Beerus zoneId=13 mapName=Hành tinh Bill 2: 18h39 04/12/2025
+Name=Tiểu đội trưởng zoneId=15 mapName=Núi khỉ đỏ: 18h39 04/12/2025
+Name=Số 1 zoneId=15 mapName=Núi khỉ đỏ: 18h39 04/12/2025
+Name=Số 2 zoneId=15 mapName=Núi khỉ đỏ: 18h39 04/12/2025
+Name=Số 3 zoneId=15 mapName=Núi khỉ đỏ: 18h39 04/12/2025
+Name=Số 4 zoneId=15 mapName=Núi khỉ đỏ: 18h39 04/12/2025
+Name=Fide Đại Ca 1 zoneId=9 mapName=Núi khỉ vàng: 18h39 04/12/2025
+Name=Android 19 zoneId=12 mapName=Đảo Balê: 18h40 04/12/2025
+Name=Dr.Kôrê zoneId=12 mapName=Đảo Balê: 18h40 04/12/2025
+Name=Android 15 zoneId=13 mapName=Sân sau siêu thị: 18h40 04/12/2025
+Name=Android 14 zoneId=13 mapName=Sân sau siêu thị: 18h40 04/12/2025
+Name=Pic zoneId=17 mapName=Ngọn núi phía bắc: 18h40 04/12/2025
+Name=Poc zoneId=17 mapName=Ngọn núi phía bắc: 18h40 04/12/2025
+Name=King Kong zoneId=17 mapName=Ngọn núi phía bắc: 18h40 04/12/2025
+Name=Xên bọ hung zoneId=1 mapName=Thị trấn Ginder: 18h40 04/12/2025
+Name=Xên hoàn thiện zoneId=8 mapName=Võ đài Xên bọ hung: 18h40 04/12/2025
+Name=Black Goku zoneId=14 mapName=Thành phố phía đông: 18h41 04/12/2025
+Name=Cooler zoneId=3 mapName=Hang băng: 18h41 04/12/2025
+Name=Bojack zoneId=18 mapName=Rừng dương xỉ: 18h41 04/12/2025
+Name=Bido zoneId=18 mapName=Rừng dương xỉ: 18h41 04/12/2025
+Name=Zangya zoneId=18 mapName=Rừng dương xỉ: 18h41 04/12/2025
+Name=Kogu zoneId=18 mapName=Rừng dương xỉ: 18h41 04/12/2025
+Name=Bujin zoneId=18 mapName=Rừng dương xỉ: 18h41 04/12/2025
+Name=Tiểu đội trưởng zoneId=8 mapName=Núi hoa tím: 18h41 04/12/2025
+Name=Số 1 zoneId=8 mapName=Núi hoa tím: 18h41 04/12/2025
+Name=Số 2 zoneId=8 mapName=Núi hoa tím: 18h41 04/12/2025
+Name=Số 3 zoneId=8 mapName=Núi hoa tím: 18h41 04/12/2025
+Name=Số 4 zoneId=8 mapName=Núi hoa tím: 18h41 04/12/2025
+Name=Chilld zoneId=6 mapName=Làng Plant nguyên thủy: 18h41 04/12/2025
+Name=Whis zoneId=6 mapName=Hành tinh Bill 2: 18h54 04/12/2025
+Name=Beerus zoneId=6 mapName=Hành tinh Bill 2: 18h54 04/12/2025
+Name=Tiểu đội trưởng zoneId=8 mapName=Hang khỉ đen: 18h54 04/12/2025
+Name=Số 1 zoneId=8 mapName=Hang khỉ đen: 18h54 04/12/2025
+Name=Số 2 zoneId=8 mapName=Hang khỉ đen: 18h54 04/12/2025
+Name=Số 3 zoneId=8 mapName=Hang khỉ đen: 18h54 04/12/2025
+Name=Số 4 zoneId=8 mapName=Hang khỉ đen: 18h54 04/12/2025
+Name=Fide Đại Ca 1 zoneId=11 mapName=Núi khỉ vàng: 18h54 04/12/2025
+Name=Android 19 zoneId=4 mapName=Thành phố phía nam: 18h55 04/12/2025
+Name=Dr.Kôrê zoneId=4 mapName=Thành phố phía nam: 18h55 04/12/2025
+Name=Android 15 zoneId=19 mapName=Sân sau siêu thị: 18h55 04/12/2025
+Name=Android 14 zoneId=19 mapName=Sân sau siêu thị: 18h55 04/12/2025
+Name=Pic zoneId=5 mapName=Thành phố phía bắc: 18h55 04/12/2025
+Name=Poc zoneId=5 mapName=Thành phố phía bắc: 18h55 04/12/2025
+Name=King Kong zoneId=5 mapName=Thành phố phía bắc: 18h55 04/12/2025
+Name=Xên bọ hung zoneId=3 mapName=Thị trấn Ginder: 18h55 04/12/2025
+Name=Whis zoneId=15 mapName=Hành tinh Bill 2: 19h09 04/12/2025
+Name=Beerus zoneId=15 mapName=Hành tinh Bill 2: 19h09 04/12/2025
+Name=Tiểu đội trưởng zoneId=8 mapName=Núi khỉ đen: 19h09 04/12/2025
+Name=Số 1 zoneId=8 mapName=Núi khỉ đen: 19h09 04/12/2025
+Name=Số 2 zoneId=8 mapName=Núi khỉ đen: 19h09 04/12/2025
+Name=Số 3 zoneId=8 mapName=Núi khỉ đen: 19h09 04/12/2025
+Name=Số 4 zoneId=8 mapName=Núi khỉ đen: 19h09 04/12/2025
+Name=Fide Đại Ca 1 zoneId=6 mapName=Núi khỉ vàng: 19h09 04/12/2025
+Name=Android 19 zoneId=3 mapName=Đảo Balê: 19h10 04/12/2025
+Name=Dr.Kôrê zoneId=3 mapName=Đảo Balê: 19h10 04/12/2025
+Name=Android 15 zoneId=19 mapName=Sân sau siêu thị: 19h10 04/12/2025
+Name=Android 14 zoneId=19 mapName=Sân sau siêu thị: 19h10 04/12/2025
+Name=Pic zoneId=8 mapName=Thành phố phía bắc: 19h10 04/12/2025
+Name=Poc zoneId=8 mapName=Thành phố phía bắc: 19h10 04/12/2025
+Name=King Kong zoneId=8 mapName=Thành phố phía bắc: 19h10 04/12/2025
+Name=Xên bọ hung zoneId=2 mapName=Thị trấn Ginder: 19h10 04/12/2025
+Name=Xên hoàn thiện zoneId=5 mapName=Võ đài Xên bọ hung: 19h10 04/12/2025
+Name=Black Goku zoneId=7 mapName=Thành phố phía nam: 19h11 04/12/2025
+Name=Cooler zoneId=9 mapName=Hang băng: 19h11 04/12/2025
+Name=Bojack zoneId=0 mapName=Nam Kamê: 19h11 04/12/2025
+Name=Bido zoneId=0 mapName=Nam Kamê: 19h11 04/12/2025
+Name=Zangya zoneId=0 mapName=Nam Kamê: 19h11 04/12/2025
+Name=Kogu zoneId=0 mapName=Nam Kamê: 19h11 04/12/2025
+Name=Bujin zoneId=0 mapName=Nam Kamê: 19h11 04/12/2025
+Name=Tiểu đội trưởng zoneId=16 mapName=Núi hoa tím: 19h11 04/12/2025
+Name=Số 1 zoneId=16 mapName=Núi hoa tím: 19h11 04/12/2025
+Name=Số 2 zoneId=16 mapName=Núi hoa tím: 19h11 04/12/2025
+Name=Số 3 zoneId=16 mapName=Núi hoa tím: 19h11 04/12/2025
+Name=Số 4 zoneId=16 mapName=Núi hoa tím: 19h11 04/12/2025
+Name=Chilld zoneId=14 mapName=Làng Plant nguyên thủy: 19h11 04/12/2025
+Name=Whis zoneId=3 mapName=Hành tinh Bill 2: 19h24 04/12/2025
+Name=Beerus zoneId=3 mapName=Hành tinh Bill 2: 19h24 04/12/2025
+Name=Tiểu đội trưởng zoneId=2 mapName=Núi khỉ đỏ: 19h24 04/12/2025
+Name=Số 1 zoneId=2 mapName=Núi khỉ đỏ: 19h24 04/12/2025
+Name=Số 2 zoneId=2 mapName=Núi khỉ đỏ: 19h24 04/12/2025
+Name=Số 3 zoneId=2 mapName=Núi khỉ đỏ: 19h24 04/12/2025
+Name=Số 4 zoneId=2 mapName=Núi khỉ đỏ: 19h24 04/12/2025
+Name=Fide Đại Ca 1 zoneId=4 mapName=Núi khỉ vàng: 19h24 04/12/2025
+Name=Android 19 zoneId=16 mapName=Cao nguyên: 19h25 04/12/2025
+Name=Dr.Kôrê zoneId=16 mapName=Cao nguyên: 19h25 04/12/2025
+Name=Android 15 zoneId=9 mapName=Sân sau siêu thị: 19h25 04/12/2025
+Name=Android 14 zoneId=9 mapName=Sân sau siêu thị: 19h25 04/12/2025
+Name=Pic zoneId=8 mapName=Thành phố phía bắc: 19h25 04/12/2025
+Name=Poc zoneId=8 mapName=Thành phố phía bắc: 19h25 04/12/2025
+Name=King Kong zoneId=8 mapName=Thành phố phía bắc: 19h25 04/12/2025
+Name=Xên bọ hung zoneId=6 mapName=Thị trấn Ginder: 19h25 04/12/2025
