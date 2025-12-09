@@ -53,21 +53,40 @@ import dragon.t.SetSQL;
  * @author Admin
  */
 public class Controller implements IMessageHandler {
-    
+
     private final Session_ME session;
-    
+
     public Controller(Session_ME session) {
         this.session = session;
     }
-    
+
+    @Override
+    public void onConnectOK() {
+        // Connection established - no-op by default
+    }
+
+    @Override
+    public void onConnectionFail() {
+        // Connection failed - no-op by default
+    }
+
+    @Override
+    public void onDisconnected() {
+        // Disconnected - ensure session cleanup
+        if (this.session != null) {
+            this.session.disconnect();
+        }
+    }
+
     @Override
     public void onMessage(Message msg) {
         if (msg != null) {
             try {
-                Util.gI().logln("Send msg "+msg.getCommand());
-                switch(msg.getCommand()) {
+                Util.gI().logln("Send msg " + msg.getCommand());
+                switch (msg.getCommand()) {
                     case -127:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().canProceed()) {
@@ -75,14 +94,16 @@ public class Controller implements IMessageHandler {
                                 int num362 = 1;
                                 try {
                                     num362 = msg.reader().readByte();
-                                } catch (Exception e) {}
+                                } catch (Exception e) {
+                                }
                                 LuckyRound.gI().crackBall(this.session.myCharz(), type982, num362);
                             }
                         }
                         break;
                     case -125:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
-                            String texts[]= new String[msg.reader().readByte()];
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
+                            String texts[] = new String[msg.reader().readByte()];
                             for (int i = 0; i < texts.length; i++) {
                                 texts[i] = msg.reader().readUTF();
                             }
@@ -90,20 +111,22 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -118:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             int idThachDau = msg.reader().readInt();
                             this.session.myCharz().thachDau(idThachDau);
                         }
                         break;
                     case -113:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             try {
                                 this.session.myCharz().KSkill.clear();
                                 for (int i2 = 0; i2 < 10; i2++) {
                                     this.session.myCharz().KSkill.add(msg.reader().readByte());
                                 }
                             } catch (Exception e) {
-                                
+
                             }
                             this.session.myCharz().OSkill = this.session.myCharz().KSkill;
                             this.session.service.loadRMS(mResources.CSKILL, this.session.myCharz().CSkill);
@@ -111,7 +134,8 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -114:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().canProceed()) {
@@ -124,8 +148,10 @@ public class Controller implements IMessageHandler {
                         if (size > 0) {
                             for (short i = 0; i < size; i++) {
                                 String original = msg.reader().readUTF();
-                                byte[] data = ImageSource.imgData.get(String.format(mResources.PATH_IMG, this.session.zoomLevel, original));
-                                //byte[] data = Dragon.getFile(String.format(mResources.PATH_IMG, this.session.zoomLevel, original));
+                                byte[] data = ImageSource.imgData
+                                        .get(String.format(mResources.PATH_IMG, this.session.zoomLevel, original));
+                                // byte[] data = Dragon.getFile(String.format(mResources.PATH_IMG,
+                                // this.session.zoomLevel, original));
                                 if (data != null) {
                                     this.session.service.getImageSource(data, original);
                                 }
@@ -133,18 +159,22 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -108:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie && this.session.myCharz().myPet != null) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie && this.session.myCharz().myPet != null) {
                             this.session.myCharz().petChangeStatus(msg.reader().readByte());
                         }
                         break;
                     case -107:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && this.session.myCharz().myPet != null) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && this.session.myCharz().myPet != null) {
                             this.session.service.petInfo2(this.session.myCharz().myPetz());
                         }
                         break;
                     case -105:
-                        if (this.session.myCharz() != null && this.session.myCharz().transport != null && this.session.myCharz().isTransport) {
-                            if (this.session.myCharz().maxTimeTransport <= (System.currentTimeMillis() - this.session.myCharz().lastTransport) / 1000L) {
+                        if (this.session.myCharz() != null && this.session.myCharz().transport != null
+                                && this.session.myCharz().isTransport) {
+                            if (this.session.myCharz().maxTimeTransport <= (System.currentTimeMillis()
+                                    - this.session.myCharz().lastTransport) / 1000L) {
                                 this.session.myCharz().transPort();
                             } else {
                                 if (this.session.myCharz().getLuong() >= 1) {
@@ -166,7 +196,7 @@ public class Controller implements IMessageHandler {
                             if (action != 0) {
                                 flagType = msg.reader().readByte();
                             }
-                            Util.gI().log("action="+action+" flagType="+flagType);
+                            Util.gI().log("action=" + action + " flagType=" + flagType);
                             if (action == 0) {
                                 this.session.service.getFlag();
                             }
@@ -174,8 +204,13 @@ public class Controller implements IMessageHandler {
                                 if (action == 1) {
                                     if (this.session.myCharz().cTypePk == 5) {
                                         this.session.myCharz().addInfo1(mResources.NOT_CHANGE_TYPEPK);
-                                    } else if (this.session.myCharz().zoneMap.map.isMapBlackBall() || this.session.myCharz().zoneMap.map.isMapButcher() || this.session.myCharz().zoneMap.map.isMapCace23_2() || this.session.myCharz().zoneMap.mapTemplate.mapTemplateId == 51 || this.session.myCharz().mapTemplateId == 113) {
-                                        this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.NOT_CHANGE_FLAG, null, 0);
+                                    } else if (this.session.myCharz().zoneMap.map.isMapBlackBall()
+                                            || this.session.myCharz().zoneMap.map.isMapButcher()
+                                            || this.session.myCharz().zoneMap.map.isMapCace23_2()
+                                            || this.session.myCharz().zoneMap.mapTemplate.mapTemplateId == 51
+                                            || this.session.myCharz().mapTemplateId == 113) {
+                                        this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.NOT_CHANGE_FLAG,
+                                                null, 0);
                                     } else {
                                         this.session.myCharz().changeFlag(flagType);
                                         if (this.session.myCharz().myPet != null) {
@@ -184,7 +219,8 @@ public class Controller implements IMessageHandler {
                                     }
                                 }
                                 if (action == 2) {
-                                    this.session.service.idImgFlag(flagType, Flag.FLAGS.get(flagType).itemFlag.template.iconID);
+                                    this.session.service.idImgFlag(flagType,
+                                            Flag.FLAGS.get(flagType).itemFlag.template.iconID);
                                 }
                             }
                         }
@@ -192,62 +228,78 @@ public class Controller implements IMessageHandler {
                     case -101:
                         String user = msg.reader().readUTF();
                         byte b = msg.reader().readByte();
-                        Util.gI().logln("user "+user+" byte "+b);
+                        Util.gI().logln("user " + user + " byte " + b);
                         this.session.service.login2(user);
                         break;
-                    case -100:
-                    {
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                    case -100: {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().canProceed()) {
                                 byte sdvi_action = msg.reader().readByte();
                                 if (sdvi_action == 0) {
                                     if (this.session.myCharz().timeKyGui > 0) {
-                                        this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE, Util.gI().getStrTime(this.session.myCharz().timeKyGui)));
+                                        this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE,
+                                                Util.gI().getStrTime(this.session.myCharz().timeKyGui)));
                                     } else {
                                         this.session.myCharz().timeKyGui = 5000;
                                         if (!this.session.myCharz().isCan()) {
-                                            this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.KHONG_HO_TRO, null, 0);
+                                            this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.KHONG_HO_TRO,
+                                                    null, 0);
                                         } else {
-                                            ItemKyGui.kygui(this.session.myCharz(), sdvi_action, msg.reader().readShort(), msg.reader().readByte(), msg.reader().readInt(), this.session.getIntVersion() >= 222 ? msg.reader().readInt() : msg.reader().readByte());
+                                            ItemKyGui.kygui(this.session.myCharz(), sdvi_action,
+                                                    msg.reader().readShort(), msg.reader().readByte(),
+                                                    msg.reader().readInt(),
+                                                    this.session.getIntVersion() >= 222 ? msg.reader().readInt()
+                                                            : msg.reader().readByte());
                                         }
                                     }
                                 }
                                 if (sdvi_action == 1 || sdvi_action == 2) {
                                     if (this.session.myCharz().timeKyGui > 0) {
-                                        this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE, Util.gI().getStrTime(this.session.myCharz().timeKyGui)));
+                                        this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE,
+                                                Util.gI().getStrTime(this.session.myCharz().timeKyGui)));
                                     } else {
                                         this.session.myCharz().timeKyGui = 5000;
-                                        ItemKyGui.kygui(this.session.myCharz(), sdvi_action, msg.reader().readShort(), (byte)0, 0, 0);
+                                        ItemKyGui.kygui(this.session.myCharz(), sdvi_action, msg.reader().readShort(),
+                                                (byte) 0, 0, 0);
                                     }
                                 }
                                 if (sdvi_action == 3) {
                                     if (this.session.myCharz().timeKyGui > 0) {
-                                        this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE, Util.gI().getStrTime(this.session.myCharz().timeKyGui)));
+                                        this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE,
+                                                Util.gI().getStrTime(this.session.myCharz().timeKyGui)));
                                     } else {
                                         this.session.myCharz().timeKyGui = 5000;
                                         if (!this.session.myCharz().isCan()) {
-                                            this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.KHONG_HO_TRO, null, 0);
+                                            this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.KHONG_HO_TRO,
+                                                    null, 0);
                                         } else {
-                                            ItemKyGui.kygui(this.session.myCharz(), sdvi_action, msg.reader().readShort(), msg.reader().readByte(), msg.reader().readInt(), 0);
+                                            ItemKyGui.kygui(this.session.myCharz(), sdvi_action,
+                                                    msg.reader().readShort(), msg.reader().readByte(),
+                                                    msg.reader().readInt(), 0);
                                         }
                                     }
                                 }
                                 if (sdvi_action == 4) {
-                                    ItemKyGui.kygui(this.session.myCharz(), sdvi_action, -1, msg.reader().readByte(), msg.reader().readByte(), 0);
+                                    ItemKyGui.kygui(this.session.myCharz(), sdvi_action, -1, msg.reader().readByte(),
+                                            msg.reader().readByte(), 0);
                                 }
                                 if (sdvi_action == 5) {
-                                    ItemKyGui.kygui(this.session.myCharz(), sdvi_action, msg.reader().readShort(), (byte)0, 0, 0);
+                                    ItemKyGui.kygui(this.session.myCharz(), sdvi_action, msg.reader().readShort(),
+                                            (byte) 0, 0, 0);
                                 }
                             }
                         }
                         break;
                     }
                     case -91:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             this.session.myCharz().requestMapSelect(msg.reader().readByte());
                         }
                         break;
@@ -257,23 +309,27 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -86:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().challengeCharId != -9999) {
                                 this.session.myCharz().addInfo1(mResources.YOU_HAVE_REQUESTED_A_CHALLENFE);
-                            } else if (this.session.myCharz().mapTemplateId == 51 || this.session.myCharz().mapTemplateId == 113) {
+                            } else if (this.session.myCharz().mapTemplateId == 51
+                                    || this.session.myCharz().mapTemplateId == 113) {
                                 this.session.myCharz().addInfo1(mResources.NOT_TRADE2);
                             } else {
                                 byte action234 = msg.reader().readByte();
-                                Util.gI().log("action ="+action234);
-                                //Yeu cau va chap nhan giao dich
+                                Util.gI().log("action =" + action234);
+                                // Yeu cau va chap nhan giao dich
                                 if (action234 == 0 || action234 == 1) {
-                                    Trade.getInstance().giaodich(this.session.myCharz(), action234, msg.reader().readInt(), -1, -1);
+                                    Trade.getInstance().giaodich(this.session.myCharz(), action234,
+                                            msg.reader().readInt(), -1, -1);
                                 }
-                                //Chon item
+                                // Chon item
                                 if (action234 == 2) {
-                                    Trade.getInstance().giaodich(this.session.myCharz(), action234, -1, msg.reader().readByte(), msg.reader().readInt());
+                                    Trade.getInstance().giaodich(this.session.myCharz(), action234, -1,
+                                            msg.reader().readByte(), msg.reader().readInt());
                                 }
-                                //Khoa va hoan thanh giao dich
+                                // Khoa va hoan thanh giao dich
                                 if (action234 == 3 || action234 == 5 || action234 == 7) {
                                     Trade.getInstance().giaodich(this.session.myCharz(), action234, -1, -1, -1);
                                 }
@@ -281,11 +337,13 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -81:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().canProceed()) {
                                 byte action348 = msg.reader().readByte();
                                 Item[] items591 = null;
@@ -326,7 +384,8 @@ public class Controller implements IMessageHandler {
                             int playerId23 = -1;
                             try {
                                 playerId23 = msg.reader().readInt();
-                            } catch (Exception e) {}
+                            } catch (Exception e) {
+                            }
                             if (action23 == 0) {
                                 this.session.myCharz().initFriend();
                                 this.session.service.frendList(this.session.myCharz().arrFriend);
@@ -337,40 +396,44 @@ public class Controller implements IMessageHandler {
                             if (action23 == 2) {
                                 this.session.myCharz().removeFriend(playerId23);
                             }
-                            Util.gI().logln("ac="+action23+" playerId23="+playerId23);
+                            Util.gI().logln("ac=" + action23 + " playerId23=" + playerId23);
                         }
                         break;
-                    case -76:
-                    {
+                    case -76: {
                         if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
                             this.session.myCharz().getArchivemnt(msg.reader().readUnsignedByte());
                         }
                         break;
                     }
                     case -79:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             Session_ME player213 = Server.gI().getByCId(msg.reader().readInt());
                             if (player213 != null) {
-                                this.session.service.playerMenu(player213.myCharz().charID, player213.myCharz().cPower, GameData.strLevel[player213.myCharz().clevel][player213.myCharz().cgender]);
+                                this.session.service.playerMenu(player213.myCharz().charID, player213.myCharz().cPower,
+                                        GameData.strLevel[player213.myCharz().clevel][player213.myCharz().cgender]);
                             }
                         }
                         break;
-                    case -74:
-                    {
+                    case -74: {
                         byte action = msg.reader().readByte();
                         if (action == 1 && ImageSource.imageOriginals.containsKey(this.session.zoomLevel)) {
-                            this.session.service.getnBigImageSource(ImageSource.imageOriginals.get(this.session.zoomLevel).size());
+                            this.session.service
+                                    .getnBigImageSource(ImageSource.imageOriginals.get(this.session.zoomLevel).size());
                         } else if (action == 2) {
                             try {
                                 short size2 = msg.reader().readShort();
                                 for (int i = 0; i < size2; i++) {
                                     msg.reader().readShort();
                                 }
-                            } catch (IOException e) {}
+                            } catch (IOException e) {
+                            }
                             for (short i = 0; i < ImageSource.imageOriginals.get(this.session.zoomLevel).size(); i++) {
                                 String original = ImageSource.imageOriginals.get(this.session.zoomLevel).get(i);
-//                                    byte[] data = Dragon.getFile(String.format(mResources.PATH_IMG, this.session.zoomLevel, original));
-                                byte[] data = ImageSource.imgData.get(String.format(mResources.PATH_IMG, this.session.zoomLevel, original));
+                                // byte[] data = Dragon.getFile(String.format(mResources.PATH_IMG,
+                                // this.session.zoomLevel, original));
+                                byte[] data = ImageSource.imgData
+                                        .get(String.format(mResources.PATH_IMG, this.session.zoomLevel, original));
                                 if (data != null) {
                                     this.session.service.getImageSource(data, original);
                                 }
@@ -380,25 +443,29 @@ public class Controller implements IMessageHandler {
                         break;
                     }
                     case -71:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             String chat = msg.reader().readUTF();
                             if (!this.session.myCharz().isCan()) {
                                 this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.KHONG_HO_TRO, null, 0);
                             } else if (this.session.myCharz().cPower < 1500000000) {
-                                this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(1500000000)));
+                                this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH,
+                                        Util.gI().numberTostring(1500000000)));
                             } else if (this.session.isLock == 2) {
                                 this.session.service.startOKDlg(mResources.BAN_KTG);
                             } else if (this.session.myCharz().timeKTG > 0) {
-                                this.session.service.startOKDlg(String.format(mResources.DELAY_KTG, Util.gI().getFormatTime2(this.session.myCharz().timeKTG)));
+                                this.session.service.startOKDlg(String.format(mResources.DELAY_KTG,
+                                        Util.gI().getFormatTime2(this.session.myCharz().timeKTG)));
                             } else if (chat.length() > 0 && chat.length() <= 50) {
                                 this.session.myCharz().timeKTG = 120000;
                                 this.session.myCharz().chatWorld(chat, 1000000);
-//                                Server.gI().Player_ChatTheGoi(this.session.myCharz(), chat);
+                                // Server.gI().Player_ChatTheGoi(this.session.myCharz(), chat);
                             }
                         }
                         break;
                     case -72:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.isLock == 2) {
                                 this.session.myCharz().addInfo1(mResources.BAN_NTR);
                             } else {
@@ -410,7 +477,9 @@ public class Controller implements IMessageHandler {
                                         if (text32.length() > 5 && this.session.myCharz().arrChat.contains(text32)) {
                                         } else {
                                             this.session.myCharz().arrChat.add(text32);
-                                            player443.service.chatTHEGIOI(this.session.myCharz().cName, String.format(mResources.CHAT_PLAYER, 2, text32), this.session.myCharz(), (byte)1);
+                                            player443.service.chatTHEGIOI(this.session.myCharz().cName,
+                                                    String.format(mResources.CHAT_PLAYER, 2, text32),
+                                                    this.session.myCharz(), (byte) 1);
                                         }
                                     }
                                 }
@@ -435,12 +504,12 @@ public class Controller implements IMessageHandler {
                             ClanImage clanImage = ClanImage.images.get(msg.reader().readUnsignedByte());
                             if (clanImage != null) {
                                 if (this.session.getIntVersion() >= 228 && clanImage.ID >= 201 && clanImage.ID < 255) {
-                                    //type 5
+                                    // type 5
                                 } else {
                                     this.session.service.getBagImg(clanImage);
                                 }
                             } else {
-                                
+
                             }
                         }
                         break;
@@ -454,11 +523,17 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -60:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie && !this.session.myCharz().isFreez && !this.session.myCharz().sleepEff && !this.session.myCharz().holder && !this.session.myCharz().blindEff && this.session.myCharz().stone == 0 && !this.session.myCharz().isMabuHold) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie && !this.session.myCharz().isFreez
+                                && !this.session.myCharz().sleepEff && !this.session.myCharz().holder
+                                && !this.session.myCharz().blindEff && this.session.myCharz().stone == 0
+                                && !this.session.myCharz().isMabuHold) {
                             if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().stone > 0) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null,
+                                        (byte) 0);
                             } else {
                                 if (this.session.myCharz().cStamina <= 0 && !this.session.myCharz().isNotTheLeDown) {
                                     this.session.service.Stamina(this.session.myCharz().cStamina);
@@ -477,26 +552,30 @@ public class Controller implements IMessageHandler {
                                         for (num55 = 0; num55 < skillFight11.maxFight; num55++) {
                                             int charId23 = msg.reader().readInt();
                                             if (charId23 != -1 && charId23 != this.session.myCharz().charID) {
-                                                this.session.myCharz().aCharFocus.add(this.session.myCharz().zoneMap.findCharInMap(charId23));
+                                                this.session.myCharz().aCharFocus
+                                                        .add(this.session.myCharz().zoneMap.findCharInMap(charId23));
                                             }
                                         }
-                                    } catch (Exception e) {}
-                                    this.session.myCharz().Attack(skillFight11, this.session.myCharz().aMobFocus, this.session.myCharz().aCharFocus, 2);
+                                    } catch (Exception e) {
+                                    }
+                                    this.session.myCharz().Attack(skillFight11, this.session.myCharz().aMobFocus,
+                                            this.session.myCharz().aCharFocus, 2);
                                     if (skillFight11.template.id == 20) {
-                                        this.session.myCharz().setPos(this.session.myCharz().cx, this.session.myCharz().cy, 1);
+                                        this.session.myCharz().setPos(this.session.myCharz().cx,
+                                                this.session.myCharz().cy, 1);
                                     }
                                 }
                             }
                         }
                         break;
-                    case -59:
-                    {
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie && !this.session.myCharz().isChallenge) {
+                    case -59: {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie && !this.session.myCharz().isChallenge) {
                             byte action = msg.reader().readByte();
                             byte type = msg.reader().readByte();
                             int playerId = msg.reader().readInt();
                             this.session.myCharz().action_player_vs_player(action, type, playerId);
-                            Util.gI().log("action="+action+" type="+type);
+                            Util.gI().log("action=" + action + " type=" + type);
                         }
                         break;
                     }
@@ -505,7 +584,7 @@ public class Controller implements IMessageHandler {
                             int action342 = msg.reader().readByte();
                             int playerID432 = -1;
                             int clanID532 = -1;
-                            int code352= -1;
+                            int code352 = -1;
                             if (action342 == 0) {
                                 playerID432 = msg.reader().readInt();
                             }
@@ -519,7 +598,8 @@ public class Controller implements IMessageHandler {
                     case -56:
                         if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
                             if (this.session.myCharz().clan != null && this.session.myCharz().clanMember.role != 2) {
-                                this.session.myCharz().clan.clanRemote(this.session.myCharz(), msg.reader().readInt(), msg.reader().readByte());
+                                this.session.myCharz().clan.clanRemote(this.session.myCharz(), msg.reader().readInt(),
+                                        msg.reader().readByte());
                             }
                         }
                         break;
@@ -533,11 +613,13 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -54:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && this.session.myCharz().clan != null) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && this.session.myCharz().clan != null) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().canProceed()) {
                                 this.session.myCharz().clanDonate(msg.reader().readInt());
                             }
@@ -567,8 +649,10 @@ public class Controller implements IMessageHandler {
                         break;
                     case -49:
                         if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
-                            if (this.session.myCharz().clan != null && (this.session.myCharz().clanMember.role == 0 || this.session.myCharz().clanMember.role == 1)) {
-                                this.session.myCharz().clan.joinClan(this.session.myCharz(), msg.reader().readInt(), msg.reader().readByte());
+                            if (this.session.myCharz().clan != null && (this.session.myCharz().clanMember.role == 0
+                                    || this.session.myCharz().clanMember.role == 1)) {
+                                this.session.myCharz().clan.joinClan(this.session.myCharz(), msg.reader().readInt(),
+                                        msg.reader().readByte());
                             }
                         }
                         break;
@@ -577,23 +661,26 @@ public class Controller implements IMessageHandler {
                             Clan.findClan(this.session.myCharz(), msg.reader().readUTF());
                         }
                         break;
-                    case -46:
-                    {
+                    case -46: {
                         if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
                             byte action = msg.reader().readByte();
                             if (action == 2 || action == 4) {
                                 if (action == 2) {
                                     if (this.session.myCharz().clan == null) {
-//                                        if (!this.session.myCharz().isCan()) {
-//                                            this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.KHONG_HO_TRO, null, 0);
-//                                        } else {
-                                            Clan.create(this.session.myCharz(), msg.reader().readUnsignedByte(), msg.reader().readUTF());
-//                                        }
+                                        // if (!this.session.myCharz().isCan()) {
+                                        // this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.KHONG_HO_TRO,
+                                        // null, 0);
+                                        // } else {
+                                        Clan.create(this.session.myCharz(), msg.reader().readUnsignedByte(),
+                                                msg.reader().readUTF());
+                                        // }
                                     }
                                 }
                                 if (action == 4) {
-                                    if (this.session.myCharz().clan != null && this.session.myCharz().clanMember.role == 0) {
-                                        this.session.myCharz().clan.setClan(this.session.myCharz(), msg.reader().readUnsignedByte(), msg.reader().readUTF());
+                                    if (this.session.myCharz().clan != null
+                                            && this.session.myCharz().clanMember.role == 0) {
+                                        this.session.myCharz().clan.setClan(this.session.myCharz(),
+                                                msg.reader().readUnsignedByte(), msg.reader().readUTF());
                                     }
                                 }
                             } else if (action == 1 || action == 3) {
@@ -603,11 +690,15 @@ public class Controller implements IMessageHandler {
                         break;
                     }
                     case -45:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie && !this.session.myCharz().isFreez && !this.session.myCharz().sleepEff) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie && !this.session.myCharz().isFreez
+                                && !this.session.myCharz().sleepEff) {
                             if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().stone > 0) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().cStamina <= 0 && !this.session.myCharz().isNotTheLeDown) {
                                 this.session.service.Stamina(this.session.myCharz().cStamina);
                                 this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.HET_TL, null, 0);
@@ -621,26 +712,30 @@ public class Controller implements IMessageHandler {
                                 if (skillFight9 != null) {
                                     byte status = msg.reader().readByte();
                                     if (status == 20) {
-                                    	byte idTemplateSkill = msg.reader().readByte();
-                                    	short x0 = msg.reader().readShort();
-                                    	short y0 = msg.reader().readShort();
-                                    	byte dir = msg.reader().readByte();
-                                    	short x = msg.reader().readShort();
-                                    	short y = msg.reader().readShort();
-                                    	this.session.myCharz().new_skill_not_focus(this.session.myCharz().getSkillByTemplateId(idTemplateSkill), x0, y0, dir, x, y);
+                                        byte idTemplateSkill = msg.reader().readByte();
+                                        short x0 = msg.reader().readShort();
+                                        short y0 = msg.reader().readShort();
+                                        byte dir = msg.reader().readByte();
+                                        short x = msg.reader().readShort();
+                                        short y = msg.reader().readShort();
+                                        this.session.myCharz().new_skill_not_focus(
+                                                this.session.myCharz().getSkillByTemplateId(idTemplateSkill), x0, y0,
+                                                dir, x, y);
                                     } else {
-                                    	this.session.myCharz().skill_not_focus(status, skillFight9);
+                                        this.session.myCharz().skill_not_focus(status, skillFight9);
                                     }
                                 }
                             }
                         }
                         break;
                     case -43:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().canProceed()) {
                                 int type675 = msg.reader().readByte();
                                 int where675 = msg.reader().readByte();
@@ -659,17 +754,22 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -40:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().isgiaodich) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.O_THE_THUC_HIEN, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.O_THE_THUC_HIEN, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().stone > 0) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null,
+                                        (byte) 0);
                             } else {
-                                this.session.myCharz().getItem(msg.reader().readByte(), msg.reader().readUnsignedByte());
+                                this.session.myCharz().getItem(msg.reader().readByte(),
+                                        msg.reader().readUnsignedByte());
                             }
                         }
                         break;
@@ -694,7 +794,8 @@ public class Controller implements IMessageHandler {
                         Util.gI().logln("finish Update");
                         break;
                     case -34:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             byte b21 = msg.reader().readByte();
                             if (b21 == 1) {
                                 this.session.myCharz().menuBoard.openMenuUI(4);
@@ -722,9 +823,11 @@ public class Controller implements IMessageHandler {
                         break;
                     case -23:
                     case -33:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else {
                                 this.session.myCharz().addMove(0, 0, 0, msg.getCommand() == -23 ? 2 : 3);
                                 this.session.myCharz().isCheckWaypoint = true;
@@ -732,45 +835,61 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -20:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().isgiaodich) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.O_THE_THUC_HIEN, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.O_THE_THUC_HIEN, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().stone > 0) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null,
+                                        (byte) 0);
                             } else {
                                 if (this.session.myCharz().timeNhat <= 0) {
-                                    this.session.myCharz().zoneMap.pickItem(this.session.myCharz(), msg.reader().readShort(), 1);
+                                    this.session.myCharz().zoneMap.pickItem(this.session.myCharz(),
+                                            msg.reader().readShort(), 1);
                                 }
                             }
                         }
                         break;
-                    case -16:
-                    {
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && this.session.myCharz().isDie && !this.session.myCharz().isFreez && !this.session.myCharz().blindEff && !this.session.myCharz().sleepEff) {
+                    case -16: {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && this.session.myCharz().isDie && !this.session.myCharz().isFreez
+                                && !this.session.myCharz().blindEff && !this.session.myCharz().sleepEff) {
                             final int gia = 1;
                             if (this.session.myCharz().isSecurity) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BAOVE, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BAOVE, null, (byte) 0);
                             } else if (this.session.myCharz().timeHSTaiCho > 0) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.HS_SAU, Util.gI().getFormatTime3(this.session.myCharz().timeHSTaiCho)), null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                        String.format(mResources.HS_SAU,
+                                                Util.gI().getFormatTime3(this.session.myCharz().timeHSTaiCho)),
+                                        null, (byte) 0);
                             } else if (this.session.myCharz().getLuong() < gia) {
-                                this.session.myCharz().addInfo1(String.format(mResources.NOT_LUONG, gia - this.session.myCharz().getLuong()));
+                                this.session.myCharz().addInfo1(
+                                        String.format(mResources.NOT_LUONG, gia - this.session.myCharz().getLuong()));
                             } else {
                                 this.session.myCharz().timeHSTaiCho = 5000;
                                 this.session.myCharz().updateLuong(-gia, 2);
                                 this.session.myCharz().liveFromDead(2);
                                 this.session.myCharz().updateArchivement(13, 1L);
                                 this.session.myCharz().timeHit = this.session.myCharz().timeReady = 5000;
-                            } 
+                            }
                         }
                         break;
                     }
                     case -15:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && this.session.myCharz().isDie) {
-                            if (this.session.myCharz().mapTemplateId == 114 || this.session.myCharz().mapTemplateId == 115 || this.session.myCharz().mapTemplateId == 117 || this.session.myCharz().mapTemplateId == 118 || this.session.myCharz().mapTemplateId == 119 || this.session.myCharz().mapTemplateId == 120) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && this.session.myCharz().isDie) {
+                            if (this.session.myCharz().mapTemplateId == 114
+                                    || this.session.myCharz().mapTemplateId == 115
+                                    || this.session.myCharz().mapTemplateId == 117
+                                    || this.session.myCharz().mapTemplateId == 118
+                                    || this.session.myCharz().mapTemplateId == 119
+                                    || this.session.myCharz().mapTemplateId == 120) {
                                 Map map = Map.getMapServer(114);
                                 if (map != null) {
                                     ZoneMap zone3 = map.getZone(this.session.myCharz());
@@ -789,7 +908,8 @@ public class Controller implements IMessageHandler {
                                 if (map != null) {
                                     ZoneMap zone3 = map.getZone(this.session.myCharz());
                                     if (zone3 != null) {
-                                        this.session.myCharz().zoneMap.exit(this.session.myCharz(), this.session.myCharz().typeTeleport);
+                                        this.session.myCharz().zoneMap.exit(this.session.myCharz(),
+                                                this.session.myCharz().typeTeleport);
                                         this.session.myCharz().liveFromDead(1);
                                         if (this.session.myCharz().typeTeleport == 3) {
                                             this.session.myCharz().upHP(this.session.myCharz().cHPFull);
@@ -804,7 +924,8 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case -7:
-                        if (this.session.myCharz() != null && !this.session.myCharz().isDie && this.session.myCharz().zoneMap != null) {
+                        if (this.session.myCharz() != null && !this.session.myCharz().isDie
+                                && this.session.myCharz().zoneMap != null) {
                             byte type16 = msg.reader().readByte();
                             short sendX = msg.reader().readShort();
                             short sendY = -1;
@@ -812,33 +933,39 @@ public class Controller implements IMessageHandler {
                                 sendY = msg.reader().readShort();
                             } catch (IOException e) {
                             }
-//                            this.session.myCharz().checkMove(sendX, sendY);
-                            Util.gI().log("=====sendX="+sendX+" sendY="+sendY +" cspeed="+this.session.myCharz().cspeed);
-                            
-//                                if ((Math.abs(this.session.myCharz().cx - sendX) > this.session.myCharz().cspeed * 7 && Math.abs(this.session.myCharz().cx - sendX) > 50)) {
-//                                    this.session.myCharz().cspeed--;
-//                                    if (this.session.myCharz().cspeed < 1) {
-//                                        this.session.myCharz().cspeed = 1;
-//                                    }
-//                                    Service.meLoadPoint(this.session.myCharz());
-//                                }
-                                this.session.myCharz().addMove(type16, sendX, sendY, 0);
-//                                this.session.myCharz().move(type16, sendX, sendY);
+                            // this.session.myCharz().checkMove(sendX, sendY);
+                            Util.gI().log("=====sendX=" + sendX + " sendY=" + sendY + " cspeed="
+                                    + this.session.myCharz().cspeed);
+
+                            // if ((Math.abs(this.session.myCharz().cx - sendX) >
+                            // this.session.myCharz().cspeed * 7 && Math.abs(this.session.myCharz().cx -
+                            // sendX) > 50)) {
+                            // this.session.myCharz().cspeed--;
+                            // if (this.session.myCharz().cspeed < 1) {
+                            // this.session.myCharz().cspeed = 1;
+                            // }
+                            // Service.meLoadPoint(this.session.myCharz());
+                            // }
+                            this.session.myCharz().addMove(type16, sendX, sendY, 0);
+                            // this.session.myCharz().move(type16, sendX, sendY);
                         }
                         break;
                     case 6:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().canProceed()) {
                                 byte type41 = msg.reader().readByte();
                                 short id45 = msg.reader().readShort();
                                 int num78 = 1;
                                 try {
                                     num78 = msg.reader().readShort();
-                                } catch (Exception e){}
+                                } catch (Exception e) {
+                                }
                                 if (this.session.myCharz().isItemMore != 0) {
                                     this.session.myCharz().getItemMore(type41, id45, num78);
                                 } else {
@@ -850,15 +977,17 @@ public class Controller implements IMessageHandler {
                             }
                         }
                         break;
-                    case 7:
-                    {
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                    case 7: {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().blindEff) {
                                 this.session.myCharz().addInfo1(mResources.BLIND_ACT);
                             } else if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().canProceed()) {
-                                this.session.myCharz().saleItem(msg.reader().readByte(), msg.reader().readByte(), msg.reader().readShort(), 999999);
+                                this.session.myCharz().saleItem(msg.reader().readByte(), msg.reader().readByte(),
+                                        msg.reader().readShort(), 999999);
                             }
                         }
                         break;
@@ -869,28 +998,36 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case 18:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             this.session.myCharz().goToPlayer(msg.reader().readInt());
                         }
                         break;
                     case 21:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().stone > 0) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null,
+                                        (byte) 0);
                             } else {
-                                this.session.myCharz().zoneMap.map.requestChangeZone(this.session.myCharz(), msg.reader().readByte());
+                                this.session.myCharz().zoneMap.map.requestChangeZone(this.session.myCharz(),
+                                        msg.reader().readByte());
                             }
                         }
                         break;
                     case 22:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
-                            this.session.myCharz().menuBoard.menu(msg.reader().readByte(), msg.reader().readByte(), msg.reader().readByte());
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
+                            this.session.myCharz().menuBoard.menu(msg.reader().readByte(), msg.reader().readByte(),
+                                    msg.reader().readByte());
                         }
                         break;
                     case 29:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             Map map13 = this.session.myCharz().zoneMap.map;
                             if (map13.isNotChangeZone()) {
                                 this.session.service.startOKDlg(mResources.NOT_CHANGE_ZONE);
@@ -900,22 +1037,27 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case 33:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             this.session.myCharz().menuBoard.openMenuUI(msg.reader().readShort());
                         }
                         break;
                     case 32:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
-                            this.session.myCharz().menuBoard.openUIConfirm(msg.reader().readShort(), msg.reader().readByte());
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
+                            this.session.myCharz().menuBoard.openUIConfirm(msg.reader().readShort(),
+                                    msg.reader().readByte());
                         }
                         break;
                     case 34:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie && !this.session.myCharz().isFreez) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie && !this.session.myCharz().isFreez) {
                             this.session.myCharz().selectSkill(msg.reader().readShort());
                         }
                         break;
                     case 44:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie) {
                             if (this.session.myCharz().mapTemplateId == 52) {
                                 this.session.myCharz().addInfo1(mResources.NOT_CHAT);
                             } else {
@@ -924,11 +1066,17 @@ public class Controller implements IMessageHandler {
                         }
                         break;
                     case 54:
-                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie && !this.session.myCharz().isFreez && !this.session.myCharz().sleepEff && !this.session.myCharz().holder && !this.session.myCharz().blindEff && this.session.myCharz().stone == 0 && !this.session.myCharz().isMabuHold) {
+                        if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                                && !this.session.myCharz().isDie && !this.session.myCharz().isFreez
+                                && !this.session.myCharz().sleepEff && !this.session.myCharz().holder
+                                && !this.session.myCharz().blindEff && this.session.myCharz().stone == 0
+                                && !this.session.myCharz().isMabuHold) {
                             if (this.session.myCharz().holder) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BI_TROI_ROI, null,
+                                        (byte) 0);
                             } else if (this.session.myCharz().stone > 0) {
-                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null, (byte)0);
+                                this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOU_STONE, null,
+                                        (byte) 0);
                             } else {
                                 if (this.session.myCharz().cStamina <= 0 && !this.session.myCharz().isNotTheLeDown) {
                                     this.session.service.Stamina(this.session.myCharz().cStamina);
@@ -952,14 +1100,18 @@ public class Controller implements IMessageHandler {
                                                     this.session.myCharz().aMobFocus.add(mob);
                                                 }
                                             } else {
-                                                Mob mob = this.session.myCharz().zoneMap.findMobInMap(msg.reader().readInt());
+                                                Mob mob = this.session.myCharz().zoneMap
+                                                        .findMobInMap(msg.reader().readInt());
                                                 this.session.myCharz().aMobFocus.add(mob);
                                             }
                                         }
-                                    } catch (Exception e) {}
-                                    this.session.myCharz().Attack(skillFight12, this.session.myCharz().aMobFocus, this.session.myCharz().aCharFocus, 1);
+                                    } catch (Exception e) {
+                                    }
+                                    this.session.myCharz().Attack(skillFight12, this.session.myCharz().aMobFocus,
+                                            this.session.myCharz().aCharFocus, 1);
                                     if (skillFight12.template.id == 20) {
-                                        this.session.myCharz().setPos(this.session.myCharz().cx, this.session.myCharz().cy, 1);
+                                        this.session.myCharz().setPos(this.session.myCharz().cx,
+                                                this.session.myCharz().cy, 1);
                                     }
                                 }
                             }
@@ -970,7 +1122,8 @@ public class Controller implements IMessageHandler {
                         break;
                     case 88:
                         if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
-                            TextBox.gI().textBoxId(this.session.myCharz(), msg.reader().readShort(), msg.reader().readUTF());
+                            TextBox.gI().textBoxId(this.session.myCharz(), msg.reader().readShort(),
+                                    msg.reader().readUTF());
                         }
                         break;
                     case 112:
@@ -979,13 +1132,15 @@ public class Controller implements IMessageHandler {
                             if (b22 == 0) {
                                 this.session.myCharz().resetMenu();
                                 this.session.myCharz().menuBoard.chat = mResources.SAY_NOI_TAI;
-                                this.session.myCharz().menuBoard.arrMenu.add(new MenuInfo(mResources.VIEW_ALL_NOITAI, 302));
+                                this.session.myCharz().menuBoard.arrMenu
+                                        .add(new MenuInfo(mResources.VIEW_ALL_NOITAI, 302));
                                 this.session.myCharz().menuBoard.arrMenu.add(new MenuInfo(mResources.OPEN_NOITAI, 303));
-                                this.session.myCharz().menuBoard.arrMenu.add(new MenuInfo(mResources.OPEN_NOITAI_VIP, 305));
+                                this.session.myCharz().menuBoard.arrMenu
+                                        .add(new MenuInfo(mResources.OPEN_NOITAI_VIP, 305));
                                 this.session.myCharz().menuBoard.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                                 this.session.myCharz().menuBoard.openUIConfirm(5, null, null, -1);
                             }
-                            Util.gI().log("speacialSkill = "+b22);
+                            Util.gI().log("speacialSkill = " + b22);
                         }
                         break;
                     case 127:
@@ -994,23 +1149,23 @@ public class Controller implements IMessageHandler {
                             short id32 = -1;
                             try {
                                 id32 = msg.reader().readShort();
-                            } catch (Exception e) {}
+                            } catch (Exception e) {
+                            }
                             if (i23 == 0) {
                                 this.session.service.rada();
                             }
                             if (i23 == 1) {
                                 this.session.myCharz().useCard(id32);
                             }
-                            Util.gI().logln("OK========="+ i23 +" ====="+ id32);
+                            Util.gI().logln("OK=========" + i23 + " =====" + id32);
                         }
                         break;
-                    default:
-                    {
+                    default: {
                         this.session.myCharz().addInfo1(String.format(mResources.SAP_CAP_NHAT, msg.getCommand()));
                         break;
                     }
                 }
-            } catch(IOException e) {
+            } catch (IOException e) {
                 if (Util.gI().debug) {
                     e.printStackTrace();
                 }
@@ -1020,35 +1175,34 @@ public class Controller implements IMessageHandler {
             }
         }
     }
-    
+
     private void messageSubCommand(Message msg) {
         try {
             byte b = msg.reader().readByte();
-            Util.gI().logln("messageSubCommand "+b);
+            Util.gI().logln("messageSubCommand " + b);
             switch (b) {
-                case 16:
-                {
-                    if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && !this.session.myCharz().isDie) {
+                case 16: {
+                    if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                            && !this.session.myCharz().isDie) {
                         this.session.myCharz().upPotential(msg.reader().readUnsignedByte(), msg.reader().readShort());
                     }
                     break;
                 }
-                case 63:
-                {
-                    if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && this.session.myCharz().menuBoard2 != null) {
+                case 63: {
+                    if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                            && this.session.myCharz().menuBoard2 != null) {
                         this.session.myCharz().menuBoard2.getMenu(msg.reader().readInt());
                     }
                     break;
                 }
-                case 64:
-                {
-                    if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null && this.session.myCharz().menuBoard2 != null) {
+                case 64: {
+                    if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null
+                            && this.session.myCharz().menuBoard2 != null) {
                         this.session.myCharz().menuBoard2.menuAction(msg.reader().readInt(), msg.reader().readShort());
                     }
                     break;
                 }
-                default:
-                {
+                default: {
                     this.session.myCharz().addInfo1(String.format(mResources.SAP_CAP_NHAT, msg.getCommand()));
                     break;
                 }
@@ -1060,11 +1214,11 @@ public class Controller implements IMessageHandler {
             this.session.disconnect();
         }
     }
-    
+
     private void messageNotLogin(Message msg) {
         try {
             byte b = msg.reader().readByte();
-            Util.gI().logln("messageNotLogin "+b);
+            Util.gI().logln("messageNotLogin " + b);
             switch (b) {
                 case 0:
                     if (!this.session.isSetClient || this.session.isLogin) {
@@ -1072,12 +1226,13 @@ public class Controller implements IMessageHandler {
                     } else if (this.session.loginFaid >= 10) {
                         this.session.service.startOKDlg(mResources.BAN_2);
                     } else {
-                        //============================
+                        // ============================
                         String uname = msg.reader().readUTF();
                         String pass = msg.reader().readUTF();
                         String version = msg.reader().readUTF();
                         byte type = msg.reader().readByte();
-                        Util.gI().logln("User "+uname+" pass "+Util.gI().stringSQL_LIKE(pass)+" version "+version+" type "+type);
+                        Util.gI().logln("User " + uname + " pass " + Util.gI().stringSQL_LIKE(pass) + " version "
+                                + version + " type " + type);
                         if (uname.isEmpty() || pass.isEmpty()) {
                             this.session.service.startOKDlg(mResources.TB_ACC);
                         } else if (!Util.gI().CheckString(uname + pass, "^[a-zA-Z0-9]+$")) {
@@ -1089,9 +1244,15 @@ public class Controller implements IMessageHandler {
                                 MySQL mySQL3 = MySQL.createData3();
                                 MySQL mySQL4 = MySQL.createData7();
                                 try {
-                                    ResultSet red1 = mySQL1.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_USER_FORMAT, Util.gI().stringSQL_LIKE(Util.gI().stringSQL(uname)), Util.gI().stringSQL_LIKE(Util.gI().stringSQL(pass))), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                    ResultSet red1 = mySQL1.getConnection()
+                                            .prepareStatement(
+                                                    String.format(mResources.QUERY_SELECT_USER_FORMAT,
+                                                            Util.gI().stringSQL_LIKE(Util.gI().stringSQL(uname)),
+                                                            Util.gI().stringSQL_LIKE(Util.gI().stringSQL(pass))),
+                                                    ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+                                            .executeQuery();
                                     if (red1.first()) {
-                                        //GET USER
+                                        // GET USER
                                         int uId = red1.getInt("id");
                                         String uName = red1.getString("username");
 
@@ -1104,7 +1265,8 @@ public class Controller implements IMessageHandler {
                                         } else {
                                             Session_ME player = Server.gI().getByUId(uId);
                                             final int SECOND_DELAY = 15;
-                                            int second = (int) ((System.currentTimeMillis() / 1000L) - Memory.get(uId).lastlogout);
+                                            int second = (int) ((System.currentTimeMillis() / 1000L)
+                                                    - Memory.get(uId).lastlogout);
                                             if (player != null) {
                                                 player.disconnect();
                                                 this.session.service.startOKDlg(mResources.LOGIN_LOGGED);
@@ -1116,9 +1278,10 @@ public class Controller implements IMessageHandler {
                                                 this.session.isLock = look;
                                                 this.session.isAdmin = isA;
 
-                                                //GHI
+                                                // GHI
                                                 this.session.isLoad = load;
-                                                Server.gI().addConn(this.session, this.session.userId, this.session.userName);
+                                                Server.gI().addConn(this.session, this.session.userId,
+                                                        this.session.userName);
                                                 if (playerId != -1) {
                                                     Char newChar = new Char();
                                                     newChar.me = true;
@@ -1129,7 +1292,11 @@ public class Controller implements IMessageHandler {
                                                     newChar.charID = Char.getNewCharID();
                                                     newChar.playerId = playerId;
                                                     {
-                                                        ResultSet red2 = mySQL2.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_CHARS_FORMAT, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red2 = mySQL2.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_CHARS_FORMAT,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red2.first();
                                                         newChar.cName = red2.getString("cName");
                                                         newChar.cgender = red2.getByte("cgender");
@@ -1154,52 +1321,75 @@ public class Controller implements IMessageHandler {
                                                         newChar.cDefGoc = red2.getInt("cDefGoc");
                                                         newChar.cCriticalGoc = red2.getInt("cCriticalGoc");
                                                         newChar.cTiemNang = red2.getLong("cTiemNang");
-                                                        //===JSONArray SKILLS===//
-                                                        JSONArray jarr = (JSONArray) JSONValue.parseWithException(red2.getString("skills"));
+                                                        // ===JSONArray SKILLS===//
+                                                        JSONArray jarr = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("skills"));
                                                         for (int i = 0; i < jarr.size(); i++) {
                                                             JSONArray jarr2 = (JSONArray) jarr.get(i);
-                                                            Skill skill = Skill.arrSkill[Integer.parseInt(jarr2.get(0).toString())].clone();
-                                                            skill.lastTimeUseThisSkill = Long.parseLong(jarr2.get(1).toString());
+                                                            Skill skill = Skill.arrSkill[Integer
+                                                                    .parseInt(jarr2.get(0).toString())].clone();
+                                                            skill.lastTimeUseThisSkill = Long
+                                                                    .parseLong(jarr2.get(1).toString());
                                                             if (skill.template.type == 4) {
-                                                                skill.curExp = Short.parseShort(jarr2.get(2).toString());
+                                                                skill.curExp = Short
+                                                                        .parseShort(jarr2.get(2).toString());
                                                             }
                                                             newChar.skills.add(skill);
                                                         }
-                                                        //===JSONArray arrItemBody===//
-                                                        JSONArray arrItemBody = (JSONArray) JSONValue.parseWithException(red2.getString("arrItemBody"));
+                                                        // ===JSONArray arrItemBody===//
+                                                        JSONArray arrItemBody = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("arrItemBody"));
                                                         newChar.arrItemBody = new Item[10];
                                                         for (int i = 0; i < arrItemBody.size(); i++) {
                                                             Item item3 = Item.parseItem(arrItemBody.get(i).toString());
-                                                            if (item3 != null &&  !item3.isClear()) {
+                                                            if (item3 != null && !item3.isClear()) {
                                                                 CaiTrang.gI().setPartTemp(item3);
                                                                 item3.typeUI = 5;
                                                                 newChar.arrItemBody[item3.indexUI] = item3;
                                                             }
                                                         }
-                                                        //typeTeleport
+                                                        // typeTeleport
                                                         newChar.typeTeleport = red2.getByte("typeTeleport");
-                                                        //KeySkill
-                                                        JSONArray KSkill = (JSONArray) JSONValue.parseWithException(red2.getString("KSkill"));
+                                                        // KeySkill
+                                                        JSONArray KSkill = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("KSkill"));
                                                         for (int i = 0; i < KSkill.size(); i++) {
-                                                            newChar.KSkill.add(Byte.parseByte(KSkill.get(i).toString()));
+                                                            newChar.KSkill
+                                                                    .add(Byte.parseByte(KSkill.get(i).toString()));
                                                         }
-                                                        JSONArray OSkill = (JSONArray) JSONValue.parseWithException(red2.getString("OSkill"));
+                                                        JSONArray OSkill = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("OSkill"));
                                                         for (int i = 0; i < OSkill.size(); i++) {
-                                                            newChar.OSkill.add(Byte.parseByte(OSkill.get(i).toString()));
+                                                            newChar.OSkill
+                                                                    .add(Byte.parseByte(OSkill.get(i).toString()));
                                                         }
-                                                        JSONArray CSkill = (JSONArray) JSONValue.parseWithException(red2.getString("CSkill"));
+                                                        JSONArray CSkill = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("CSkill"));
                                                         for (int i = 0; i < CSkill.size(); i++) {
-                                                            newChar.CSkill.add(Byte.parseByte(CSkill.get(i).toString()));
+                                                            newChar.CSkill
+                                                                    .add(Byte.parseByte(CSkill.get(i).toString()));
                                                         }
 
-                                                        JSONArray itemTimes = (JSONArray) JSONValue.parseWithException(red2.getString("itemTimes"));
+                                                        JSONArray itemTimes = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("itemTimes"));
                                                         for (int i = 0; i < itemTimes.size(); i++) {
                                                             JSONArray itemTime = (JSONArray) itemTimes.get(i);
                                                             ItemTime obj2;
                                                             if (Byte.parseByte(itemTime.get(1).toString()) == 2) {
-                                                                obj2 = new ItemTime(Short.parseShort(itemTime.get(0).toString()), (int) (Integer.parseInt(itemTime.get(2).toString()) - (int)(System.currentTimeMillis() / 1000L)), Byte.parseByte(itemTime.get(1).toString()), Integer.parseInt(itemTime.get(3).toString()));
+                                                                obj2 = new ItemTime(
+                                                                        Short.parseShort(itemTime.get(0).toString()),
+                                                                        (int) (Integer
+                                                                                .parseInt(itemTime.get(2).toString())
+                                                                                - (int) (System.currentTimeMillis()
+                                                                                        / 1000L)),
+                                                                        Byte.parseByte(itemTime.get(1).toString()),
+                                                                        Integer.parseInt(itemTime.get(3).toString()));
                                                             } else {
-                                                                obj2 = new ItemTime(Short.parseShort(itemTime.get(0).toString()), Integer.parseInt(itemTime.get(2).toString()), Byte.parseByte(itemTime.get(1).toString()), Integer.parseInt(itemTime.get(3).toString()));
+                                                                obj2 = new ItemTime(
+                                                                        Short.parseShort(itemTime.get(0).toString()),
+                                                                        Integer.parseInt(itemTime.get(2).toString()),
+                                                                        Byte.parseByte(itemTime.get(1).toString()),
+                                                                        Integer.parseInt(itemTime.get(3).toString()));
                                                             }
                                                             if (obj2.damage == -9999) {
                                                                 obj2.item = Item.parseItem(itemTime.get(4).toString());
@@ -1210,10 +1400,14 @@ public class Controller implements IMessageHandler {
                                                         newChar.cStamina = red2.getShort("cStamina");
                                                         newChar.cMaxStamina = red2.getShort("cMaxStamina");
 
-                                                        JSONArray speacialSkill = (JSONArray) JSONValue.parseWithException(red2.getString("cspeacialSkill"));
-                                                        newChar.cspeacialSkill = Byte.parseByte(speacialSkill.get(0).toString());
-                                                        newChar.paramSpeacialSkill = Integer.parseInt(speacialSkill.get(1).toString());
-                                                        newChar.ncoinSpeacialSkill = Integer.parseInt(speacialSkill.get(2).toString());
+                                                        JSONArray speacialSkill = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("cspeacialSkill"));
+                                                        newChar.cspeacialSkill = Byte
+                                                                .parseByte(speacialSkill.get(0).toString());
+                                                        newChar.paramSpeacialSkill = Integer
+                                                                .parseInt(speacialSkill.get(1).toString());
+                                                        newChar.ncoinSpeacialSkill = Integer
+                                                                .parseInt(speacialSkill.get(2).toString());
 
                                                         newChar.setClan(red2.getInt("clanId"));
                                                         if (newChar.clan == null) {
@@ -1228,8 +1422,9 @@ public class Controller implements IMessageHandler {
                                                             newChar.isSecurity = true;
                                                         }
                                                         newChar.timeSecurity = red2.getLong("timeSecurity");
-                                                        //===JSONArray items===//
-                                                        JSONArray items = (JSONArray) JSONValue.parseWithException(red2.getString("items"));
+                                                        // ===JSONArray items===//
+                                                        JSONArray items = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("items"));
                                                         for (int i = 0; i < items.size(); i++) {
                                                             Item item6 = Item.parseItem(items.get(i).toString());
                                                             if (item6 != null) {
@@ -1239,11 +1434,14 @@ public class Controller implements IMessageHandler {
                                                         newChar.lastTime = red2.getLong("lastTime");
                                                         newChar.clanPoint = red2.getInt("clanPoint");
                                                         newChar.pointEvent = red2.getInt("pointEvent");
-                                                        //===JSONArray radas===//
-                                                        JSONArray radas = (JSONArray) JSONValue.parseWithException(red2.getString("radas"));
+                                                        // ===JSONArray radas===//
+                                                        JSONArray radas = (JSONArray) JSONValue
+                                                                .parseWithException(red2.getString("radas"));
                                                         for (int i = 0; i < radas.size(); i++) {
                                                             JSONArray rada = (JSONArray) radas.get(i);
-                                                            Rada r = new Rada(Short.parseShort(rada.get(0).toString()), Byte.parseByte(rada.get(1).toString()), Byte.parseByte(rada.get(2).toString()));
+                                                            Rada r = new Rada(Short.parseShort(rada.get(0).toString()),
+                                                                    Byte.parseByte(rada.get(1).toString()),
+                                                                    Byte.parseByte(rada.get(2).toString()));
                                                             r.isUse = Boolean.parseBoolean(rada.get(3).toString());
                                                             newChar.radas.add(r);
                                                         }
@@ -1255,11 +1453,16 @@ public class Controller implements IMessageHandler {
                                                         newChar.maxXu = red2.getLong("maxXu");
                                                     }
 
-                                                    //Vat pham no ra\\
+                                                    // Vat pham no ra\\
                                                     {
-                                                        ResultSet red3 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_DUAHAUS_FORMAT, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red3 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_DUAHAUS_FORMAT,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red3.first();
-                                                        JSONArray duahaus = (JSONArray) JSONValue.parseWithException(red3.getString(2));
+                                                        JSONArray duahaus = (JSONArray) JSONValue
+                                                                .parseWithException(red3.getString(2));
                                                         for (int i = 0; i < duahaus.size(); i++) {
                                                             JSONArray dua = (JSONArray) duahaus.get(i);
                                                             DuaHau r = new DuaHau();
@@ -1267,8 +1470,9 @@ public class Controller implements IMessageHandler {
                                                             JSONArray duahau = (JSONArray) dua.get(1);
                                                             r.duahau = new int[duahau.size()];
                                                             int num = 0;
-                                                            while(num < duahau.size()) {
-                                                                r.duahau[num] = Integer.parseInt(duahau.get(num).toString());
+                                                            while (num < duahau.size()) {
+                                                                r.duahau[num] = Integer
+                                                                        .parseInt(duahau.get(num).toString());
                                                                 num++;
                                                             }
                                                             r.duaHauIndex = Integer.parseInt(dua.get(2).toString());
@@ -1278,13 +1482,19 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //Hanh trang
+                                                    // Hanh trang
 
                                                     {
-                                                        ResultSet red4 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_ARRITEMBAGS, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red4 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_ARRITEMBAGS,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red4.first();
-                                                        newChar.arrItemBag = new Item[newChar.bagcount = red4.getByte(1)];
-                                                        JSONArray arrItemBag = (JSONArray) JSONValue.parseWithException(red4.getString(2));
+                                                        newChar.arrItemBag = new Item[newChar.bagcount = red4
+                                                                .getByte(1)];
+                                                        JSONArray arrItemBag = (JSONArray) JSONValue
+                                                                .parseWithException(red4.getString(2));
                                                         for (int i = 0; i < arrItemBag.size(); i++) {
                                                             Item item1 = Item.parseItem(arrItemBag.get(i).toString());
                                                             if (item1 != null && !item1.isClear()) {
@@ -1295,13 +1505,19 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //Ruong 
+                                                    // Ruong
 
                                                     {
-                                                        ResultSet red5 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_ARRITEMBOXS, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red5 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_ARRITEMBOXS,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red5.first();
-                                                        newChar.arrItemBox = new Item[newChar.boxcount = red5.getByte(1)];
-                                                        JSONArray arrItemBox = (JSONArray) JSONValue.parseWithException(red5.getString(2));
+                                                        newChar.arrItemBox = new Item[newChar.boxcount = red5
+                                                                .getByte(1)];
+                                                        JSONArray arrItemBox = (JSONArray) JSONValue
+                                                                .parseWithException(red5.getString(2));
                                                         for (int i = 0; i < arrItemBox.size(); i++) {
                                                             Item item2 = Item.parseItem(arrItemBox.get(i).toString());
                                                             if (item2 != null && !item2.isClear()) {
@@ -1311,12 +1527,17 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //Ruong phu
+                                                    // Ruong phu
 
                                                     {
-                                                        ResultSet red8 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_ARRITEMMORES, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red8 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_ARRITEMMORES,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red8.first();
-                                                        JSONArray arrItemMore = (JSONArray) JSONValue.parseWithException(red8.getString(1));
+                                                        JSONArray arrItemMore = (JSONArray) JSONValue
+                                                                .parseWithException(red8.getString(1));
                                                         for (int i = 0; i < arrItemMore.size(); i++) {
                                                             Item item4 = Item.parseItem(arrItemMore.get(i).toString());
                                                             if (item4 != null) {
@@ -1330,10 +1551,14 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //Cay dau than
+                                                    // Cay dau than
 
                                                     {
-                                                        ResultSet red7 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_MAGICTREES, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red7 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_MAGICTREES,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red7.first();
                                                         newChar.magicTree_level = red7.getByte(1);
                                                         newChar.magicTree_currPeas = red7.getShort(2);
@@ -1341,12 +1566,17 @@ public class Controller implements IMessageHandler {
                                                         newChar.magicTree_isUpdate = red7.getBoolean(4);
                                                     }
 
-                                                    //Ban be
+                                                    // Ban be
 
                                                     {
-                                                        ResultSet red9 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_ARRFRIENDS, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red9 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_ARRFRIENDS,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red9.first();
-                                                        JSONArray arrFriend = (JSONArray) JSONValue.parseWithException(red9.getString(1));
+                                                        JSONArray arrFriend = (JSONArray) JSONValue
+                                                                .parseWithException(red9.getString(1));
                                                         for (int i = 0; i < arrFriend.size(); i++) {
                                                             JSONArray jf = (JSONArray) arrFriend.get(i);
                                                             Friend f = new Friend();
@@ -1362,24 +1592,35 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //Bua chu
+                                                    // Bua chu
 
                                                     {
-                                                        ResultSet red10 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_ARRAMUS, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red10 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_ARRAMUS,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red10.first();
-                                                        JSONArray arrAmu = (JSONArray) JSONValue.parseWithException(red10.getString(1));
+                                                        JSONArray arrAmu = (JSONArray) JSONValue
+                                                                .parseWithException(red10.getString(1));
                                                         for (int i = 0; i < arrAmu.size(); i++) {
                                                             JSONArray amu = (JSONArray) arrAmu.get(i);
-                                                            newChar.setAmu(Short.parseShort(amu.get(0).toString()), (int) (Integer.parseInt(amu.get(1).toString()) - (System.currentTimeMillis() / 1000)));
+                                                            newChar.setAmu(Short.parseShort(amu.get(0).toString()),
+                                                                    (int) (Integer.parseInt(amu.get(1).toString())
+                                                                            - (System.currentTimeMillis() / 1000)));
                                                         }
                                                     }
 
-                                                    //De tu
+                                                    // De tu
 
                                                     {
-                                                        ResultSet red5 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_PETZS_FORMAT, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red5 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_PETZS_FORMAT,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red5.first();
-                                                        //De tu || Pet
+                                                        // De tu || Pet
                                                         if (red5.getBoolean(2)) {
                                                             Char petz = new Char();
                                                             petz.charID = -newChar.charID;
@@ -1412,26 +1653,32 @@ public class Controller implements IMessageHandler {
                                                             petz.arrItemBag = new Item[20];
                                                             petz.arrItemBox = new Item[20];
 
-                                                            //===JSONArray arrItemBody===//
-                                                            JSONArray  arrItemBody2 = (JSONArray) JSONValue.parseWithException(red5.getString(26));
+                                                            // ===JSONArray arrItemBody===//
+                                                            JSONArray arrItemBody2 = (JSONArray) JSONValue
+                                                                    .parseWithException(red5.getString(26));
                                                             petz.arrItemBody = new Item[Char.MAXBODY_PET];
                                                             for (int i = 0; i < arrItemBody2.size(); i++) {
-                                                                Item item4 = Item.parseItem(arrItemBody2.get(i).toString());
-                                                                if (item4 != null &&  !item4.isClear()) {
+                                                                Item item4 = Item
+                                                                        .parseItem(arrItemBody2.get(i).toString());
+                                                                if (item4 != null && !item4.isClear()) {
                                                                     CaiTrang.gI().setPartTemp(item4);
                                                                     item4.typeUI = 5;
                                                                     petz.arrItemBody[item4.indexUI] = item4;
                                                                 }
                                                             }
 
-                                                            //===JSONArray SKILLS===//
-                                                            JSONArray jarr = (JSONArray) (JSONArray) JSONValue.parseWithException(red5.getString("skills"));
+                                                            // ===JSONArray SKILLS===//
+                                                            JSONArray jarr = (JSONArray) (JSONArray) JSONValue
+                                                                    .parseWithException(red5.getString("skills"));
                                                             for (int i = 0; i < jarr.size(); i++) {
                                                                 JSONArray jarr2 = (JSONArray) jarr.get(i);
-                                                                Skill skill = Skill.arrSkill[Integer.parseInt(jarr2.get(0).toString())].clone();
-                                                                skill.lastTimeUseThisSkill = Long.parseLong(jarr2.get(1).toString());
+                                                                Skill skill = Skill.arrSkill[Integer
+                                                                        .parseInt(jarr2.get(0).toString())].clone();
+                                                                skill.lastTimeUseThisSkill = Long
+                                                                        .parseLong(jarr2.get(1).toString());
                                                                 if (skill.template.type == 4) {
-                                                                    skill.curExp = Short.parseShort(jarr2.get(2).toString());
+                                                                    skill.curExp = Short
+                                                                            .parseShort(jarr2.get(2).toString());
                                                                 }
                                                                 petz.skills.add(skill);
                                                             }
@@ -1439,8 +1686,9 @@ public class Controller implements IMessageHandler {
                                                             if (petz.cHP <= 0) {
                                                                 petz.isDie = true;
                                                             }
-                                                            //Check xiu
-                                                            if (petz.isHopThe == 1 && !newChar.isExistItem(3790) && !newChar.isExistItem(3901)) {
+                                                            // Check xiu
+                                                            if (petz.isHopThe == 1 && !newChar.isExistItem(3790)
+                                                                    && !newChar.isExistItem(3901)) {
                                                                 petz.isHopThe = 0;
                                                             }
                                                             petz.myChar = newChar;
@@ -1448,12 +1696,17 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //Nhiem vu\\
+                                                    // Nhiem vu\\
 
                                                     {
-                                                        ResultSet red6 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_ARRTASKS_FORMAT, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red6 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_ARRTASKS_FORMAT,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red6.first();
-                                                        JSONArray arrTask = (JSONArray) JSONValue.parseWithException(red6.getString(1));
+                                                        JSONArray arrTask = (JSONArray) JSONValue
+                                                                .parseWithException(red6.getString(1));
                                                         for (int i = 0; i < arrTask.size(); i++) {
                                                             JSONArray task = (JSONArray) arrTask.get(i);
                                                             ArchivementTask t = new ArchivementTask();
@@ -1465,20 +1718,38 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //textTime
+                                                    // textTime
 
                                                     {
 
-                                                        ResultSet red12 = mySQL3.getConnection().prepareStatement(String.format(mResources.QUERY_SELECT_ARRTEXTTIME, playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet red12 = mySQL3.getConnection().prepareStatement(
+                                                                String.format(mResources.QUERY_SELECT_ARRTEXTTIME,
+                                                                        playerId),
+                                                                ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                ResultSet.CONCUR_READ_ONLY).executeQuery();
                                                         red12.first();
-                                                        JSONArray textTimes = (JSONArray) JSONValue.parseWithException(red12.getString(1));
+                                                        JSONArray textTimes = (JSONArray) JSONValue
+                                                                .parseWithException(red12.getString(1));
                                                         for (int i = 0; i < textTimes.size(); i++) {
                                                             JSONArray textTime = (JSONArray) textTimes.get(i);
                                                             ItemTime obj3;
                                                             if (Byte.parseByte(textTime.get(2).toString()) == 2) {
-                                                                obj3 = new ItemTime(Byte.parseByte(textTime.get(0).toString()), textTime.get(1).toString(), (int) (Integer.parseInt(textTime.get(3).toString()) - (int)(System.currentTimeMillis() / 1000L)), Byte.parseByte(textTime.get(2).toString()), Integer.parseInt(textTime.get(4).toString()));
+                                                                obj3 = new ItemTime(
+                                                                        Byte.parseByte(textTime.get(0).toString()),
+                                                                        textTime.get(1).toString(),
+                                                                        (int) (Integer
+                                                                                .parseInt(textTime.get(3).toString())
+                                                                                - (int) (System.currentTimeMillis()
+                                                                                        / 1000L)),
+                                                                        Byte.parseByte(textTime.get(2).toString()),
+                                                                        Integer.parseInt(textTime.get(4).toString()));
                                                             } else {
-                                                                obj3 = new ItemTime(Byte.parseByte(textTime.get(0).toString()), textTime.get(1).toString(), Integer.parseInt(textTime.get(3).toString()), Byte.parseByte(textTime.get(2).toString()), Integer.parseInt(textTime.get(4).toString()));
+                                                                obj3 = new ItemTime(
+                                                                        Byte.parseByte(textTime.get(0).toString()),
+                                                                        textTime.get(1).toString(),
+                                                                        Integer.parseInt(textTime.get(3).toString()),
+                                                                        Byte.parseByte(textTime.get(2).toString()),
+                                                                        Integer.parseInt(textTime.get(4).toString()));
                                                             }
                                                             if (obj3.damage == -9999) {
                                                                 obj3.item = Item.parseItem(textTime.get(5).toString());
@@ -1487,13 +1758,19 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
 
-                                                    //EffChar
+                                                    // EffChar
 
                                                     {
 
-                                                        ResultSet res = mySQL4.getConnection().prepareStatement(String.format("SELECT `arrEffect` FROM `effchar` WHERE `playerId` = '%d' LIMIT 1;", playerId), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                                                        ResultSet res = mySQL4.getConnection()
+                                                                .prepareStatement(String.format(
+                                                                        "SELECT `arrEffect` FROM `effchar` WHERE `playerId` = '%d' LIMIT 1;",
+                                                                        playerId), ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                        ResultSet.CONCUR_READ_ONLY)
+                                                                .executeQuery();
                                                         res.first();
-                                                        JSONArray effChar = (JSONArray) JSONValue.parseWithException(res.getString(1));
+                                                        JSONArray effChar = (JSONArray) JSONValue
+                                                                .parseWithException(res.getString(1));
                                                         for (int i = 0; i < effChar.size(); i++) {
                                                             EffChar eff = EffChar.parseItem(effChar.get(i).toString());
                                                             eff.isSave = true;
@@ -1501,12 +1778,13 @@ public class Controller implements IMessageHandler {
                                                         }
                                                     }
                                                     newChar.updateAll();
-                                                    //GHI
+                                                    // GHI
                                                     newChar.session = this.session;
                                                     newChar.myObj().myChar = newChar;
                                                     newChar.myObj().petition = true;
                                                     this.session.myChar = newChar;
-                                                    Server.gI().addConn(this.session, newChar.charID, newChar.cName, newChar.playerId);
+                                                    Server.gI().addConn(this.session, newChar.charID, newChar.cName,
+                                                            newChar.playerId);
                                                 }
                                                 this.session.isBackup = true;
                                                 this.session.isLogin = true;
@@ -1525,11 +1803,13 @@ public class Controller implements IMessageHandler {
                                 e.printStackTrace();
                             }
                         }
-                        //============================
+                        // ============================
                         if (this.session.isLogin) {
                             this.session.service.updateVersion();
-                            this.session.service.smallImageVerion(SmallImage.newSmallVersion.get((int)this.session.zoomLevel));
-                            this.session.service.bgItemVersion(BgItem.newSmallVersion.get((int)this.session.zoomLevel));
+                            this.session.service
+                                    .smallImageVerion(SmallImage.newSmallVersion.get((int) this.session.zoomLevel));
+                            this.session.service
+                                    .bgItemVersion(BgItem.newSmallVersion.get((int) this.session.zoomLevel));
                         } else {
                             this.session.loginFaid++;
                         }
@@ -1546,8 +1826,9 @@ public class Controller implements IMessageHandler {
                     String str = msg.reader().readUTF();
                     this.session.platform = str;
                     this.session.version = str;
-                    Util.gI().logln("typeClient="+this.session.typeClient+" zoonLevel="+this.session.zoomLevel+" "+str+" version="+this.session.getIntVersion());
-                    
+                    Util.gI().logln("typeClient=" + this.session.typeClient + " zoonLevel=" + this.session.zoomLevel
+                            + " " + str + " version=" + this.session.getIntVersion());
+
                     if (this.session.zoomLevel >= 1 && this.session.zoomLevel <= 4) {
                         this.session.isSetClient = true;
                         this.session.service.getImageSource2(955, 9);
@@ -1557,9 +1838,8 @@ public class Controller implements IMessageHandler {
                         this.session.disconnect();
                     }
                     break;
-                    
-                default:
-                {
+
+                default: {
                     this.session.myCharz().addInfo1(String.format(mResources.SAP_CAP_NHAT, msg.getCommand()));
                     break;
                 }
@@ -1571,15 +1851,15 @@ public class Controller implements IMessageHandler {
             this.session.disconnect();
         }
     }
-    
+
     private void messageNotMap(Message msg) {
         try {
             byte b = msg.reader().readByte();
-            Util.gI().logln("messageNotMap "+b);
+            Util.gI().logln("messageNotMap " + b);
             switch (b) {
                 case 2:
                     if (this.session.isLogin && this.session.myCharz() == null) {
-                        //================
+                        // ================
                         String name = msg.reader().readUTF();
                         byte gender = msg.reader().readByte();
                         byte hair = msg.reader().readByte();
@@ -1614,51 +1894,51 @@ public class Controller implements IMessageHandler {
                                         int cDefGoc = 0;
                                         int cCriticalGoc = 0;
                                         long cTiemNang = 0;
-                                        int bagcount = 20;
-                                        int boxcount = 20;
+                                        int bagcount = 100;
+                                        int boxcount = 100;
                                         long last = System.currentTimeMillis();
 
                                         if (gender == 0) {
-                                            //SETUP MAP
+                                            // SETUP MAP
                                             mapTemplateId = 39;
                                             sendX = 180;
                                             sendY = 384;
-                                            //SETUP INFO
+                                            // SETUP INFO
                                             cPower = 1200;
                                             nClassId = 0;
                                             cHPGoc = 200;
                                             cMPGoc = 100;
                                             cDamGoc = 12;
                                             cTiemNang = 1200;
-                                            arrItemBody = new short[]{0, 6};
+                                            arrItemBody = new short[] { 0, 6 };
                                         } else {
                                             if (gender == 1) {
-                                                //SETUP MAP
+                                                // SETUP MAP
                                                 mapTemplateId = 40;
                                                 sendX = 180;
                                                 sendY = 384;
-                                                //SETUP INFO
+                                                // SETUP INFO
                                                 cPower = 1200;
                                                 nClassId = 1;
                                                 cHPGoc = 100;
                                                 cMPGoc = 200;
                                                 cDamGoc = 12;
                                                 cTiemNang = 1200;
-                                                arrItemBody = new short[]{1, 7};
+                                                arrItemBody = new short[] { 1, 7 };
                                             } else {
                                                 if (gender == 2) {
-                                                    //SETUP MAP
+                                                    // SETUP MAP
                                                     mapTemplateId = 41;
                                                     sendX = 180;
                                                     sendY = 384;
-                                                    //SETUP INFO
+                                                    // SETUP INFO
                                                     cPower = 1200;
                                                     nClassId = 2;
                                                     cHPGoc = 100;
                                                     cMPGoc = 100;
                                                     cDamGoc = 15;
                                                     cTiemNang = 1200;
-                                                    arrItemBody = new short[]{2, 8};
+                                                    arrItemBody = new short[] { 2, 8 };
                                                 }
                                             }
                                         }
@@ -1667,7 +1947,7 @@ public class Controller implements IMessageHandler {
                                             mySQL2.getConnection().setAutoCommit(false);
                                             mySQL3.getConnection().setAutoCommit(false);
                                             try {
-                                                //Insert options
+                                                // Insert options
                                                 SetSQL strSQL = new SetSQL("INSERT INTO `options` SET %;");
                                                 strSQL.addSet("cName", Util.gI().stringSQL(name));
                                                 strSQL.addSet("cgender", gender);
@@ -1695,32 +1975,59 @@ public class Controller implements IMessageHandler {
                                                 strSQL.addSet("cMaxStamina", 10000);
                                                 strSQL.addSet("items", "[]");
                                                 strSQL.addSet("lastTime", last);
-                                                PreparedStatement p = mySQL1.getConnection().prepareStatement(strSQL.toSQL(), Statement.RETURN_GENERATED_KEYS);
+                                                PreparedStatement p = mySQL1.getConnection().prepareStatement(
+                                                        strSQL.toSQL(), Statement.RETURN_GENERATED_KEYS);
                                                 p.executeUpdate();
                                                 ResultSet red = p.getGeneratedKeys();
                                                 red.first();
-                                                //Insert DuaHau
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_DUAHAUS, red.getInt(1))).executeUpdate();
-                                                //Insert arrItemBag
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_ARRITEMBAGS, red.getInt(1))).executeUpdate();
-                                                //Insert arrItemBox
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_ARRITEMBOXS, red.getInt(1))).executeUpdate();
-                                                //Insert arrItemMore
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_ARRITEMMORES, red.getInt(1))).executeUpdate();
-                                                //Insert magicTree
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_MAGICTREES, red.getInt(1))).executeUpdate();
-                                                //Insert arrFriend
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_ARRFRIENDS, red.getInt(1))).executeUpdate();
-                                                //Insert arrItemBody2
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_ARRAMUS, red.getInt(1))).executeUpdate();
-                                                //Insert petz
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_PETZS, red.getInt(1))).executeUpdate();
-                                                //Insert arrTask
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_ARRTASKS, red.getInt(1))).executeUpdate();
-                                                //Insert arrTextTime
-                                                mySQL2.getConnection().prepareStatement(String.format(mResources.INSERT_ARRTEXTTIME, red.getInt(1))).executeUpdate();
-                                                //Insert EffChar
-                                                mySQL3.getConnection().prepareStatement(String.format("INSERT INTO `effchar` (`playerId`, `arrEffect`) VALUES ('%d', '[]');", red.getInt(1)), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeUpdate();
+                                                // Insert DuaHau
+                                                mySQL2.getConnection()
+                                                        .prepareStatement(
+                                                                String.format(mResources.INSERT_DUAHAUS, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert arrItemBag
+                                                mySQL2.getConnection().prepareStatement(
+                                                        String.format(mResources.INSERT_ARRITEMBAGS, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert arrItemBox
+                                                mySQL2.getConnection().prepareStatement(
+                                                        String.format(mResources.INSERT_ARRITEMBOXS, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert arrItemMore
+                                                mySQL2.getConnection().prepareStatement(
+                                                        String.format(mResources.INSERT_ARRITEMMORES, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert magicTree
+                                                mySQL2.getConnection().prepareStatement(
+                                                        String.format(mResources.INSERT_MAGICTREES, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert arrFriend
+                                                mySQL2.getConnection().prepareStatement(
+                                                        String.format(mResources.INSERT_ARRFRIENDS, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert arrItemBody2
+                                                mySQL2.getConnection()
+                                                        .prepareStatement(
+                                                                String.format(mResources.INSERT_ARRAMUS, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert petz
+                                                mySQL2.getConnection()
+                                                        .prepareStatement(
+                                                                String.format(mResources.INSERT_PETZS, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert arrTask
+                                                mySQL2.getConnection().prepareStatement(
+                                                        String.format(mResources.INSERT_ARRTASKS, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert arrTextTime
+                                                mySQL2.getConnection().prepareStatement(
+                                                        String.format(mResources.INSERT_ARRTEXTTIME, red.getInt(1)))
+                                                        .executeUpdate();
+                                                // Insert EffChar
+                                                mySQL3.getConnection().prepareStatement(String.format(
+                                                        "INSERT INTO `effchar` (`playerId`, `arrEffect`) VALUES ('%d', '[]');",
+                                                        red.getInt(1)), ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                        ResultSet.CONCUR_READ_ONLY).executeUpdate();
                                                 red.first();
                                                 {
                                                     Char newChar = new Char();
@@ -1751,19 +2058,26 @@ public class Controller implements IMessageHandler {
                                                     newChar.cDefGoc = cDefGoc;
                                                     newChar.cCriticalGoc = cCriticalGoc;
                                                     newChar.cTiemNang = cTiemNang;
-                                                    newChar.skills.add(GameData.nClasss[nClassId].skillTemplates[0].getSkill(1).clone());
+                                                    newChar.skills.add(GameData.nClasss[nClassId].skillTemplates[0]
+                                                            .getSkill(1).clone());
                                                     newChar.arrItemBody = new Item[10];
                                                     newChar.arrItemBag = new Item[newChar.bagcount = bagcount];
                                                     newChar.arrItemBox = new Item[newChar.boxcount = boxcount];
 
-                                                    //ItemBody
-                                                    newChar.addItemBody(new Item(arrItemBody[0], false, 1, ItemOption.getOption(arrItemBody[0], 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY), 0);
-                                                    newChar.addItemBody(new Item(arrItemBody[1], false, 1, ItemOption.getOption(arrItemBody[1], 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY), 1);
+                                                    // ItemBody
+                                                    newChar.addItemBody(new Item(arrItemBody[0], false, 1,
+                                                            ItemOption.getOption(arrItemBody[0], 0, -1),
+                                                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY), 0);
+                                                    newChar.addItemBody(new Item(arrItemBody[1], false, 1,
+                                                            ItemOption.getOption(arrItemBody[1], 0, -1),
+                                                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY), 1);
 
-                                                    //ItemBox
-                                                    newChar.addItemBox(new Item(12, false, 1, ItemOption.getOption(12, 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY), 0);
+                                                    // ItemBox
+                                                    newChar.addItemBox(new Item(12, false, 1,
+                                                            ItemOption.getOption(12, 0, -1), mResources.EMPTY,
+                                                            mResources.EMPTY, mResources.EMPTY), 0);
 
-                                                    //MagicTRee
+                                                    // MagicTRee
                                                     newChar.magicTree_level = 1;
                                                     newChar.magicTree_currPeas = 5;
                                                     newChar.magicTree_miliseconds = System.currentTimeMillis();
@@ -1773,7 +2087,7 @@ public class Controller implements IMessageHandler {
                                                     newChar.yesterday = System.currentTimeMillis();
                                                     newChar.timeReceiveNamek = 0;
                                                     newChar.maxXu = 20000000000L;
-                                                    //Update ALL
+                                                    // Update ALL
                                                     newChar.updateAll();
                                                     newChar.cHP = newChar.cHPFull;
                                                     newChar.cMP = newChar.cMPFull;
@@ -1784,18 +2098,19 @@ public class Controller implements IMessageHandler {
                                                         newChar.CSkill.add(newChar.mySkill.template.id);
                                                     }
 
-                                                    //GHI
+                                                    // GHI
                                                     newChar.session = this.session;
                                                     newChar.myObj().myChar = newChar;
                                                     newChar.myObj().petition = true;
                                                     this.session.myChar = newChar;
-                                                    Server.gI().addConn(this.session, newChar.charID, newChar.cName, newChar.playerId);
+                                                    Server.gI().addConn(this.session, newChar.charID, newChar.cName,
+                                                            newChar.playerId);
                                                     mySQL1.getConnection().commit();
                                                     mySQL2.getConnection().commit();
                                                     mySQL3.getConnection().commit();
-                                                    //Qua tan thu
-                                                    //newChar.giftTanThu();
-                                                    //BACKUP
+                                                    // Qua tan thu
+                                                    // newChar.giftTanThu();
+                                                    // BACKUP
                                                     this.session.isSave = true;
                                                     this.session.myCharz().InGame();
                                                     this.session.myCharz().giftTanThu();
@@ -1817,7 +2132,7 @@ public class Controller implements IMessageHandler {
                                 e.printStackTrace();
                             }
                         }
-                        //================
+                        // ================
                     }
                     break;
                 case 6:
@@ -1845,7 +2160,8 @@ public class Controller implements IMessageHandler {
                     break;
                 case 10:
                     if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
-                        this.session.myCharz().zoneMap.loadMapInfo(this.session.myCharz(), msg.reader().readUnsignedByte());
+                        this.session.myCharz().zoneMap.loadMapInfo(this.session.myCharz(),
+                                msg.reader().readUnsignedByte());
                     }
                     break;
                 case 13:
@@ -1859,9 +2175,8 @@ public class Controller implements IMessageHandler {
                     }
                     Util.gI().logln("client ok");
                     break;
-                    
-                default:
-                {
+
+                default: {
                     this.session.myCharz().addInfo1(String.format(mResources.SAP_CAP_NHAT, msg.getCommand()));
                     break;
                 }
@@ -1872,17 +2187,5 @@ public class Controller implements IMessageHandler {
             }
             this.session.disconnect();
         }
-    }
-
-    @Override
-    public void onConnectOK() {
-    }
-
-    @Override
-    public void onConnectionFail() {
-    }
-
-    @Override
-    public void onDisconnected() {
     }
 }

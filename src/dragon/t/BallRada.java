@@ -4,8 +4,8 @@ package dragon.t;
 import java.util.ArrayList;
 
 /**
- *
- * @author Văn Tú
+ * File này dùng để lưu thông tin bóng rada trong game
+ * @author Văn Ngọc
  */
 public class BallRada {
     

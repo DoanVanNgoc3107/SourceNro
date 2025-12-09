@@ -12,11 +12,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- *
+ * File này dùng để lưu thông tin các vật phẩm nền trong game
+ * 
  * @author TGDD
  */
 public class BgItem {
-    
+
     public int id;
     public short idImage;
     public byte layer;
@@ -24,7 +25,7 @@ public class BgItem {
     public short dy;
     public byte[] tileX;
     public byte[] tileY;
-    
+
     public BgItem(ResultSet res) throws SQLException, ParseException {
         this.id = res.getShort("id");
         this.idImage = res.getShort("idImage");
@@ -40,13 +41,13 @@ public class BgItem {
             this.tileY[i] = Byte.parseByte(jarr2.get(i).toString());
         }
     }
-    
+
     public static HashMap<Integer, byte[]> newSmallVersion = new HashMap<>();
-    
+
     public static HashMap<Byte, byte[][]> images = new HashMap<>();
-    
+
     public static ArrayList<BgItem> aItemBg = new ArrayList<>();
-    
+
     public static void init() {
         System.out.println("Load BgItem");
         BgItem.newSmallVersion.clear();
@@ -55,7 +56,7 @@ public class BgItem {
             File dir = new File(String.format("res/x%d/bgItem", x));
             File[] files = dir.listFiles();
             int max = -1;
-            images.put((byte)x, new byte[files.length][]);
+            images.put((byte) x, new byte[files.length][]);
             for (int i = 0; i < files.length; i++) {
                 String name = files[i].getName();
                 try {
@@ -65,8 +66,8 @@ public class BgItem {
                     int id = Integer.parseInt(name);
                     array[id] = (byte) (files[i].length() % 127);
                     FileInputStream fi = new FileInputStream(files[i]);
-                    images.get((byte)x)[id] = new byte[fi.available()];
-                    fi.read(images.get((byte)x)[id]);
+                    images.get((byte) x)[id] = new byte[fi.available()];
+                    fi.read(images.get((byte) x)[id]);
                     if (id > max) {
                         max = id;
                     }
@@ -77,5 +78,5 @@ public class BgItem {
             BgItem.newSmallVersion.put(x, Arrays.copyOf(array, max + 1));
         }
     }
-    
+
 }

@@ -73,10 +73,10 @@ public class Shop {
                         point = item.getParamOption(164) * num;
                     }
                     if (item.template.id == 517) {
-                        buyLuong = (item.buyGold * (charz.bagcount - 19)) * num;
+                        buyLuong = (item.buyGold * (charz.bagcount - 99)) * num;
                     }
                     if (item.template.id == 518) {
-                        buyXu = (item.buyCoin * (charz.boxcount - 19)) * num;
+                        buyXu = (item.buyCoin * (charz.boxcount - 99)) * num;
                     }
                     if (item.template.id == 457) {
                         buyXu = Server.gI().gold_value * num;
@@ -92,9 +92,9 @@ public class Shop {
                     charz.addInfo1(String.format(mResources.NOT_LUONG, buyLuong - charz.getLuong()));
                 } else if (charz.xu < buyXu) {
                     charz.addInfo1(String.format(mResources.NOT_XU, buyXu - charz.xu));
-                } else if (item.template.id == 517 && charz.bagcount >= 40) {
+                } else if (item.template.id == 517 && charz.bagcount >= 100) {
                     charz.addInfo1(mResources.OPEN_BAG_FULL);
-                } else if (item.template.id == 518 && charz.boxcount >= 40) {
+                } else if (item.template.id == 518 && charz.boxcount >= 100) {
                     charz.addInfo1(mResources.OPEN_BAG_FULL);
                 } else if (item.template.id == 988 && charz.maxXu >= 200000000000L) {
                     charz.addInfo1(mResources.OPEN_COIN_FULL);

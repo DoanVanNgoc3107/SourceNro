@@ -127,32 +127,32 @@ public class Npc extends Char {
             }
         }
         //Quang cao Rong Vo Cuc
-//        if (super.template.npcTemplateId == 64 && !this.isHide) {
-//            if (this.nDadChat > 0) {
-//                this.timeDadChat -= zone.map.delays;
-//                if (this.timeDadChat <= 0) {
-//                    this.timeDadChat = 5000;
-//                    if (this.nDadChat == 3) {
-//                        zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_3);
-//                    }
-//                    if (this.nDadChat == 2) {
-//                        zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_2);
-//                    }
-//                    if (this.nDadChat == 1) {
-//                        zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_1);
-//                    }
-//                    if (this.nDadChat == 0) {
-//                        this.timeDad = 20000;
-//                    }
-//                    this.nDadChat--;
-//                }
-//            } else {
-//                this.timeDad -= zone.map.delays;
-//                if (this.timeDad <= 0) {
-//                    this.nDadChat = 3;
-//                }
-//            }
-//        }
+       if (super.template.npcTemplateId == 64 && !this.isHide) {
+           if (this.nDadChat > 0) {
+               this.timeDadChat -= zone.map.delays;
+               if (this.timeDadChat <= 0) {
+                   this.timeDadChat = 5000;
+                   if (this.nDadChat == 3) {
+                       zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_3);
+                   }
+                   if (this.nDadChat == 2) {
+                       zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_2);
+                   }
+                   if (this.nDadChat == 1) {
+                       zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_1);
+                   }
+                   if (this.nDadChat == 0) {
+                       this.timeDad = 20000;
+                   }
+                   this.nDadChat--;
+               }
+           } else {
+               this.timeDad -= zone.map.delays;
+               if (this.timeDad <= 0) {
+                   this.nDadChat = 3;
+               }
+           }
+       }
         //Whis
         if (this.template.npcTemplateId == 56 && this.isHide && !zone.isHaveBoss(147)) {
             zone.hideNpc(56, false);

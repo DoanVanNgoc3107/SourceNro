@@ -666,7 +666,7 @@ public class Map {
                     for (j = zone.itemMaps.size() - 1; j >= 0; --j) {
                         itemMap = zone.itemMaps.get(j);
                         if (itemMap != null) {
-                            if (itemMap.milisecondRemove <= System.currentTimeMillis() || (itemMap.item.template.id == 362 && !NamekBall.gI().isFossil) || (itemMap.item.isItemNamekBall() && NamekBall.gI().isFossil)) {
+                            if (itemMap.milisecondRemove <= System.currentTimeMillis() || (itemMap.item.template.id == 362 && !NamekBall.gI().isFossil) || (itemMap.item.isItemNameBall() && NamekBall.gI().isFossil)) {
                                 itemMaps.add(itemMap);
                             } else if (itemMap.charId != -1 && itemMap.milisecondRemove - System.currentTimeMillis() <= ItemMap.MILISECONDALLOW && !itemMap.item.isItemSKH() && !itemMap.item.isItemKGPA() && !itemMap.isPickItemNotMe) {
                                 itemMap.charId = -1;
@@ -691,7 +691,7 @@ public class Map {
                         itemMap = zone.addItemMap(-1, itemMap.item, x, y, -1, -1);
                         itemMap.milisecondRemove = System.currentTimeMillis() + 10000;
                         zone.itemMapAdd(itemMap);
-                    } else if (itemMap.item.isItemNamekBall()) {
+                    } else if (itemMap.item.isItemNameBall()) {
                         BallRada rada = BallRada.getById(itemMap.item.template.id);
                         if (rada != null) {
                             if (NamekBall.gI().isFossil) {

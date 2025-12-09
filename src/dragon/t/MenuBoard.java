@@ -4,32 +4,32 @@ import dragon.server.Dragon;
 import dragon.server.Server;
 import dragon.server.Session_ME;
 import dragon.server.mResources;
+
 import java.util.ArrayList;
 
 import dragon.t.CallDragon.MenuR;
 
-import static java.awt.SystemColor.info;
 
 /**
  *
  * @author TGDD
  */
 public class MenuBoard {
-    
+
     private final Session_ME session;
-    
+
     public ArrayList<MenuInfo> arrMenu;
     public int select;
     public int typeInfo;
     public int npcId;
     public String chat;
     public int avatar;
-    
+
     public MenuBoard(Session_ME session) {
         this.session = session;
         this.arrMenu = new ArrayList<>();
     }
-    
+
     public void openUIConfirm(int npcId, String chat, ArrayList<MenuInfo> menu, int avatar) {
         this.npcId = npcId;
         if (chat != null) {
@@ -41,7 +41,7 @@ public class MenuBoard {
         this.avatar = avatar;
         this.session.service.openUIConfirm(this.npcId, this.chat, this.arrMenu, this.avatar);
     }
-    
+
     public void openUIConfirm(int npcId, ArrayList<MenuInfo> menu) {
         this.npcId = npcId;
         if (menu != null) {
@@ -51,7 +51,7 @@ public class MenuBoard {
             this.session.service.openMagicTreConfirm(arrMenu);
         }
     }
-    
+
 
 //                case 99:
 //                {
@@ -72,7 +72,7 @@ public class MenuBoard {
             this.openUIConfirm(npcId, menuId);
         }
     }
-    
+
     public void openMenuUI(int npcId) {
         //Kiem tra nv
         if (!NpcTask.updateTask(this.session.myCharz(), npcId)) {
@@ -93,8 +93,7 @@ public class MenuBoard {
                 //Ong noi
                 case 0:
                 case 1:
-                case 2:
-                {
+                case 2: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_MIAN;
                     this.arrMenu.add(new MenuInfo(mResources.GIFT_CODE, 208));
@@ -103,9 +102,9 @@ public class MenuBoard {
                     if (this.session.myCharz().totalGold > 0) {
                         this.arrMenu.add(new MenuInfo(String.format(mResources.NHAN_THOI_VANG2, Util.gI().getFormatNumber(this.session.myCharz().totalGold + 100000)), 216));
                     }
-                    
+
                     this.arrMenu.add(new MenuInfo(mResources.NAP_TIEN, 209));
-                    
+
                     if (!this.session.myCharz().isCan()) {
                         this.arrMenu.add(new MenuInfo(mResources.OPEN_MEMBER_1, 214));
                     }
@@ -136,25 +135,23 @@ public class MenuBoard {
                     break;
                 }
 //                //Ruong do
-                case 3:
-                {
+                case 3: {
                     if (this.session.myCharz().mapTemplateId == 21 || this.session.myCharz().mapTemplateId == 22 || this.session.myCharz().mapTemplateId == 23) {
                         this.session.service.openBox();
                     }
                     break;
                 }
 //                //Cay dau than
-                case 4:
-                {
+                case 4: {
                     this.session.myCharz().resetMenu();
                     if (this.session.myCharz().magicTree_isUpdate) {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.UP_NEXT, MagicTree.up_nhanh[this.session.myCharz().magicTree_level -1]), 313));
+                        this.arrMenu.add(new MenuInfo(String.format(mResources.UP_NEXT, MagicTree.up_nhanh[this.session.myCharz().magicTree_level - 1]), 313));
                         this.arrMenu.add(new MenuInfo(String.format(mResources.UP_CANCEL, Util.gI().numberTostring(MagicTree.up_coin[this.session.myCharz().magicTree_level - 1] / 2)), 314));
                     } else {
                         this.arrMenu.add(new MenuInfo(mResources.BEAN_HARVEST, 312));
                         if (this.session.myCharz().ctaskId >= 1) {
                             if (this.session.myCharz().magicTree_level < MagicTree.maxLevel) {
-                                this.arrMenu.add(new MenuInfo(String.format(mResources.MAGIC_TREE_UP, Util.gI().getFormatTime3(MagicTree.up_time[this.session.myCharz().magicTree_level -1]), Util.gI().numberTostring(MagicTree.up_coin[this.session.myCharz().magicTree_level - 1])), 315));
+                                this.arrMenu.add(new MenuInfo(String.format(mResources.MAGIC_TREE_UP, Util.gI().getFormatTime3(MagicTree.up_time[this.session.myCharz().magicTree_level - 1]), Util.gI().numberTostring(MagicTree.up_coin[this.session.myCharz().magicTree_level - 1])), 315));
                             }
                             if (this.session.myCharz().magicTree_currPeas < MagicTree.maxPeas[this.session.myCharz().magicTree_level - 1]) {
                                 this.arrMenu.add(new MenuInfo(String.format(mResources.PEAS_NEXT, MagicTree.ketnhanh[this.session.myCharz().magicTree_level - 1]), 316));
@@ -165,8 +162,7 @@ public class MenuBoard {
                     break;
                 }
 //                //Bunma
-                case 7:
-                {
+                case 7: {
                     if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 84) {
                         if (this.session.myCharz().cgender != 0) {
                             this.session.service.openUISay(npcId, mResources.BUY_OTHER_TRAIDAT, -1);
@@ -191,8 +187,7 @@ public class MenuBoard {
                     break;
                 }
                 //Dende
-                case 8:
-                {
+                case 8: {
                     if (this.session.myCharz().mapTemplateId == 7 || this.session.myCharz().mapTemplateId == 84) {
                         if (this.session.myCharz().itemNamekBall != null) {
                             this.session.myCharz().resetMenu();
@@ -221,8 +216,7 @@ public class MenuBoard {
                     break;
                 }
                 //Appule
-                case 9:
-                {
+                case 9: {
                     if (this.session.myCharz().mapTemplateId == 14 || this.session.myCharz().mapTemplateId == 84) {
                         if (this.session.myCharz().cgender != 2) {
                             this.session.service.openUISay(npcId, mResources.BUY_OTHER_XAYDA, -1);
@@ -242,8 +236,7 @@ public class MenuBoard {
                     break;
                 }
                 //Dr Brief
-                case 10:
-                {
+                case 10: {
                     if (this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_DR_BRIEF;
@@ -288,8 +281,7 @@ public class MenuBoard {
                     break;
                 }
 //                //Cargo
-                case 11:
-                {
+                case 11: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_CARGO;
                     this.arrMenu.add(new MenuInfo(mResources.GO_TRAIDAT, 56));
@@ -299,8 +291,7 @@ public class MenuBoard {
                     break;
                 }
 //                //Cui
-                case 12:
-                {
+                case 12: {
                     if (this.session.myCharz().mapTemplateId == 19) {
                         if (this.session.myCharz().ctaskId == 23 && this.session.myCharz().ctaskIndex != 3) {
                             if (this.session.myCharz().ctaskIndex == 0) {
@@ -381,8 +372,7 @@ public class MenuBoard {
                     break;
                 }
                 //Quy lao kame
-                case 13:
-                {
+                case 13: {
                     if (this.session.myCharz().isPetThiTheo && this.session.myCharz().zoneMap.getBossPlayer(this.session.myCharz().playerId) != null && Math.abs(npc.cx - this.session.myCharz().zoneMap.getBossPlayer(this.session.myCharz().playerId).cx) <= 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.DUA_PET_SAY_1;
@@ -433,8 +423,7 @@ public class MenuBoard {
                     break;
                 }
                 //Truong lao guru
-                case 14:
-                {
+                case 14: {
                     if (this.session.myCharz().isPetThiTheo && Math.abs(npc.cx - this.session.myCharz().cx) <= 50 && Math.abs(npc.cy - this.session.myCharz().cy) <= 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.DUA_PET_SAY_1;
@@ -442,13 +431,12 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else {
-                        
+
                     }
                     break;
                 }
                 //Vua vegeta
-                case 15:
-                {
+                case 15: {
                     if (this.session.myCharz().isPetThiTheo && Math.abs(npc.cx - this.session.myCharz().cx) <= 50 && Math.abs(npc.cy - this.session.myCharz().cy) <= 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.DUA_PET_SAY_1;
@@ -456,13 +444,12 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else {
-                        
+
                     }
                     break;
                 }
                 //Uron
-                case 16:
-                {
+                case 16: {
                     if (this.session.myCharz().cgender == 0) {
                         //TraiDat
                         this.session.myCharz().openShop(7);
@@ -476,8 +463,7 @@ public class MenuBoard {
                     break;
                 }
                 //Bo mong
-                case 17:
-                {
+                case 17: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_BO_MONG_1;
                     this.arrMenu.add(new MenuInfo(mResources.TAKE_TASK1, 380));
@@ -488,8 +474,7 @@ public class MenuBoard {
                     break;
                 }
                 //Than meo karin
-                case 18:
-                {
+                case 18: {
                     if (this.session.myCharz().isNhanDauThan) {
                         this.session.myCharz().resetMenu();
                         this.chat = String.format(mResources.SAY_THAN_MEO_KARIN2, this.session.myCharz().cName);
@@ -504,8 +489,7 @@ public class MenuBoard {
                     break;
                 }
                 //Thuong de
-                case 19:
-                {
+                case 19: {
                     if (this.session.myCharz().mapTemplateId == 45) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_THUONG_DE_1;
@@ -522,8 +506,7 @@ public class MenuBoard {
                     break;
                 }
                 //Than vu tru
-                case 20:
-                {
+                case 20: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_THAN_VU_TRU;
                     this.arrMenu.add(new MenuInfo(mResources.DI_CHUYEN, 230));
@@ -531,13 +514,12 @@ public class MenuBoard {
                     break;
                 }
                 //Ba hat mit
-                case 21:
-                {
+                case 21: {
                     if (this.session.myCharz().mapTemplateId == 5) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BA_HAT_MIT;
                         if (Dragon.isEvent_VULAN2023) {
-                        	this.arrMenu.add(new MenuInfo(mResources.INFO_EVENT, 363));
+                            this.arrMenu.add(new MenuInfo(mResources.INFO_EVENT, 363));
                         }
                         this.arrMenu.add(new MenuInfo(mResources.EPSAO_TRANGBI, 1));
                         this.arrMenu.add(new MenuInfo(mResources.PHALEHOA_TRANGBI, 2));
@@ -568,8 +550,7 @@ public class MenuBoard {
                     break;
                 }
                 //Trong tai
-                case 22:
-                {
+                case 22: {
                     if (this.session.myCharz().mapTemplateId == 113) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_TRONG_TAI1;
@@ -586,8 +567,7 @@ public class MenuBoard {
                     break;
                 }
                 //Ghi danh
-                case 23:
-                {
+                case 23: {
                     if (this.session.myCharz().mapTemplateId == 52) {
                         if (this.session.myCharz().isWaitWar && DaiHoi.isWar) {
                             this.session.service.openUISay(npcId, String.format(mResources.BAN_VAO_VONG, DaiHoi.nTurn), -1);
@@ -618,9 +598,9 @@ public class MenuBoard {
                         this.chat = mResources.SAY_GHI_DANH_2;
                         this.arrMenu.add(new MenuInfo(mResources.HDT, 136));
                         if (this.session.myCharz().myObj().nWinHD23 < 11) {
-                        	int giangoc = 1 * (this.session.myCharz().myObj().nJoinDH23 + 1);
+                            int giangoc = 1 * (this.session.myCharz().myObj().nJoinDH23 + 1);
                             //this.arrMenu.add(new MenuInfo(String.format(mResources.THI_DAU_1, giangoc), 132, giangoc));
-                        	int giavang = 500000 * (this.session.myCharz().myObj().nJoinDH23 > 11 ? 11 : this.session.myCharz().myObj().nJoinDH23 + 1);
+                            int giavang = 500000 * (this.session.myCharz().myObj().nJoinDH23 > 11 ? 11 : this.session.myCharz().myObj().nJoinDH23 + 1);
                             this.arrMenu.add(new MenuInfo(String.format(mResources.THI_DAU_2, Util.gI().numberTostring(giavang)), 133, giavang));
                         }
                         if (this.session.myCharz().myObj().nWinHD23 > 0) {
@@ -632,10 +612,9 @@ public class MenuBoard {
                     break;
                 }
                 //Linh canh
-                case 25:
-                {
+                case 25: {
                     if (this.session.myCharz().clan != null) {
-                    	if ((this.session.myCharz().zoneMap.getCountPlayerInClan(this.session.myCharz()) < 1 || this.session.myCharz().clan.getSizeMember() < 5) && this.session.myCharz().clan.doanhTrai == null) {
+                        if ((this.session.myCharz().zoneMap.getCountPlayerInClan(this.session.myCharz()) < 1 || this.session.myCharz().clan.getSizeMember() < 5) && this.session.myCharz().clan.doanhTrai == null) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_LINH_CANH_8;
                             this.arrMenu.add(new MenuInfo(mResources.OK, 0));
@@ -674,8 +653,7 @@ public class MenuBoard {
                     break;
                 }
                 //Doc Nhan
-                case 26:
-                {
+                case 26: {
                     if (this.session.myCharz().zoneMap.map.doanhTrai != null) {
                         DoanhTrai dt = this.session.myCharz().zoneMap.map.doanhTrai;
                         if (dt.isWin && !dt.isGift) {
@@ -689,8 +667,7 @@ public class MenuBoard {
                     break;
                 }
                 //Cua hang ky gui
-                case 28:
-                {
+                case 28: {
                     if (this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_SHOP_KY_GUI_1;
@@ -703,8 +680,7 @@ public class MenuBoard {
                     break;
                 }
                 //Rong Omega
-                case 29:
-                {
+                case 29: {
                     if (BlackBall.gI().isBlackBall) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_OMEGA2;
@@ -712,7 +688,7 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.JOIN, 240));
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
-                    }  else {
+                    } else {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_OMEGA1;
                         this.arrMenu.add(new MenuInfo(mResources.HDT, 239));
@@ -725,25 +701,29 @@ public class MenuBoard {
                     break;
                 }
                 //Rong sao
-                case 30: case 31: case 32: case 33: case 34: case 35: case 36:
-                {
+                case 30:
+                case 31:
+                case 32:
+                case 33:
+                case 34:
+                case 35:
+                case 36: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_RONG_SAO;
                     if (this.session.myCharz().itemBlackBall != null && this.session.myCharz().phuHoBlackBall == 0) {
 //                        this.arrMenu.add(new MenuInfo(mResources.X3HP, 243));
 //                        this.arrMenu.add(new MenuInfo(mResources.X5HP, 244));
 //                        this.arrMenu.add(new MenuInfo(mResources.X7HP, 245));
-                        this.arrMenu.add(new MenuInfo(mResources.X3HP2, 376, new int[] {100000000, 3}));
-                        this.arrMenu.add(new MenuInfo(mResources.X5HP2, 376, new int[] {300000000, 5}));
-                        this.arrMenu.add(new MenuInfo(mResources.X7HP2, 376, new int[] {500000000, 7}));
+                        this.arrMenu.add(new MenuInfo(mResources.X3HP2, 376, new int[]{100000000, 3}));
+                        this.arrMenu.add(new MenuInfo(mResources.X5HP2, 376, new int[]{300000000, 5}));
+                        this.arrMenu.add(new MenuInfo(mResources.X7HP2, 376, new int[]{500000000, 7}));
                     }
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
                 //Bunma TL
-                case 37:
-                {
+                case 37: {
                     if (this.session.myCharz().mapTemplateId == 102) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BUNMA_2;
@@ -763,8 +743,7 @@ public class MenuBoard {
                     break;
                 }
                 //Ca lich
-                case 38:
-                {
+                case 38: {
                     if (this.session.myCharz().mapTemplateId == 102) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_CA_LICH;
@@ -791,8 +770,7 @@ public class MenuBoard {
                     break;
                 }
                 //Santa
-                case 39:
-                {
+                case 39: {
                     Player o = null;
                     if (Dragon.isEvent_Mabu) {
                         o = Player.getBossPlayer(this.session.myCharz().playerId, 9);
@@ -804,9 +782,9 @@ public class MenuBoard {
                         if (Util.gI().nextInt(100) < 50) {
                             int idT = Util.gI().nextInt(441, 447);
                             it = new Item(idT, false, 1, ItemOption.getOption(idT, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                        } else if(Util.gI().nextInt(100) < 5) {
+                        } else if (Util.gI().nextInt(100) < 5) {
                             this.session.myCharz().updateLuongKhoa(Util.gI().nextInt(1, 5), 2);
-                        } else if(Util.gI().nextInt(100) < 5) {
+                        } else if (Util.gI().nextInt(100) < 5) {
                             this.session.myCharz().updateXu(Util.gI().nextInt(1, 10) * 1000000, 1);
                         } else if (Util.gI().nextInt(100) < 10) {
                             it = new Item(20, false, 1, ItemOption.getOption(20, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -815,7 +793,7 @@ public class MenuBoard {
                         }
                         if (it != null) {
                             if (it.isHaveOption(93)) {
-                                it.setExpires(System.currentTimeMillis() + (long)(1000l * 60l * 60l * 24l * (long)(it.getParamOption(93) + 1)));
+                                it.setExpires(System.currentTimeMillis() + (long) (1000l * 60l * 60l * 24l * (long) (it.getParamOption(93) + 1)));
                             }
                             this.session.myCharz().addItemBag(0, it);
                         }
@@ -835,16 +813,14 @@ public class MenuBoard {
                     break;
                 }
                 //Mabu map
-                case 40:
-                {
+                case 40: {
                     if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 7 || this.session.myCharz().mapTemplateId == 14) {
                         this.session.myCharz().openGacha();
                     }
                     break;
                 }
                 //Trung thu
-                case 41:
-                {
+                case 41: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_TRUNG_THU;
                     this.arrMenu.add(new MenuInfo(mResources.SHOP2, 249));
@@ -854,8 +830,7 @@ public class MenuBoard {
                     break;
                 }
 //                //Quoc vuong
-                case 42:
-                {
+                case 42: {
                     if (this.session.myCharz().mapTemplateId == 43) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_QUOC_VUONG_1;
@@ -871,8 +846,7 @@ public class MenuBoard {
                     break;
                 }
 //                //To su kaio
-                case 43:
-                {
+                case 43: {
                     if (this.session.myCharz().mapTemplateId == 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_TO_SU_KAIO_1;
@@ -882,8 +856,7 @@ public class MenuBoard {
                     break;
                 }
                 //Osin
-                case 44:
-                {
+                case 44: {
                     if (this.session.myCharz().mapTemplateId == 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_OSIN;
@@ -951,8 +924,7 @@ public class MenuBoard {
                     break;
                 }
                 //Kibit
-                case 45:
-                {
+                case 45: {
                     if (this.session.myCharz().mapTemplateId == 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_KIBIT1;
@@ -963,8 +935,7 @@ public class MenuBoard {
                     break;
                 }
                 //Babiday
-                case 46:
-                {
+                case 46: {
                     if (this.session.myCharz().mapTemplateId == 114 || this.session.myCharz().mapTemplateId == 115 || this.session.myCharz().mapTemplateId == 117 || this.session.myCharz().mapTemplateId == 118 || this.session.myCharz().mapTemplateId == 119 || this.session.myCharz().mapTemplateId == 120) {
                         if (Flag.FLAGS.get(this.session.myCharz().cFlag).itemFlag.template.id == 520) {
                             this.session.myCharz().resetMenu();
@@ -983,8 +954,7 @@ public class MenuBoard {
                     break;
                 }
                 //Giu-ma Dau BO
-                case 47:
-                {
+                case 47: {
                     if (this.session.myCharz().mapTemplateId == 153) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_GU_UMA_DAU_BO_1;
@@ -1001,8 +971,7 @@ public class MenuBoard {
                     break;
                 }
                 //Ngo khong
-                case 48:
-                {
+                case 48: {
                     if (this.session.myCharz().mapTemplateId == 124) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_NGO_KHONG_1;
@@ -1013,8 +982,7 @@ public class MenuBoard {
                     break;
                 }
                 //Duong tang
-                case 49:
-                {
+                case 49: {
                     if (this.session.myCharz().mapTemplateId == 0) {
                         if (this.session.myCharz().isMonkeyCheat) {
                             this.session.myCharz().resetMenu();
@@ -1049,78 +1017,74 @@ public class MenuBoard {
                     }
                     break;
                 }
-                    //Trung Mabu
-                    case 50:
-                    {
-                        if (this.session.myCharz().mapTemplateId == this.session.myCharz().mainHome()) {
-                            if (this.session.myCharz().isHaveDuaHau(50, 4664)) {
-                                this.session.myCharz().resetMenu();
-                                this.chat = mResources.SAY_QUA_TRUNG1;
-                                if (this.session.myCharz().getDuaHau(50, 4664).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
-                                    this.arrMenu.add(new MenuInfo(mResources.HATCH, 61));
-                                } else {
-                                    this.arrMenu.add(new MenuInfo(mResources.NO_TRUNG_NHANH, 65));
-                                }
-                                this.arrMenu.add(new MenuInfo(mResources.CANCEL_TRUNG, 63));
-                                this.arrMenu.add(new MenuInfo(mResources.OK, 0));
-                                this.openUIConfirm(npcId, null, null, -1);
+                //Trung Mabu
+                case 50: {
+                    if (this.session.myCharz().mapTemplateId == this.session.myCharz().mainHome()) {
+                        if (this.session.myCharz().isHaveDuaHau(50, 4664)) {
+                            this.session.myCharz().resetMenu();
+                            this.chat = mResources.SAY_QUA_TRUNG1;
+                            if (this.session.myCharz().getDuaHau(50, 4664).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
+                                this.arrMenu.add(new MenuInfo(mResources.HATCH, 61));
+                            } else {
+                                this.arrMenu.add(new MenuInfo(mResources.NO_TRUNG_NHANH, 65));
                             }
+                            this.arrMenu.add(new MenuInfo(mResources.CANCEL_TRUNG, 63));
+                            this.arrMenu.add(new MenuInfo(mResources.OK, 0));
+                            this.openUIConfirm(npcId, null, null, -1);
                         }
-                        if (this.session.myCharz().mapTemplateId == 154) {
-                            if (this.session.myCharz().isHaveDuaHau(50, 6546)) {
+                    }
+                    if (this.session.myCharz().mapTemplateId == 154) {
+                        if (this.session.myCharz().isHaveDuaHau(50, 6546)) {
+                            this.session.myCharz().resetMenu();
+                            this.chat = mResources.SAY_QUA_TRUNG5;
+                            if (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
+                                this.arrMenu.add(new MenuInfo(mResources.HATCH, 67));
+                            } else {
+                                this.arrMenu.add(new MenuInfo(mResources.ADD_LINHLUC, 71));
+                            }
+                            this.arrMenu.add(new MenuInfo(mResources.CANCEL_TRUNG, 69));
+                            this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
+                            this.openUIConfirm(npcId, null, null, -1);
+                        }
+                    }
+                    break;
+                }
+                //dua hau
+                case 51: {
+                    if (this.session.myCharz().mapTemplateId == this.session.myCharz().mainHome()) {
+                        if (this.session.myCharz().isHaveDuaHau(51, -1)) {
+                            if (this.session.myCharz().getDuaHau(51, -1).duaHauIndex == 3) {
                                 this.session.myCharz().resetMenu();
-                                this.chat = mResources.SAY_QUA_TRUNG5;
-                                if (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
-                                    this.arrMenu.add(new MenuInfo(mResources.HATCH, 67));
-                                } else {
-                                    this.arrMenu.add(new MenuInfo(mResources.ADD_LINHLUC, 71));
-                                }
-                                this.arrMenu.add(new MenuInfo(mResources.CANCEL_TRUNG, 69));
+                                this.chat = mResources.SAY_DUA_HAU2;
+                                this.arrMenu.add(new MenuInfo(mResources.THU_HOACH, 158));
+                                this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
+                                this.openUIConfirm(npcId, null, null, -1);
+                            } else {
+                                this.session.myCharz().resetMenu();
+                                this.chat = mResources.SAY_DUA_HAU1;
+                                this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                                 this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                                 this.openUIConfirm(npcId, null, null, -1);
                             }
                         }
-                        break;
                     }
-                    //dua hau
-                    case 51:
-                    {
-                        if (this.session.myCharz().mapTemplateId == this.session.myCharz().mainHome()) {
-                            if (this.session.myCharz().isHaveDuaHau(51, -1)) {
-                                if (this.session.myCharz().getDuaHau(51, -1).duaHauIndex == 3) {
-                                    this.session.myCharz().resetMenu();
-                                    this.chat = mResources.SAY_DUA_HAU2;
-                                    this.arrMenu.add(new MenuInfo(mResources.THU_HOACH, 158));
-                                    this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
-                                    this.openUIConfirm(npcId, null, null, -1);
-                                } else {
-                                    this.session.myCharz().resetMenu();
-                                    this.chat = mResources.SAY_DUA_HAU1;
-                                    this.arrMenu.add(new MenuInfo(mResources.OK, 0));
-                                    this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
-                                    this.openUIConfirm(npcId, null, null, -1);
-                                }
-                            }
-                        }
-                        break;
+                    break;
+                }
+                //Hung Vuong
+                case 52: {
+                    if (this.session.myCharz().mapTemplateId == 0) {
+                        this.session.myCharz().resetMenu();
+                        this.chat = mResources.SAY_HUNG_VUONG1;
+                        this.arrMenu.add(new MenuInfo(mResources.TANG_MAM_BAC, 164));
+                        this.arrMenu.add(new MenuInfo(mResources.TANG_MAM_VANG, 165));
+                        this.arrMenu.add(new MenuInfo(mResources.CHANGE_GIFT_EVENT, 166));
+                        this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
+                        this.openUIConfirm(npcId, null, null, -1);
                     }
-                    //Hung Vuong
-                    case 52:
-                    {
-                        if (this.session.myCharz().mapTemplateId == 0) {
-                            this.session.myCharz().resetMenu();
-                            this.chat = mResources.SAY_HUNG_VUONG1;
-                            this.arrMenu.add(new MenuInfo(mResources.TANG_MAM_BAC, 164));
-                            this.arrMenu.add(new MenuInfo(mResources.TANG_MAM_VANG, 165));
-                            this.arrMenu.add(new MenuInfo(mResources.CHANGE_GIFT_EVENT, 166));
-                            this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
-                            this.openUIConfirm(npcId, null, null, -1);
-                        }
-                        break;
-                    }
+                    break;
+                }
                 //Tapion
-                case 53:
-                {
+                case 53: {
                     if (this.session.myCharz().mapTemplateId == 19) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_TAPION_1;
@@ -1146,15 +1110,14 @@ public class MenuBoard {
                             this.arrMenu.add(new MenuInfo("Vòng Quay\nMay Mắn", 421));
                             this.arrMenu.add(new MenuInfo("Chọn ai đây", 175));
                             this.arrMenu.add(new MenuInfo("Từ chối", 0));
-                             this.openUIConfirm(npcId, null, null, -1);
+                            this.openUIConfirm(npcId, null, null, -1);
                         }
                         break;
                     } else {
                         this.session.myCharz().addInfo1("Tài khoản cần phải mở thành viên để sử dụng tính năng này.");
                     }
-                //Bill
-                case 55:
-                {
+                    //Bill
+                case 55: {
                     if (this.session.myCharz().mapTemplateId == 48) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BILL_1;
@@ -1173,8 +1136,7 @@ public class MenuBoard {
                     break;
                 }
                 //Wish
-                case 56:
-                {
+                case 56: {
                     if (this.session.myCharz().mapTemplateId == 48) {
                         this.session.myCharz().resetMenu();
                         this.chat = String.format(mResources.SAY_WISH_1, Memory.get(this.session.userId).nFreeWish);
@@ -1205,23 +1167,21 @@ public class MenuBoard {
                     }
                     break;
                 }
-                
+
                 //Vados
-                case 58:
-                {
+                case 58: {
                     if (this.session.myCharz().mapTemplateId == 5) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.TASK_VADOS;
                         this.arrMenu.add(new MenuInfo(mResources.TB_KICK_HOAT, 384));
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
-                    }  
+                    }
                     break;
                 }
-                
+
                 //Goku SSJ
-                case 60:
-                {
+                case 60: {
                     if (this.session.myCharz().mapTemplateId == 80) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_GOKU_SSJ;
@@ -1238,8 +1198,7 @@ public class MenuBoard {
                     break;
                 }
                 //Goku SSJ
-                case 61:
-                {
+                case 61: {
                     if (this.session.myCharz().mapTemplateId == 133) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_GOKU_SSJ_2;
@@ -1250,8 +1209,7 @@ public class MenuBoard {
                     break;
                 }
                 //Potage
-                case 62:
-                {
+                case 62: {
                     if (this.session.myCharz().mapTemplateId == 140) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_POTAGE1;
@@ -1263,8 +1221,7 @@ public class MenuBoard {
                     break;
                 }
                 //Jaco
-                case 63:
-                {
+                case 63: {
                     if (this.session.myCharz().mapTemplateId == 24) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_JACO1;
@@ -1284,8 +1241,7 @@ public class MenuBoard {
                     break;
                 }
                 //Dai Thien Su
-                case 64:
-                {
+                case 64: {
                     if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 7 || this.session.myCharz().mapTemplateId == 14) {
                         if (RongVoCuc.gI().isCallRongVoCuc) {
                             this.session.myCharz().resetMenu();
@@ -1300,8 +1256,7 @@ public class MenuBoard {
                     break;
                 }
                 //Noi Banh
-                case 66:
-                {
+                case 66: {
                     if (Dragon.isEvent_TetNguyenDan) {
                         if (this.session.myCharz().isNauBanhOK()) {
                             this.session.myCharz().resetMenu();
@@ -1338,8 +1293,7 @@ public class MenuBoard {
                     break;
                 }
                 //MR PoPo
-                case 67:
-                {
+                case 67: {
                     if (this.session.myCharz().mapTemplateId == 0) {
                         if (this.session.myCharz().clan == null || this.session.myCharz().clan.destronGas == null) {
                             this.session.myCharz().resetMenu();
@@ -1363,8 +1317,7 @@ public class MenuBoard {
                     break;
                 }
                 //Tho Dai Ca
-                case 69:
-                {
+                case 69: {
                     if (this.session.myCharz().mapTemplateId == 5) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_THO_DAI_CA_1;
@@ -1380,8 +1333,7 @@ public class MenuBoard {
                     break;
                 }
                 //Bardock
-                case 70:
-                {
+                case 70: {
                     if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 2 && this.session.myCharz().mapTemplateId == 160) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BARDOCK_1;
@@ -1406,8 +1358,7 @@ public class MenuBoard {
                     break;
                 }
                 //Berry
-                case 71:
-                {
+                case 71: {
                     if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 5 && this.session.myCharz().mapTemplateId == 161) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BERRY_1;
@@ -1418,8 +1369,7 @@ public class MenuBoard {
                     break;
                 }
                 //Tori - Bot
-                case 74:
-                {
+                case 74: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_TORI_BOT_1;
                     this.arrMenu.add(new MenuInfo(mResources.SHOP2, 217));
@@ -1427,8 +1377,7 @@ public class MenuBoard {
                     break;
                 }
                 //King Furry
-                case 75:
-                {
+                case 75: {
                     if (this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_KING_FURRY1;
@@ -1440,8 +1389,7 @@ public class MenuBoard {
                     break;
                 }
                 //Mai
-                case 76:
-                {
+                case 76: {
                     if (this.session.myCharz().mapTemplateId == 166) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_MAI1;
@@ -1455,8 +1403,7 @@ public class MenuBoard {
                     break;
                 }
                 //Fu
-                case 77:
-                {
+                case 77: {
                     if (this.session.myCharz().mapTemplateId == 166) {
                         if (this.session.myCharz().isCallCumber == 2) {
                             this.session.myCharz().resetMenu();
@@ -1474,8 +1421,7 @@ public class MenuBoard {
                     break;
                 }
                 //Test NPC
-                case 99:
-                {
+                case 99: {
                     if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
                         this.chat = "Xin chào bạn! Tôi là NPC test để kiểm tra tính năng mới.";
@@ -1484,16 +1430,15 @@ public class MenuBoard {
                     }
                     break;
                 }
-                default:
-                {
-                    
+                default: {
+
                     break;
                 }
             }
             this.session.service.meLoadPoint();
         }
     }
-    
+
     public void openUIConfirm(int npcId, int select) {
         MenuInfo info;
         try {
@@ -1504,7 +1449,7 @@ public class MenuBoard {
         } catch (Exception e) {
             return;
         }
-        switch(this.typeInfo) {
+        switch (this.typeInfo) {
             case 1: {
                 this.typeInfo = 10;
                 this.session.service.combine(mResources.SRC_PHALEHOA_3, mResources.SRC_PHALEHOA_4, -1);
@@ -5230,22 +5175,13 @@ public class MenuBoard {
                         )) {
                             short templateId = (short) (
                                     //Trai dat
-                                    super.isHaveItem(555) ? 0 :
-                                            super.isHaveItem(556) ? 6 :
-                                                    super.isHaveItem(562) ? 21 :
-                                                            super.isHaveItem(563) ? 27 :
-                                                                    //namek
-                                                                    super.isHaveItem(557) ? 1 :
-                                                                            super.isHaveItem(558) ? 7 :
-                                                                                    super.isHaveItem(564) ? 22 :
-                                                                                            super.isHaveItem(565) ? 28 :
-                                                                                                    //Xayda
-                                                                                                    super.isHaveItem(559) ? 2 :
-                                                                                                            super.isHaveItem(560) ? 8 :
-                                                                                                                    super.isHaveItem(566) ? 23 :
-                                                                                                                            super.isHaveItem(567) ? 29 :
+                                    super.isHaveItem(555) ? 0 : super.isHaveItem(556) ? 6 : super.isHaveItem(562) ? 21 : super.isHaveItem(563) ? 27 :
+                                            //namek
+                                            super.isHaveItem(557) ? 1 : super.isHaveItem(558) ? 7 : super.isHaveItem(564) ? 22 : super.isHaveItem(565) ? 28 :
+                                                    //Xayda
+                                                    super.isHaveItem(559) ? 2 : super.isHaveItem(560) ? 8 : super.isHaveItem(566) ? 23 : super.isHaveItem(567) ? 29 :
 
-                                                                                                                                    super.isHaveItem(561) ? 12 : -1);
+                                                            super.isHaveItem(561) ? 12 : -1);
                             if (super.type == 0) {
                                 super.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.MAKE_SKH, ItemTemplate.get(templateId).name));
                             } else {
@@ -5695,8 +5631,7 @@ public class MenuBoard {
                 break;
             }
             //Event Tết Nguyên Đán
-            case 501:
-            {
+            case 501: {
                 this.session.myCharz().resetMenu();
                 this.chat = "🎆 Chúc mừng năm mới! Hãy tham gia các hoạt động Tết để nhận phần thưởng!";
                 this.arrMenu.add(new MenuInfo("Nhận Lì Xì (1.000.000 vàng)", 503));
@@ -5730,8 +5665,7 @@ public class MenuBoard {
                 break;
             }
             //Event Noel
-            case 502:
-            {
+            case 502: {
                 this.session.myCharz().resetMenu();
                 this.chat = "🎄 Giáng Sinh vui vẻ! Nhận quà từ Ông Già Noel!";
                 this.arrMenu.add(new MenuInfo("Nhận Quà Noel (50 ngọc)", 505));
@@ -5764,8 +5698,7 @@ public class MenuBoard {
                 }
                 break;
             }
-            case 416:
-            {
+            case 416: {
                 this.session.service.combine(mResources.SRC_NANGCAP_15, mResources.SRC_NANGCAP_16, -1);
                 this.session.myCharz().nangcap = new NangCap(this.session) {
                     @Override
@@ -5783,20 +5716,24 @@ public class MenuBoard {
                                 super.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.MAKE_BOOK3, book.template.name));
                             } else {
                                 ArrayList<Integer> myList = new ArrayList<>();
-                                myList.add(50);myList.add(77);myList.add(103);
-                                myList.add(108);myList.add(97);myList.add(94);
-                                myList.add(14);myList.add(214);myList.add(80);
-                                myList.add(81);myList.add(175);myList.add(5);
+                                myList.add(50);
+                                myList.add(77);
+                                myList.add(103);
+                                myList.add(108);
+                                myList.add(97);
+                                myList.add(94);
+                                myList.add(14);
+                                myList.add(214);
+                                myList.add(80);
+                                myList.add(81);
+                                myList.add(175);
+                                myList.add(5);
                                 for (int i = 0; i < book.options.size(); i++) {
                                     if (book.options.get(i).optionTemplate.id == 217) {
                                         int optionId = myList.remove(Util.gI().nextInt(myList.size()));
                                         if (optionId == 5) {
                                             book.options.set(i, new ItemOption(optionId, Util.gI().nextInt(1, 5)));
-                                        } else if (
-                                                optionId == 50 || optionId == 77 || optionId == 103 ||
-                                                optionId == 108 || optionId == 97 || optionId == 94 ||
-                                                optionId == 14 || optionId == 214 || optionId == 80 ||
-                                                optionId == 81 || optionId == 175) {
+                                        } else if (optionId == 50 || optionId == 77 || optionId == 103 || optionId == 108 || optionId == 97 || optionId == 94 || optionId == 14 || optionId == 214 || optionId == 80 || optionId == 81 || optionId == 175) {
                                             book.options.set(i, new ItemOption(optionId, Util.gI().nextInt(1, 10)));
                                         }
                                     }
@@ -5813,8 +5750,7 @@ public class MenuBoard {
                 };
                 break;
             }
-            case 417:
-            {
+            case 417: {
                 this.session.service.combine(mResources.SRC_NANGCAP_17, mResources.SRC_NANGCAP_18, -1);
                 this.session.myCharz().nangcap = new NangCap(this.session) {
                     @Override
@@ -5832,12 +5768,8 @@ public class MenuBoard {
                             } else {
                                 for (int i = 0; i < book.options.size(); i++) {
                                     int optionId = book.options.get(i).optionTemplate.id;
-                                     if (
-                                        optionId == 50 || optionId == 77 || optionId == 103 ||
-                                        optionId == 108 || optionId == 97 || optionId == 94 ||
-                                        optionId == 14 || optionId == 214 || optionId == 80 ||
-                                        optionId == 81 || optionId == 175 || optionId == 5) {
-                                         book.options.set(i, new ItemOption(217, 0));
+                                    if (optionId == 50 || optionId == 77 || optionId == 103 || optionId == 108 || optionId == 97 || optionId == 94 || optionId == 14 || optionId == 214 || optionId == 80 || optionId == 81 || optionId == 175 || optionId == 5) {
+                                        book.options.set(i, new ItemOption(217, 0));
                                     }
                                 }
                                 book.getOption(219).param--;
@@ -5853,8 +5785,7 @@ public class MenuBoard {
                 };
                 break;
             }
-            case 418:
-            {
+            case 418: {
                 this.session.service.combine(mResources.SRC_NANGCAP_19, mResources.SRC_NANGCAP_20, -1);
                 this.session.myCharz().nangcap = new NangCap(this.session) {
                     @Override
@@ -5895,8 +5826,7 @@ public class MenuBoard {
                 };
                 break;
             }
-            case 419:
-            {
+            case 419: {
                 this.session.service.combine(mResources.SRC_NANGCAP_21, mResources.SRC_NANGCAP_22, -1);
                 this.session.myCharz().nangcap = new NangCap(this.session) {
                     @Override
@@ -5928,8 +5858,7 @@ public class MenuBoard {
                 };
                 break;
             }
-            case 420:
-            {
+            case 420: {
                 this.session.service.combine(mResources.SRC_NANGCAP_23, mResources.SRC_NANGCAP_24, -1);
                 this.session.myCharz().nangcap = new NangCap(this.session) {
                     @Override
@@ -5946,7 +5875,7 @@ public class MenuBoard {
                                 if (super.session.myCharz().xu >= 10000000) {
                                     super.session.myCharz().useItemBag(book.indexUI, 1);
                                     super.session.myCharz().updateXu(-10000000, 2);
-                                    
+
                                     this.session.service.setCombineEff(2, -1, -1, npcId);
                                     super.session.service.Bag(super.session.myCharz().arrItemBag);
                                     super.session.service.setCombineEff(super.myItem, npcId);

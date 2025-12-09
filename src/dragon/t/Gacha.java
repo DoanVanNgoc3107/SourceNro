@@ -1,7 +1,5 @@
 package dragon.t;
 
-import java.util.ArrayList;
-
 public class Gacha {
     
     public static Gacha instance;

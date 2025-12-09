@@ -53,7 +53,7 @@ public class Util {
             try {
                 return dateFormat.parse(dateString);
             } catch (ParseException e) {
-                e.printStackTrace();
+                System.out.println("Error parse date: " + dateString);
             }
             return null;
         }
@@ -197,7 +197,7 @@ public class Util {
     }
     
     public String getFormatTime3(long l) {
-        String str = new String();
+        String str = "";
         int day = (int) (l / (1000 * 60 * 60 * 24));
         int hour = (int) ((l / (1000 * 60 * 60)) - ((l / (1000 * 60 * 60 * 24)) * 24));
         int muilte = (int) ((l / (1000 * 60)) - ((l / (1000 * 60 * 60)) * 60));
@@ -222,7 +222,7 @@ public class Util {
     }
     
     public String getFormatTime4(long l) {
-        String str = new String();
+        String str = "";
         int day = (int) (l / (1000 * 60 * 60 * 24));
         int hour = (int) ((l / (1000 * 60 * 60)) - ((l / (1000 * 60 * 60 * 24)) * 24));
         int muilte = (int) ((l / (1000 * 60)) - ((l / (1000 * 60 * 60)) * 60));
@@ -302,7 +302,7 @@ public class Util {
             if (number < 0L) {
                 flag = true;
                 number = -number;
-                text = new String() + number;
+                text = "" + number;
             }
             int length;
             if (number >= 1000000000L) {
@@ -332,6 +332,7 @@ public class Util {
                 text = text.substring(0, length) + "," + text.substring(length, length + 2) + text2;
             }
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         if (flag) {
             return "-" + text;
@@ -340,7 +341,7 @@ public class Util {
     }
     
     public String nextString(String text, int num) {
-        String str = new String();
+        String str = "";
         for (int i = 0; i < num; i++) {
             int index = Util.gI().nextInt(text.length());
             str += text.substring(index, index + 1);
@@ -349,7 +350,7 @@ public class Util {
     }
     
     public long getTimeUCT() {
-        return System.currentTimeMillis() + (3600000 * UTC);
+        return System.currentTimeMillis() + (3600000L * UTC);
     }
     
     public String convertTime(long time) {
@@ -381,6 +382,7 @@ public class Util {
                 text = text.substring(0, length) + "," + text.substring(length, length + 2) + text2;
             }
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         return text;
     }

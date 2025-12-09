@@ -39,7 +39,6 @@ import dragon.t.PlayerData;
 import dragon.t.RadaTemplate;
 import dragon.t.Rank;
 import dragon.t.SaleItemNew;
-import dragon.t.Shop;
 import dragon.t.Skill;
 import dragon.t.SkillPaint;
 import dragon.t.SmallImage;
@@ -1567,7 +1566,7 @@ public class Service {
         }
     }
     
-    public void Box(Item array[]) {
+    public void Box(Item[] array) {
         Message msg = null;
         try {
             msg = new Message(-35);

@@ -5,9 +5,9 @@ package dragon.server;
  * @author Admin
  */
 public class mResources {
-    
+
     public static final String EMPTY = "";
-    
+
     public static final String PATH_IMG = "res/x%d/%s.png";
     public static final String LOGIN_USER_PASS = "Thông tin tài khoản hoặc mật khẩu không chính xác";
     public static final String QUERY_SELECT_USER_FORMAT = "SELECT * FROM `users` WHERE (LOWER(`username`) LIKE LOWER('%s') AND `password` LIKE '%s') LIMIT 1;";
@@ -147,7 +147,7 @@ public class mResources {
     public static final String OK = "OK";
     public static final String UP_MAGIC_TREE_NOT_COIN = "Bạn không đủ vàng để nâng cấp, còn thiếu %d vàng nữa";
     public static final String ITEM_USE_NOT_POWER_TB = "Cần %s sức mạnh nữa mới được trang bị";
-    public static final String SAP_CAP_NHAT = "[%d]Chức năng bảo trì...";
+    public static final String SAP_CAP_NHAT = "[%d]Chức năng hiện tại đang bảo trì...";
     public static final String ITEM_MAP_NOT_ME = "Không thể nhặt vật phẩm của người khác";
     public static final String SRC_NANGCAP_1 = "Vào hành trang\nChọn 10 mảnh đá vụn\nChọn 1 bình nước phép\nSau đó chọn 'Làm phép'";
     public static final String SRC_NANGCAP_2 = "Ta sẽ phù phép\ncho 10 mảnh đá vụn\ntrở thành 1 đá nâng cấp";
@@ -283,7 +283,7 @@ public class mResources {
     public static final String CLAN_FULL_MEMBER = "Bang hội đã đủ thành viên";
     public static final String CLAN_HAVE_INVATE = "Bạn đã gửi yêu cầu gia nhập bang hội rồi";
     public static final String PLAYER_INVATE_OFLINE = "Người chơi đã offline";
-    public static final String PLAYER_INVATE_ISJOIN  = "Người chơi đã tham gia bang hội khác";
+    public static final String PLAYER_INVATE_ISJOIN = "Người chơi đã tham gia bang hội khác";
     public static final String PLAYER_EXIT_CLAN = "%s đã rời bang.";
     public static final String PLAYER_KICK_CLAN = "Đuổi %s ra khỏi bang.";
     public static final String PLAYER_JOIN_CLAN = "Chấp nhận %s vào bang.";
@@ -594,7 +594,7 @@ public class mResources {
     public static final String FINNISH_TASK1_11 = "Con là ai tìm ta có việc gì?\nThì ra con là %s cháu của ông Gôhan, muốn ta dạy võ công cho con?\nMơ đi con\nTặng ta truyện Đôrêmon hả, thôi cũng được đi nhưng con phải chịu khó nha\nĐây là chiêu thức độc quyền của ta, con cầm lấy cuốn bí kíp này mà học\nGiờ con hãy tham gia bang hội đi, có đồng đội học mau thành tài hơn";
     public static final String FINNISH_TASK2_11 = "Con là ai tìm ta có việc gì?\nThì ra con là %s cháu của ông Moori, muốn ta dạy võ công cho con?\nMơ đi con\nTặng ta truyện Đôrêmon hả, thôi cũng được đi nhưng con phải chịu khó nha\nĐây là chiêu thức độc quyền của ta, con cầm lấy cuốn bí kíp này mà học\nGiờ con hãy tham gia bang hội đi, có đồng đội học mau thành tài hơn";
     public static final String FINNISH_TASK3_11 = "Con là ai tìm ta có việc gì?\nThì ra con là %s cháu của ông Paragus, muốn ta dạy võ công cho con?\nMơ đi con\nTặng ta truyện Đôrêmon hả, thôi cũng được đi nhưng con phải chịu khó nha\nĐây là chiêu thức độc quyền của ta, con cầm lấy cuốn bí kíp này mà học\nGiờ con hãy tham gia bang hội đi, có đồng đội học mau thành tài hơn";
-    public static final String NOT_SALE  = "Không thể bán vật phẩm này";
+    public static final String NOT_SALE = "Không thể bán vật phẩm này";
     public static final String FINNISH_TASK1_12 = "Tốt lắm, bang của con đã đủ 5 thành viên, ta sẽ giao cho bang con một nhiệm vụ thử thách\nCon hãy cùng các thành viên trong bang tiêu diệt cho ta 30 con Heo rừng, 30 con Heo da xanh và 30 con Heo Xayda\nTa sẽ có phần thưởng cho cả bang\nNhiệm vụ này sẽ rất khó khăn, ta cho con cuốn sách học chiêu Thái Dương Hạ San\nCon hãy chăm chỉ tập luyện, nó sẽ giúp sức cho con rất nhiều đấy";
     public static final String FINNISH_TASK2_12 = "Tốt lắm, bang của con đã đủ 5 thành viên, ta sẽ giao cho bang con một nhiệm vụ thử thách\nCon hãy cùng các thành viên trong bang tiêu diệt cho ta 30 con Heo rừng, 30 con Heo da xanh và 30 con Heo Xayda\nTa sẽ có phần thưởng cho cả bang\nNhiệm vụ này sẽ rất khó khăn, ta cho con cuốn sách học chiêu Trị Thương\nCon hãy chăm chỉ tập luyện, nó sẽ giúp sức cho con rất nhiều đấy";;
     public static final String FINNISH_TASK3_12 = "Tốt lắm, bang của con đã đủ 5 thành viên, ta sẽ giao cho bang con một nhiệm vụ thử thách\nCon hãy cùng các thành viên trong bang tiêu diệt cho ta 30 con Heo rừng, 30 con Heo da xanh và 30 con Heo Xayda\nTa sẽ có phần thưởng cho cả bang\nNhiệm vụ này sẽ rất khó khăn, ta cho con cuốn sách học chiêu Tái tạo Xayda\nCon hãy chăm chỉ tập luyện, nó sẽ giúp sức cho con rất nhiều đấy";
@@ -623,7 +623,7 @@ public class mResources {
     public static final String GO_MAP_DAU_DINH = "Đến chỗ\nMập Đầu Đinh\n5 ngọc";
     public static final String GO_RAMBO = "Đến chỗ\nRambo\n5 ngọc";
     public static final String FINNISH_TASK_23 = "Con giỏi lắm, bọn Fide đã biết sức mạnh thực sự của chúng ta";
-    public static final String YOUR_BIEN  = "Bạn đã bị biến thành %s";
+    public static final String YOUR_BIEN = "Bạn đã bị biến thành %s";
     public static final String CNAME_CLONE = "!%s";
     public static final String YOUR_NOT_TO = "Bạn chưa thể đến khu vực này";
     public static final String FINNISH_TASK_24 = "Con giỏi lắm, bọn Fide đã biết sức mạnh thực sự của chúng ta";
@@ -1383,7 +1383,7 @@ public class mResources {
     public static final String MAKE_SKH = "text0 %s \n|0|Ngẫu nhiên 1 trong 3 set kích hoạt ;:xu0 200000000;:menu1 Đồng ý:=385;:menu0 Từ chối:=0;:cbag0 1";
     public static final String SHOPEXPR = "Cửa hàng\nHạn sử dụng";
     public static final String TASK_VADOS = "Ta là Vados được Đại thiên sứ cử xuống trái đất thu thập trang bị Thần linh bị kẻ xấu đánh cắp. Ta sẽ ban cho ngươi trang bị kích hoạt nếu ngươi giao cho ta trang bị Thần linh.";
-    public static final String CUAHANG_DACBIET= "Cửa hàng\nĐặc Biệt";
+    public static final String CUAHANG_DACBIET = "Cửa hàng\nĐặc Biệt";
     public static final String SHOPPING_HEAVEN = "Thiên đường mua sắm";
     public static final String HOME_BY_BILL = "Nơi ở của Thần Hủy Diệt";
     public static final String NE_DON = "Xí hụt";
@@ -1499,8 +1499,5 @@ public class mResources {
     public static final String DECAY_BOOK_FAILD = "Cần Sách Tuyệt Kỹ để phân rã.";
     public static final String OPEN_COIN_FULL = "Đã đạt sức chứa tối đa";
     public static final String OPEN_SUCCESS = "Chúc mừng bạn đã mở thành viên";
-    
-    
-    
-    
+
 }

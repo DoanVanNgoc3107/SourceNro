@@ -1,9 +1,6 @@
 package dragon.t;
 
-import dragon.server.Dragon;
-import dragon.server.Server;
-import dragon.server.Session_ME;
-import dragon.server.mResources;
+import dragon.server.*;
 
 import java.util.ArrayList;
 
@@ -138,7 +135,9 @@ public class ZoneMap {
                                 charz.session.service.addEffectChar(player1.charID, player1.aEffChar.get(i).effId, player1.aEffChar.get(i).layer, player1.aEffChar.get(i).loop, player1.aEffChar.get(i).tLoop, player1.aEffChar.get(i).isStand);
                             }
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                        System.out.println("Err add eff char finish map");
+                    }
                 }
             }
         }
@@ -210,30 +209,27 @@ public class ZoneMap {
     
     public void loadMapInfo(Char charz, int mapTemplateId) {
         //MapInfo
-        ArrayList<Waypoint> wps = new ArrayList<>();
-        for (int i1 = 0; i1 < this.waypoints.size(); i1++) {
-            wps.add(this.waypoints.get(i1));
-        }
+        ArrayList<Waypoint> wps = new ArrayList<>(this.waypoints);
         ArrayList<Mob> ms = new ArrayList<>();
         synchronized(this.mobs) {
-            for (int i2 = 0; i2 < this.mobs.size(); i2++) {
-                if (!this.mobs.get(i2).isMobMe) {
-                    ms.add(this.mobs.get(i2));
+            for (Mob mob : this.mobs) {
+                if (!mob.isMobMe) {
+                    ms.add(mob);
                 }
             }
         }
         ArrayList<Npc> ns = new ArrayList<>();
         synchronized(this.npcs) {
-            for (int i3 = 0; i3 < this.npcs.size(); i3++) {
-                if ((this.npcs.get(i3).template.npcTemplateId != 71 || (charz.ctaskId == 34 && charz.ctaskIndex == 5))) {
-                    ns.add(this.npcs.get(i3));
+            for (Npc npc : this.npcs) {
+                if ((npc.template.npcTemplateId != 71 || (charz.ctaskId == 34 && charz.ctaskIndex == 5))) {
+                    ns.add(npc);
                 }
             }
         }
         ArrayList<ItemMap> ims = new ArrayList<>();
         synchronized(this.itemMaps) {
-            for (int i4 = 0; i4 < this.itemMaps.size(); i4++) {
-                ims.add(itemMaps.get(i4));
+            for (ItemMap itemMap : this.itemMaps) {
+                ims.add(itemMap);
             }
         }
         charz.session.service.mapTemplate(this, this.mapTemplate, wps, ms, ns, ims, 0);
@@ -243,24 +239,21 @@ public class ZoneMap {
         player.session.service.mapClear();
         player.session.service.tileSet(this.mapTemplate.mapTemplateId);
         //MapInfo
-        ArrayList<Waypoint> wps = new ArrayList<>();
-        for (int i1 = 0; i1 < this.waypoints.size(); i1++) {
-            wps.add(this.waypoints.get(i1));
-        }
+        ArrayList<Waypoint> wps = new ArrayList<>(this.waypoints);
         ArrayList<Mob> ms = new ArrayList<>();
         synchronized(this.mobs) {
-            for (int i2 = 0; i2 < this.mobs.size(); i2++) {
-                if (!this.mobs.get(i2).isMobMe) {
-                    ms.add(this.mobs.get(i2));
+            for (Mob mob : this.mobs) {
+                if (!mob.isMobMe) {
+                    ms.add(mob);
                 }
             }
         }
         ArrayList<Npc> ns = new ArrayList<>();
         synchronized(this.npcs) {
-            for (int i3 = 0; i3 < this.npcs.size(); i3++) {
-                if ((this.npcs.get(i3).template.npcTemplateId != 71 || (player.ctaskId == 34 && player.ctaskIndex == 5))) {
-                    if (this.npcs.get(i3).template.npcTemplateId != 74 || player.isFullTBHD) {
-                        ns.add(this.npcs.get(i3));
+            for (Npc npc : this.npcs) {
+                if ((npc.template.npcTemplateId != 71 || (player.ctaskId == 34 && player.ctaskIndex == 5))) {
+                    if (npc.template.npcTemplateId != 74 || player.isFullTBHD) {
+                        ns.add(npc);
                     }
                 }
             }
@@ -1053,7 +1046,7 @@ public class ZoneMap {
         int i;
         synchronized(itemMaps) {
             for (i = 0; i < itemMaps.size(); i++) {
-                if (!itemMaps.get(i).item.isItemBlackBall() || !itemMaps.get(i).item.isItemNamekBall() && itemMaps.get(i).item.template.type != 22) {
+                if (!itemMaps.get(i).item.isItemBlackBall() || !itemMaps.get(i).item.isItemNameBall() && itemMaps.get(i).item.template.type != 22) {
                     im = itemMaps.get(i);
                     break;
                 }
@@ -1139,7 +1132,7 @@ public class ZoneMap {
                                 player.addInfo1(mResources.NOT_JAR_MAGIC);
                             } else  if (itemMap.item.template.id == 362) {
                                 player.addInfo1(mResources.FOSSIL);
-                            } else if (itemMap.item.isItemNamekBall() && player.itemNamekBall != null) {
+                            } else if (itemMap.item.isItemNameBall() && player.itemNamekBall != null) {
                                 player.addInfo1(mResources.NGOC_BU);
                             } else if (itemMap.item.template.id == 638 && player.isHaveItem(638)) {
                                 player.addInfo1(mResources.HAVE_COMMESON);
@@ -1198,7 +1191,7 @@ public class ZoneMap {
                                                 player.addDuaHau(50, new int[]{4664}, 0, 2592000, 4664);
                                             } else if (itemMap.item.isItemBlackBall()) {
                                                 player.myCharz().itemBlackBall = itemMap.item;
-                                            } else if (itemMap.item.isItemNamekBall()) {
+                                            } else if (itemMap.item.isItemNameBall()) {
                                                 player.myCharz().itemNamekBall = itemMap.item;
                                                 BallRada ball = BallRada.getById(it.template.id);
                                                 if (ball != null) {
@@ -1254,7 +1247,7 @@ public class ZoneMap {
                     this.updateBlackFlag(player);
                     player.timeBlackBall = BlackBall.gI().timeKeepBlackBall;
                 }
-                if (it != null && it.isItemNamekBall()) {
+                if (it != null && it.isItemNameBall()) {
                     player.updateAll();
                     player.timeNextMapNamek = System.currentTimeMillis() + 45000;
                     player.zoneMap.getBag(player);

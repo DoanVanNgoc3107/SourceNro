@@ -9,7 +9,7 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
 /**
- *
+ * File này chứa các thông tin về item trong game
  * @author Admin
  */
 public class Item {
@@ -18,11 +18,13 @@ public class Item {
         
     }
     
+    // Hàm khởi tạo item từ item template id
     public Item(int itemTemplateId) {
         this.template = ItemTemplate.get((short) (this.itemId = itemTemplateId));
         this.quantity = 1;
     }
     
+    // Khởi tạo item với tham số đầy đủ
     public Item(int itemTemplateId, boolean isLock, int quantity, ArrayList<ItemOption> options, String info, String content, String reason) {
         this.template = ItemTemplate.get((short) (this.itemId = itemTemplateId));
         this.isLock = isLock;
@@ -30,7 +32,7 @@ public class Item {
         if (options != null) {
             this.options = options;
         } else {
-            this.options = new ArrayList();
+            this.options = new ArrayList<>();
         }
         this.info = info;
         this.content = content;
@@ -41,7 +43,7 @@ public class Item {
         this.template = ItemTemplate.get((short) (this.itemId = itemTemplateId));
         this.isLock = isLock;
         this.quantity = quantity;
-        this.options = new ArrayList();
+        this.options = new ArrayList<>();
         if (arrOptionId != null && arrOptionParam != null && arrOptionId.length == arrOptionParam.length) {
             int i;
             for (i = 0; i < arrOptionId.length; i++) {
@@ -75,12 +77,13 @@ public class Item {
         }
     }
     
+    // Hàm này sử dụng để clone một item - tạo một item mới giống hệt item hiện tại
     @Override
     public Item clone() {
         Item item = new Item();
         item.template = this.template;
         if (this.options != null) {
-            item.options = new ArrayList();
+            item.options = new ArrayList<>();
             for (int i = 0; i < this.options.size(); i++) {
                 ItemOption itemOption = new ItemOption();
                 itemOption.optionTemplate = this.options.get(i).optionTemplate;
@@ -296,6 +299,7 @@ public class Item {
     public static final byte UI_UPGRADE_GOLD = 31;
     public static final byte UI_FASHION = 32;
     public static final byte UI_CONVERT = 33;
+    
     public ItemTemplate template;
     public ArrayList<ItemOption> options;
     public int itemId;
@@ -480,9 +484,6 @@ public class Item {
         if (this.template.id == 1194) {
             return 30000;
         }
-        if (this.template.id >= 1177 && this.template.id <= 1181) {
-            return 30000;
-        }
         if (this.template.id == 700) {
             return 30000;
         }
@@ -534,12 +535,12 @@ public class Item {
     }
     
     public String optionCombine(int star) {
-        String str = mResources.EMPTY;
+        StringBuilder str = new StringBuilder(mResources.EMPTY);
         int i;
         for (i = 0; i < this.options.size(); i++) {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
-                str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+option.param));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param)));
             }
         }
         return str + String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[107].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+star));
@@ -576,7 +577,7 @@ public class Item {
     }
     
     public String optionCombine(Item itEp) {
-        String str = mResources.EMPTY;
+        StringBuilder str = new StringBuilder(mResources.EMPTY);
         int i;
         boolean isUp = false;
         //up
@@ -584,98 +585,101 @@ public class Item {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
                 if (itEp.template.id == 14 && option.optionTemplate.id == 108) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 2)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 2))));
                     isUp = true;
                 } else if (itEp.template.id == 15 && option.optionTemplate.id == 94) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 2)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 2))));
                     isUp = true;
                 } else if (itEp.template.id == 16 && option.optionTemplate.id == 147) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 3)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
                     isUp = true;
                 } else if (itEp.template.id == 17 && option.optionTemplate.id == 81) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    isUp = true;
+                } else if (itEp.template.id == 12 && option.optionTemplate.id == 82) {
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 18 && option.optionTemplate.id == 80) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 19 && option.optionTemplate.id == 103) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 20 && option.optionTemplate.id == 77) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 441 && option.optionTemplate.id == 95) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 442 && option.optionTemplate.id == 96) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 443 && option.optionTemplate.id == 97) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 444 && option.optionTemplate.id == 98) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 3)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
                     isUp = true;
                 } else if (itEp.template.id == 445 && option.optionTemplate.id == 99) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 3)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
                     isUp = true;
                 } else if (itEp.template.id == 446 && option.optionTemplate.id == 100) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 447 && option.optionTemplate.id == 101) {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+(option.param + 5)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else {
-                    str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+option.param));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param)));
                 }
             }
         }
         //add
         if (!isUp) {
             if (itEp.template.id == 14) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[108].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+2));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[108].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 2)));
             }
             if (itEp.template.id == 15) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[94].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+2));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[94].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 2)));
             }
             if (itEp.template.id == 16) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[147].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+3));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[147].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
             }
             if (itEp.template.id == 17) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[81].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[81].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 18) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[80].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[80].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 19) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[103].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[103].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 20) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[77].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[77].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 441) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[95].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[95].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 442) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[96].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[96].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 443) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[97].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[97].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 444) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[98].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+3));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[98].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
             }
             if (itEp.template.id == 445) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[99].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+3));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[99].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
             }
             if (itEp.template.id == 446) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[100].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[100].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 447) {
-                str += String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[101].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+5));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[101].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
         }
-        return str;
+        return str.toString();
     }
     
     public String optionCombine() {
@@ -858,7 +862,7 @@ public class Item {
         return (this.template.id >= 2010 && this.template.id <= 2015);
     }
     
-    public boolean isItemNamekBall() {
+    public boolean isItemNameBall() {
         return (this.template.id >= 353 && this.template.id <= 359);
     }
     
@@ -890,12 +894,12 @@ public class Item {
     }
     
     public String strOption() {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < this.options.size(); i++) {
-            if (i > 0) str += ", ";
-            str += this.options.get(i).optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + this.options.get(i).param);
+            if (i > 0) str.append(", ");
+            str.append(this.options.get(i).optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + this.options.get(i).param));
         }
-        return str;
+        return str.toString();
     }
     
     public boolean isItemPractice() {

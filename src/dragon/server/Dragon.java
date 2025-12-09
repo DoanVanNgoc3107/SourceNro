@@ -25,7 +25,7 @@ import java.io.IOException;
  * @author Admin
  */
 public class Dragon {
-    
+
     protected static byte vData = 27;
     protected static byte vMap = 21;
     protected static byte vSkill = 14;
@@ -45,10 +45,10 @@ public class Dragon {
     public static boolean isEvent_DIET_SAU_BO_2023 = false;
     public static boolean isEvent_VIP = false;
     public static boolean isEvent_VULAN2023 = false;
-    
+
     public static void main(String[] args) {
         Util.gI().setDebug(false);
-        System.out.println("DEBUG="+ Util.gI().debug);
+        System.out.println("DEBUG=" + Util.gI().debug);
         ServerActivity.gI().Activity();
         GameData.init();
         ImageSource.initImage();
@@ -61,7 +61,7 @@ public class Dragon {
         BgItem.init();
         GameInfo.init();
         Server.gI().initEvent();
-//        Server.gI().initAnTrom();
+       Server.gI().initAnTrom();
         Server.gI().initNpc();
         NamekBall.gI().initNamekBall();
         Server.gI().openPrize();
@@ -69,10 +69,10 @@ public class Dragon {
         LuckyRoundNew.init();
         LuyenTap.init();
         Server.gI().initBroly();
-//        Server.gI().initKuku();
-//        Server.gI().initMap_Dau_Dinh();
-//        Server.gI().initRambo();
-//        Server.gI().initBotTop();
+        Server.gI().initKuku();
+        Server.gI().initMap_Dau_Dinh();
+        Server.gI().initRambo();
+        Server.gI().initBotTop();
         Server.gI().initMabu();
         Server.start(14445);
     }
@@ -86,7 +86,7 @@ public class Dragon {
             openFileInput.close();
             return data;
         } catch (IOException e) {
-            System.out.println("Path "+url);
+            System.out.println("Path " + url);
 //            e.printStackTrace();
         }
         return null;
@@ -96,19 +96,20 @@ public class Dragon {
         FileOutputStream fos;
         try {
             File f = new File(url);
-            if(f.exists())
+            if (f.exists()) {
                 f.delete();
+            }
             f.createNewFile();
             fos = new FileOutputStream(url);
             fos.write(ab);
             fos.flush();
             fos.close();
-        } catch(IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+//            e.printStackTrace();
         }
     }
-    
-    protected static void writeByteArray(Message msg,byte[] ab) {
+
+    protected static void writeByteArray(Message msg, byte[] ab) {
         try {
             msg.writer().writeInt(ab.length);
             msg.writer().write(ab);

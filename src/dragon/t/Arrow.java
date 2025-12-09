@@ -7,7 +7,7 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
 /**
- *
+ * File này dùng để lưu thông tin mũi tên trong game
  * @author TGDD
  */
 public class Arrow {

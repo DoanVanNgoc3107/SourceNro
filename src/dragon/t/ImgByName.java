@@ -3,13 +3,10 @@ package dragon.t;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
+ * File này chứa các nguồn ảnh theo tên trong game
  * @author TGDD
  */
 public class ImgByName {
@@ -24,7 +21,7 @@ public class ImgByName {
         this.data = data;
     }
     
-    public static HashMap<Byte, HashMap<String, ImgByName>> imgByNames = new HashMap();
+    public static HashMap<Byte, HashMap<String, ImgByName>> imgByNames = new HashMap<>();
     
     public static void initImgByName() {
         System.out.println("Load ImgByName");
@@ -42,10 +39,11 @@ public class ImgByName {
                 int nFrame = Integer.parseInt(fileName.substring(num + 1, fileName.length()).replace(".png", ""));
                 
                 try {
-                    FileInputStream fileInput = new FileInputStream(files[i]);
-                    byte array[] = new byte[fileInput.available()];
-                    fileInput.read(array);
-                    ImgByName.imgByNames.get(x).put(name, new ImgByName(name, nFrame, array));
+                    try (FileInputStream fileInput = new FileInputStream(files[i])) {
+                        byte array[] = new byte[fileInput.available()];
+                        fileInput.read(array);
+                        ImgByName.imgByNames.get(x).put(name, new ImgByName(name, nFrame, array));
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

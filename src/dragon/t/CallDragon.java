@@ -10,76 +10,61 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class CallDragon {
-    
+
     private static CallDragon instance;
-    
+
     public static CallDragon gI() {
         if (instance == null) {
             instance = new CallDragon();
         }
         return instance;
     }
-    
+
     public int mapId;
-   
+
     public int bgId;
-    
+
     public int zoneId;
-    
+
     public int charId;
-    
+
     public int playerId;
-    
+
     public int rx;
-    
+
     public int ry;
-    
+
     public boolean isRongThanXuatHien;
-    
+
     public boolean isRongNamek;
-    
+
     public int timeXuatHien;
-    
+
     public int select;
-    
+
     public int status;
-    
+
     public int timeWait;
-    
+
     public static class MenuR extends MenuInfo {
-        
+
         public int typeM;
         public int index;
-        
+
         public MenuR(String str, int type, int index, int typeM) {
             super(str, type);
             this.index = index;
             this.typeM = typeM;
         }
-        
+
     }
-    
+
     public final Object LOCK = new Object();
-    
-    public String[][] arrDieuUocRongThan = new String[][] {
-        {
-            "Đẹp trai nhất\nVũ trụ",
-            "+20 Tr\nSức mạnh và tiềm năng",
-            "Giầu có\n+2 Tỉ Vàng"
-        },
-        {
-            "Thay\nChiêu 2\nĐệ tử"
-        },
-        {
-            "500 hồng ngọc",
-            "2 tỉ\nvàng",
-            "100 Capsule\nBang hội",
-            "+5%\nHP, KI, SĐ\n1 ngày"
-        }
-    };
-    
+
+    public String[][] arrDieuUocRongThan = new String[][]{{"Đẹp trai nhất\nVũ trụ", "+20 Tr\nSức mạnh và tiềm năng", "Giàu có\n+2 Tỉ Vàng"}, {"Thay\nChiêu 2\nĐệ tử"}, {"500 hồng ngọc", "2 tỉ\nvàng", "100 Capsule\nBang hội", "+5%\nHP, KI, SĐ\n1 ngày"}};
+
     public ArrayList<MenuR> menuR = new ArrayList<>();
-    
+
     public void setup(Char charz, ZoneMap zone, int isRongNamek, int status) {
         this.mapId = zone.mapTemplate.mapTemplateId;
         this.bgId = zone.mapTemplate.bgID;
@@ -97,9 +82,9 @@ public class CallDragon {
         //Send
         Server.gI().rongThan(0, this);
         this.openmenuRong(charz);
-//        Server.gI().chatInfo(String.format(mResources.PLAYER_CALL_DRAGON, charz.cName, MapTemplate.arrMapTemplate[mapId].mapName, zoneId));
+        Server.gI().chatInfo(String.format(mResources.PLAYER_CALL_DRAGON, charz.cName, MapTemplate.arrMapTemplate[mapId].mapName, zoneId));
     }
-    
+
     public void openmenuRong(Char charz) {
         if (this.isRongThanXuatHien && this.playerId == charz.playerId) {
             this.menuR.clear();
@@ -120,17 +105,16 @@ public class CallDragon {
             charz.menuBoard.openUIConfirm(5, null, null, 0);
         }
     }
-    
+
     public void finishCall(Char charz) {
         if (this.isRongThanXuatHien && this.playerId == charz.playerId) {
             if (charz.canProceed()) {
                 switch (this.status) {
-                    case 0:
-                    {
+                    case 0: {
                         //Dep Trai Nhat Vu Tru
                         if (this.select == 0) {
                             if (charz.getEmptyBagCount() == 0) {
-                                charz.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BAG_FULL, null, (byte)0);
+                                charz.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BAG_FULL, null, (byte) 0);
                                 return;
                             } else {
                                 Item item = null;
@@ -158,16 +142,15 @@ public class CallDragon {
                         }
                         break;
                     }
-                    case 1:
-                    {
+                    case 1: {
                         //Thay chieu de tu
                         if (this.select == 0 && charz.myPet != null) {
                             if (charz.myPetz().skills.size() > 1) {
                                 charz.myPetz().skills.set(1, Skill.arrSkill[charz.myPetz().arrSkillPet[1][Util.gI().nextInt(charz.myPetz().arrSkillPet[1].length)]].clone());
                             }
-//                            if (charz.myPetz().skills.size() > 2) {
-//                                charz.myPetz().skills.set(2, Skill.arrSkill[charz.myPetz().arrSkillPet[2][Util.gI().nextInt(charz.myPetz().arrSkillPet[2].length)]].clone());
-//                            }
+                            if (charz.myPetz().skills.size() > 2) {
+                                charz.myPetz().skills.set(2, Skill.arrSkill[charz.myPetz().arrSkillPet[2][Util.gI().nextInt(charz.myPetz().arrSkillPet[2].length)]].clone());
+                            }
                             charz.myPetz().updateAll();
                             charz.updateAll();
                             charz.session.service.meLoadPoint();
@@ -176,11 +159,11 @@ public class CallDragon {
                         }
                         break;
                     }
-                    case 2:
-                    {
+                    case 2: {
                         //Lay player trong khu ra
-                        Char array[]; int i;
-                        synchronized(charz.zoneMap.players) {
+                        Char[] array;
+                        int i;
+                        synchronized (charz.zoneMap.players) {
                             array = new Char[charz.zoneMap.players.size()];
                             if (charz.clan != null) {
                                 for (i = 0; i < charz.zoneMap.players.size(); i++) {
@@ -194,14 +177,14 @@ public class CallDragon {
                             }
                         }
 //                        //rong namek x2 tnsm
-//                        if (this.select == 0) {
-//                            for (i = 0; i < array.length; i++) {
-//                                if (array[i] != null && array[i].timeReceiveNamek < System.currentTimeMillis()) {
-//                                    array[i].timeReceiveNamek = System.currentTimeMillis() + 172800000L;
-//                                    array[i].setText(7, mResources.X2_TEXT_RNM, 259200, 2, 0);
-//                                }
-//                            }
-//                        }
+                        if (this.select == 0) {
+                            for (i = 0; i < array.length; i++) {
+                                if (array[i] != null && array[i].timeReceiveNamek < System.currentTimeMillis()) {
+                                    array[i].timeReceiveNamek = System.currentTimeMillis() + 172800000L;
+                                    array[i].setText(7, mResources.X2_TEXT_RNM, 259200, 2, 0);
+                                }
+                            }
+                        }
                         //500 hong ngoc
                         if (this.select == 0) {
                             for (i = 0; i < array.length; i++) {
@@ -248,7 +231,7 @@ public class CallDragon {
             }
         }
     }
-    
+
     public void hideRong() {
         Server.gI().rongThan(1, this);
         this.isRongThanXuatHien = false;
@@ -256,7 +239,7 @@ public class CallDragon {
             NamekBall.gI().hideBall();
         }
     }
-    
+
     public synchronized void dragonControl(Char charz, ZoneMap zoneMap) {
         charz.countCallDragon++;
         if (charz.countCallDragon > 3) {
@@ -283,5 +266,4 @@ public class CallDragon {
             }
         }
     }
-    
 }

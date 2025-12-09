@@ -1,25 +1,6 @@
 package dragon.server;
 
-import dragon.t.Clan;
-import dragon.t.DaiHoi;
-import dragon.t.BWar;
-import dragon.t.BlackBall;
-import dragon.t.Boss;
-import dragon.t.KhiHuyDiet;
-import dragon.t.DoanhTrai;
-import dragon.t.Flag;
-import dragon.t.Instancing;
-import dragon.t.ItemCountAdd;
-import dragon.t.ItemKyGui;
-import dragon.t.Player;
-import dragon.t.Rank;
-import dragon.t.RongVoCuc;
-import dragon.t.SuperRank;
-import dragon.t.Util;
-import dragon.t.ZoneMap;
-import dragon.t.mLog;
-import dragon.t.CallDragon;
-import dragon.t.Char;
+import dragon.t.*;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -31,15 +12,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
-import org.json.simple.parser.ParseException;
-import dragon.t.KhoBau;
-import dragon.t.LuckyRoundNew;
-import dragon.t.LuyenTap;
-import dragon.t.Map;
-import dragon.t.MapTemplate;
-import dragon.t.NamekBall;
-import dragon.t.NewBoss;
-import dragon.t.Npc;
+
 /**
  *
  * @author Admin
@@ -109,11 +82,11 @@ public class Server extends Thread {
     
     public Server() {
         this.connList = new ArrayList<>();
-        this.connUName = new HashMap();
-        this.connUId = new HashMap();
-        this.connCName = new HashMap();
-        this.connCId = new HashMap();
-        this.connPId = new HashMap();
+        this.connUName = new HashMap<>();
+        this.connUId = new HashMap<>();
+        this.connCName = new HashMap<>();
+        this.connCId = new HashMap<>();
+        this.connPId = new HashMap<>();
         destronGas = new ArrayList<>();
         destronGas2 = new ArrayList<>();
         khobau = new ArrayList<>();
@@ -298,9 +271,7 @@ public class Server extends Thread {
     
     public void rongThan(int status, CallDragon dr) {
         synchronized(this.connPId) {
-            Iterator<Integer> itr = this.connPId.keySet().iterator();
-            while (itr.hasNext()) {
-                int key = itr.next();
+            for (int key : this.connPId.keySet()) {
                 if (!this.connPId.get(key).myCharz().isGoiRong) {
                     if (status == 0) {
                         this.connPId.get(key).service.callDragon(dr.mapId, dr.bgId, dr.zoneId, dr.charId, mResources.EMPTY, dr.rx, dr.ry, dr.isRongNamek ? 1 : 0);
@@ -315,9 +286,7 @@ public class Server extends Thread {
     
     public void chatVip(String text) {
         synchronized(this.connPId) {
-            Iterator<Integer> itr = this.connPId.keySet().iterator();
-            while (itr.hasNext()) {
-                int key = itr.next();
+            for (int key : this.connPId.keySet()) {
                 this.connPId.get(key).service.chatVip(text);
             }
         }
@@ -335,9 +304,7 @@ public class Server extends Thread {
     
     public void bigMessage2(int npcId, String text, String p, int avatar, String caption) {
         synchronized(this.connPId) {
-            Iterator<Integer> itr = this.connPId.keySet().iterator();
-            while (itr.hasNext()) {
-                int key = itr.next();
+            for (int key : this.connPId.keySet()) {
                 this.connPId.get(key).service.bigMessage2(text, avatar, p, caption);
             }
         }
@@ -345,9 +312,7 @@ public class Server extends Thread {
     
     public void log(String text) {
         synchronized(this.connPId) {
-            Iterator<Integer> itr = this.connPId.keySet().iterator();
-            while (itr.hasNext()) {
-                int key = itr.next();
+            for (int key : this.connPId.keySet()) {
                 this.connPId.get(key).service.startOKDlg(text);
             }
         }
@@ -355,9 +320,7 @@ public class Server extends Thread {
     
     public void chatInfo(String text) {
         synchronized(this.connPId) {
-            Iterator<Integer> itr = this.connPId.keySet().iterator();
-            while (itr.hasNext()) {
-                int key = itr.next();
+            for (int key : this.connPId.keySet()) {
                 this.connPId.get(key).service.chatTHEGIOI(mResources.EMPTY, text, null, 0);
             }
         }
@@ -365,9 +328,7 @@ public class Server extends Thread {
     
     public void addPhatQua() {
         synchronized(this.connPId) {
-            Iterator<Integer> itr = this.connPId.keySet().iterator();
-            while (itr.hasNext()) {
-                int key = itr.next();
+            for (int key : this.connPId.keySet()) {
                 this.connPId.get(key).myCharz().isPhatQua = true;
             }
         }
@@ -383,43 +344,43 @@ public class Server extends Thread {
                 array[i] = Map.MAPS.get(i);
             }
         }
-        for (int i2 = 0; i2 < array.length; ++i2) {
-            if (array[i2].isMapButcher()) {
-                for (int j = 0; j < array[i2].zones.size(); j++) {
+        for (Map map : array) {
+            if (map.isMapButcher()) {
+                for (int j = 0; j < map.zones.size(); j++) {
                     Player boss;
-                    if (array[i2].templateId == 114) {
-                        boss = Player.addBoss(77, 0, -1, -1, true, 200, 150, array[i2].zones.get(j), -1, -1);
+                    if (map.templateId == 114) {
+                        boss = Player.addBoss(77, 0, -1, -1, true, 200, 150, map.zones.get(j), -1, -1);
                         boss.changeFlag(Flag.get(520).id);
                         boss.setLive(60);
                         boss.setLiveTypePk(10, 5);
                     }
-                    if (array[i2].templateId == 115) {
-                        boss = Player.addBoss(78, 5, -1, -1, true, 200, 150, array[i2].zones.get(j), -1, -1);
+                    if (map.templateId == 115) {
+                        boss = Player.addBoss(78, 5, -1, -1, true, 200, 150, map.zones.get(j), -1, -1);
                         boss.setLive(60);
                         boss.setLiveTypePk(10, 5);
                     }
-                    if (array[i2].templateId == 117) {
-                        boss = Player.addBoss(83, 5, -1, -1, true, 200, 150, array[i2].zones.get(j), -1, -1);
+                    if (map.templateId == 117) {
+                        boss = Player.addBoss(83, 5, -1, -1, true, 200, 150, map.zones.get(j), -1, -1);
                         boss.setLive(60);
                         boss.setLiveTypePk(10, 5);
                     }
-                    if (array[i2].templateId == 118) {
-                        boss = Player.addBoss(79, 5, -1, -1, true, 200, 150, array[i2].zones.get(j), -1, -1);
+                    if (map.templateId == 118) {
+                        boss = Player.addBoss(79, 5, -1, -1, true, 200, 150, map.zones.get(j), -1, -1);
                         boss.setLive(60);
                         boss.setLiveTypePk(10, 5);
                     }
-                    if (array[i2].templateId == 119) {
-                        boss = Player.addBoss(81, 5, -1, -1, true, 200, 150, array[i2].zones.get(j), -1, -1);
+                    if (map.templateId == 119) {
+                        boss = Player.addBoss(81, 5, -1, -1, true, 200, 150, map.zones.get(j), -1, -1);
                         boss.setLive(60);
                         boss.setLiveTypePk(10, 5);
                     }
-                    if (array[i2].templateId == 120) {
-                        Player.addBoss(82, 5, -1, -1, true, 200, 150, array[i2].zones.get(j), -1, -1);
-                        
-                        array[i2].zones.get(j).isEggHatch = true;
-                        array[i2].zones.get(j).xHatch = 360;
-                        array[i2].zones.get(j).yHatch = 336;
-                        array[i2].zones.get(j).setTimeHatch(60);
+                    if (map.templateId == 120) {
+                        Player.addBoss(82, 5, -1, -1, true, 200, 150, map.zones.get(j), -1, -1);
+
+                        map.zones.get(j).isEggHatch = true;
+                        map.zones.get(j).xHatch = 360;
+                        map.zones.get(j).yHatch = 336;
+                        map.zones.get(j).setTimeHatch(60);
                     }
                 }
             }
@@ -455,10 +416,10 @@ public class Server extends Thread {
                 array[i] = Map.MAPS.get(i);
             }
         }
-        for (int i2 = 0; i2 < array.length; ++i2) {
-            if (array[i2].isMapMabu()) {
-                for (int j = 0; j < array[i2].zones.size(); j++) {
-                    Player.addBoss(86, 5, -1, -1, true, 200, 150, array[i2].zones.get(j), -1, -1);
+        for (Map map : array) {
+            if (map.isMapMabu()) {
+                for (int j = 0; j < map.zones.size(); j++) {
+                    Player.addBoss(86, 5, -1, -1, true, 200, 150, map.zones.get(j), -1, -1);
                 }
             }
         }
@@ -472,10 +433,10 @@ public class Server extends Thread {
                 array[i] = Map.MAPS.get(i);
             }
         }
-        for (int i2 = 0; i2 < array.length; ++i2) {
-            if (array[i2].isMapCace23()) {
-                for (int j = 0; j < array[i2].zones.size(); j++) {
-                    Player.addBoss(98, 0, -1, -1, false, 380, 264, array[i2].zones.get(j), -1, -1);
+        for (Map map : array) {
+            if (map.isMapCace23()) {
+                for (int j = 0; j < map.zones.size(); j++) {
+                    Player.addBoss(98, 0, -1, -1, false, 380, 264, map.zones.get(j), -1, -1);
                 }
             }
         }
@@ -508,12 +469,12 @@ public class Server extends Thread {
                 array[i] = Map.MAPS.get(i);
             }
         }
-        for (int i2 = 0; i2 < array.length; ++i2) {
-            if (array[i2].isMapBigBoss()) {
-                for (int j = 0; j < array[i2].zones.size(); j++) {
-                    array[i2].zones.get(j).pushPlayers(0);
-                    array[i2].zones.get(j).isEgg = false;
-                    array[i2].zones.get(j).isEggHatch = false;
+        for (Map map : array) {
+            if (map.isMapBigBoss()) {
+                for (int j = 0; j < map.zones.size(); j++) {
+                    map.zones.get(j).pushPlayers(0);
+                    map.zones.get(j).isEgg = false;
+                    map.zones.get(j).isEggHatch = false;
                 }
             }
         }
@@ -545,13 +506,13 @@ public class Server extends Thread {
                 array[i] = Map.MAPS.get(i);
             }
         }
-//        for (int i2 = 0; i2 < array.length; ++i2) {
-//            if (array[i2].isMapCace23()) {
-//                for (int j = 0; j < array[i2].zones.size(); j++) {
-//                    array[i2].zones.get(j).pushPlayers(0);
-//                }
-//            }
-//        }
+        for (Map map : array) {
+            if (map.isMapCace23()) {
+                for (int j = 0; j < map.zones.size(); j++) {
+                    map.zones.get(j).pushPlayers(0);
+                }
+            }
+        }
     }
     
     public void add(KhiHuyDiet destronGas) {
@@ -593,7 +554,7 @@ public class Server extends Thread {
         }
         int i;
         BlackBall.gI().closeBlackBall();
-//        LuckyNumber.gI().close();
+        LuckyNumber.gI().close();
         synchronized(this.connList) {
             for (i = 0; i < this.connList.size(); i++) {
                 this.connList.get(i).disconnect();
@@ -607,8 +568,8 @@ public class Server extends Thread {
         i = 0;
         synchronized(destronGas) {
             arrDes = new KhiHuyDiet[destronGas.size()];
-            while(destronGas.size() > 0) {
-                arrDes[i] = destronGas.remove(0);
+            while(!destronGas.isEmpty()) {
+                arrDes[i] = destronGas.removeFirst();
                 i = i + 1;
             }
         }
@@ -622,7 +583,7 @@ public class Server extends Thread {
         i = 0;
         synchronized(this.khobau) {
             arrKhobau = new KhoBau[this.khobau.size()];
-            while(this.khobau.size() > 0) {
+            while(!this.khobau.isEmpty()) {
                 arrKhobau[i] = this.khobau.remove(0);
                 i = i + 1;
             }
@@ -637,8 +598,8 @@ public class Server extends Thread {
         i = 0;
         synchronized(doanhTrais) {
             arrDt = new DoanhTrai[doanhTrais.size()];
-            while(doanhTrais.size() > 0) {
-                arrDt[i] = doanhTrais.remove(0);
+            while(!doanhTrais.isEmpty()) {
+                arrDt[i] = doanhTrais.removeFirst();
                 i = i + 1;
             }
         }
@@ -651,8 +612,8 @@ public class Server extends Thread {
         i = 0;
         synchronized(this.khobau) {
             arrPhoBan = new Instancing[this.phoban.size()];
-            while(this.phoban.size() > 0) {
-                arrPhoBan[i] = this.phoban.remove(0);
+            while(!this.phoban.isEmpty()) {
+                arrPhoBan[i] = this.phoban.removeFirst();
                 i = i + 1;
             }
         }
@@ -1296,11 +1257,13 @@ public class Server extends Thread {
                 }
                 res.close();
                 //THE END
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             } finally {
                 mySQL1.close();
                 mySQL2.close();
             }
-        } catch (SQLException | ParseException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }

@@ -14,11 +14,6 @@ public class MySQL {
     private static final Object LOCK = new Object();
     
     public MySQL(String host, String database, String user, String pass) throws SQLException {
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
         synchronized (LOCK) {
             this.conn = DriverManager.getConnection(String.format(URL_FORMAT, host, database), user, pass);
         }

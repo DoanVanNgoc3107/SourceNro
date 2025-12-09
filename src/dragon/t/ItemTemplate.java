@@ -2,6 +2,7 @@ package dragon.t;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  *
@@ -34,20 +35,20 @@ public class ItemTemplate {
     
     public static ItemTemplate get(short id) {
     	if (!itemTemplates.containsKey(id)) {
-    		for (int i = 0; i < itemTemplatesNew.size(); i++) {
-    			if (itemTemplatesNew.get(i).id == id) return itemTemplatesNew.get(i);
-    		}
+            for (ItemTemplate itemTemplate : itemTemplatesNew) {
+                if (itemTemplate.id == id) return itemTemplate;
+            }
     		return null;
     	}
         return itemTemplates.get(id);
     }
     
     public static short getPart(short itemTemplateID) {
-        return get(itemTemplateID).part;
+        return Objects.requireNonNull(get(itemTemplateID)).part;
     }
     
     public static short getIcon(short itemTemplateID) {
-        return get(itemTemplateID).iconID;
+        return Objects.requireNonNull(get(itemTemplateID)).iconID;
     }
     
     public static final HashMap<Short, ItemTemplate> itemTemplates = new HashMap<>();

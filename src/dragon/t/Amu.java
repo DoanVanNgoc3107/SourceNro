@@ -1,7 +1,7 @@
 package dragon.t;
 
 /**
- *
+ * File này dùng để lưu thông tin ấn ngọc thời gian
  * @author TGDD
  */
 public class Amu {

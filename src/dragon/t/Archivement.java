@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * File này dùng để lưu thông tin thành tựu
  * @author TGDD
  */
 public class Archivement {

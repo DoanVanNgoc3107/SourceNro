@@ -8,7 +8,6 @@ import dragon.server.mResources;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -22,7 +21,7 @@ public class ItemKyGui {
     
     public static int gameTick;
     
-    public ItemKyGui(ResultSet res) throws SQLException, ParseException {
+    public ItemKyGui(ResultSet res) throws Exception {
         this.playerId = res.getInt("playerId");
         this.last = res.getLong("last");
         this.item = Item.parseItem(res.getString("item"));
@@ -67,9 +66,9 @@ public class ItemKyGui {
     private static final ArrayList<ItemKyGui> ITEMS = new ArrayList<>();
     
     private static boolean checkbaseId(int itemId) {
-        for (int i = 0; i < SHOP_KY_GUI.length; i++) {
-            for (int i2 = 0; i2 < SHOP_KY_GUI[i].size(); i2++) {
-                if (SHOP_KY_GUI[i].get(i2).item.itemId == itemId) {
+        for (ArrayList<ItemKyGui> SHOP_KY_GUI1 : SHOP_KY_GUI) {
+            for (int i2 = 0; i2 < SHOP_KY_GUI1.size(); i2++) {
+                if (SHOP_KY_GUI1.get(i2).item.itemId == itemId) {
                     return true;
                 }
             }
@@ -79,9 +78,9 @@ public class ItemKyGui {
     
     public static boolean isHaveItem(int itemId) {
         synchronized (SHOP_KY_GUI) {
-            for (int i = 0; i < SHOP_KY_GUI.length; i++) {
-                for (int i2 = 0; i2 < SHOP_KY_GUI[i].size(); i2++) {
-                    if (SHOP_KY_GUI[i].get(i2).item.itemId == itemId) {
+            for (ArrayList<ItemKyGui> SHOP_KY_GUI1 : SHOP_KY_GUI) {
+                for (int i2 = 0; i2 < SHOP_KY_GUI1.size(); i2++) {
+                    if (SHOP_KY_GUI1.get(i2).item.itemId == itemId) {
                         return true;
                     }
                 }
@@ -105,10 +104,10 @@ public class ItemKyGui {
     
     public static ItemKyGui remove(int itemId) {
         synchronized (SHOP_KY_GUI) {
-            for (int i = 0; i < SHOP_KY_GUI.length; i++) {
-                for (int i2 = 0; i2 < SHOP_KY_GUI[i].size(); i2++) {
-                    if (SHOP_KY_GUI[i].get(i2).item.itemId == itemId) {
-                        return SHOP_KY_GUI[i].remove(i2);
+            for (ArrayList<ItemKyGui> SHOP_KY_GUI1 : SHOP_KY_GUI) {
+                for (int i2 = 0; i2 < SHOP_KY_GUI1.size(); i2++) {
+                    if (SHOP_KY_GUI1.get(i2).item.itemId == itemId) {
+                        return SHOP_KY_GUI1.remove(i2);
                     }
                 }
             }
@@ -165,19 +164,19 @@ public class ItemKyGui {
     
     private static void readShopMe(Char charz, ArrayList<ItemKyGui> list_kygui) {
         synchronized (SHOP_KY_GUI) {
-            for (int j = 0; j < SHOP_KY_GUI.length; j++)  {
-                for (int i = SHOP_KY_GUI[j].size() - 1; i >= 0; i--) {
-                    if (SHOP_KY_GUI[j].get(i).playerId == charz.playerId) {
-                        list_kygui.add(SHOP_KY_GUI[j].get(i));
+            for (ArrayList<ItemKyGui> SHOP_KY_GUI1 : SHOP_KY_GUI) {
+                for (int i = SHOP_KY_GUI1.size() - 1; i >= 0; i--) {
+                    if (SHOP_KY_GUI1.get(i).playerId == charz.playerId) {
+                        list_kygui.add(SHOP_KY_GUI1.get(i));
                         if (list_kygui.size() >= 100) return;
                     }
                 }
             }
         }
-        for (int i2 = 0; i2 < charz.arrItemBag.length; i2++) {
-            if (charz.arrItemBag[i2] != null && charz.arrItemBag[i2].isItemKyGui()) {
+        for (Item arrItemBag : charz.arrItemBag) {
+            if (arrItemBag != null && arrItemBag.isItemKyGui()) {
                 //new item
-                Item item = charz.arrItemBag[i2].clone();
+                Item item = arrItemBag.clone();
                 //set item
                 item.itemId = item.indexUI;
                 item.buyType = 0;

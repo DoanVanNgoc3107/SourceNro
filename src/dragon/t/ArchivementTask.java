@@ -1,7 +1,7 @@
 package dragon.t;
 
 /**
- *
+ * File này dùng để lưu thông tin nhiệm vụ thành tựu
  * @author TGDD
  */
 public class ArchivementTask {

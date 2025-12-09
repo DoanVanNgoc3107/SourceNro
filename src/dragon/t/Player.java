@@ -159,7 +159,7 @@ public class Player extends Char {
                             } else if (pclosest != null && skillF.maxFight == 1) {
                                 super.aCharFocus.add(pclosest);
                             }
-                            if (super.aCharFocus.size() > 0) {
+                            if (!super.aCharFocus.isEmpty()) {
                                 if ((this.charTemplate.id != 42 || (this.charTemplate.id == 42 && super.isBossMain && Util.gI().nextInt(100) < 20) || (this.charTemplate.id == 42 && !super.isBossMain && Util.gI().nextInt(100) < 5))) {
                                     if (super.isGo) {
                                         if (skillF.isChuong()) {
@@ -279,6 +279,7 @@ public class Player extends Char {
                                     zone_128.join(bot2, 0, -1, -1);
                                     break;
                                 } catch (Exception e) {
+                                    System.out.println("Bug broly xh");
                                 }
                             }
                         }
@@ -308,6 +309,7 @@ public class Player extends Char {
                                     zone_123.join(bot2, 0, -1, -1);
                                     break;
                                 } catch (Exception e) {
+                                    System.out.println("Bug broly xh");
                                 }
                             }
                         }

@@ -49,6 +49,7 @@ public class NamekBall {
         BallRada.timeCleanBall = -1;
         for (int s = 0; s < 7; s++) {
             BallRada rada = BallRada.getById(353 + s);
+            assert rada != null;
             Char player = rada.player;
             if (player != null) {
                 rada.player = null;
@@ -84,7 +85,7 @@ public class NamekBall {
         synchronized(BallRada.HBALL) {
             int num = 0;
             while(num < BallRada.HBALL.size()) {
-                if (BallRada.HBALL.get(num).ball.isItemNamekBall()) {
+                if (BallRada.HBALL.get(num).ball.isItemNameBall()) {
                     list1.add(BallRada.HBALL.get(num));
                 }
                 num++;
