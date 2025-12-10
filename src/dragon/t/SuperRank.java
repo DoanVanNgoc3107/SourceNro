@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
@@ -17,16 +16,16 @@ import org.json.simple.parser.ParseException;
  * @author Admin
  */
 public class SuperRank {
-    
+
     public SuperRank(int playerId, int charID, String name) {
         this.playerId = playerId;
         this.charID = charID;
         this.name = name;
     }
-    
+
     public SuperRank() {
     }
-    
+
     public int playerId;
     public int charID;
     public String name;
@@ -51,24 +50,24 @@ public class SuperRank {
     public boolean isWar;
     public String strWar = null;
     public int ngocNhan;
-    
+
     public static int baseID = 0;
-    
-    public static void add(SuperRank e)  {
-        synchronized(AMEMBER) {
+
+    public static void add(SuperRank e) {
+        synchronized (AMEMBER) {
             AMEMBER.add(e);
         }
-        synchronized(HNAME) {
+        synchronized (HNAME) {
             HNAME.put(e.name, e);
         }
     }
-    
-    public static int size()  {
-        synchronized(AMEMBER) {
+
+    public static int size() {
+        synchronized (AMEMBER) {
             return AMEMBER.size();
         }
     }
-    
+
     private void initRank(ResultSet res) throws SQLException, ParseException {
         this.playerId = res.getInt("playerId");
         this.name = res.getString("cName");
@@ -97,29 +96,30 @@ public class SuperRank {
         }
         this.ngocNhan = res.getInt("ngoc");
     }
-    
+
     public static final ArrayList<SuperRank> AMEMBER = new ArrayList<>();
     public static final HashMap<String, SuperRank> HNAME = new HashMap<>();
-    
+
     public static SuperRank getByname(String name) {
-        synchronized(HNAME) {
+        synchronized (HNAME) {
             return HNAME.get(name);
         }
     }
-    
+
     public static void sortTop() {
-        synchronized(AMEMBER) {
+        synchronized (AMEMBER) {
             // sort ArrayList
             Collections.sort(AMEMBER, (SuperRank o1, SuperRank o2) -> Integer.compare(o1.rank, o2.rank));
         }
     }
-    
+
     public static void init() {
         try {
             MySQL mySQL = MySQL.createData4();
             try {
-                ResultSet red = mySQL.getConnection().prepareStatement("SELECT * FROM `superrank`;", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
-                while(red.next()) {
+                ResultSet red = mySQL.getConnection().prepareStatement("SELECT * FROM `superrank`;",
+                        ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery();
+                while (red.next()) {
                     SuperRank superRank = new SuperRank();
                     superRank.initRank(red);
                     SuperRank.add(superRank);
@@ -132,10 +132,10 @@ public class SuperRank {
         }
         SuperRank.sortTop();
     }
-    
+
     public static void saveData() {
         ArrayList<SuperRank> arrList = new ArrayList<>();
-        synchronized(AMEMBER) {
+        synchronized (AMEMBER) {
             for (int i = 0; i < AMEMBER.size(); i++) {
                 arrList.add(AMEMBER.get(i));
             }
@@ -151,7 +151,20 @@ public class SuperRank {
                         for (int j = 0; j < arrList.get(i).skills.size(); j++) {
                             jarr.add(arrList.get(i).skills.get(j).skillId);
                         }
-                        mySQL.getConnection().prepareStatement("INSERT INTO `superrank`(`playerId`, `cName`, `charID`, `rank`, `cgender`, `cPower`, `headID`, `bodyID`, `legID`, `bag`, `headICON`, `cHPfull`, `cMPfull`, `cDamfull`, `cDeffull`, `cCriticalfull`, `cDefPercentfull`, `cMissPercentfull`, `suckHPGoc`, `suckKIGoc`, `skills`, `ngoc`) VALUES ("+ arrList.get(i).playerId+", \""+ arrList.get(i).name +"\", "+ arrList.get(i).charID +" , "+ arrList.get(i).rank +", "+ arrList.get(i).cgender +", "+ arrList.get(i).cPower +", "+ arrList.get(i).headID +", "+ arrList.get(i).bodyID +", "+ arrList.get(i).legID +", "+ arrList.get(i).bag +", "+ arrList.get(i).headICON +", "+ arrList.get(i).cHPfull +", "+ arrList.get(i).cMPfull +", "+ arrList.get(i).cDamfull +", "+ arrList.get(i).cDeffull +", "+ arrList.get(i).cCriticalfull +", "+ arrList.get(i).cDefPercentfull +", "+ arrList.get(i).cMissPercentfull +", "+ arrList.get(i).suckHPGoc +", "+ arrList.get(i).suckKIGoc +", \""+ jarr +"\", "+arrList.get(i).ngocNhan+")").executeUpdate();
+                        mySQL.getConnection().prepareStatement(
+                                "INSERT INTO `superrank`(`playerId`, `cName`, `charID`, `rank`, `cgender`, `cPower`, `headID`, `bodyID`, `legID`, `bag`, `headICON`, `cHPfull`, `cMPfull`, `cDamfull`, `cDeffull`, `cCriticalfull`, `cDefPercentfull`, `cMissPercentfull`, `suckHPGoc`, `suckKIGoc`, `skills`, `ngoc`) VALUES ("
+                                        + arrList.get(i).playerId + ", \"" + arrList.get(i).name + "\", "
+                                        + arrList.get(i).charID + " , " + arrList.get(i).rank + ", "
+                                        + arrList.get(i).cgender + ", " + arrList.get(i).cPower + ", "
+                                        + arrList.get(i).headID + ", " + arrList.get(i).bodyID + ", "
+                                        + arrList.get(i).legID + ", " + arrList.get(i).bag + ", "
+                                        + arrList.get(i).headICON + ", " + arrList.get(i).cHPfull + ", "
+                                        + arrList.get(i).cMPfull + ", " + arrList.get(i).cDamfull + ", "
+                                        + arrList.get(i).cDeffull + ", " + arrList.get(i).cCriticalfull + ", "
+                                        + arrList.get(i).cDefPercentfull + ", " + arrList.get(i).cMissPercentfull + ", "
+                                        + arrList.get(i).suckHPGoc + ", " + arrList.get(i).suckKIGoc + ", \"" + jarr
+                                        + "\", " + arrList.get(i).ngocNhan + ")")
+                                .executeUpdate();
                     }
                     mySQL.getConnection().commit();
                 } catch (SQLException e) {
@@ -161,11 +174,11 @@ public class SuperRank {
             } finally {
                 mySQL.close();
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
     public static int ngocNhan(int rank) {
         if (rank == 0) {
             return 500;
@@ -181,10 +194,10 @@ public class SuperRank {
         }
         return 0;
     }
-    
+
     public static void phatQua() {
         ArrayList<SuperRank> arrList = new ArrayList<>();
-        synchronized(AMEMBER) {
+        synchronized (AMEMBER) {
             for (int i = 0; i < AMEMBER.size(); i++) {
                 arrList.add(AMEMBER.get(i));
             }
@@ -195,6 +208,5 @@ public class SuperRank {
             }
         }
     }
-    
-    
+
 }

@@ -1,30 +1,9 @@
-Name=Whis zoneId=2 mapName=Hành tinh Bill 2: 00h29 10/12/2025
-Name=Beerus zoneId=2 mapName=Hành tinh Bill 2: 00h29 10/12/2025
-Name=Tiểu đội trưởng zoneId=11 mapName=Hang khỉ đen: 00h29 10/12/2025
-Name=Số 1 zoneId=11 mapName=Hang khỉ đen: 00h30 10/12/2025
-Name=Số 2 zoneId=11 mapName=Hang khỉ đen: 00h30 10/12/2025
-Name=Số 3 zoneId=11 mapName=Hang khỉ đen: 00h30 10/12/2025
-Name=Số 4 zoneId=11 mapName=Hang khỉ đen: 00h30 10/12/2025
-Name=Fide Đại Ca 1 zoneId=12 mapName=Núi khỉ vàng: 00h30 10/12/2025
-Name=Android 19 zoneId=13 mapName=Thành phố phía nam: 00h30 10/12/2025
-Name=Dr.Kôrê zoneId=13 mapName=Thành phố phía nam: 00h30 10/12/2025
-Name=Android 15 zoneId=17 mapName=Sân sau siêu thị: 00h30 10/12/2025
-Name=Android 14 zoneId=17 mapName=Sân sau siêu thị: 00h30 10/12/2025
-Name=Pic zoneId=15 mapName=Ngọn núi phía bắc: 00h30 10/12/2025
-Name=Poc zoneId=15 mapName=Ngọn núi phía bắc: 00h30 10/12/2025
-Name=King Kong zoneId=15 mapName=Ngọn núi phía bắc: 00h31 10/12/2025
-Name=Xên bọ hung zoneId=5 mapName=Thị trấn Ginder: 00h31 10/12/2025
-Name=Xên hoàn thiện zoneId=18 mapName=Võ đài Xên bọ hung: 00h31 10/12/2025
-Name=Black Goku zoneId=10 mapName=Thành phố phía đông: 00h31 10/12/2025
-Name=Cooler zoneId=16 mapName=Hang băng: 00h31 10/12/2025
-Name=Bojack zoneId=11 mapName=Rừng dương xỉ: 00h31 10/12/2025
-Name=Bido zoneId=11 mapName=Rừng dương xỉ: 00h31 10/12/2025
-Name=Zangya zoneId=11 mapName=Rừng dương xỉ: 00h31 10/12/2025
-Name=Kogu zoneId=11 mapName=Rừng dương xỉ: 00h31 10/12/2025
-Name=Bujin zoneId=11 mapName=Rừng dương xỉ: 00h31 10/12/2025
-Name=Tiểu đội trưởng zoneId=9 mapName=Thung lũng Maima: 00h32 10/12/2025
-Name=Số 1 zoneId=9 mapName=Thung lũng Maima: 00h32 10/12/2025
-Name=Số 2 zoneId=9 mapName=Thung lũng Maima: 00h32 10/12/2025
-Name=Số 3 zoneId=9 mapName=Thung lũng Maima: 00h32 10/12/2025
-Name=Số 4 zoneId=9 mapName=Thung lũng Maima: 00h32 10/12/2025
-Name=Chilld zoneId=15 mapName=Làng Plant nguyên thủy: 00h32 10/12/2025
+Name=Whis zoneId=9 mapName=Hành tinh Bill 2: 07h29 10/12/2025
+Name=Beerus zoneId=9 mapName=Hành tinh Bill 2: 07h29 10/12/2025
+Name=Tiểu đội trưởng zoneId=18 mapName=Núi khỉ đỏ: 07h29 10/12/2025
+Name=Số 1 zoneId=18 mapName=Núi khỉ đỏ: 07h29 10/12/2025
+Name=Số 2 zoneId=18 mapName=Núi khỉ đỏ: 07h29 10/12/2025
+Name=Số 3 zoneId=18 mapName=Núi khỉ đỏ: 07h29 10/12/2025
+Name=Số 4 zoneId=18 mapName=Núi khỉ đỏ: 07h29 10/12/2025
+Name=Fide Đại Ca 1 zoneId=1 mapName=Núi khỉ vàng: 07h29 10/12/2025
+Name=Android 19 zoneId=1 mapName=Đảo Balê: 07h29 10/12/2025

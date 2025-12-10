@@ -671,7 +671,7 @@ public class mResources {
     public static final String GO_HOME_AFTER = "Về nhà sau %d giây nữa";
     public static final String FINNISH_TASK2_33 = "Mabư cuối cùng cũng đã bị tiêu diệt, hòa bình đã đến với toàn cõi vũ trụ, cậu đúng là cứu tinh của nhân loại";
     public static final String TOTAL_GOLD = "Bạn có thêm %s thỏi vàng";
-    public static final String KHONG_HO_TRO = "Tài khoản cần phải mở thành viên để sử dụng tính năng này. Vui lòng về TÌ";
+    public static final String KHONG_HO_TRO = "Tài khoản cần phải mở thành viên để sử dụng tính năng này. Vui lòng về nhà mở thành viên.";
     public static final String TASK_AND_GOLD = "%s - %s vàng";
     public static final String TASK_AND_COUNT = "%s (%s/%s)";
     public static final String SAY_BO_MONG_1 = "Ngươi muốn có thêm ngọc, có nhiều cách, nạp thẻ cào là nhanh nhất, còn không thì chịu khó làm nhiệm vụ sẽ được ngọc thưởng";

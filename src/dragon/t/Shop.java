@@ -11,19 +11,20 @@ import java.util.HashMap;
  * @author Admin
  */
 public class Shop {
-    
+
     public int shopId;
     public byte type;
     public String[] shopTabName;
     public ArrayList<Item>[] arrItemShop;
-    
+
     public static HashMap<Integer, Shop> shops = new HashMap<>();
-    
+
     public static Item getItem(int shopId, int templateId) {
         try {
             for (int i = 0; i < shops.get(shopId).arrItemShop.length; i++) {
                 for (int j = 0; j < shops.get(shopId).arrItemShop[i].size(); j++) {
-                    if (((templateId >= 293 && templateId <= 299) || templateId == 596 || templateId == 597) && shops.get(shopId).arrItemShop[i].get(j).isItemPackOf30Foods()) {
+                    if (((templateId >= 293 && templateId <= 299) || templateId == 596 || templateId == 597)
+                            && shops.get(shopId).arrItemShop[i].get(j).isItemPackOf30Foods()) {
                         return shops.get(shopId).arrItemShop[i].get(j);
                     }
                     if (shops.get(shopId).arrItemShop[i].get(j).template.id == templateId) {
@@ -31,20 +32,23 @@ public class Shop {
                     }
                 }
             }
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
         return null;
     }
+
     public static Shop get(int shopId) {
         try {
             return shops.get(shopId);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
         return null;
     }
-    
+
     public static void ItemBuy(Char charz, int type, int id, int num) {
         if (num > 0) {
             num = 1;
-            Util.gI().log("type="+type+" id="+id+" num="+num);
+            Util.gI().log("type=" + type + " id=" + id + " num=" + num);
             Item item = Shop.getItem(charz.shopId, id);
             Shop shop = Shop.get(charz.shopId);
             if (item != null) {
@@ -53,10 +57,10 @@ public class Shop {
                 item.quantity = num;
                 if (item.isItemPackOf30Foods()) {
                     item.quantity *= 30;
-                    //SETID
+                    // SETID
                     item.setTemplate(MagicTree.foods30templateId[charz.magicTree_level - 1]);
                 }
-                
+
                 int indexUI = -1;
                 if (item.isItemMerge()) {
                     indexUI = charz.getItemBagIndex(item);
@@ -64,7 +68,7 @@ public class Shop {
                 if (indexUI == -1) {
                     indexUI = charz.getEmptyBagIndex();
                 }
-                
+
                 int buyLuong = 0, buyXu = 0, point = 0;
                 if (shop.type == 0 || shop.type == 2) {
                     buyLuong = item.buyGold * num;
@@ -106,27 +110,27 @@ public class Shop {
                 } else if (point > 0 && point > charz.myObj().pointEvent) {
                     charz.addInfo1(String.format(mResources.NOT_DIEM_SU_KIEN, point - charz.myObj().pointEvent));
                 } else {
-                    //Shop hot toc
+                    // Shop hot toc
                     if (charz.shopId == 4 || charz.shopId == 5 || charz.shopId == 6) {
                         charz.headDefault = (short) item.headTemp;
                         charz.session.service.itemBuy(charz.xu, charz.luong, charz.luongKhoa);
-                    ///Shop bua
+                        /// Shop bua
                     } else if (item.template.type == 13) {
-                        //Down xu luong
+                        // Down xu luong
                         if (buyLuong > 0) {
                             charz.updateLuong(-buyLuong, 0);
                         }
                         if (buyXu > 0) {
                             charz.updateXu(-buyXu, 0);
                         }
-                        //point
+                        // point
                         if (point > 0) {
                             charz.myObj().pointEvent -= point;
                         }
                         if (shop.type == 3) {
                             Shop2.buy(charz, shop, item);
                         }
-                        
+
                         int second = 0;
                         if (charz.shopId == 13) {
                             second = 60 * 60;
@@ -141,7 +145,7 @@ public class Shop {
                         charz.openShop(charz.shopId);
                         charz.addInfo1(String.format(mResources.BUY_AMU, item.template.name, hours));
                         charz.session.service.itemBuy(charz.xu, charz.luong, charz.luongKhoa);
-                    } else //Shop danh hieu
+                    } else // Shop danh hieu
                     if (item.template.type == 36) {
                         EffChar eff = charz.getEffCharById(item.template.part);
                         if (eff == null) {
@@ -149,14 +153,14 @@ public class Shop {
                         } else if (eff.isPaint) {
                             charz.addInfo1(mResources.DANH_HIEU4);
                         } else {
-                            //Down xu luong
+                            // Down xu luong
                             if (buyLuong > 0) {
                                 charz.updateLuong(-buyLuong, 0);
                             }
                             if (buyXu > 0) {
                                 charz.updateXu(-buyXu, 0);
                             }
-                            //point
+                            // point
                             if (point > 0) {
                                 charz.myObj().pointEvent -= point;
                             }
@@ -164,17 +168,19 @@ public class Shop {
                                 Shop2.buy(charz, shop, item);
                             }
                             for (int i = 0; i < charz.aEffChar.size(); i++) {
-                                if (charz.aEffChar.get(i).item != null && charz.aEffChar.get(i).item.template.type == 36) {
+                                if (charz.aEffChar.get(i).item != null
+                                        && charz.aEffChar.get(i).item.template.type == 36) {
                                     charz.aEffChar.get(i).isPaint = false;
                                     charz.zoneMap.removeEffChar(charz.charID, charz.aEffChar.get(i).effId);
                                 }
                             }
                             eff.isPaint = true;
-                            charz.zoneMap.addEffectChar(charz.charID, eff.effId, eff.layer, eff.loop, eff.tLoop, eff.isStand);
+                            charz.zoneMap.addEffectChar(charz.charID, eff.effId, eff.layer, eff.loop, eff.tLoop,
+                                    eff.isStand);
                             charz.updateAll();
                             charz.session.service.meLoadPoint();
                             charz.zoneMap.playerLoadAll(charz);
-                    
+
                             charz.addInfo1(String.format(mResources.DANH_HIEU5, item.template.name));
                             charz.session.service.itemBuy(charz.xu, charz.luong, charz.luongKhoa);
                         }
@@ -188,18 +194,20 @@ public class Shop {
                         if (item.isItemSLL()) {
                             item.quantity *= item.getParamOption(31);
                         }
-                        if(item.isItemLimit() && ItemCountAdd.getCount(item) - num < 0) {
-                            charz.addInfo1(String.format(mResources.DA_HET_HANG, item.template.name, Util.gI().getStrTime(ItemCountAdd.get(item).time)));
+                        if (item.isItemLimit() && ItemCountAdd.getCount(item) - num < 0) {
+                            charz.addInfo1(String.format(mResources.DA_HET_HANG, item.template.name,
+                                    Util.gI().getStrTime(ItemCountAdd.get(item).time)));
                         } else if (charz.checkBag(item)) {
                             if (item.isItemLimit()) {
                                 ItemCountAdd.downCount(item, num);
-                                charz.addInfo1(String.format(mResources.ITEM_BUY_LIMIT, item.template.name, ItemCountAdd.getCount(item)));
+                                charz.addInfo1(String.format(mResources.ITEM_BUY_LIMIT, item.template.name,
+                                        ItemCountAdd.getCount(item)));
                             }
-                            //Down xu luong
+                            // Down xu luong
                             if (buyLuong > 0) {
                                 charz.updateLuong(-buyLuong, 0);
                             }
-                            //point
+                            // point
                             if (point > 0) {
                                 charz.myObj().pointEvent -= point;
                             }
@@ -210,21 +218,22 @@ public class Shop {
                                 Shop2.buy(charz, shop, item);
                             }
 
-                            //Bill Huy Diet
+                            // Bill Huy Diet
                             if (charz.shopId == 17) {
-                                charz.arrItemBag[charz.indexUIFoods99()] =  null;
+                                charz.arrItemBag[charz.indexUIFoods99()] = null;
                                 charz.arrItemBody[item.getIndexBody()] = null;
                                 charz.updateAll();
                                 charz.session.service.Body(charz.head, charz.arrItemBody);
                                 charz.session.service.meLoadPoint();
                                 charz.zoneMap.playerLoadAll(charz);
-                                charz.session.service.updateBody(1, charz.charID, charz.head, charz.body, charz.leg, charz.isMonkey);
+                                charz.session.service.updateBody(1, charz.charID, charz.head, charz.body, charz.leg,
+                                        charz.isMonkey);
                             }
-                            //IF Buy chien thuyen tennis
+                            // IF Buy chien thuyen tennis
                             if (item.template.id == 453) {
                                 charz.typeTeleport = 3;
                                 charz.openShop(charz.shopId);
-                            //ELSE IF Buy mo rong hanh trang
+                                // ELSE IF Buy mo rong hanh trang
                             } else if (item.template.id == 517) {
                                 Item[] bags = charz.arrItemBag;
                                 charz.arrItemBag = new Item[++charz.bagcount];
@@ -233,7 +242,7 @@ public class Shop {
                                 }
                                 charz.session.service.Bag(charz.arrItemBag);
                                 charz.openShop(charz.shopId);
-                            //ELSE IF Buy mo rong ruong do
+                                // ELSE IF Buy mo rong ruong do
                             } else if (item.template.id == 518) {
                                 Item[] boxs = charz.arrItemBox;
                                 charz.arrItemBox = new Item[++charz.boxcount];
@@ -251,19 +260,21 @@ public class Shop {
                             } else if (item.isBigItem()) {
                                 charz.addItemBag(1, item);
                             } else if (charz.arrItemBag[indexUI] != null) {
-                                if (charz.arrItemBag[indexUI].quantity < charz.arrItemBag[indexUI].maxQuantity() || charz.arrItemBag[indexUI].isItemSLL()) {
+                                if (charz.arrItemBag[indexUI].quantity < charz.arrItemBag[indexUI].maxQuantity()
+                                        || charz.arrItemBag[indexUI].isItemSLL()) {
                                     charz.addQuantityItemBagByIndex(indexUI, item.quantity);
                                     charz.session.service.Bag(charz.arrItemBag);
                                 }
                             } else {
                                 if (item.isHaveOption(93)) {
-                                    item.setExpires(System.currentTimeMillis() + (86400000L * (long)(item.getParamOption(93) + 1L)));
+                                    item.setExpires(System.currentTimeMillis()
+                                            + (86400000L * (long) (item.getParamOption(93) + 1L)));
                                 }
-                                //point
+                                // point
                                 if (item.isHaveOption(164)) {
                                     item.options.remove(item.getOption(164));
                                 }
-                                //Bill Huy Diet
+                                // Bill Huy Diet
                                 if (charz.shopId == 17) {
                                     int percent = Util.gI().nextInt(0, 15);
                                     for (int i = 0; i < item.options.size(); i++) {
@@ -278,7 +289,8 @@ public class Shop {
                                 }
                                 if (item.template.type == 6) {
                                     item.options.clear();
-                                    item.options = ItemOption.getOption(MagicTree.foods30templateId[charz.magicTree_level - 1], 0, 0);
+                                    item.options = ItemOption
+                                            .getOption(MagicTree.foods30templateId[charz.magicTree_level - 1], 0, 0);
                                 }
                                 charz.addItemBag(item, indexUI);
                                 charz.session.service.Bag(charz.arrItemBag);
@@ -288,8 +300,9 @@ public class Shop {
                                     charz.zoneMap.playerLoadAll(charz);
                                 }
                             }
-                            charz.addInfo1(String.format(mResources.ITEM_BUY_SUCCESS, ItemTemplate.get((short)id).name));
-                            //Bong tai
+                            charz.addInfo1(
+                                    String.format(mResources.ITEM_BUY_SUCCESS, ItemTemplate.get((short) id).name));
+                            // Bong tai
                             if (item.template.id == 454) {
                                 charz.openShop(charz.shopId);
                             }

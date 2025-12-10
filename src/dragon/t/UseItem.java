@@ -7,6 +7,7 @@ import java.util.ArrayList;
 /**
  * Class xử lý sử dụng item
  * Hàm này sử dụng cho cả Char và Pet
+ * 
  * @author TGDD
  */
 public class UseItem {
@@ -36,7 +37,6 @@ public class UseItem {
                 player.isCallDau = false;
             }
         }
-
 
         // Method này dùng để học kỹ năng từ item
         if (item.template.type == 7) {
@@ -377,70 +377,69 @@ public class UseItem {
         }
 
         // //Capsule 574
-        // if (item.template.id == 574) {
-        // int indexUI = player.getEmptyBagIndex();
-        // if (indexUI != -1) {
-        // player.useItemBag(item.indexUI, 1);
-        // Item itnew;
-        // int[] arrD = new int[] {3, 7};
-        // if (Util.gI().nextInt(100) < 20) {
-        // int tempId = Util.gI().nextInt(342, 345);
-        // itnew = new Item(tempId, false, 1, ItemOption.getOption(tempId, 0, 0),
-        // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-        // } else if (Util.gI().nextInt(100) < 10) {
-        // int tempId = Util.gI().nextInt(710, 711);
-        // itnew = new Item(tempId, false, 1, ItemOption.getOption(tempId,
-        // arrD[Util.gI().nextInt(arrD.length)], 0), mResources.EMPTY, mResources.EMPTY,
-        // mResources.EMPTY);
-        // } else if (Util.gI().nextInt(100) < 5) {
-        // itnew = new Item(464, false, 1, ItemOption.getOption(464,
-        // arrD[Util.gI().nextInt(arrD.length)], 0), mResources.EMPTY, mResources.EMPTY,
-        // mResources.EMPTY);
-        // } else if (Util.gI().nextInt(100) < 5) {
-        // itnew = new Item(942, false, 1, ItemOption.getOption(942,
-        // arrD[Util.gI().nextInt(arrD.length)], 0), mResources.EMPTY, mResources.EMPTY,
-        // mResources.EMPTY);
-        // } else if (Util.gI().nextInt(1000) < 8) {
-        // itnew = new Item(987, false, 1, ItemOption.getOption(987, 0, 0),
-        // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-        // Server.gI().chatVip(String.format(mResources.USE_IDOL, player.cName,
-        // item.template.name, itnew.template.name));
-        // } else if (Util.gI().nextInt(1000) < 1) {
-        // int tempId = Util.gI().nextInt(710, 711);
-        // itnew = new Item(tempId, false, 1, ItemOption.getOption(tempId, 0, 0),
-        // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-        // Server.gI().chatVip(String.format(mResources.USE_IDOL2, player.cName,
-        // item.template.name, itnew.template.name));
-        // } else if (Util.gI().nextInt(1000) < 1) {
-        // itnew = new Item(464, false, 1, ItemOption.getOption(464, 0, 0),
-        // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-        // Server.gI().chatVip(String.format(mResources.USE_IDOL2, player.cName,
-        // item.template.name, itnew.template.name));
-        // } else if (Util.gI().nextInt(1000) < 10) {
-        // itnew = new Item(942, false, 1, ItemOption.getOption(942, 0, 0),
-        // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-        // Server.gI().chatVip(String.format(mResources.USE_IDOL2, player.cName,
-        // item.template.name, itnew.template.name));
-        // } else if (Util.gI().nextInt(100) < 30) {
-        // itnew = new Item(934, false, Util.gI().nextInt(5, 10),
-        // ItemOption.getOption(934, 0, 0), mResources.EMPTY, mResources.EMPTY,
-        // mResources.EMPTY);
-        // } else {
-        // itnew = new Item(224, false, 99, ItemOption.getOption(224, 0, 0),
-        // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-        // }
-        // if (itnew.isHaveOption(93)) {
-        // itnew.setExpires(System.currentTimeMillis() + (long)(1000l * 60l * 60l * 24l
-        // * (long)(itnew.getParamOption(93) + 1)));
-        // }
-        // player.addItemBag(0, itnew);
-        //// player.session.service.setCombineEff(6,
-        /// item.template.iconID, itnew.template.iconID);
-        // } else {
-        // player.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BAG_FULL,
-        // null, (byte)0);
-        // }
-        // }
+        if (item.template.id == 574) {
+            int indexUI = player.getEmptyBagIndex();
+            if (indexUI != -1) {
+                player.useItemBag(item.indexUI, 1);
+                Item itnew;
+                int[] arrD = new int[] { 3, 7 };
+                if (Util.gI().nextInt(100) < 20) {
+                    int tempId = Util.gI().nextInt(342, 345);
+                    itnew = new Item(tempId, false, 1, ItemOption.getOption(tempId, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                } else if (Util.gI().nextInt(100) < 10) {
+                    int tempId = Util.gI().nextInt(710, 711);
+                    itnew = new Item(tempId, false, 1, ItemOption.getOption(tempId,
+                            arrD[Util.gI().nextInt(arrD.length)], 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
+                } else if (Util.gI().nextInt(100) < 5) {
+                    itnew = new Item(464, false, 1, ItemOption.getOption(464,
+                            arrD[Util.gI().nextInt(arrD.length)], 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
+                } else if (Util.gI().nextInt(100) < 5) {
+                    itnew = new Item(942, false, 1, ItemOption.getOption(942,
+                            arrD[Util.gI().nextInt(arrD.length)], 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
+                } else if (Util.gI().nextInt(1000) < 8) {
+                    itnew = new Item(987, false, 1, ItemOption.getOption(987, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    Server.gI().chatVip(String.format(mResources.USE_IDOL, player.cName,
+                            item.template.name, itnew.template.name));
+                } else if (Util.gI().nextInt(1000) < 1) {
+                    int tempId = Util.gI().nextInt(710, 711);
+                    itnew = new Item(tempId, false, 1, ItemOption.getOption(tempId, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    Server.gI().chatVip(String.format(mResources.USE_IDOL2, player.cName,
+                            item.template.name, itnew.template.name));
+                } else if (Util.gI().nextInt(1000) < 1) {
+                    itnew = new Item(464, false, 1, ItemOption.getOption(464, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    Server.gI().chatVip(String.format(mResources.USE_IDOL2, player.cName,
+                            item.template.name, itnew.template.name));
+                } else if (Util.gI().nextInt(1000) < 10) {
+                    itnew = new Item(942, false, 1, ItemOption.getOption(942, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    Server.gI().chatVip(String.format(mResources.USE_IDOL2, player.cName,
+                            item.template.name, itnew.template.name));
+                } else if (Util.gI().nextInt(100) < 30) {
+                    itnew = new Item(934, false, Util.gI().nextInt(5, 10),
+                            ItemOption.getOption(934, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
+                } else {
+                    itnew = new Item(224, false, 99, ItemOption.getOption(224, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                }
+                if (itnew.isHaveOption(93)) {
+                    itnew.setExpires(System.currentTimeMillis() + (long) (1000l * 60l * 60l * 24l
+                            * (long) (itnew.getParamOption(93) + 1)));
+                }
+                player.addItemBag(0, itnew);
+                player.session.service.setCombineEff(6, item.template.iconID, itnew.template.iconID, -1);
+            } else {
+                player.session.service.chatTHEGIOI(mResources.EMPTY, mResources.BAG_FULL,
+                        null, (byte) 0);
+            }
+        }
 
         // Chuot than tai
         if (item.template.id == 757) {

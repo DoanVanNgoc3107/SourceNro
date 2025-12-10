@@ -10,22 +10,24 @@ import org.json.simple.parser.ParseException;
 
 /**
  * File này chứa các thông tin về item trong game
+ * 
  * @author Admin
  */
 public class Item {
-    
+
     public Item() {
-        
+
     }
-    
+
     // Hàm khởi tạo item từ item template id
     public Item(int itemTemplateId) {
         this.template = ItemTemplate.get((short) (this.itemId = itemTemplateId));
         this.quantity = 1;
     }
-    
+
     // Khởi tạo item với tham số đầy đủ
-    public Item(int itemTemplateId, boolean isLock, int quantity, ArrayList<ItemOption> options, String info, String content, String reason) {
+    public Item(int itemTemplateId, boolean isLock, int quantity, ArrayList<ItemOption> options, String info,
+            String content, String reason) {
         this.template = ItemTemplate.get((short) (this.itemId = itemTemplateId));
         this.isLock = isLock;
         this.quantity = quantity;
@@ -38,8 +40,9 @@ public class Item {
         this.content = content;
         this.reason = reason;
     }
-    
-    public Item(int itemTemplateId, boolean isLock, int quantity, int[] arrOptionId, int[] arrOptionParam, String info, String content, String reason) {
+
+    public Item(int itemTemplateId, boolean isLock, int quantity, int[] arrOptionId, int[] arrOptionParam, String info,
+            String content, String reason) {
         this.template = ItemTemplate.get((short) (this.itemId = itemTemplateId));
         this.isLock = isLock;
         this.quantity = quantity;
@@ -54,11 +57,11 @@ public class Item {
         this.content = content;
         this.reason = reason;
     }
-    
+
     public void setTemplate(int itemTemplateId) {
         this.template = ItemTemplate.get((short) (this.itemId = itemTemplateId));
     }
-    
+
     public boolean isHaveOption(int id) {
         for (int i = 0; i < this.options.size(); i++) {
             if (this.options.get(i).optionTemplate.id == id) {
@@ -67,7 +70,7 @@ public class Item {
         }
         return false;
     }
-    
+
     public void removeOption(int id) {
         for (int i = 0; i < this.options.size(); i++) {
             if (this.options.get(i).optionTemplate.id == id) {
@@ -76,7 +79,7 @@ public class Item {
             }
         }
     }
-    
+
     // Hàm này sử dụng để clone một item - tạo một item mới giống hệt item hiện tại
     @Override
     public Item clone() {
@@ -123,70 +126,75 @@ public class Item {
         item.expires = this.expires;
         return item;
     }
-    
+
     public boolean isTypeBody() {
-        return (0 <= (int)this.template.type && (int)this.template.type < 6) || (int)this.template.type == 32 || (int)this.template.type == 35 || (int)this.template.type == 11 || (int)this.template.type == 23  || (int)this.template.type == 24;
+        return (0 <= (int) this.template.type && (int) this.template.type < 6) || (int) this.template.type == 32
+                || (int) this.template.type == 35 || (int) this.template.type == 11 || (int) this.template.type == 23
+                || (int) this.template.type == 24;
     }
-    
+
     public boolean isTypeFoodsHPKI() {
         return this.template.type == 6;
     }
-    
+
     public boolean isTypeUIMe() {
         return this.typeUI == 5 || this.typeUI == 3 || this.typeUI == 4;
     }
-    
+
     public boolean isTypeUIShopView() {
         return this.isTypeUIShop() || (this.isTypeUIStore() || this.isTypeUIBook() || this.isTypeUIFashion());
     }
-    
+
     public boolean isTypeUIShop() {
-        return this.typeUI == 20 || this.typeUI == 21 || this.typeUI == 22 || this.typeUI == 23 || this.typeUI == 24 || this.typeUI == 25 || this.typeUI == 26 || this.typeUI == 27 || this.typeUI == 28 || this.typeUI == 29 || this.typeUI == 16 || this.typeUI == 17 || this.typeUI == 18 || this.typeUI == 19 || this.typeUI == 2 || this.typeUI == 6 || this.typeUI == 8;
+        return this.typeUI == 20 || this.typeUI == 21 || this.typeUI == 22 || this.typeUI == 23 || this.typeUI == 24
+                || this.typeUI == 25 || this.typeUI == 26 || this.typeUI == 27 || this.typeUI == 28 || this.typeUI == 29
+                || this.typeUI == 16 || this.typeUI == 17 || this.typeUI == 18 || this.typeUI == 19 || this.typeUI == 2
+                || this.typeUI == 6 || this.typeUI == 8;
     }
-    
+
     public boolean isTypeUIShopLock() {
         return this.typeUI == 7 || this.typeUI == 9;
     }
-    
+
     public boolean isTypeUIStore() {
         return this.typeUI == 14;
     }
-    
+
     public boolean isTypeUIBook() {
         return this.typeUI == 15;
     }
-    
+
     public boolean isTypeUIFashion() {
         return this.typeUI == 32;
     }
-    
+
     public boolean isUpMax() {
         return this.getUpMax() == this.upgrade;
     }
-    
+
     public int getUpMax() {
-        if ((int)this.template.level >= 1 && (int)this.template.level < 20) {
+        if ((int) this.template.level >= 1 && (int) this.template.level < 20) {
             return 4;
         }
-        if ((int)this.template.level >= 20 && (int)this.template.level < 40) {
+        if ((int) this.template.level >= 20 && (int) this.template.level < 40) {
             return 8;
         }
-        if ((int)this.template.level >= 40 && (int)this.template.level < 50) {
+        if ((int) this.template.level >= 40 && (int) this.template.level < 50) {
             return 12;
         }
-        if ((int)this.template.level >= 50 && (int)this.template.level < 60) {
+        if ((int) this.template.level >= 50 && (int) this.template.level < 60) {
             return 14;
         }
         return 16;
     }
-    
+
     public void setPartTemp(int headTemp, int bodyTemp, int legTemp, int bagTemp) {
         this.headTemp = headTemp;
         this.bodyTemp = bodyTemp;
         this.legTemp = legTemp;
         this.bagTemp = bagTemp;
     }
-    
+
     public int getIndexBody() {
         if (this.template.type == 0) {
             return 0;
@@ -220,7 +228,7 @@ public class Item {
         }
         return -1;
     }
-    
+
     public static boolean isIndexUI(int indexUI, Item[] arrItem) {
         int i;
         for (i = 0; i < arrItem.length; i++) {
@@ -233,24 +241,23 @@ public class Item {
         }
         return false;
     }
-    
+
     public boolean isItemNotTrade() {
         return this.template.type == 5 || this.template.type == 6 ||
                 this.template.id == 194 || this.template.id == 211 ||
                 this.template.id == 212 || this.template.id == 521 ||
                 (this.template.id >= 401 && this.template.id <= 404) ||
-                this.template.id == 759|| this.template.type == 7 ||
+                this.template.id == 759 || this.template.type == 7 ||
                 this.template.id == 454 || this.template.type == 22 ||
                 this.template.type == 23 || (this.template.id >= 650 && this.template.id <= 662) ||
                 this.template.id == 921 || this.isItemPet() ||
                 this.template.id == 984 || this.template.id == 574 ||
                 this.isItemKGPA() || this.isItemTask() || this.template.id == 992 ||
                 this.template.id == 570 || this.template.id == 586 ||
-                this.template.id == 587 ||this.isItemPetFollowz() ||
-                this.isHaveOption(30) || this.template.type == 11 || this.template.type == 32
-        ;
+                this.template.id == 587 || this.isItemPetFollowz() ||
+                this.isHaveOption(30) || this.template.type == 11 || this.template.type == 32;
     }
-    
+
     public static final int TYPE_BODY_MIN = 0;
     public static final int TYPE_BODY_MAX = 6;
     public static final int TYPE_AO = 0;
@@ -299,7 +306,7 @@ public class Item {
     public static final byte UI_UPGRADE_GOLD = 31;
     public static final byte UI_FASHION = 32;
     public static final byte UI_CONVERT = 33;
-    
+
     public ItemTemplate template;
     public ArrayList<ItemOption> options;
     public int itemId;
@@ -336,7 +343,7 @@ public class Item {
     public int legTemp = -1;
     public int bagTemp = -1;
     public int wpTemp = -1;
-    
+
     public int foodsHPKI() {
         int num = 0;
         int i;
@@ -352,110 +359,122 @@ public class Item {
         }
         return num;
     }
-    
+
     public boolean isItemPackOf30Foods() {
-        return (this.template.id >= 293 && this.template.id <= 299) || this.template.id == 596 || this.template.id == 597;
+        return (this.template.id >= 293 && this.template.id <= 299) || this.template.id == 596
+                || this.template.id == 597;
     }
-    
+
     public boolean isItemTraining1() {
         return this.template.id == 529 || this.template.id == 534;
     }
-    
+
     public boolean isItemTraining2() {
         return this.template.id == 530 || this.template.id == 535;
     }
-    
+
     public boolean isItemTraining3() {
         return this.template.id == 531 || this.template.id == 536;
     }
-    
+
     public boolean isItemTraining() {
         return this.isItemTraining1() || this.isItemTraining2() || this.isItemTraining3();
     }
-    
+
     public boolean isItemWishGem() {
         return (this.template.id >= 14 && this.template.id <= 20);
     }
-    
+
     public boolean isItemStar() {
         return (this.template.id >= 441 && this.template.id <= 447);
     }
-    
+
     public boolean isItemSkillPet() {
         return (this.template.id >= 402 && this.template.id <= 404) || this.template.id == 759;
     }
-    
+
     public boolean isItemBlackBall() {
         return (this.template.id >= 372 && this.template.id <= 378);
     }
-    
+
     public boolean isItemDiBien() {
         return (this.template.id >= 691 && this.template.id <= 693);
     }
-    
+
     public boolean isBigItem() {
         return this.template.id == 457;
     }
-    
+
     public boolean isItemBanhTrungThu() {
         return (this.template.id >= 465 && this.template.id <= 466) || this.template.id == 472;
     }
-    
+
     public boolean isItemMerge() {
-        return !this.isTypeBody() && this.template.type != 11 && !this.isItemPet() && !this.isItemPetFollowz() && !this.isItemnogop();
+        return !this.isTypeBody() && this.template.type != 11 && !this.isItemPet() && !this.isItemPetFollowz()
+                && !this.isItemnogop();
     }
+
     public boolean isItemnogop() {
         return this.template.id == 970;
     }
+
     public boolean isItemSLL() {
         return this.template.id == 590 || this.template.id == 933;
     }
-    
+
     public boolean isItemPet() {
         if (this.template.id == 1224 || this.template.id == 1225 || this.template.id == 1226) {
             return true;
         }
-        if (this.template.id == 1008 || this.template.id == 1207 || this.template.id == 1243 || this.template.id == 1244) {
+        if (this.template.id == 1008 || this.template.id == 1207 || this.template.id == 1243
+                || this.template.id == 1244) {
             return true;
         }
-        return (this.template.id >= 916 && this.template.id <= 919) || (this.template.id >= 942 && this.template.id <= 944) || this.template.id == 1039 || this.template.id == 1040 || this.template.id == 1046 || this.template.id == 908 || this.template.id == 909 || this.template.id == 910 || this.template.id == 967 || this.template.id == 1107 || this.template.id == 1114 || this.template.id == 1188;
+        return (this.template.id >= 916 && this.template.id <= 919)
+                || (this.template.id >= 942 && this.template.id <= 944) || this.template.id == 1039
+                || this.template.id == 1040 || this.template.id == 1046 || this.template.id == 908
+                || this.template.id == 909 || this.template.id == 910 || this.template.id == 967
+                || this.template.id == 1107 || this.template.id == 1114 || this.template.id == 1188;
     }
 
-    
     public boolean isItemLimit() {
-        return this.template.id == 984 || this.template.id == 574 || this.template.id == 1116 ;
+        return this.template.id == 984 || this.template.id == 574 || this.template.id == 1116;
     }
-    
+
     public boolean isItem11_1() {
         return (this.template.id >= 386 && this.template.id <= 394);
     }
-    
+
     public boolean isItemSKH() {
-        return this.isHaveOption(127) || this.isHaveOption(128) || this.isHaveOption(129) || this.isHaveOption(130) || this.isHaveOption(131) || this.isHaveOption(132) || this.isHaveOption(133) || this.isHaveOption(134) || this.isHaveOption(135);
+        return this.isHaveOption(127) || this.isHaveOption(128) || this.isHaveOption(129) || this.isHaveOption(130)
+                || this.isHaveOption(131) || this.isHaveOption(132) || this.isHaveOption(133) || this.isHaveOption(134)
+                || this.isHaveOption(135);
     }
-    
+
     public boolean isItemNK() {
         return (this.template.id >= 541 && this.template.id <= 542);
     }
-    
+
     public boolean isItemKGPA() {
         return (this.template.id >= 537 && this.template.id <= 540);
     }
-    
+
     public boolean isItemNotSale() {
         return this.template.type == 22;
     }
-    
+
     public boolean isItemTask() {
         return this.template.type == 8 || this.template.id == 993;
     }
-    
+
     public boolean isItemKyGui() {
-        return this.isHaveOption(86) || this.isHaveOption(87) || (this.template.id >= 14 && this.template.id <= 20 && !this.isHaveOption(30)) ||
-                (this.template.id >= 63 && this.template.id <= 65) || this.template.id == 352 || this.template.id == 523 ||
+        return this.isHaveOption(86) || this.isHaveOption(87)
+                || (this.template.id >= 14 && this.template.id <= 20 && !this.isHaveOption(30)) ||
+                (this.template.id >= 63 && this.template.id <= 65) || this.template.id == 352 || this.template.id == 523
+                ||
                 this.template.id == 595 || this.template.type == 14;
     }
-    
+
     public int maxQuantity() {
         if (this.template.id == 457) {
             return 30000;
@@ -487,7 +506,8 @@ public class Item {
         if (this.template.id == 700) {
             return 30000;
         }
-        if (this.template.id == 1093 || this.template.id == 1094 || this.template.id == 1095 || this.template.id == 1096) {
+        if (this.template.id == 1093 || this.template.id == 1094 || this.template.id == 1095
+                || this.template.id == 1096) {
             return 30000;
         }
         if (this.template.id == 723) {
@@ -496,10 +516,11 @@ public class Item {
         if (this.template.id == 673) {
             return 999;
         }
-         if (this.template.id == 586 || this.template.id == 587) {
+        if (this.template.id == 586 || this.template.id == 587) {
             return 999;
         }
-        if (this.template.id == 2001 || this.template.id == 2002 || this.template.id == 2003 || this.template.id == 2004 || this.template.id == 2005 || this.template.id == 2008 || this.template.id == 2009) {
+        if (this.template.id == 2001 || this.template.id == 2002 || this.template.id == 2003 || this.template.id == 2004
+                || this.template.id == 2005 || this.template.id == 2008 || this.template.id == 2009) {
             return 30000;
         }
         if (this.template.id == 569) {
@@ -508,44 +529,51 @@ public class Item {
         if (this.template.id == 1229) {
             return 9999;
         }
-        //su kien he 2023
-        if (this.template.id == 1002 || this.template.id == 1003 || this.template.id == 1004 || this.template.id == 1990 || this.template.id == 1991 || this.template.id == 1992 || this.template.id == 1993 || this.template.id == 1994 || this.template.id == 1995 || this.template.id == 1996 || this.template.id == 2000) {
+        // su kien he 2023
+        if (this.template.id == 1002 || this.template.id == 1003 || this.template.id == 1004 || this.template.id == 1990
+                || this.template.id == 1991 || this.template.id == 1992 || this.template.id == 1993
+                || this.template.id == 1994 || this.template.id == 1995 || this.template.id == 1996
+                || this.template.id == 2000) {
             return 9999;
         }
-        //su kien he 2023 2
-        if (this.template.id >= 1237 && this.template.id <= 1240 || this.template.id >= 1245 && this.template.id <= 1251 || this.template.id >= 1987 && this.template.id <= 1988 ) {
+        // su kien he 2023 2
+        if (this.template.id >= 1237 && this.template.id <= 1240 || this.template.id >= 1245 && this.template.id <= 1251
+                || this.template.id >= 1987 && this.template.id <= 1988) {
             return 9999;
         }
         if (this.template.id >= 222 && this.template.id <= 224) {
             return 999;
         }
-        //Trang sach
+        // Trang sach
         if (this.template.id == 1281) {
             return 9999;
         }
         return 99;
     }
-    
+
     public boolean isItemDucLo() {
-        return this.template.type == 0 || this.template.type == 1 || this.template.type == 2 || this.template.type == 3 || this.template.type == 4 || this.template.type == 32;
+        return this.template.type == 0 || this.template.type == 1 || this.template.type == 2 || this.template.type == 3
+                || this.template.type == 4 || this.template.type == 32;
     }
-    
+
     public boolean isItemHD() {
         return this.template.id >= 650 && this.template.id <= 662;
     }
-    
+
     public String optionCombine(int star) {
         StringBuilder str = new StringBuilder(mResources.EMPTY);
         int i;
         for (i = 0; i < this.options.size(); i++) {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                        .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param)));
             }
         }
-        return str + String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[107].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY+star));
+        return str + String.format(mResources.FONT_COLOR_OPTION,
+                GameData.iOptionTemplates[107].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + star));
     }
-    
+
     public boolean isOption(int id) {
         int i;
         for (i = 0; i < this.options.size(); i++) {
@@ -555,7 +583,7 @@ public class Item {
         }
         return false;
     }
-    
+
     public int getParamOption(int id) {
         int i;
         for (i = 0; i < this.options.size(); i++) {
@@ -565,7 +593,7 @@ public class Item {
         }
         return 0;
     }
-    
+
     public ItemOption getOption(int id) {
         int i;
         for (i = 0; i < this.options.size(); i++) {
@@ -575,137 +603,170 @@ public class Item {
         }
         return null;
     }
-    
+
     public String optionCombine(Item itEp) {
         StringBuilder str = new StringBuilder(mResources.EMPTY);
         int i;
         boolean isUp = false;
-        //up
+        // up
         for (i = 0; i < this.options.size(); i++) {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
                 if (itEp.template.id == 14 && option.optionTemplate.id == 108) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 2))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 2))));
                     isUp = true;
                 } else if (itEp.template.id == 15 && option.optionTemplate.id == 94) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 2))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 2))));
                     isUp = true;
                 } else if (itEp.template.id == 16 && option.optionTemplate.id == 147) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
                     isUp = true;
                 } else if (itEp.template.id == 17 && option.optionTemplate.id == 81) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 12 && option.optionTemplate.id == 82) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 18 && option.optionTemplate.id == 80) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 19 && option.optionTemplate.id == 103) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 20 && option.optionTemplate.id == 77) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 441 && option.optionTemplate.id == 95) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 442 && option.optionTemplate.id == 96) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 443 && option.optionTemplate.id == 97) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 444 && option.optionTemplate.id == 98) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
                     isUp = true;
                 } else if (itEp.template.id == 445 && option.optionTemplate.id == 99) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 3))));
                     isUp = true;
                 } else if (itEp.template.id == 446 && option.optionTemplate.id == 100) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else if (itEp.template.id == 447 && option.optionTemplate.id == 101) {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + (option.param + 5))));
                     isUp = true;
                 } else {
-                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param)));
+                    str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                            .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param)));
                 }
             }
         }
-        //add
+        // add
         if (!isUp) {
             if (itEp.template.id == 14) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[108].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 2)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[108].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 2)));
             }
             if (itEp.template.id == 15) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[94].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 2)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[94].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 2)));
             }
             if (itEp.template.id == 16) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[147].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[147].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
             }
             if (itEp.template.id == 17) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[81].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[81].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 18) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[80].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[80].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 19) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[103].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[103].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 20) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[77].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[77].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 441) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[95].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[95].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 442) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[96].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[96].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 443) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[97].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[97].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 444) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[98].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[98].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
             }
             if (itEp.template.id == 445) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[99].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[99].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 3)));
             }
             if (itEp.template.id == 446) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[100].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[100].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
             if (itEp.template.id == 447) {
-                str.append(String.format(mResources.FONT_COLOR_OPTION, GameData.iOptionTemplates[101].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
+                str.append(String.format(mResources.FONT_COLOR_OPTION,
+                        GameData.iOptionTemplates[101].name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + 5)));
             }
         }
         return str.toString();
     }
-    
+
     public String optionCombine() {
         String str = mResources.EMPTY;
         int i;
         for (i = 0; i < this.options.size(); i++) {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
-                str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param));
+                str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                        .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param));
             }
         }
         return str;
     }
-    
+
     public String optionCombine1() {
         String str = mResources.EMPTY;
         int i;
         for (i = 0; i < this.options.size(); i++) {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
-                str += String.format(mResources.FONT_COLOR_OPTION1, option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + Combine.nextParamOption(option.optionTemplate.id, 1, option.param)));
+                str += String.format(mResources.FONT_COLOR_OPTION1,
+                        option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM,
+                                mResources.EMPTY + Combine.nextParamOption(option.optionTemplate.id, 1, option.param)));
             }
         }
         return str;
     }
-    
+
     public int getStarBlue() {
         int i;
         for (i = 0; i < options.size(); i++) {
@@ -715,7 +776,7 @@ public class Item {
         }
         return 0;
     }
-    
+
     public int getStarWhite() {
         int i;
         for (i = 0; i < options.size(); i++) {
@@ -725,14 +786,14 @@ public class Item {
         }
         return 0;
     }
-    
+
     public long getstrRequire() {
         if (this.isHaveOption(21)) {
-            return (long) ((long)this.getParamOption(21) * 1000000000L);
+            return (long) ((long) this.getParamOption(21) * 1000000000L);
         }
         return this.template.strRequire;
     }
-    
+
     public static Item parseItem(String str) throws ParseException {
         Item item = new Item();
         int m = 0;
@@ -778,7 +839,7 @@ public class Item {
         item.expires = Long.parseLong(jarr.get(m++).toString());
         return item;
     }
-    
+
     @Override
     public String toString() {
         JSONArray jarr = new JSONArray();
@@ -822,10 +883,10 @@ public class Item {
         jarr.add(this.expires);
         return jarr.toJSONString();
     }
-    
+
     public void setExpires(long curr) {
         ItemOption op = this.getOption(93);
-        if (op !=  null) {
+        if (op != null) {
             op.param = (int) ((curr - System.currentTimeMillis()) / 86400000L);
         } else {
             this.options.add(new ItemOption(93, (int) ((curr - System.currentTimeMillis()) / 86400000L)));
@@ -833,44 +894,50 @@ public class Item {
         this.isExpires = true;
         this.expires = curr;
     }
-    
+
     public boolean isItemFormula() {
-        return (this.template.id >= 1071 && this.template.id <= 1073) || (this.template.id >= 1084 && this.template.id <= 1086);
+        return (this.template.id >= 1071 && this.template.id <= 1073)
+                || (this.template.id >= 1084 && this.template.id <= 1086);
     }
-    
+
     public boolean isItemFormulaVIP() {
         return (this.template.id >= 1084 && this.template.id <= 1086);
     }
-    
+
     public boolean isItemGraft() {
         return (this.template.id >= 1066 && this.template.id <= 1070);
     }
-    
+
     public boolean isItemCrystal() {
         return (this.template.id >= 1079 && this.template.id <= 1083);
     }
-    
+
     public boolean isItemRuby() {
         return (this.template.id >= 1074 && this.template.id <= 1078);
     }
-    
+
     public boolean isItemTL() {
         return (this.template.id >= 555 && this.template.id <= 567);
     }
-    
+
     public boolean isItemPetFollowz() {
         return (this.template.id >= 2010 && this.template.id <= 2015);
     }
-    
+
+    /*
+     * Kiểm tra xem có phải item ngọc rồng hay không?
+     * item >= 353 && <= 359: ngọc rồng namek
+     * item >= 14 && <= 20: ngọc rồng 7 viên namek
+     */
     public boolean isItemNameBall() {
-        return (this.template.id >= 353 && this.template.id <= 359);
+        return (this.template.id >= 353 && this.template.id <= 359 || this.template.id >= 14 && this.template.id <= 20);
     }
-    
+
     public boolean isClear() {
-    	if (this.template == null) {
-    		System.out.println("Loi phai Xoa item templateId="+ this.itemId);
-    		return true;
-    	}
+        if (this.template == null) {
+            System.out.println("Loi phai Xoa item templateId=" + this.itemId);
+            return true;
+        }
         if (this.isItem11_1() && !Dragon.isEvent_Noel) {
             return true;
         }
@@ -879,29 +946,37 @@ public class Item {
         }
         return false;
     }
-    
+
     public boolean isItemForSale() {
-        return this.template.type == 0 || this.template.type == 1 || this.template.type == 2 || this.template.type == 3 || this.template.type == 4 ||
-                this.template.type == 6 || this.template.type == 12 || this.template.type == 29 || this.template.type == 31 || this.template.type == 32 ||
+        return this.template.type == 0 || this.template.type == 1 || this.template.type == 2 || this.template.type == 3
+                || this.template.type == 4 ||
+                this.template.type == 6 || this.template.type == 12 || this.template.type == 29
+                || this.template.type == 31 || this.template.type == 32 ||
                 this.template.id == 457;
     }
-    
+
     public boolean isItemForThrow() {
-        return this.template.type == 0 || this.template.type == 1 || this.template.type == 2 || this.template.type == 3 || this.template.type == 4 ||
-                this.template.type == 5 || this.template.type == 6 || this.template.type == 7 || this.template.type == 11 || this.template.type == 13 || this.template.type == 14 ||
-                this.template.type == 15 || this.template.type == 16 || this.template.type == 22 || this.template.type == 23 || this.template.type == 24 || this.template.type == 25 ||
-                this.template.type == 27 || this.template.type == 29 || this.template.type == 30 || this.template.type == 31 || this.template.type == 32 || this.template.type == 33;
+        return this.template.type == 0 || this.template.type == 1 || this.template.type == 2 || this.template.type == 3
+                || this.template.type == 4 ||
+                this.template.type == 5 || this.template.type == 6 || this.template.type == 7
+                || this.template.type == 11 || this.template.type == 13 || this.template.type == 14 ||
+                this.template.type == 15 || this.template.type == 16 || this.template.type == 22
+                || this.template.type == 23 || this.template.type == 24 || this.template.type == 25 ||
+                this.template.type == 27 || this.template.type == 29 || this.template.type == 30
+                || this.template.type == 31 || this.template.type == 32 || this.template.type == 33;
     }
-    
+
     public String strOption() {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < this.options.size(); i++) {
-            if (i > 0) str.append(", ");
-            str.append(this.options.get(i).optionTemplate.name.replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + this.options.get(i).param));
+            if (i > 0)
+                str.append(", ");
+            str.append(this.options.get(i).optionTemplate.name.replaceAll(mResources.OPTION_PARAM,
+                    mResources.EMPTY + this.options.get(i).param));
         }
         return str.toString();
     }
-    
+
     public boolean isItemPractice() {
         return this.template.id == 880 || this.template.id == 881 || this.template.id == 882;
     }

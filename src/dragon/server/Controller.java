@@ -49,27 +49,31 @@ import dragon.t.Rada;
 import dragon.t.SetSQL;
 
 /**
- *
+ * Lớp điều khiển xử lý tin nhắn từ client đến server
  * @author Admin
  */
 public class Controller implements IMessageHandler {
 
+    // Phiên làm việc của người chơi
     private final Session_ME session;
 
     public Controller(Session_ME session) {
         this.session = session;
     }
 
+    // Các hàm xử lý sự kiện kết nối
     @Override
     public void onConnectOK() {
         // Connection established - no-op by default
     }
 
+    // Các hàm xử lý sự kiện kết nối thất bại
     @Override
     public void onConnectionFail() {
         // Connection failed - no-op by default
     }
 
+    // Hàm xử lý sự kiện ngắt kết nối
     @Override
     public void onDisconnected() {
         // Disconnected - ensure session cleanup
@@ -95,6 +99,7 @@ public class Controller implements IMessageHandler {
                                 try {
                                     num362 = msg.reader().readByte();
                                 } catch (Exception e) {
+                                    e.printStackTrace(); // lỗi ở đây
                                 }
                                 LuckyRound.gI().crackBall(this.session.myCharz(), type982, num362);
                             }
@@ -184,12 +189,12 @@ public class Controller implements IMessageHandler {
                             }
                         }
                         break;
-                    case -104:
+                    case -104: // Case khóa mở rương
                         if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
                             this.session.myCharz().setLockInventory(msg.reader().readInt());
                         }
                         break;
-                    case -103:
+                    case -103: // Case cờ
                         if (this.session.myCharz() != null && this.session.myCharz().zoneMap != null) {
                             int action = msg.reader().readByte();
                             int flagType = -1;
@@ -219,8 +224,8 @@ public class Controller implements IMessageHandler {
                                     }
                                 }
                                 if (action == 2) {
-                                    this.session.service.idImgFlag(flagType,
-                                            Flag.FLAGS.get(flagType).itemFlag.template.iconID);
+                                    this.session.service.idImgFlag(
+                                        flagType,Flag.FLAGS.get(flagType).itemFlag.template.iconID);
                                 }
                             }
                         }

@@ -4047,6 +4047,12 @@ public class Service {
         }
     }
     
+    /**
+     * Hàm mở giao diện nhập liệu từ client
+     * @param title Tiêu đề giao diện
+     * @param name Mảng tên các trường nhập liệu
+     * @param type Mảng kiểu dữ liệu tương ứng với các trường nhập liệu (trong name)
+     */
     public void openClientInput(String title, String[] name, int[] type) {
         Message msg = null;
         int i;
