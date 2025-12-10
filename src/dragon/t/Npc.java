@@ -2,25 +2,27 @@ package dragon.t;
 
 import dragon.server.mResources;
 
+import java.util.Objects;
+
 /**
  *
  * @author Admin
  */
 public class Npc extends Char {
-    
+
     public static NpcTemplate[] arrNpcTemplate;
-    
+
     public boolean isHide;
     public DuaHau duahau = null;
-    
+
     protected int timeInvateMabu;
     private int timeNk;
     private int timeBien;
-    
+
     private int nDadChat;
     private int timeDadChat;
     private int timeDad;
-    
+
     public Npc(int npcId, int status, int cx, int cy, int templateId, int avatar) {
         this.isShadown = true;
         this.npcId = npcId;
@@ -41,7 +43,7 @@ public class Npc extends Char {
             this.duaHauIndex = status;
         }
     }
-    
+
     public void update(ZoneMap zone) {
         if (super.template.npcTemplateId == 48) {
             this.timeNk = (int) (this.timeNk - zone.map.delays);
@@ -57,7 +59,7 @@ public class Npc extends Char {
                 }
                 if (zone.isHaveBoss(54) && zone.countPlayerNotDie() <= 0) {
                     zone.hideNpc(super.template.npcTemplateId, false);
-                    ((Player)zone.findBossInMapById(54)).isClear = true;
+                    ((Player) zone.findBossInMapById(54)).isClear = true;
                 }
             }
         }
@@ -89,7 +91,7 @@ public class Npc extends Char {
                     }
                 }
                 if (o != null) {
-                    o.changeFlag(Flag.get(520).id);
+                    o.changeFlag(Objects.requireNonNull(Flag.get(520)).id);
                     if (o.myPet != null) {
                         o.myPetz().changeFlag(o.cFlag);
                     }
@@ -115,7 +117,7 @@ public class Npc extends Char {
                     }
                 }
                 if (o != null) {
-                    o.changeFlag(Flag.get(519).id);
+                    o.changeFlag(Objects.requireNonNull(Flag.get(519)).id);
                     if (o.myPet != null) {
                         o.myPetz().changeFlag(o.cFlag);
                     }
@@ -127,32 +129,32 @@ public class Npc extends Char {
             }
         }
         //Quang cao Rong Vo Cuc
-       if (super.template.npcTemplateId == 64 && !this.isHide) {
-           if (this.nDadChat > 0) {
-               this.timeDadChat -= zone.map.delays;
-               if (this.timeDadChat <= 0) {
-                   this.timeDadChat = 5000;
-                   if (this.nDadChat == 3) {
-                       zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_3);
-                   }
-                   if (this.nDadChat == 2) {
-                       zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_2);
-                   }
-                   if (this.nDadChat == 1) {
-                       zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_1);
-                   }
-                   if (this.nDadChat == 0) {
-                       this.timeDad = 20000;
-                   }
-                   this.nDadChat--;
-               }
-           } else {
-               this.timeDad -= zone.map.delays;
-               if (this.timeDad <= 0) {
-                   this.nDadChat = 3;
-               }
-           }
-       }
+        if (super.template.npcTemplateId == 64 && !this.isHide) {
+            if (this.nDadChat > 0) {
+                this.timeDadChat -= zone.map.delays;
+                if (this.timeDadChat <= 0) {
+                    this.timeDadChat = 5000;
+                    if (this.nDadChat == 3) {
+                        zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_3);
+                    }
+                    if (this.nDadChat == 2) {
+                        zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_2);
+                    }
+                    if (this.nDadChat == 1) {
+                        zone.npcChat(super.template.npcTemplateId, mResources.CHAT_DAD_1);
+                    }
+                    if (this.nDadChat == 0) {
+                        this.timeDad = 20000;
+                    }
+                    this.nDadChat--;
+                }
+            } else {
+                this.timeDad -= zone.map.delays;
+                if (this.timeDad <= 0) {
+                    this.nDadChat = 3;
+                }
+            }
+        }
         //Whis
         if (this.template.npcTemplateId == 56 && this.isHide && !zone.isHaveBoss(147)) {
             zone.hideNpc(56, false);

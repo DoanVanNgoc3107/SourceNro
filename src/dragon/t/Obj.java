@@ -45,8 +45,8 @@ public class Obj {
     
     public boolean isHaveItemBlackBall(int id) {
         synchronized (this.blackBalls) {
-            for (int i = 0; i < this.blackBalls.size(); i++) {
-                if (this.blackBalls.get(i).template.id == id) {
+            for (Item blackBall : this.blackBalls) {
+                if (blackBall.template.id == id) {
                     return true;
                 }
             }

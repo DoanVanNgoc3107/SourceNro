@@ -897,7 +897,9 @@ public class mResources {
     public static final String REGEX_VIETNAM2 = "^[aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0123456789<>,.?]+$";
     public static final String PLAYER_INVATE_EXPIRED = "Thao tác đã hết hạn";
     public static final String SAY_OUT_CLAN = "Bạn có chắc muốn rời khỏi bang hội?";
-    public static final String SAY_NOI_BANH_1 = "Xin chào %s\nTôi là nồi bánh\nTôi có thể giúp gì cho bạn ?";
+
+    // Sự kiện đón năm mới 2026 - EVENT_TET_NGUYEN_DAN
+    public static final String SAY_NOI_BANH_1 = "Nấu bánh Chưng đón giao thừa thôi nào...\nGiao thừa đang đến rất gần rồi, chuẩn bị những mọi thứ để đón năm mới 2026 Bình An, Hạnh Phúc, Ấm no,\nChúc mừng năm mới 2026";
     public static final String TU_NAU_BANH = "Tự nấu\nbánh";
     public static final String SAY_NOI_BANH_2 = "Hãy tìm đủ nguyên liệu và chọn bánh muốn nấu";
     public static final String NAU_BANH_TET = "Nấu\nBánh tét";
@@ -924,17 +926,20 @@ public class mResources {
     public static final String ONG_GIA_SAY_1 = "Đây là bé tuần lộc kéo xe của ta\ncám ơn con đã tìm nó giùm ta.\nGiao cho ta nhé";
     public static final String DUA_PET_GO = "Ha ha, %s đã chịu theo ta";
     public static final String FALID_DUA_PET_2 = "Mất %s rồi!!!!!!!";
-    public static final String DUA_PET_SAY_1 = "Ah con đã tìm thấy lân con thất lạc của ta\nTa sẽ thưởng cho 1 viên Capsule tết 2025";
+    public static final String DUA_PET_SAY_1 = "Ah con đã tìm thấy lân con thất lạc của ta\nTa sẽ thưởng cho 1 viên Capsule tết 2026";
     public static final String GIFT_TET = "Gói\nHộp quà tết";
     public static final String YOU_GIFT_TET = "Bạn muốn gói Hộp quà tết ?";
     public static final String QUANTITY_GIFT_TET = "Số lượng Hộp quà tết";
     public static final String QUANTITY_GIFT_TET_KEY = "Nhập số lượng Hộp quà";
-    public static final String TOP100_OPEN_GIFT_TET = "Top 10\nSự Kiện\nTết 2025";
+    public static final String TOP100_OPEN_GIFT_TET = "Top 10\nSự Kiện\nTết 2026";
     public static final String SAY_QUY_LAO_KAME_19 = "Con có chắc muốn đổi %d";
     public static final String TOP100_EVENT = "Top 100\nSự kiện";
-    public static final String TUNG_TUNG_TUNG1 = "tùng tùng tùng";
-    public static final String TUNG_TUNG_TUNG2 = "tùng tùng tùng xèn";
+    public static final String TUNG_TUNG_TUNG1 = "Lân tới cầu may cho một năm mới an khang thịnh vượng";
+    public static final String TUNG_TUNG_TUNG2 = "Tùng tùng tùng, lân tới chúc phúc mọi nhà";
+    public static final String TUNG_TUNG_TUNG3 = "Tùng tùng tùng, lân tới mang lộc tài đến cho mọi người";
+    public static final String TUNG_TUNG_TUNG4 = "Lân tới mang may mắn cho mọi người";
     public static final String EVENT_TETNGUYENDAN = "Sự Kiện\nTết 2026";
+    //=========================================
     public static final String SAY_QUY_LAO_KAME_20 = "Sự Kiện Tết Nguyên Đán 2026 nhận quả khủng đang diễn ra\nChi tiết sự kiện tại Group và Page Dragon Rose";
     public static final String TB_ACC = "Chức năng bảo trì để đăng ký tài khoản truy cập trang chủ để đăng ký.";
     public static final String AD_SDHPKI_TEXT = "+50k sức đánh, HP,KI";
@@ -1287,7 +1292,7 @@ public class mResources {
     public static final String BAN_NHAN_DUOC_9 = "Bạn nhận được %d %s, tại hòm thư";
     public static final String BAN_NHAN_DUOC_10 = "Bạn nhận được %s, tại hòm thư";
     public static final String MAILBOX1 = "Quà";
-    public static final String EVENT_HE_2026 = "Sự kiện\nHè 2025";
+    public static final String EVENT_HE_2026 = "Sự kiện\nHè 2026";
     public static final String SAY_SUKIEN1 = "Ta có thể giúp gì cho ngươi?";
     public static final String CHAT_MAKE = "Bư cô lô, ba cô la, bư ra bư zô...";
     public static final String TILE_REQUESTITEM1 = "{check:}|%d|";

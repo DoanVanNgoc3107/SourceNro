@@ -458,7 +458,7 @@ public class Char {
     public int tStab = 0;
     public int tToHome = 0;
     public boolean isCallDau;
-    // public HashMap<Integer, Object> objArray;
+    public HashMap<Integer, Object> objArray;
     public int[] arrInMap;
     public int typeConsign;
     public long lastXinDau;
@@ -898,6 +898,7 @@ public class Char {
         }
         // Goi rong
         this.updateRong();
+
         // ClanNew
         if (this.isPlayer && this.gameTick % 20 == 0) {
             this.updateNoiBanh();
@@ -932,7 +933,7 @@ public class Char {
         if (!this.aInfo1.isEmpty()) {
             this.updateTimeInfo1();
         }
-        // Time go dai hoi
+        // Thời gian đại hội
         this.updateOutPrize();
         // Auto xy
         this.updateAutoXY();
@@ -1386,17 +1387,17 @@ public class Char {
         // ======================================================================================================
 
         // ===UPDATE SKILL===//
-        if (this.skills.size() > 0 && !this.CSkill.isEmpty()) {
+        if (!this.skills.isEmpty() && !this.CSkill.isEmpty()) {
             for (i = 0; i < this.skills.size(); ++i) {
-                if (this.skills.get(i).template.id == this.CSkill.get(0)) {
+                if (this.skills.get(i).template.id == this.CSkill.getFirst()) {
                     this.mySkill = this.skills.get(i);
                     break;
                 }
             }
         }
 
-        if (this.mySkill == null && this.skills.size() > 0) {
-            this.mySkill = this.skills.get(0);
+        if (this.mySkill == null && !this.skills.isEmpty()) {
+            this.mySkill = this.skills.getFirst();
             this.CSkill.clear();
             this.CSkill.add(this.mySkill.template.id);
         }
@@ -4813,12 +4814,12 @@ public class Char {
     }
 
     public void selectSkill(int skillTemplateId) {
-        if (this.skills != null && this.skills.size() > 0) {
+        if (this.skills != null && !this.skills.isEmpty()) {
             for (int i = 0; i < this.skills.size(); i++) {
                 Skill skill = this.skills.get(i);
                 if (skill != null && skill.template.id == skillTemplateId) {
                     this.mySkill = skill;
-                    if (!this.CSkill.isEmpty() && this.CSkill.get(0) != skill.template.id) {
+                    if (!this.CSkill.isEmpty() && this.CSkill.getFirst() != skill.template.id) {
                         this.lSSkill = System.currentTimeMillis();
                     }
                     this.CSkill.clear();
@@ -6879,7 +6880,7 @@ public class Char {
         if (!player.isEat) {
             this.timeHit = 1000;
             this.zoneMap.eat(this.charID, player.charID);
-            player.eat(this.belly.zones.get(0), 1);
+            player.eat(this.belly.zones.getFirst(), 1);
             for (int i = 0; i < this.belly.zones.size(); i++) {
                 this.belly.zones.get(i).initBelly();
             }
@@ -7401,25 +7402,25 @@ public class Char {
                                     if (this.myPetz().aMobFocus.size() > 0 || this.myPetz().aCharFocus.size() > 0) {
                                         if (this.myPetz().aMobFocus.size() > 0) {
                                             if (skillF.dx < 50 || skillF.dy < 50) {
-                                                this.myPetz().addMove(0, Util.gI().nextInt(this.myPetz().aMobFocus.get(0).pointx - skillF.dx, this.myPetz().aMobFocus.get(0).pointx + skillF.dx), this.myPetz().aMobFocus.get(0).pointy, 0);
+                                                this.myPetz().addMove(0, Util.gI().nextInt(this.myPetz().aMobFocus.getFirst().pointx - skillF.dx, this.myPetz().aMobFocus.getFirst().pointx + skillF.dx), this.myPetz().aMobFocus.getFirst().pointy, 0);
                                             }
-                                            if (skillF.isChuong() && Math.abs(this.myPetz().cx - this.myPetz().aMobFocus.get(0).pointx) < 100) {
-                                                if (this.myPetz().cx > this.myPetz().aMobFocus.get(0).pointx) {
-                                                    this.myPetz().addMove(0, this.myPetz().aMobFocus.get(0).pointx + 120, -1, 0);
+                                            if (skillF.isChuong() && Math.abs(this.myPetz().cx - this.myPetz().aMobFocus.getFirst().pointx) < 100) {
+                                                if (this.myPetz().cx > this.myPetz().aMobFocus.getFirst().pointx) {
+                                                    this.myPetz().addMove(0, this.myPetz().aMobFocus.getFirst().pointx + 120, -1, 0);
                                                 } else {
-                                                    this.myPetz().addMove(0, this.myPetz().aMobFocus.get(0).pointx - 120, -1, 0);
+                                                    this.myPetz().addMove(0, this.myPetz().aMobFocus.getFirst().pointx - 120, -1, 0);
                                                 }
                                             }
                                         }
                                         if (this.myPetz().aCharFocus.size() > 0) {
                                             if (skillF.dx < 50 || skillF.dy < 50) {
-                                                this.myPetz().addMove(0, Util.gI().nextInt(this.myPetz().aCharFocus.get(0).cx - skillF.dx, this.myPetz().aCharFocus.get(0).cx + skillF.dx), this.myPetz().aCharFocus.get(0).cy, 0);
+                                                this.myPetz().addMove(0, Util.gI().nextInt(this.myPetz().aCharFocus.getFirst().cx - skillF.dx, this.myPetz().aCharFocus.getFirst().cx + skillF.dx), this.myPetz().aCharFocus.getFirst().cy, 0);
                                             }
-                                            if (skillF.isChuong() && Math.abs(this.myPetz().cx - this.myPetz().aCharFocus.get(0).cx) < 100) {
-                                                if (this.myPetz().cx > this.myPetz().aCharFocus.get(0).cx) {
-                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.get(0).cx + 120, -1, 0);
+                                            if (skillF.isChuong() && Math.abs(this.myPetz().cx - this.myPetz().aCharFocus.getFirst().cx) < 100) {
+                                                if (this.myPetz().cx > this.myPetz().aCharFocus.getFirst().cx) {
+                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.getFirst().cx + 120, -1, 0);
                                                 } else {
-                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.get(0).cx - 120, -1, 0);
+                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.getFirst().cx - 120, -1, 0);
                                                 }
                                             }
                                         }
@@ -9465,10 +9466,8 @@ public class Char {
             this.menuBoard.chat = mResources.SAY_RONG_THAN_4;
             this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.DIEU_UOC, 1), 295, 1));
             this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.DIEU_UOC, 2), 295, 2));
-            // this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.DIEU_UOC,
-            // 3), 295, 3));
-            // this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.DIEU_UOC,
-            // 4), 295, 4));
+            this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.DIEU_UOC, 3), 295, 3));
+            this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.DIEU_UOC, 4), 295, 4));
             this.menuBoard.openUIConfirm(5, null, null, -1);
         }
         if (this.typeRong == 2) {
@@ -11123,17 +11122,19 @@ public class Char {
                 }
                 this.setMove(0, x, 150, 50, 1, 200);
             }
-        }
+        } // Câu thoại của con lân
         if (this.cTemplateId == 127 && this.zoneMap != null && this.gameTick % 50 == 0) {
             this.addChat(3000, mResources.TUNG_TUNG_TUNG1);
             this.addChat(6000, mResources.TUNG_TUNG_TUNG2);
+            this.addChat(9000, mResources.TUNG_TUNG_TUNG3);
+            this.addChat(12000, mResources.TUNG_TUNG_TUNG4);
         }
     }
 
     private void petGoMe(int type, ZoneMap zoneNew, ZoneMap zoneOld, int x, int y) {
         Player o = zoneOld.getBossPlayer(this.playerId);
         if (o != null && !o.isDie) {
-            if (o.charTemplate.type == 7 && o.itemBuys.size() > 0) {
+            if (o.charTemplate.type == 7 && !o.itemBuys.isEmpty()) {
                 if (Math.abs(o.cx - x) < 70 && type == 0) {
                     o.zoneMap.exit(o, 0);
                     zoneNew.join(o, 0, this.cx, this.cy);
@@ -12008,13 +12009,13 @@ public class Char {
         // Trung
         if (this.gameTick % 20 == 0) {
             if (this.isHaveDuaHau(50, -1)) {
-                if (this.isHaveDuaHau(50, 4664) && !this.getMapOffline(this.mainHome()).zones.get(0).isHaveNpc(this.getDuaHau(50, 4664).id)) {
-                    this.getMapOffline(this.mainHome()).zones.get(0).addNpc(50, 1, this.mainHome() == 21 ? 700 : this.mainHome() == 22 ? 700 : this.mainHome() == 23 ? 688 : 0, 336, 50, 0);
-                    this.getMapOffline(this.mainHome()).zones.get(0).findNPCInMap(50).duahau = this.getDuaHau(50, 4664);
+                if (this.isHaveDuaHau(50, 4664) && !this.getMapOffline(this.mainHome()).zones.getFirst().isHaveNpc(this.getDuaHau(50, 4664).id)) {
+                    this.getMapOffline(this.mainHome()).zones.getFirst().addNpc(50, 1, this.mainHome() == 21 ? 700 : this.mainHome() == 22 ? 700 : this.mainHome() == 23 ? 688 : 0, 336, 50, 0);
+                    this.getMapOffline(this.mainHome()).zones.getFirst().findNPCInMap(50).duahau = this.getDuaHau(50, 4664);
                 }
-                if (this.isHaveDuaHau(50, 6546) && !this.getMapOffline(154).zones.get(0).isHaveNpc(this.getDuaHau(50, 6546).id)) {
-                    this.getMapOffline(154).zones.get(0).addNpc(50, 1, 115, 312, 50, 0);
-                    this.getMapOffline(154).zones.get(0).findNPCInMap(50).duahau = this.getDuaHau(50, 6546);
+                if (this.isHaveDuaHau(50, 6546) && !this.getMapOffline(154).zones.getFirst().isHaveNpc(this.getDuaHau(50, 6546).id)) {
+                    this.getMapOffline(154).zones.getFirst().addNpc(50, 1, 115, 312, 50, 0);
+                    this.getMapOffline(154).zones.getFirst().findNPCInMap(50).duahau = this.getDuaHau(50, 6546);
                 }
             } else {
 
@@ -12023,9 +12024,9 @@ public class Char {
         // dua hau
         if (this.gameTick % 28 == 0) {
             if (this.isHaveDuaHau(51, -1)) {
-                if (!this.getMapOffline(this.mainHome()).zones.get(0).isHaveNpc(this.getDuaHau(51, -1).id)) {
-                    this.getMapOffline(this.mainHome()).zones.get(0).addNpc(51, 1, this.mainHome() == 21 ? 574 : this.mainHome() == 22 ? 115 : this.mainHome() == 23 ? 563 : 0, 336, 51, 0);
-                    this.getMapOffline(this.mainHome()).zones.get(0).findNPCInMap(51).duahau = this.getDuaHau(51, -1);
+                if (!this.getMapOffline(this.mainHome()).zones.getFirst().isHaveNpc(this.getDuaHau(51, -1).id)) {
+                    this.getMapOffline(this.mainHome()).zones.getFirst().addNpc(51, 1, this.mainHome() == 21 ? 574 : this.mainHome() == 22 ? 115 : this.mainHome() == 23 ? 563 : 0, 336, 51, 0);
+                    this.getMapOffline(this.mainHome()).zones.getFirst().findNPCInMap(51).duahau = this.getDuaHau(51, -1);
                 } else {
                     float pDuaHau = (float) ((System.currentTimeMillis() / 1000L) - this.getDuaHau(51, -1).last) / (float) this.getDuaHau(51, -1).second;
                     if (pDuaHau >= 1.0F) {
@@ -12485,7 +12486,7 @@ public class Char {
                 this.addChat(6000, mResources.WAR_PRIZE_CHAT3);
                 this.addChat(9000, mResources.WAR_PRIZE_CHAT4);
                 if (!DaiHoi.LISTWIN.isEmpty()) {
-                    String list = DaiHoi.LISTWIN.get(0);
+                    String list = DaiHoi.LISTWIN.getFirst();
                     for (int i = 1; i < DaiHoi.LISTWIN.size(); i++) {
                         list += ("," + DaiHoi.LISTWIN.get(i));
                     }
@@ -13873,7 +13874,7 @@ public class Char {
         }
 
         if (this.zoneMap != null && this.isMove && !this.isStand() && this.moveAutos != null && !this.moveAutos.isEmpty()) {
-            int array[] = this.moveAutos.get(0);
+            int array[] = this.moveAutos.getFirst();
             array[4] -= this.delay;
             if (array[4] <= 0) {
                 this.addMove(array[0], array[1], array[2], array[3]);
@@ -14775,7 +14776,7 @@ public class Char {
             // Nhan het
             if (type == 2) {
                 while (!itemMores.isEmpty()) {
-                    item = itemMores.get(0);
+                    item = itemMores.getFirst();
                     if (item != null) {
                         if (this.addItemBag(0, item)) {
                             itemMores.remove(0);
@@ -15697,12 +15698,12 @@ public class Char {
                                 this.aCharFocus.clear();
                                 this.aCharFocus.add(player);
                                 if (skill.isChuong()) {
-                                    if (!this.isMove && (Math.abs(this.cx - this.aCharFocus.get(0).cx) > 120 || Math.abs(this.cx - this.aCharFocus.get(0).cx) < 30 || Math.abs(this.cy - this.aCharFocus.get(0).cy) > 50)) {
-                                        this.addMove(0, this.aCharFocus.get(0).cx + new int[]{120, -120}[Util.gI().nextInt(2)], this.aCharFocus.get(0).cy, 1);
+                                    if (!this.isMove && (Math.abs(this.cx - this.aCharFocus.getFirst().cx) > 120 || Math.abs(this.cx - this.aCharFocus.getFirst().cx) < 30 || Math.abs(this.cy - this.aCharFocus.getFirst().cy) > 50)) {
+                                        this.addMove(0, this.aCharFocus.getFirst().cx + new int[]{120, -120}[Util.gI().nextInt(2)], this.aCharFocus.getFirst().cy, 1);
                                     }
                                 } else {
-                                    if (!this.isMove && (Math.abs(this.aCharFocus.get(0).cx - this.cx) > 24 || Math.abs(this.aCharFocus.get(0).cy - this.cy) > 24)) {
-                                        this.addMove(0, this.aCharFocus.get(0).cx + new int[]{24, -24}[Util.gI().nextInt(2)], this.aCharFocus.get(0).cy, 1);
+                                    if (!this.isMove && (Math.abs(this.aCharFocus.getFirst().cx - this.cx) > 24 || Math.abs(this.aCharFocus.getFirst().cy - this.cy) > 24)) {
+                                        this.addMove(0, this.aCharFocus.getFirst().cx + new int[]{24, -24}[Util.gI().nextInt(2)], this.aCharFocus.getFirst().cy, 1);
                                     }
                                 }
                                 this.timeLoadSkill = 0;
