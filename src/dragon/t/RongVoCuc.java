@@ -5,7 +5,6 @@ import dragon.server.Session_ME;
 import dragon.server.mResources;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  *
@@ -47,15 +46,15 @@ public class RongVoCuc {
         mLog.log("Open Rong Vo Cuc time="+this.timeRongVoCuc);
     }
     
-    public boolean addWish(int playerId, int wish) {
+    public void addWish(int playerId, int wish) {
         synchronized (this.hPlayer) {
             if (this.isWish && !this.hPlayer.containsKey(playerId)) {
                 this.hPlayer.put(playerId, (byte)wish);
                 this.arrWish[wish]++;
                 this.total++;
-                return true;
             } else {
-                return false;
+                //Da dieu uoc hoac het thoi gian
+                Server.gI().connCId.get(playerId).myCharz().setText(3, mResources.TIMEOUT_RONG, 5000, 1, 0);
             }
         }
     }
@@ -87,32 +86,26 @@ public class RongVoCuc {
         //Thuc hien dieu uoc
         if (num1 != -1) {
             synchronized(Server.gI().connCId) {
-                Iterator<Integer> itr = Server.gI().connCId.keySet().iterator();
-                while (itr.hasNext()) {
-                    int key = itr.next();
+                for (int key : Server.gI().connCId.keySet()) {
                     Session_ME player = Server.gI().connCId.get(key);
                     switch (num1) {
                         //X2 Exp
-                        case 0:
-                        {
+                        case 0: {
                             player.myCharz().setText(3, mResources.X2_TEXT_RVC, 86400, 2, 0);
                             break;
                         }
                         //5K HN
-                        case 1:
-                        {
+                        case 1: {
                             player.myCharz().addItemBag(0, new Item(861, false, 10000, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                             break;
                         }
                         //10 ti vang
-                        case 2:
-                        {
+                        case 2: {
                             player.myCharz().addItemBag(0, new Item(190, false, 1000000000, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                             break;
                         }
-                        //Doremon
-                        case 3:
-                        {
+                        // Doraemon
+                        case 3: {
                             Item doremon = new Item(806, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                             doremon.options.add(new ItemOption(50, 30));
                             doremon.options.add(new ItemOption(77, 30));

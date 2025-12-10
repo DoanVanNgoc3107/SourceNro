@@ -11,52 +11,49 @@ import java.util.ArrayList;
  * @author TGDD
  */
 public class ClientInput {
-    
+
     private final Session_ME session;
-    
+
     public int typeInput;
     public String tile;
-    public String name[];
-    public int type[];
+    public String[] name;
+    public int[] type;
     public ArrayList<Integer> indexs = new ArrayList<>();
-    public String inputs[] = null;
-    
+    public String[] inputs = null;
+
     public ClientInput(Session_ME session) {
         this.session = session;
     }
-    
-    public void openClientInput(int typeInput, String tile, String name[], int type[]) {
+
+    public void openClientInput(int typeInput, String tile, String[] name, int[] type) {
         this.typeInput = typeInput;
         this.tile = tile;
         this.name = name;
         this.type = type;
         this.session.service.openClientInput(this.tile, this.name, this.type);
     }
-    
+
     public void doClientInput(String[] texts) {
         this.inputs = texts;
         switch (this.typeInput) {
-            case -1:
-            {
+            case -1: {
                 Admin.gI().input(this.session.myCharz(), this.inputs);
                 break;
             }
-            case 1:
-            {
+            case 1: {
                 try {
                     this.session.myCharz().changeCode(Integer.parseInt(this.inputs[0]));
                 } catch (Exception e) {
-                    
-                }   this.typeInput = 0;
+                    e.printStackTrace();
+                }
+                this.typeInput = 0;
                 break;
             }
-            case 2:
-            {
+            case 2: {
                 GiftCode.gI().inputCode(this.session.myCharz(), this.inputs[0]);
                 break;
             }
-            case 3:
-            {
+            case 3: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clanMember.role == 0) {
                     try {
                         int level = Integer.parseInt(this.inputs[0]);
@@ -76,8 +73,7 @@ public class ClientInput {
                 }
                 break;
             }
-            case 4:
-            {
+            case 4: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100 && this.session.myCharz().canProceed()) {
@@ -95,7 +91,7 @@ public class ClientInput {
                             this.session.myCharz().useItemBag(this.session.myCharz().getItemBagById(698).indexUI, 1 * number);
                             Item it2 = new Item(694, false, number, ItemOption.getOption(694, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                             if (it2.isHaveOption(93)) {
-                                it2.setExpires(System.currentTimeMillis() + (long)(1000l * 60l * 60l * 24l * (long)(it2.getParamOption(93) + 1)));
+                                it2.setExpires(System.currentTimeMillis() + (long) (1000l * 60l * 60l * 24l * (long) (it2.getParamOption(93) + 1)));
                             }
                             this.session.myCharz().addItemBag(0, it2);
                             this.session.myCharz().updateLuong(-(25 * number), 2);
@@ -106,8 +102,7 @@ public class ClientInput {
                 break;
             }
             //Con so may man
-            case 5:
-            {
+            case 5: {
                 try {
                     int first = Integer.parseInt(this.inputs[0]);
                     if (first >= 0 && first < LuckyNumber.maxNumber && Server.start) {
@@ -128,13 +123,12 @@ public class ClientInput {
                         }
                     }
                 } catch (Exception e) {
-                    
+
                 }
                 break;
             }
             //Nhan thoi vang
-            case 6:
-            {
+            case 6: {
                 try {
                     if (this.session.myCharz().canProceed()) {
                         int ntv = Integer.parseInt(this.inputs[0]);
@@ -152,12 +146,12 @@ public class ClientInput {
                             }
                         }
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
                 break;
             }
             //Ban do kho bau
-            case 7:
-            {
+            case 7: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clanMember.role == 0 && this.session.myCharz().canProceed()) {
                     try {
                         int level = Integer.parseInt(this.inputs[0]);
@@ -172,14 +166,13 @@ public class ClientInput {
                             this.session.myCharz().menuBoard.openUIConfirm(this.session.myCharz().menuBoard.npcId, null, null, -1);
                         }
                     } catch (Exception e) {
-
+                        System.out.println(e.getMessage());
                     }
                 }
                 break;
             }
             //Ban phao hoa
-            case 8:
-            {
+            case 8: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().phaohoa != null && this.session.myCharz().arrItemBag[this.session.myCharz().phaohoa.indexUI] != null && this.session.myCharz().arrItemBag[this.session.myCharz().phaohoa.indexUI] == this.session.myCharz().phaohoa) {
                     try {
                         int nShooot = Integer.parseInt(this.inputs[0]);
@@ -195,8 +188,7 @@ public class ClientInput {
                 break;
             }
             //Hoa dang
-            case 9:
-            {
+            case 9: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().phaohoa != null && this.session.myCharz().arrItemBag[this.session.myCharz().phaohoa.indexUI] != null && this.session.myCharz().arrItemBag[this.session.myCharz().phaohoa.indexUI] == this.session.myCharz().phaohoa) {
                     try {
                         int nShooot = Integer.parseInt(this.inputs[0]);
@@ -212,27 +204,25 @@ public class ClientInput {
                 break;
             }
             //Hoa dang loi chuc
-            case 10:
-            {
+            case 10: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().phaohoa != null && this.session.myCharz().arrItemBag[this.session.myCharz().phaohoa.indexUI] != null && this.session.myCharz().arrItemBag[this.session.myCharz().phaohoa.indexUI] == this.session.myCharz().phaohoa) {
                     try {
                         this.session.myCharz().clientInputInt = Integer.parseInt(this.inputs[0]);
                         //
                         this.session.myCharz().resetMenu();
-                        String str = "";
+                        StringBuilder str = new StringBuilder();
                         for (int i = 0; i < PhaoHoa.ARRAY_LOI_CHUC.length; i++) {
-                            str += String.format(mResources.LOI_CHUC_3, i + 1, PhaoHoa.ARRAY_LOI_CHUC[i]);
+                            str.append(String.format(mResources.LOI_CHUC_3, i + 1, PhaoHoa.ARRAY_LOI_CHUC[i]));
                             this.session.myCharz().menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.LOI_CHUC_1, i + 1), 298, i));
                         }
-                        this.session.myCharz().menuBoard.openUIConfirm(5, String.format(mResources.LOI_CHUC_2, str), null, -1);
+                        this.session.myCharz().menuBoard.openUIConfirm(5, String.format(mResources.LOI_CHUC_2, str.toString()), null, -1);
                     } catch (Exception e) {
                     }
                 }
                 break;
             }
             //Lam capsule world cup 2022
-            case 11:
-            {
+            case 11: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
@@ -262,8 +252,7 @@ public class ClientInput {
                 break;
             }
             //Lam capsule world cup 2022 vip
-            case 12:
-            {
+            case 12: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
@@ -293,8 +282,7 @@ public class ClientInput {
                 break;
             }
             //Short name
-            case 13:
-            {
+            case 13: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clanMember.role == 0) {
                     try {
                         String shortName = this.inputs[0].toUpperCase();
@@ -303,17 +291,17 @@ public class ClientInput {
                         } else {
                             this.session.myCharz().clan.setShortName(this.session.myCharz(), shortName);
                         }
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                 }
                 break;
             }
             //Mam ngu qua
-            case 14:
-            {
+            case 14: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
-                        if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.YOU_FRUIT_TRAY,  new int[]{1177, 1178, 1179, 1180, 1181, 1183}, new int[]{20 * number, 20 * number, 20 * number, 20 * number, 20 * number, 3 * number}, 0, 5000000 * number, -1, true, 1)) {
+                        if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.YOU_FRUIT_TRAY, new int[]{1177, 1178, 1179, 1180, 1181, 1183}, new int[]{20 * number, 20 * number, 20 * number, 20 * number, 20 * number, 3 * number}, 0, 5000000 * number, -1, true, 1)) {
                             this.session.myCharz().addItemBag(0, new Item(1182, false, number, ItemOption.getOption(1182, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                         }
                     }
@@ -323,8 +311,7 @@ public class ClientInput {
                 break;
             }
             //Hop qua tet
-            case 15:
-            {
+            case 15: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
@@ -338,12 +325,11 @@ public class ClientInput {
                 break;
             }
             //Bong hoa xanh
-            case 16:
-            {
+            case 16: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
-                        if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.YOU_GRAFT_FLOWER_BLUE, new int[]{1093, 1094, 1095 , 1096}, new int[]{10 * number, 5 * number, 1 * number ,3 * number}, 0, 1000000 * number, 2 * number, true, 1)) {
+                        if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.YOU_GRAFT_FLOWER_BLUE, new int[]{1093, 1094, 1095, 1096}, new int[]{10 * number, 5 * number, 1 * number, 3 * number}, 0, 1000000 * number, 2 * number, true, 1)) {
                             this.session.myCharz().addItemBag(0, new Item(1098, false, number, ItemOption.getOption(1098, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                         }
                     }
@@ -353,8 +339,7 @@ public class ClientInput {
                 break;
             }
             //Chau hoa xanh
-            case 17:
-            {
+            case 17: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
@@ -368,12 +353,11 @@ public class ClientInput {
                 break;
             }
             //mam bac
-            case 18:
-            {
+            case 18: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
-                        if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.YOU_GRAFT_MAM_BAC, new int[]{2001, 2002, 2003 , 2004}, new int[]{5 * number, 5 * number, 5 * number , 5 * number}, 0, -1, -1, true, 1)) {
+                        if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.YOU_GRAFT_MAM_BAC, new int[]{2001, 2002, 2003, 2004}, new int[]{5 * number, 5 * number, 5 * number, 5 * number}, 0, -1, -1, true, 1)) {
                             this.session.myCharz().addItemBag(0, new Item(2006, false, number, ItemOption.getOption(2006, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                         }
                     }
@@ -383,8 +367,7 @@ public class ClientInput {
                 break;
             }
             //mam vang
-            case 19:
-            {
+            case 19: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
@@ -399,8 +382,7 @@ public class ClientInput {
             }
             //Lech Teamobi
             //So ca xanh
-            case 20:
-            {
+            case 20: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
@@ -420,8 +402,7 @@ public class ClientInput {
                 break;
             }
             //So ca vang
-            case 21:
-            {
+            case 21: {
                 try {
                     byte number = Byte.parseByte(this.inputs[0]);
                     if (number > 0 && number < 100) {
@@ -441,8 +422,7 @@ public class ClientInput {
                 break;
             }
             //Nap the
-            case 22:
-            {
+            case 22: {
                 if (this.session.myCharz().cardLoad != null && this.session.myCharz().cardLoad.netWork != null && this.session.myCharz().cardLoad.price != 0) {
                     this.session.myCharz().cardLoad.code = this.inputs[0];
                     this.session.myCharz().cardLoad.serial = this.inputs[1];
@@ -455,8 +435,7 @@ public class ClientInput {
                 break;
             }
             //Con duong ran doc
-            case 23:
-            {
+            case 23: {
                 try {
                     int level = Integer.parseInt(this.inputs[0]);
                     if (level >= 1 && level <= 110) {
@@ -472,8 +451,7 @@ public class ClientInput {
                 break;
             }
             //Ban vang so luong lon
-            case 24:
-            {
+            case 24: {
                 try {
                     int quantity = Integer.parseInt(this.inputs[0]);
                     if (this.indexs.size() == 3) {
@@ -492,5 +470,5 @@ public class ClientInput {
                 break;
         }
     }
-    
+
 }

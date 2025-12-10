@@ -28,3 +28,19 @@ Name=Số 2 zoneId=18 mapName=Vực maima: 16h47 10/12/2025
 Name=Số 3 zoneId=18 mapName=Vực maima: 16h47 10/12/2025
 Name=Số 4 zoneId=18 mapName=Vực maima: 16h47 10/12/2025
 Name=Chilld zoneId=5 mapName=Làng Plant nguyên thủy: 16h47 10/12/2025
+Name=Whis zoneId=16 mapName=Hành tinh Bill 2: 16h59 10/12/2025
+Name=Beerus zoneId=16 mapName=Hành tinh Bill 2: 16h59 10/12/2025
+Name=Tiểu đội trưởng zoneId=13 mapName=Núi khỉ đỏ: 17h00 10/12/2025
+Name=Số 1 zoneId=13 mapName=Núi khỉ đỏ: 17h00 10/12/2025
+Name=Số 2 zoneId=13 mapName=Núi khỉ đỏ: 17h00 10/12/2025
+Name=Số 3 zoneId=13 mapName=Núi khỉ đỏ: 17h00 10/12/2025
+Name=Số 4 zoneId=13 mapName=Núi khỉ đỏ: 17h00 10/12/2025
+Name=Fide Đại Ca 1 zoneId=1 mapName=Núi khỉ vàng: 17h00 10/12/2025
+Name=Android 19 zoneId=7 mapName=Cao nguyên: 17h00 10/12/2025
+Name=Dr.Kôrê zoneId=7 mapName=Cao nguyên: 17h00 10/12/2025
+Name=Android 15 zoneId=15 mapName=Sân sau siêu thị: 17h00 10/12/2025
+Name=Android 14 zoneId=15 mapName=Sân sau siêu thị: 17h00 10/12/2025
+Name=Pic zoneId=14 mapName=Ngọn núi phía bắc: 17h00 10/12/2025
+Name=Poc zoneId=14 mapName=Ngọn núi phía bắc: 17h00 10/12/2025
+Name=King Kong zoneId=14 mapName=Ngọn núi phía bắc: 17h01 10/12/2025
+Name=Xên bọ hung zoneId=4 mapName=Thị trấn Ginder: 17h01 10/12/2025

@@ -55,7 +55,7 @@ public class MySQL {
         try {
             this.conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
     

@@ -5,6 +5,7 @@ import dragon.server.mResources;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  *
@@ -33,6 +34,7 @@ public class Shop {
                 }
             }
         } catch (Exception e) {
+
         }
         return null;
     }
@@ -70,6 +72,7 @@ public class Shop {
                 }
 
                 int buyLuong = 0, buyXu = 0, point = 0;
+                assert shop != null;
                 if (shop.type == 0 || shop.type == 2) {
                     buyLuong = item.buyGold * num;
                     buyXu = item.buyCoin * num;
@@ -114,7 +117,7 @@ public class Shop {
                     if (charz.shopId == 4 || charz.shopId == 5 || charz.shopId == 6) {
                         charz.headDefault = (short) item.headTemp;
                         charz.session.service.itemBuy(charz.xu, charz.luong, charz.luongKhoa);
-                        /// Shop bua
+                        // Shop bua
                     } else if (item.template.type == 13) {
                         // Down xu luong
                         if (buyLuong > 0) {
@@ -301,7 +304,7 @@ public class Shop {
                                 }
                             }
                             charz.addInfo1(
-                                    String.format(mResources.ITEM_BUY_SUCCESS, ItemTemplate.get((short) id).name));
+                                    String.format(mResources.ITEM_BUY_SUCCESS, Objects.requireNonNull(ItemTemplate.get((short) id)).name));
                             // Bong tai
                             if (item.template.id == 454) {
                                 charz.openShop(charz.shopId);

@@ -51,9 +51,9 @@ public class TaskEveryDay {
 
         public static Task get(long power, byte level) {
             ArrayList<TaskEveryDay> myList = new ArrayList<>();
-            for (int i = 0; i < myArrayList.size(); i++) {
-                if (myArrayList.get(i).level == level && power >= myArrayList.get(i).minPower && power <= myArrayList.get(i).maxPower) {
-                    myList.add(myArrayList.get(i));
+            for (TaskEveryDay taskEveryDay : myArrayList) {
+                if (taskEveryDay.level == level && power >= taskEveryDay.minPower && power <= taskEveryDay.maxPower) {
+                    myList.add(taskEveryDay);
                 }
             }
             if (myList.isEmpty()) return null;
@@ -67,9 +67,9 @@ public class TaskEveryDay {
 
         public static Task getForClan(long power, byte level) {
             ArrayList<TaskEveryDay> myList = new ArrayList<>();
-            for (int i = 0; i < myArrayListClan.size(); i++) {
-                if (myArrayListClan.get(i).level == level && power >= myArrayListClan.get(i).minPower && power <= myArrayListClan.get(i).maxPower) {
-                    myList.add(myArrayListClan.get(i));
+            for (TaskEveryDay taskEveryDay : myArrayListClan) {
+                if (taskEveryDay.level == level && power >= taskEveryDay.minPower && power <= taskEveryDay.maxPower) {
+                    myList.add(taskEveryDay);
                 }
             }
             if (myList.isEmpty()) return null;
