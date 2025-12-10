@@ -44,3 +44,33 @@ Name=Pic zoneId=14 mapName=Ngọn núi phía bắc: 17h00 10/12/2025
 Name=Poc zoneId=14 mapName=Ngọn núi phía bắc: 17h00 10/12/2025
 Name=King Kong zoneId=14 mapName=Ngọn núi phía bắc: 17h01 10/12/2025
 Name=Xên bọ hung zoneId=4 mapName=Thị trấn Ginder: 17h01 10/12/2025
+Name=Whis zoneId=13 mapName=Hành tinh Bill 2: 17h14 10/12/2025
+Name=Beerus zoneId=13 mapName=Hành tinh Bill 2: 17h14 10/12/2025
+Name=Tiểu đội trưởng zoneId=4 mapName=Hang khỉ đen: 17h15 10/12/2025
+Name=Số 1 zoneId=4 mapName=Hang khỉ đen: 17h15 10/12/2025
+Name=Số 2 zoneId=4 mapName=Hang khỉ đen: 17h15 10/12/2025
+Name=Số 3 zoneId=4 mapName=Hang khỉ đen: 17h15 10/12/2025
+Name=Số 4 zoneId=4 mapName=Hang khỉ đen: 17h15 10/12/2025
+Name=Fide Đại Ca 1 zoneId=18 mapName=Núi khỉ vàng: 17h15 10/12/2025
+Name=Android 19 zoneId=14 mapName=Đảo Balê: 17h15 10/12/2025
+Name=Dr.Kôrê zoneId=14 mapName=Đảo Balê: 17h15 10/12/2025
+Name=Android 15 zoneId=7 mapName=Sân sau siêu thị: 17h15 10/12/2025
+Name=Android 14 zoneId=7 mapName=Sân sau siêu thị: 17h15 10/12/2025
+Name=Pic zoneId=19 mapName=Ngọn núi phía bắc: 17h15 10/12/2025
+Name=Poc zoneId=19 mapName=Ngọn núi phía bắc: 17h15 10/12/2025
+Name=King Kong zoneId=19 mapName=Ngọn núi phía bắc: 17h16 10/12/2025
+Name=Xên bọ hung zoneId=17 mapName=Thị trấn Ginder: 17h16 10/12/2025
+Name=Xên hoàn thiện zoneId=5 mapName=Võ đài Xên bọ hung: 17h16 10/12/2025
+Name=Black Goku zoneId=16 mapName=Thành phố phía nam: 17h16 10/12/2025
+Name=Cooler zoneId=3 mapName=Hang băng: 17h16 10/12/2025
+Name=Bojack zoneId=14 mapName=Rừng Bamboo: 17h16 10/12/2025
+Name=Bido zoneId=14 mapName=Rừng Bamboo: 17h16 10/12/2025
+Name=Zangya zoneId=14 mapName=Rừng Bamboo: 17h16 10/12/2025
+Name=Kogu zoneId=14 mapName=Rừng Bamboo: 17h16 10/12/2025
+Name=Bujin zoneId=14 mapName=Rừng Bamboo: 17h17 10/12/2025
+Name=Tiểu đội trưởng zoneId=18 mapName=Vực maima: 17h17 10/12/2025
+Name=Số 1 zoneId=18 mapName=Vực maima: 17h17 10/12/2025
+Name=Số 2 zoneId=18 mapName=Vực maima: 17h17 10/12/2025
+Name=Số 3 zoneId=18 mapName=Vực maima: 17h17 10/12/2025
+Name=Số 4 zoneId=18 mapName=Vực maima: 17h17 10/12/2025
+Name=Chilld zoneId=18 mapName=Làng Plant nguyên thủy: 17h17 10/12/2025

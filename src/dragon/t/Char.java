@@ -11123,11 +11123,23 @@ public class Char {
                 this.setMove(0, x, 150, 50, 1, 200);
             }
         } // Câu thoại của con lân
-        if (this.cTemplateId == 127 && this.zoneMap != null && this.gameTick % 50 == 0) {
-            this.addChat(3000, mResources.TUNG_TUNG_TUNG1);
-            this.addChat(6000, mResources.TUNG_TUNG_TUNG2);
-            this.addChat(9000, mResources.TUNG_TUNG_TUNG3);
-            this.addChat(12000, mResources.TUNG_TUNG_TUNG4);
+        if (this.cTemplateId == 127 && this.zoneMap != null && this.gameTick % 500 == 0) {
+            // Chỉ nói ngẫu nhiên 1 câu trong 4 câu để tránh spam
+            int randomChat = Util.gI().nextInt(1, 4);
+            switch (randomChat) {
+                case 1:
+                    this.addChat(3000, mResources.TUNG_TUNG_TUNG1);
+                    break;
+                case 2:
+                    this.addChat(3000, mResources.TUNG_TUNG_TUNG2);
+                    break;
+                case 3:
+                    this.addChat(3000, mResources.TUNG_TUNG_TUNG3);
+                    break;
+                case 4:
+                    this.addChat(3000, mResources.TUNG_TUNG_TUNG4);
+                    break;
+            }
         }
     }
 
