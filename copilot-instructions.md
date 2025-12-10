@@ -75,7 +75,12 @@ Trước khi đưa ra bất kỳ gợi ý nào, Copilot cần:
  * @throws IllegalArgumentException nếu tham số null
  */
 public int processAttack(Player attacker, Player target, Skill skill) {
-    // Logic xử lý tấn công
+    // Validate tham số đầu vào
+    // Tính toán damage dựa trên stats của attacker, target và skill
+    // Kiểm tra các buff/debuff ảnh hưởng đến damage
+    // Áp dụng damage lên target và cập nhật HP
+    // Ghi log và gửi thông báo đến client
+    return calculatedDamage;
 }
 ```
 
@@ -147,8 +152,12 @@ public void buyItem(Player player, int itemId, int quantity) {
         return;
     }
     
-    // Thực hiện mua
-    // ...
+    // Thực hiện mua hàng
+    long price = calculatePrice(itemId, quantity);
+    player.subtractGold(price);
+    player.addItemToInventory(itemId, quantity);
+    player.sendMessage("Mua thành công " + quantity + " item");
+    // Ghi log giao dịch để tracking
 }
 ```
 
@@ -248,7 +257,19 @@ public class Player {
         this.experience += exp;
         
         // Kiểm tra xem có đủ exp để lên cấp không
-        checkLevelUp();
+        while (this.experience >= getRequiredExpForNextLevel()) {
+            levelUp();
+        }
+    }
+    
+    /**
+     * Xử lý logic lên cấp cho nhân vật
+     */
+    private void levelUp() {
+        this.level++;
+        this.experience -= getRequiredExpForNextLevel();
+        // Tăng stats khi lên cấp
+        // Gửi thông báo đến client
     }
 }
 ```
