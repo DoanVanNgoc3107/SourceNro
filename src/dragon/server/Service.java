@@ -60,51 +60,50 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class Service {
-    
+
     public Service(Session_ME session) {
         this.session = session;
     }
-    
+
     private final Session_ME session;
-    
-    private Message messageSubCommand(int command) throws Exception{
+
+    private Message messageSubCommand(int command) throws Exception {
         Message message = new Message(-30);
         message.writer().writeByte(command);
         return message;
     }
-    
+
     private Message messageNotLogin(int command) throws Exception {
         Message message = new Message(-29);
         message.writer().writeByte(command);
         return message;
     }
-    
+
     private Message messageNotMap(int command) throws Exception {
         Message message = new Message(-28);
         message.writer().writeByte(command);
         return message;
     }
-    
+
     protected void linkDefault() {
         Message msg = null;
         try {
-            msg = messageNotLogin((byte)2);
+            msg = messageNotLogin((byte) 2);
             msg.writer().writeUTF("Dev:127.0.0.1:14445:0,Local:127.0.0.1:14445:0,0,9");
             msg.writer().writeByte(1);
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void updateVersion() {
         Message msg = null;
         try {
-            msg = messageNotMap((byte)4);
+            msg = messageNotMap((byte) 4);
             msg.writer().writeByte(Dragon.vData);
             msg.writer().writeByte(Dragon.vMap);
             msg.writer().writeByte(Dragon.vSkill);
@@ -117,13 +116,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void getVersionImageSource() {
         Message msg = null;
         try {
@@ -133,13 +131,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void getnBigImageSource(int nBig) {
         Message msg = null;
         try {
@@ -149,13 +146,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void getImageSource(byte[] data, String original) {
         Message msg = null;
         try {
@@ -167,13 +163,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void lastVersionImageSource() {
         Message msg = null;
         try {
@@ -183,13 +178,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void startOKDlg(String str) {
         Message msg = null;
         try {
@@ -198,13 +192,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void login2(String str) {
         Message msg = null;
         try {
@@ -213,13 +206,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void getImageSource2(int x, int y) {
         Message msg = null;
         try {
@@ -229,13 +221,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void updateData() {
         Message msg = null;
         try {
@@ -250,17 +241,16 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void updateMap() {
         Message msg = null;
         try {
-            msg = messageNotMap((byte)6);
+            msg = messageNotMap((byte) 6);
             msg.writer().writeByte(Dragon.vMap);
             msg.writer().writeByte(ZoneMap.mapNames.length);
             for (short i = 0; i < ZoneMap.mapNames.length; i++) {
@@ -292,17 +282,16 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void updateSkill() {
         Message msg = null;
         try {
-            msg = this.messageNotMap((byte)7);
+            msg = this.messageNotMap((byte) 7);
             msg.writer().writeByte(Dragon.vSkill);
             msg.writer().writeByte(GameData.sOptionTemplates.length);
             for (byte i = 0; i < GameData.sOptionTemplates.length; i++) {
@@ -340,17 +329,16 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateItem1() {
         Message msg = null;
         try {
-            msg = messageNotMap((byte)8);
+            msg = messageNotMap((byte) 8);
             msg.writer().writeByte(Dragon.vItem);
             msg.writer().writeByte(0);
             msg.writer().writeByte(GameData.iOptionTemplates.length);
@@ -361,13 +349,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateItem2(int max) {
         Message msg = null;
         try {
@@ -389,13 +376,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateItem3(int min, int max) {
         Message msg = null;
         try {
@@ -418,13 +404,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateItem3LechTeamobi(ItemTemplate it) {
         Message msg = null;
         try {
@@ -434,26 +419,25 @@ public class Service {
             msg.writer().writeShort(it.id);
             msg.writer().writeShort(it.id + 2);
 
-                msg.writer().writeByte(it.type);
-                msg.writer().writeByte(it.gender);
-                msg.writer().writeUTF(it.name);
-                msg.writer().writeUTF(it.description);
-                msg.writer().writeByte(it.level);
-                msg.writer().writeInt(it.strRequire);
-                msg.writer().writeShort(it.iconID);
-                msg.writer().writeShort(it.part);
-                msg.writer().writeBoolean(it.isUpToUp);
+            msg.writer().writeByte(it.type);
+            msg.writer().writeByte(it.gender);
+            msg.writer().writeUTF(it.name);
+            msg.writer().writeUTF(it.description);
+            msg.writer().writeByte(it.level);
+            msg.writer().writeInt(it.strRequire);
+            msg.writer().writeShort(it.iconID);
+            msg.writer().writeShort(it.part);
+            msg.writer().writeBoolean(it.isUpToUp);
 
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateFHead() {
         Message msg = null;
         try {
@@ -470,13 +454,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void smallImageVerion(byte[] newSmallVersion) {
         Message msg = null;
         try {
@@ -488,13 +471,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void bgItemVersion(byte[] newSmallVersion) {
         Message msg = null;
         try {
@@ -506,20 +488,19 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void getBgTemplate(int id) {
         if (!session.isLoad) {
             return;
         }
         byte barr[];
         try {
-            barr = BgItem.images.get((byte)this.session.zoomLevel)[id];
+            barr = BgItem.images.get((byte) this.session.zoomLevel)[id];
         } catch (Exception e) {
             return;
         }
@@ -532,13 +513,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getBgTemplateLayer() {
         Message msg = null;
         try {
@@ -558,45 +538,43 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void meLoadPoint() {
         Message msg = null;
         try {
             msg = new Message(-42);
-            msg.writer().writeInt(this.session.myCharz().cHPGoc);//cHPGoc
-            msg.writer().writeInt(this.session.myCharz().cMPGoc);//cMPGoc
-            msg.writer().writeInt(this.session.myCharz().cDamGoc);//cDamGoc
-            msg.writer().writeInt(this.session.myCharz().cHPFull);//cHPFull
-            msg.writer().writeInt(this.session.myCharz().cMPFull);//cMPFull
-            msg.writer().writeInt(this.session.myCharz().cHP);//cHP
-            msg.writer().writeInt(this.session.myCharz().cMP);//cMP
-            msg.writer().writeByte(this.session.myCharz().cspeedFull);//cspeed
-            msg.writer().writeByte(this.session.myCharz().hpFrom1000TiemNang);//hpFrom1000TiemNang
-            msg.writer().writeByte(this.session.myCharz().mpFrom1000TiemNang);//mpFrom1000TiemNang
-            msg.writer().writeByte(this.session.myCharz().damFrom1000TiemNang);//damFrom1000TiemNang
-            msg.writer().writeInt(this.session.myCharz().cDamFull);//cDamFull
-            msg.writer().writeInt(this.session.myCharz().cDefull);//cDefull
-            msg.writer().writeByte(this.session.myCharz().cCriticalFull);//cCriticalFull
-            msg.writer().writeLong(this.session.myCharz().cTiemNang);//cTiemNang
-            msg.writer().writeShort(this.session.myCharz().expForOneAdd);//expForOneAdd
-            msg.writer().writeShort(this.session.myCharz().cDefGoc);//cDefGoc
-            msg.writer().writeByte(this.session.myCharz().cCriticalGoc);//cCriticalGoc
+            msg.writer().writeInt(this.session.myCharz().cHPGoc);// cHPGoc
+            msg.writer().writeInt(this.session.myCharz().cMPGoc);// cMPGoc
+            msg.writer().writeInt(this.session.myCharz().cDamGoc);// cDamGoc
+            msg.writer().writeInt(this.session.myCharz().cHPFull);// cHPFull
+            msg.writer().writeInt(this.session.myCharz().cMPFull);// cMPFull
+            msg.writer().writeInt(this.session.myCharz().cHP);// cHP
+            msg.writer().writeInt(this.session.myCharz().cMP);// cMP
+            msg.writer().writeByte(this.session.myCharz().cspeedFull);// cspeed
+            msg.writer().writeByte(this.session.myCharz().hpFrom1000TiemNang);// hpFrom1000TiemNang
+            msg.writer().writeByte(this.session.myCharz().mpFrom1000TiemNang);// mpFrom1000TiemNang
+            msg.writer().writeByte(this.session.myCharz().damFrom1000TiemNang);// damFrom1000TiemNang
+            msg.writer().writeInt(this.session.myCharz().cDamFull);// cDamFull
+            msg.writer().writeInt(this.session.myCharz().cDefull);// cDefull
+            msg.writer().writeByte(this.session.myCharz().cCriticalFull);// cCriticalFull
+            msg.writer().writeLong(this.session.myCharz().cTiemNang);// cTiemNang
+            msg.writer().writeShort(this.session.myCharz().expForOneAdd);// expForOneAdd
+            msg.writer().writeShort(this.session.myCharz().cDefGoc);// cDefGoc
+            msg.writer().writeByte(this.session.myCharz().cCriticalGoc);// cCriticalGoc
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void initSelectChar() {
         Message msg = null;
         try {
@@ -604,13 +582,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void clearTask() {
         Message msg = null;
         try {
@@ -618,13 +595,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void speacialSkill(int cgender, int cspearcialSkill, int paramSpearcialSkill) {
         Message msg = null;
         try {
@@ -636,21 +612,31 @@ public class Service {
             } else {
                 msg.writer().writeShort(Panel.gI().imgSpeacialSkill[cgender][cspearcialSkill]);
                 if (cgender == 0 && cspearcialSkill == 2) {
-                    msg.writer().writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][cspearcialSkill], String.format(Panel.gI().numP, paramSpearcialSkill), String.format(Panel.gI().numP, paramSpearcialSkill), String.format(Panel.gI().numTo2, Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][0], Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][1])));
+                    msg.writer()
+                            .writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][cspearcialSkill],
+                                    String.format(Panel.gI().numP, paramSpearcialSkill),
+                                    String.format(Panel.gI().numP, paramSpearcialSkill),
+                                    String.format(Panel.gI().numTo2,
+                                            Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][0],
+                                            Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][1])));
                 } else {
-                    msg.writer().writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][cspearcialSkill], String.format(Panel.gI().numP, paramSpearcialSkill), String.format(Panel.gI().numTo2, Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][0], Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][1])));
+                    msg.writer()
+                            .writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][cspearcialSkill],
+                                    String.format(Panel.gI().numP, paramSpearcialSkill),
+                                    String.format(Panel.gI().numTo2,
+                                            Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][0],
+                                            Panel.gI().nextSpeacialSkill[cgender][cspearcialSkill][1])));
                 }
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void speacialSkill(int cgender) {
         Message msg = null;
         int i;
@@ -666,9 +652,19 @@ public class Service {
                     for (j = 0; j < Panel.gI().imgSpeacialSkill[cgender].length; j++) {
                         msg.writer().writeShort(Panel.gI().imgSpeacialSkill[cgender][j]);
                         if (cgender == 0 && j == 2) {
-                            msg.writer().writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][j], String.format(Panel.gI().numTo, Panel.gI().nextSpeacialSkill[cgender][j][0], Panel.gI().nextSpeacialSkill[cgender][j][1]), String.format(Panel.gI().numTo, Panel.gI().nextSpeacialSkill[cgender][j][0], Panel.gI().nextSpeacialSkill[cgender][j][1]), mResources.EMPTY));
+                            msg.writer()
+                                    .writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][j],
+                                            String.format(Panel.gI().numTo, Panel.gI().nextSpeacialSkill[cgender][j][0],
+                                                    Panel.gI().nextSpeacialSkill[cgender][j][1]),
+                                            String.format(Panel.gI().numTo, Panel.gI().nextSpeacialSkill[cgender][j][0],
+                                                    Panel.gI().nextSpeacialSkill[cgender][j][1]),
+                                            mResources.EMPTY));
                         } else {
-                            msg.writer().writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][j], String.format(Panel.gI().numTo, Panel.gI().nextSpeacialSkill[cgender][j][0], Panel.gI().nextSpeacialSkill[cgender][j][1]), mResources.EMPTY));
+                            msg.writer()
+                                    .writeUTF(String.format(Panel.gI().infoSpeacialSkill[cgender][j],
+                                            String.format(Panel.gI().numTo, Panel.gI().nextSpeacialSkill[cgender][j][0],
+                                                    Panel.gI().nextSpeacialSkill[cgender][j][1]),
+                                            mResources.EMPTY));
                         }
                     }
                 } else {
@@ -678,13 +674,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mapClear() {
         Message msg = null;
         try {
@@ -692,17 +687,16 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void meLoadAll() {
         Message msg = null;
         try {
-            msg = this.messageSubCommand((byte)0);
+            msg = this.messageSubCommand((byte) 0);
             msg.writer().writeInt(this.session.myCharz().charID);
             msg.writer().writeByte(this.session.myCharz().ctaskId);
             msg.writer().writeByte(this.session.myCharz().cgender);
@@ -718,12 +712,12 @@ public class Service {
             msg.writer().writeShort(this.session.myCharz().eff5BuffHp);
             msg.writer().writeShort(this.session.myCharz().eff5BuffMp);
             msg.writer().writeByte(this.session.myCharz().nClassId);
-            //===========Write Skill==============//
+            // ===========Write Skill==============//
             msg.writer().writeByte(this.session.myCharz().skills.size());
             for (int i = 0; i < this.session.myCharz().skills.size(); i++) {
                 msg.writer().writeShort(this.session.myCharz().skills.get(i).skillId);
             }
-            //=============WRITE MONEY=============//
+            // =============WRITE MONEY=============//
             if (session.getIntVersion() >= 213) {
                 msg.writer().writeLong(this.session.myCharz().xu);
             } else {
@@ -735,7 +729,7 @@ public class Service {
             }
             msg.writer().writeInt((int) this.session.myCharz().luongKhoa);
             msg.writer().writeInt((int) this.session.myCharz().luong);
-            //================Write ItemBody================//
+            // ================Write ItemBody================//
             msg.writer().writeByte(this.session.myCharz().arrItemBody.length);
             for (int i = 0; i < this.session.myCharz().arrItemBody.length; i++) {
                 Item itemBody = this.session.myCharz().arrItemBody[i];
@@ -744,7 +738,7 @@ public class Service {
                     msg.writer().writeInt(itemBody.quantity);
                     msg.writer().writeUTF(itemBody.info);
                     msg.writer().writeUTF(itemBody.content);
-                    //=================Write Option==============//
+                    // =================Write Option==============//
                     if (itemBody.options.isEmpty()) {
                         msg.writer().writeByte(1);
                         msg.writer().writeByte(73);
@@ -760,7 +754,7 @@ public class Service {
                     msg.writer().writeShort(-1);
                 }
             }
-            //================Write ItemBag================//
+            // ================Write ItemBag================//
             msg.writer().writeByte(this.session.myCharz().arrItemBag.length);
             for (int i = 0; i < this.session.myCharz().arrItemBag.length; i++) {
                 Item itemBag = this.session.myCharz().arrItemBag[i];
@@ -769,7 +763,7 @@ public class Service {
                     msg.writer().writeInt(itemBag.quantity);
                     msg.writer().writeUTF(itemBag.info);
                     msg.writer().writeUTF(itemBag.content);
-                    //=================Write Option==============//
+                    // =================Write Option==============//
                     if (itemBag.options.isEmpty()) {
                         msg.writer().writeByte(1);
                         msg.writer().writeByte(73);
@@ -785,7 +779,7 @@ public class Service {
                     msg.writer().writeShort(-1);
                 }
             }
-            //================Write ItemBox================//
+            // ================Write ItemBox================//
             msg.writer().writeByte(this.session.myCharz().arrItemBox.length);
             for (int i = 0; i < this.session.myCharz().arrItemBox.length; i++) {
                 Item itemBox = this.session.myCharz().arrItemBox[i];
@@ -794,7 +788,7 @@ public class Service {
                     msg.writer().writeInt(itemBox.quantity);
                     msg.writer().writeUTF(itemBox.info);
                     msg.writer().writeUTF(itemBox.content);
-                    //=================Write Option==============//
+                    // =================Write Option==============//
                     if (itemBox.options.isEmpty()) {
                         msg.writer().writeByte(1);
                         msg.writer().writeByte(73);
@@ -810,7 +804,7 @@ public class Service {
                     msg.writer().writeShort(-1);
                 }
             }
-            //=====
+            // =====
             msg.writer().writeShort(dragon.t.Head.idHead.length);
             for (int i = 0; i < dragon.t.Head.idHead.length; i++) {
                 msg.writer().writeShort(dragon.t.Head.idHead[i]);
@@ -821,63 +815,64 @@ public class Service {
             msg.writer().writeShort(Char.gI().info1[this.session.myCharz().cgender][2]);
             msg.writer().writeByte(this.session.myCharz().isNhapThe() ? 1 : 0);
             msg.writer().writeInt((int) (System.currentTimeMillis() / 1000) + 1000000);
-            msg.writer().writeByte(((System.currentTimeMillis() - this.session.myCharz().lastTime) < (1000l * 60l * 60l * 24l * 35l)) ? 1 : 0);
+            msg.writer().writeByte(
+                    ((System.currentTimeMillis() - this.session.myCharz().lastTime) < (1000l * 60l * 60l * 24l * 35l))
+                            ? 1
+                            : 0);
             msg.writer().writeShort(this.session.myCharz().idAuraEff);
             msg.writer().writeByte(this.session.myCharz().idEff_Set_Item);
             msg.writer().writeShort(this.session.myCharz().idHat);
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void requestIcon(int id) {
         if (!session.isLoad) {
             return;
         }
         Message msg = null;
         try {
-            
+
             msg = new Message(-67);
             msg.writer().writeInt(id);
-            byte[] data = Dragon.getFile("res/x"+session.zoomLevel+"/icon/"+id+".png");
+            byte[] data = Dragon.getFile("res/x" + session.zoomLevel + "/icon/" + id + ".png");
             msg.writer().writeInt(data.length);
             msg.writer().write(data);
-            
-            
-//            msg = new Message(-67);
-//            msg.writer().writeInt(id);
-//            if (session.zoomLevel == 1) {
-//                msg.writer().writeInt(SmallImage.img_1[id].length);
-//                msg.writer().write(SmallImage.img_1[id]);
-//            }
-//            if (session.zoomLevel == 2) {
-//                msg.writer().writeInt(SmallImage.img_2[id].length);
-//                msg.writer().write(SmallImage.img_2[id]);
-//            }
-//            if (session.zoomLevel == 3) {
-//                msg.writer().writeInt(SmallImage.img_3[id].length);
-//                msg.writer().write(SmallImage.img_3[id]);
-//            }
-//            if (session.zoomLevel == 4) {
-//                msg.writer().writeInt(SmallImage.img_4[id].length);
-//                msg.writer().write(SmallImage.img_4[id]);
-//            }
+
+            // msg = new Message(-67);
+            // msg.writer().writeInt(id);
+            // if (session.zoomLevel == 1) {
+            // msg.writer().writeInt(SmallImage.img_1[id].length);
+            // msg.writer().write(SmallImage.img_1[id]);
+            // }
+            // if (session.zoomLevel == 2) {
+            // msg.writer().writeInt(SmallImage.img_2[id].length);
+            // msg.writer().write(SmallImage.img_2[id]);
+            // }
+            // if (session.zoomLevel == 3) {
+            // msg.writer().writeInt(SmallImage.img_3[id].length);
+            // msg.writer().write(SmallImage.img_3[id]);
+            // }
+            // if (session.zoomLevel == 4) {
+            // msg.writer().writeInt(SmallImage.img_4[id].length);
+            // msg.writer().write(SmallImage.img_4[id]);
+            // }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    public void mapTemplate(ZoneMap zone, MapTemplate mapTemplate, ArrayList<Waypoint> waypoints, ArrayList<Mob> mobs, ArrayList<Npc> npcs, ArrayList<ItemMap> itemMaps, int typeTeleport) {
+
+    public void mapTemplate(ZoneMap zone, MapTemplate mapTemplate, ArrayList<Waypoint> waypoints, ArrayList<Mob> mobs,
+            ArrayList<Npc> npcs, ArrayList<ItemMap> itemMaps, int typeTeleport) {
         Message msg = null;
         try {
             msg = this.messageNotMap(10);
@@ -886,19 +881,20 @@ public class Service {
             for (int i = 0; i < mapTemplate.maps.length; i++) {
                 msg.writer().writeByte(mapTemplate.maps[i]);
             }
-            this.loadInfoMap(msg, this.session.myCharz().cx, this.session.myCharz().cy, waypoints, mobs, npcs, itemMaps, mapTemplate.arrBgItem, mapTemplate.arrEffect, mapTemplate.bgType, typeTeleport);
-            msg.writer().writeByte((mapTemplate.isMapDouble?1:0));
+            this.loadInfoMap(msg, this.session.myCharz().cx, this.session.myCharz().cy, waypoints, mobs, npcs, itemMaps,
+                    mapTemplate.arrBgItem, mapTemplate.arrEffect, mapTemplate.bgType, typeTeleport);
+            msg.writer().writeByte((mapTemplate.isMapDouble ? 1 : 0));
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    public void mapInfo(ZoneMap tile, ArrayList<Waypoint> waypoints, ArrayList<Mob> mobs, ArrayList<Npc> npcs, ArrayList<ItemMap> itemMaps, int typeTeleport) {
+
+    public void mapInfo(ZoneMap tile, ArrayList<Waypoint> waypoints, ArrayList<Mob> mobs, ArrayList<Npc> npcs,
+            ArrayList<ItemMap> itemMaps, int typeTeleport) {
         Message msg = null;
         try {
             msg = new Message(-24);
@@ -909,24 +905,25 @@ public class Service {
             msg.writer().writeByte(tile.mapTemplate.typeMap);
             msg.writer().writeUTF(tile.mapTemplate.mapName);
             msg.writer().writeByte(tile.zoneID);
-            this.loadInfoMap(msg, this.session.myCharz().cx, this.session.myCharz().cy, waypoints, mobs, npcs, itemMaps, tile.mapTemplate.arrBgItem, tile.mapTemplate.arrEffect, tile.mapTemplate.bgType, typeTeleport);
-            msg.writer().writeByte((tile.mapTemplate.isMapDouble?1:0));
+            this.loadInfoMap(msg, this.session.myCharz().cx, this.session.myCharz().cy, waypoints, mobs, npcs, itemMaps,
+                    tile.mapTemplate.arrBgItem, tile.mapTemplate.arrEffect, tile.mapTemplate.bgType, typeTeleport);
+            msg.writer().writeByte((tile.mapTemplate.isMapDouble ? 1 : 0));
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    
-    private void loadInfoMap(Message msg, int x, int y, ArrayList<Waypoint> waypoints, ArrayList<Mob> mobs, ArrayList<Npc> npcs, ArrayList<ItemMap> itemMaps, ArrayList<Short[]> arrBgItem, ArrayList<String[]> arrEffect, int bgType, int typeTeleport) {
+
+    private void loadInfoMap(Message msg, int x, int y, ArrayList<Waypoint> waypoints, ArrayList<Mob> mobs,
+            ArrayList<Npc> npcs, ArrayList<ItemMap> itemMaps, ArrayList<Short[]> arrBgItem,
+            ArrayList<String[]> arrEffect, int bgType, int typeTeleport) {
         try {
             msg.writer().writeShort(x);
             msg.writer().writeShort(y);
-            //waypoint
+            // waypoint
             msg.writer().writeByte(waypoints.size());
             for (int i1 = 0; i1 < waypoints.size(); i1++) {
                 Waypoint waypoint = waypoints.get(i1);
@@ -957,9 +954,9 @@ public class Service {
                 msg.writer().writeByte(mob.levelBoss);
                 msg.writer().writeBoolean(mob.isBoss);
             }
-            //Null
+            // Null
             msg.writer().writeByte(0);
-            //NPC
+            // NPC
             msg.writer().writeByte(npcs.size());
             for (int i3 = 0; i3 < npcs.size(); i3++) {
                 Npc npc = npcs.get(i3);
@@ -969,7 +966,7 @@ public class Service {
                 msg.writer().writeByte(npc.template.npcTemplateId);
                 msg.writer().writeShort(npc.avatar);
             }
-            //Item Map
+            // Item Map
             msg.writer().writeByte(itemMaps.size());
             for (int i4 = 0; i4 < itemMaps.size(); i4++) {
                 ItemMap itemMap = itemMaps.get(i4);
@@ -1001,15 +998,15 @@ public class Service {
                     msg.writer().writeUTF(arrEffect.get(i6)[1]);
                 }
             }
-            
+
             msg.writer().writeByte(bgType);
-            //teleport
+            // teleport
             msg.writer().writeByte(typeTeleport);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     public void tileSet(int mapTemplateId) {
         Message msg = null;
         MapTemplate mapTemplate = MapTemplate.arrMapTemplate[mapTemplateId];
@@ -1032,13 +1029,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void mobTemplate(int modTemplateId) {
         if (!session.isLoad) {
             return;
@@ -1066,13 +1062,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     protected void updateCaption(int gender) {
         Message msg = null;
         try {
@@ -1085,13 +1080,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void meLoadInfo() {
         Message msg = null;
         try {
@@ -1112,13 +1106,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getEffData(int id) {
         if (!session.isLoad) {
             return;
@@ -1145,15 +1138,14 @@ public class Service {
             msg.writer().write(eff.img);
             this.session.sendMessage(msg);
         } catch (Exception e) {
-            System.out.println("effect id="+id);
+            System.out.println("effect id=" + id);
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void insertEffData(int idread, int idwrite) {
         if (!session.isLoad) {
             return;
@@ -1181,13 +1173,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void addPlayer(Char player, int typeTeleport) {
         Message msg = null;
         try {
@@ -1207,19 +1198,19 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     private boolean writeCharInfo(Message msg, Char player) {
         try {
             if (player.cloneByChar != null) {
                 msg.writer().writeByte(player.cloneByChar.clevel);
                 msg.writer().writeBoolean(player.cloneByChar.isInvisiblez);
-                if (this.session.myCharz().charID == player.cloneByChar.challengeCharId && player.cloneByChar.isChallenge) {
+                if (this.session.myCharz().charID == player.cloneByChar.challengeCharId
+                        && player.cloneByChar.isChallenge) {
                     msg.writer().writeByte(3);
                 } else {
                     msg.writer().writeByte(player.cloneByChar.cTypePk);
@@ -1229,12 +1220,14 @@ public class Service {
                 msg.writer().writeShort(player.cloneByChar.head);
                 if (player.cloneByChar.me) {
                     if (player.clan != null) {
-                        msg.writer().writeUTF(String.format(mResources.CNAME_CLAN, player.clan.shortName, player.cName));
+                        msg.writer()
+                                .writeUTF(String.format(mResources.CNAME_CLAN, player.clan.shortName, player.cName));
                     } else {
                         msg.writer().writeUTF(String.format(mResources.CNAME_CLONE, player.cloneByChar.cName));
                     }
                 } else {
-                    msg.writer().writeUTF(String.format(mResources.NAME_DETU, String.format(mResources.CNAME_CLONE, player.cloneByChar.cName)));
+                    msg.writer().writeUTF(String.format(mResources.NAME_DETU,
+                            String.format(mResources.CNAME_CLONE, player.cloneByChar.cName)));
                 }
             } else {
                 msg.writer().writeByte(player.clevel);
@@ -1249,7 +1242,8 @@ public class Service {
                 msg.writer().writeShort(player.head);
                 if (player.me) {
                     if (player.clan != null) {
-                        msg.writer().writeUTF(String.format(mResources.CNAME_CLAN, player.clan.shortName, player.cName));
+                        msg.writer()
+                                .writeUTF(String.format(mResources.CNAME_CLAN, player.clan.shortName, player.cName));
                     } else {
                         msg.writer().writeUTF(player.cName);
                     }
@@ -1280,7 +1274,7 @@ public class Service {
         }
         return false;
     }
-    
+
     public void playerMove(int charID, int cx, int cy) {
         Message msg = null;
         try {
@@ -1291,13 +1285,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void playerReMove(int charID) {
         Message msg = null;
         try {
@@ -1306,13 +1299,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void chat(int charID, String text) {
         Message msg = null;
         try {
@@ -1322,13 +1314,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void chatTHEGIOI(String who, String text, Char player, int b) {
         Message msg = null;
         try {
@@ -1349,13 +1340,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateCoinBag(int num) {
         Message msg = null;
         try {
@@ -1364,13 +1354,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void Body(int head, Item array[]) {
         Message msg = null;
         try {
@@ -1407,13 +1396,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void Bag(Item array[]) {
         Message msg = null;
         try {
@@ -1445,13 +1433,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void ItemBag(int indexUI, int quantity) {
         Message msg = null;
         try {
@@ -1462,13 +1449,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void playerLoadAll(Char player) {
         Message msg = null;
         try {
@@ -1481,33 +1467,31 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openMenuUI(String[] arrMenu) {
         Message msg = null;
         try {
             int i;
             msg = new Message(33);
             if (arrMenu != null && arrMenu.length > 0) {
-                for (i = 0 ;i < arrMenu.length; i++) {
+                for (i = 0; i < arrMenu.length; i++) {
                     msg.writer().writeUTF(arrMenu[i]);
                 }
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openUIConfirm(int npcId, String chat, ArrayList<MenuInfo> arrMenu, int avatar) {
         Message msg = null;
         try {
@@ -1524,13 +1508,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openUISay(int npcId, String say, int avatar) {
         Message msg = null;
         try {
@@ -1543,13 +1526,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openBox() {
         Message msg = null;
         try {
@@ -1559,13 +1541,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void Box(Item[] array) {
         Message msg = null;
         try {
@@ -1597,13 +1578,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void ItemBox(int indexUI, int quantity) {
         Message msg = null;
         try {
@@ -1614,13 +1594,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void telePort(int charID, int b) {
         Message msg = null;
         try {
@@ -1630,13 +1609,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void startDie(int cPk, int cx, int cy, long cPower) {
         Message msg = null;
         try {
@@ -1650,13 +1628,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void liveFromDead() {
         Message msg = null;
         try {
@@ -1664,13 +1641,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void playerDie(int charID, int cPk, int cx, int cy) {
         Message msg = null;
         try {
@@ -1682,13 +1658,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void returnPointMap(int charID, int cx, int cy) {
         Message msg = null;
         try {
@@ -1699,14 +1674,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void playerLoadLive(int charID, int cHP, int cHPFull, int cx, int cy) {
         Message msg = null;
         try {
@@ -1719,14 +1693,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void playerLoadHP(int charID, int cHP, int b, int cHPFull) {
         Message msg = null;
         try {
@@ -1740,14 +1713,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void playerAttackNPC(int charID, int skillId, ArrayList<Mob> mobs) {
         Message msg = null;
         try {
@@ -1762,15 +1734,15 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
-    public void playerAttackPlayer(int playerId, int skillId, ArrayList<Char> chars, int isContinue, int typeSkill, int damHP, boolean isDie, boolean isCrit) {
+
+    public void playerAttackPlayer(int playerId, int skillId, ArrayList<Char> chars, int isContinue, int typeSkill,
+            int damHP, boolean isDie, boolean isCrit) {
         Message msg = null;
         try {
             msg = new Message(-60);
@@ -1792,14 +1764,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void playerAttackNP(int charID, int skillId, ArrayList<Mob> mobs, ArrayList<Char> players) {
         Message msg = null;
         int i;
@@ -1821,14 +1792,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void mobHP(int mobId, int hp, int downhp, boolean flag, int effectId) {
         Message msg = null;
         try {
@@ -1843,14 +1813,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void mobDie(int mobId, int downhp, boolean flag, ArrayList<ItemMap> itemMaps) {
         Message msg = null;
         int i;
@@ -1859,7 +1828,7 @@ public class Service {
             msg.writer().writeByte(mobId);
             msg.writer().writeInt(downhp);
             msg.writer().writeBoolean(flag);
-            //===Item Map===\\\
+            // ===Item Map===\\\
             msg.writer().writeByte(itemMaps.size());
             for (i = 0; i < itemMaps.size(); i++) {
                 msg.writer().writeShort(itemMaps.get(i).itemMapID);
@@ -1871,14 +1840,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void meLoadHP(int cHP) {
         Message msg = null;
         try {
@@ -1887,14 +1855,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void meLoadMP(int cMP) {
         Message msg = null;
         try {
@@ -1903,14 +1870,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void playerUpdateEXP(int type, long num) {
         Message msg = null;
         try {
@@ -1920,14 +1886,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void updateBody(int type, int charID, int head, int body, int leg, int isMonkey) {
         Message msg = null;
         try {
@@ -1943,14 +1908,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void itemMapRemove(int itemMapID) {
         Message msg = null;
         try {
@@ -1959,14 +1923,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void itemMapMyPick(int itemMapID, String info, int type, int num, int num2) {
         Message msg = null;
         try {
@@ -1980,14 +1943,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void itemMapPlayerPick(int itemMapID, int charID) {
         Message msg = null;
         try {
@@ -1997,14 +1959,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void itemBuy(long xu, int luong, int luongKhoa) {
         Message msg = null;
         try {
@@ -2023,14 +1984,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void openShop(int type, String shopTabName[], ArrayList<Item> myItemShop[]) {
         Message msg = null;
         try {
@@ -2050,21 +2010,23 @@ public class Service {
                         msg.writer().writeUTF(myItemShop[i].get(k).reason);
                     }
                     if (type == 0) {
-                        
+
                         if (myItemShop[i].get(k).template.id == 518 && myItemShop[i].get(k).template.id != 457) {
-                            msg.writer().writeInt(myItemShop[i].get(k).buyCoin * (this.session.myCharz().boxcount - 19));
+                            msg.writer()
+                                    .writeInt(myItemShop[i].get(k).buyCoin * (this.session.myCharz().boxcount - 19));
                         } else if (myItemShop[i].get(k).template.id == 457) {
                             msg.writer().writeInt(Server.gI().gold_value);
                         } else {
                             msg.writer().writeInt(myItemShop[i].get(k).buyCoin);
                         }
                         if (myItemShop[i].get(k).template.id == 517) {
-                            msg.writer().writeInt(myItemShop[i].get(k).buyGold * (this.session.myCharz().bagcount - 19));
+                            msg.writer()
+                                    .writeInt(myItemShop[i].get(k).buyGold * (this.session.myCharz().bagcount - 19));
                         } else {
                             msg.writer().writeInt(myItemShop[i].get(k).buyGold);
                         }
-//                        msg.writer().writeInt(itemShops[k].buyCoin);
-//                        msg.writer().writeInt(itemShops[k].buyGold);
+                        // msg.writer().writeInt(itemShops[k].buyCoin);
+                        // msg.writer().writeInt(itemShops[k].buyGold);
                     }
                     if (type == 1) {
                         msg.writer().writeLong(myItemShop[i].get(k).template.strRequire);
@@ -2086,7 +2048,8 @@ public class Service {
                         msg.writer().writeInt(myItemShop[i].get(k).buySpec);
                     }
                     if (myItemShop[i].get(k).isItemPackOf30Foods()) {
-                        ArrayList<ItemOption> options = ItemOption.getOption(MagicTree.foods30templateId[this.session.myCharz().magicTree_level - 1], 0, 0);
+                        ArrayList<ItemOption> options = ItemOption.getOption(
+                                MagicTree.foods30templateId[this.session.myCharz().magicTree_level - 1], 0, 0);
                         msg.writer().writeByte(options.size());
                         for (int m = 0; m < options.size(); m++) {
                             msg.writer().writeByte(options.get(m).optionTemplate.id);
@@ -2097,7 +2060,8 @@ public class Service {
                         if (i == 0) {
                             int point = this.session.myCharz().getTaskPointDH(myItemShop[i].get(k).template.id);
                             if (point > 0) {
-                                options.add(0, new ItemOption(220, (int) (100.0F / TaskDanhHieu.hTask.get(myItemShop[i].get(k).template.id).maxCount * point)));
+                                options.add(0, new ItemOption(220, (int) (100.0F
+                                        / TaskDanhHieu.hTask.get(myItemShop[i].get(k).template.id).maxCount * point)));
                             }
                         }
                         msg.writer().writeByte(options.size());
@@ -2108,17 +2072,22 @@ public class Service {
                     } else {
                         msg.writer().writeByte(myItemShop[i].get(k).options.size());
                         for (int m = 0; m < myItemShop[i].get(k).options.size(); m++) {
-                            if (myItemShop[i].get(k).template.type == 13 && myItemShop[i].get(k).options.get(m).optionTemplate.id == 66 && this.session.myCharz().isExistAmu(myItemShop[i].get(k).template.id)) {
+                            if (myItemShop[i].get(k).template.type == 13
+                                    && myItemShop[i].get(k).options.get(m).optionTemplate.id == 66
+                                    && this.session.myCharz().isExistAmu(myItemShop[i].get(k).template.id)) {
                                 Amu amu = this.session.myCharz().getAmuById(myItemShop[i].get(k).template.id);
                                 if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60 * 24) {
                                     msg.writer().writeByte(63);
-                                    msg.writer().writeShort((int) (((amu.second - (System.currentTimeMillis() / 1000))) / (60 * 60 * 24)));
+                                    msg.writer().writeShort((int) (((amu.second - (System.currentTimeMillis() / 1000)))
+                                            / (60 * 60 * 24)));
                                 } else if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60) {
                                     msg.writer().writeByte(64);
-                                    msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
+                                    msg.writer().writeShort(
+                                            (int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
                                 } else {
                                     msg.writer().writeByte(65);
-                                    msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
+                                    msg.writer().writeShort(
+                                            (int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
                                 }
                             } else {
                                 msg.writer().writeByte(myItemShop[i].get(k).options.get(m).optionTemplate.id);
@@ -2126,14 +2095,15 @@ public class Service {
                             }
                         }
                     }
-                    msg.writer().writeByte((myItemShop[i].get(k).newItem?1:0));
-                    if (myItemShop[i].get(k).headTemp != -1 || myItemShop[i].get(k).bodyTemp != -1 || myItemShop[i].get(k).legTemp != -1 || myItemShop[i].get(k).bagTemp != -1) {
+                    msg.writer().writeByte((myItemShop[i].get(k).newItem ? 1 : 0));
+                    if (myItemShop[i].get(k).headTemp != -1 || myItemShop[i].get(k).bodyTemp != -1
+                            || myItemShop[i].get(k).legTemp != -1 || myItemShop[i].get(k).bagTemp != -1) {
                         msg.writer().writeByte(1);
                         msg.writer().writeShort(myItemShop[i].get(k).headTemp);
                         msg.writer().writeShort(myItemShop[i].get(k).bodyTemp);
                         msg.writer().writeShort(myItemShop[i].get(k).legTemp);
                         msg.writer().writeShort(myItemShop[i].get(k).bagTemp);
-                        
+
                     } else {
                         msg.writer().writeByte(0);
                     }
@@ -2142,14 +2112,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void openUIZone(Map map) {
         Message msg = null;
         int i;
@@ -2174,14 +2143,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void dialogMessage(String text) {
         Message msg = null;
         int i;
@@ -2191,14 +2159,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void mobAttackMe(int mobId, int HPShow, int MPShow) {
         Message msg = null;
         try {
@@ -2213,14 +2180,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void mobAttackPlayer(int mobId, int charID, int HPShow, int MPShow) {
         Message msg = null;
         try {
@@ -2236,14 +2202,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void meLoadSkill(ArrayList<Skill> skills) {
         Message msg = null;
         try {
@@ -2255,14 +2220,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void loadRMS(String text, ArrayList<Byte> key) {
         Message msg = null;
         try {
@@ -2275,14 +2239,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void mobLive(int mobId, int sys, int levelBoss, int hp) {
         Message msg = null;
         try {
@@ -2294,20 +2257,19 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     protected void writeGetImgByName(String text) {
         if (!session.isLoad) {
             return;
         }
         Message msg = null;
-        Util.gI().logln("nameImg ================"+text);
+        Util.gI().logln("nameImg ================" + text);
         ImgByName imgByName = ImgByName.imgByNames.get(this.session.zoomLevel).get(text);
         if (imgByName != null) {
             try {
@@ -2319,14 +2281,13 @@ public class Service {
                 this.session.sendMessage(msg);
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 if (msg != null)
                     msg.cleanup();
             }
         }
     }
-    
+
     public void getFlag() {
         Message msg = null;
         try {
@@ -2334,23 +2295,22 @@ public class Service {
             msg.writer().writeByte(0);
             msg.writer().writeByte(Flag.FLAGS.size());
             for (int i = 0; i < Flag.FLAGS.size(); i++) {
-               msg.writer().writeShort(Flag.FLAGS.get(i).itemFlag.template.id);
-               msg.writer().writeByte(Flag.FLAGS.get(i).itemFlag.options.size());
-               for (int j = 0; j < Flag.FLAGS.get(i).itemFlag.options.size(); j++) {
-                   msg.writer().writeByte(Flag.FLAGS.get(i).itemFlag.options.get(j).optionTemplate.id);
-                   msg.writer().writeShort(Flag.FLAGS.get(i).itemFlag.options.get(j).param);
-               }
+                msg.writer().writeShort(Flag.FLAGS.get(i).itemFlag.template.id);
+                msg.writer().writeByte(Flag.FLAGS.get(i).itemFlag.options.size());
+                for (int j = 0; j < Flag.FLAGS.get(i).itemFlag.options.size(); j++) {
+                    msg.writer().writeByte(Flag.FLAGS.get(i).itemFlag.options.get(j).optionTemplate.id);
+                    msg.writer().writeShort(Flag.FLAGS.get(i).itemFlag.options.get(j).param);
+                }
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void changeFlag(int charID, int cFlag) {
         Message msg = null;
         try {
@@ -2361,13 +2321,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void idImgFlag(int cFlag, int IDimageFlag) {
         Message msg = null;
         try {
@@ -2378,13 +2337,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getPlayelrMenu(ArrayList<MenuInfo2> myList) {
         Message msg = null;
         try {
@@ -2398,13 +2356,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void playerMenu(int int1, long cPower, String currStrLevel) {
         Message msg = null;
         try {
@@ -2415,13 +2372,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void player_vs_player(int typePK, int playerId, int xu, String info) {
         Message msg = null;
         try {
@@ -2433,13 +2389,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateTypePK(int playerId, int typePk) {
         Message msg = null;
         try {
@@ -2450,14 +2405,14 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    public void skill_not_focus(int skill_type, int playerId, int skilltemplateId, ArrayList<Mob> mobs, ArrayList<Char> players, int seconds) {
+
+    public void skill_not_focus(int skill_type, int playerId, int skilltemplateId, ArrayList<Mob> mobs,
+            ArrayList<Char> players, int seconds) {
         Message msg = null;
         int i;
         try {
@@ -2489,10 +2444,10 @@ public class Service {
                 }
             }
             if (skill_type == 1) {
-                
+
             }
             if (skill_type == 6) {
-                
+
             }
             if (skill_type == 4) {
                 msg.writer().writeShort(seconds);
@@ -2503,13 +2458,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void addEffectChar(int playerId, int id, int layer, int loop, int loopCount, int isStand) {
         Message msg = null;
         try {
@@ -2524,13 +2478,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void removeEffChar(int playerId, int id) {
         Message msg = null;
         try {
@@ -2541,13 +2494,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void removeEffCharAll(int playerId) {
         Message msg = null;
         try {
@@ -2557,13 +2509,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void haveAttackPlayer(int charID, int hp, int damHP, boolean isCrit, int idEff) {
         Message msg = null;
         try {
@@ -2578,13 +2529,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setPos(int charID, int x, int y, int b) {
         Message msg = null;
         try {
@@ -2596,13 +2546,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mobIsFire(int mobId, boolean isFire) {
         Message msg = null;
         try {
@@ -2612,13 +2561,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mobIsIce(int mobId, boolean isIce) {
         Message msg = null;
         try {
@@ -2628,13 +2576,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mobIsWind(int mobId, boolean isWind) {
         Message msg = null;
         try {
@@ -2644,13 +2591,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mobIsDisable(int mobId, boolean isDisable) {
         Message msg = null;
         try {
@@ -2660,13 +2606,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mobIsDontMove(int mobId, boolean isDontMove) {
         Message msg = null;
         try {
@@ -2676,13 +2621,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void holdChar(int effID, int holdEffID, int charId1, int charId2, int charId3) {
         Message msg = null;
         try {
@@ -2698,18 +2642,17 @@ public class Service {
                 msg.writer().writeInt(charId3);
             }
             if (holdEffID == 41) {
-                
+
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void holdMob(int effID, int holdEffID, int mobId, int playerId) {
         Message msg = null;
         try {
@@ -2722,18 +2665,17 @@ public class Service {
                 msg.writer().writeInt(playerId);
             }
             if (holdEffID == 41) {
-                
+
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void itemTime(int iconId, int second) {
         Message msg = null;
         try {
@@ -2743,13 +2685,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void addMobMe(int charId, int templateId, int hp) {
         Message msg = null;
         try {
@@ -2761,13 +2702,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void clearMobMe(int charId) {
         Message msg = null;
         try {
@@ -2777,13 +2717,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mobMeAttackMob(int charId, int mobId) {
         Message msg = null;
         try {
@@ -2794,13 +2733,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void mobMeAttackPlayer(int charId, int playerId, int dam, int cHPNew) {
         Message msg = null;
         try {
@@ -2813,13 +2751,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void changeMobBody(int type, int mobIndex, int id) {
         Message msg = null;
         try {
@@ -2832,13 +2769,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void combine(String src, String src2, int num) {
         Message msg = null;
         try {
@@ -2852,13 +2788,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setCombineEff(int type, int iconId, int iconId2, int npcId) {
         Message msg = null;
         try {
@@ -2876,13 +2811,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setCombineEff(Item[] arrItem) {
         Message msg = null;
         int i;
@@ -2896,13 +2830,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setCombineEff(int[] array, int npcId) {
         Message msg = null;
         int i;
@@ -2917,13 +2850,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setCombineEff(ArrayList<Item> items, int npcId) {
         Message msg = null;
         int i;
@@ -2938,20 +2870,21 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void magicTree() {
         Message msg = null;
         try {
-            Npc npc = this.session.myCharz().getMapOffline(this.session.myCharz().mainHome()).zones.get(0).findNPCInMap(4);
+            Npc npc = this.session.myCharz().getMapOffline(this.session.myCharz().mainHome()).zones.get(0)
+                    .findNPCInMap(4);
             msg = new Message(-34);
             msg.writer().writeByte(0);
-            msg.writer().writeShort(MagicTree.magicTreeId[this.session.myCharz().cgender][this.session.myCharz().magicTree_level -1]);
+            msg.writer().writeShort(
+                    MagicTree.magicTreeId[this.session.myCharz().cgender][this.session.myCharz().magicTree_level - 1]);
             msg.writer().writeUTF(String.format(MagicTree.infomagicTree, this.session.myCharz().magicTree_level));
             msg.writer().writeShort(npc.cx);
             msg.writer().writeShort(npc.cy);
@@ -2959,23 +2892,23 @@ public class Service {
             msg.writer().writeShort(this.session.myCharz().magicTree_currPeas);
             msg.writer().writeShort(MagicTree.maxPeas[this.session.myCharz().magicTree_level - 1]);
             msg.writer().writeUTF(mResources.EMPTY);
-            msg.writer().writeInt((int) ((this.session.myCharz().magicTree_miliseconds / 1000) - (System.currentTimeMillis() / 1000)));
+            msg.writer().writeInt((int) ((this.session.myCharz().magicTree_miliseconds / 1000)
+                    - (System.currentTimeMillis() / 1000)));
             msg.writer().writeByte(this.session.myCharz().magicTree_currPeas);
             for (int i = 0; i < this.session.myCharz().magicTree_currPeas; i++) {
-                msg.writer().writeByte(MagicTree.peaPostionXY[this.session.myCharz().magicTree_level -1][i][0]);
-                msg.writer().writeByte(MagicTree.peaPostionXY[this.session.myCharz().magicTree_level -1][i][1]);
+                msg.writer().writeByte(MagicTree.peaPostionXY[this.session.myCharz().magicTree_level - 1][i][0]);
+                msg.writer().writeByte(MagicTree.peaPostionXY[this.session.myCharz().magicTree_level - 1][i][1]);
             }
             msg.writer().writeBoolean(this.session.myCharz().magicTree_isUpdate);
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openMagicTreConfirm(ArrayList<MenuInfo> arrMenu) {
         Message msg = null;
         try {
@@ -2987,13 +2920,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void magicTree2(int remainPeas, int seconds) {
         Message msg = null;
         try {
@@ -3004,13 +2936,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void autoPlay(int canAutoPlay) {
         Message msg = null;
         try {
@@ -3019,13 +2950,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void hideDragon() {
         Message msg = null;
         try {
@@ -3034,14 +2964,14 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    public void callDragon(int mapId, int bgId, int zoneId, int playerId, String text, int rx, int ry, int isRongNamek) {
+
+    public void callDragon(int mapId, int bgId, int zoneId, int playerId, String text, int rx, int ry,
+            int isRongNamek) {
         Message msg = null;
         try {
             msg = new Message(-83);
@@ -3057,13 +2987,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void itemMapAdd(ItemMap itMap) {
         Message msg = null;
         try {
@@ -3079,13 +3008,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void itemMapAdd(int itemMapID, int id, int x, int y, int playerId, int r) {
         Message msg = null;
         try {
@@ -3101,13 +3029,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void transPort(int maxTime, int type) {
         Message msg = null;
         try {
@@ -3117,13 +3044,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void updateCoolDown(ArrayList<Skill> skills) {
         Message msg = null;
         int i;
@@ -3136,13 +3062,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void chatVip(String text) {
         Message msg = null;
         int i;
@@ -3152,13 +3077,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void petInfo0() {
         Message msg = null;
         int i;
@@ -3168,13 +3092,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void petInfo1() {
         Message msg = null;
         int i;
@@ -3184,13 +3107,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void petInfo2(Char petz) {
         Message msg = null;
         int i;
@@ -3239,20 +3161,19 @@ public class Service {
             for (j = 0; j < petz.skills.size(); j++) {
                 msg.writer().writeShort(petz.skills.get(j).skillId);
             }
-            for (;j < 4; j++) {
+            for (; j < 4; j++) {
                 msg.writer().writeShort(-1);
                 msg.writer().writeUTF(petz.spowerSkillPet[j]);
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setFusion(int fusion, int charId) {
         Message msg = null;
         try {
@@ -3262,13 +3183,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void sendgiaodich(int charId) {
         Message msg = null;
         try {
@@ -3278,13 +3198,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void opengiaodich(int playerId) {
         Message msg = null;
         try {
@@ -3294,13 +3213,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void cancelgiaodich() {
         Message msg = null;
         try {
@@ -3309,13 +3227,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void lockgiaodich(Char player) {
         Message msg = null;
         int i;
@@ -3345,13 +3262,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void lockgiaodich(int coin, ArrayList<Item> arraylist) {
         Message msg = null;
         try {
@@ -3381,13 +3297,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void removeitemgiaodich(int indexUI) {
         Message msg = null;
         try {
@@ -3397,13 +3312,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void Stamina(int num) {
         Message msg = null;
         try {
@@ -3412,13 +3326,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void maxStamina(int num) {
         Message msg = null;
         try {
@@ -3427,13 +3340,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void rank(int num) {
         Message msg = null;
         try {
@@ -3442,13 +3354,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openTextBoxId(String info, int textId) {
         Message msg = null;
         try {
@@ -3458,13 +3369,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void returnPointMap(int charId, int x, int y, int playerId) {
         Message msg = null;
         try {
@@ -3478,13 +3388,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void resetPont(int x, int y) {
         Message msg = null;
         try {
@@ -3494,13 +3403,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void sendLuckyRound(int typePrice, int price, int idTicket) {
         Message msg = null;
         int i;
@@ -3517,13 +3425,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void sendLuckyRound(short[] idImage) {
         Message msg = null;
         int i;
@@ -3537,13 +3444,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openItemMore(ArrayList<Item> items) {
         Message msg = null;
         int i;
@@ -3570,14 +3476,15 @@ public class Service {
                         msg.writer().writeByte(items.get(k).options.get(m).optionTemplate.id);
                         msg.writer().writeShort(items.get(k).options.get(m).param);
                     }
-                    msg.writer().writeByte((items.get(k).newItem?1:0));
-                    if (items.get(k).headTemp != -1 || items.get(k).bodyTemp != -1 || items.get(k).legTemp != -1 || items.get(k).bagTemp != -1) {
+                    msg.writer().writeByte((items.get(k).newItem ? 1 : 0));
+                    if (items.get(k).headTemp != -1 || items.get(k).bodyTemp != -1 || items.get(k).legTemp != -1
+                            || items.get(k).bagTemp != -1) {
                         msg.writer().writeByte(1);
                         msg.writer().writeShort(items.get(k).headTemp);
                         msg.writer().writeShort(items.get(k).bodyTemp);
                         msg.writer().writeShort(items.get(k).legTemp);
                         msg.writer().writeShort(items.get(k).bagTemp);
-                        
+
                     } else {
                         msg.writer().writeByte(0);
                     }
@@ -3586,14 +3493,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void getBag(int charId, int bag) {
         Message msg = null;
         try {
@@ -3603,13 +3509,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getBagImg(ClanImage clanImage) {
         Message msg = null;
         int i;
@@ -3623,13 +3528,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void clanImage(ClanImage clanImage) {
         Message msg = null;
         int i;
@@ -3646,13 +3550,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getClan(int action) {
         Message msg = null;
         int i;
@@ -3669,13 +3572,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setClan(int imgID, String text) {
         Message msg = null;
         int i;
@@ -3687,13 +3589,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void serverScreen() {
         Message msg = null;
         try {
@@ -3701,13 +3602,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void startYesNoDlg(int b, String str1, String str2) {
         Message msg = null;
         try {
@@ -3720,13 +3620,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void itemRequest(int itemAction, int where, int index, String info) {
         Message msg = null;
         try {
@@ -3738,13 +3637,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void frendList(ArrayList<Friend> freinds) {
         Message msg = null;
         try {
@@ -3768,13 +3666,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void remove_frend(int playerId) {
         Message msg = null;
         try {
@@ -3784,13 +3681,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void clanInfo(int role, Clan clan) {
         Message msg = null;
         int i;
@@ -3841,7 +3737,7 @@ public class Service {
                 msg.cleanup();
         }
     }
-    
+
     public void addClanMember(ClanMember member) {
         Message msg = null;
         try {
@@ -3869,7 +3765,7 @@ public class Service {
                 msg.cleanup();
         }
     }
-    
+
     public void removeClanMember(int index) {
         Message msg = null;
         try {
@@ -3884,7 +3780,7 @@ public class Service {
                 msg.cleanup();
         }
     }
-    
+
     public void setClanMember(ClanMember member) {
         Message msg = null;
         try {
@@ -3912,7 +3808,7 @@ public class Service {
                 msg.cleanup();
         }
     }
-    
+
     public void findClan(ArrayList<Clan> list) {
         Message msg = null;
         try {
@@ -3933,13 +3829,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void clanMember(Clan clan) {
         Message msg = null;
         int i;
@@ -3967,13 +3862,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void clanInvite(String strInvite, int clanID, int code) {
         Message msg = null;
         try {
@@ -3984,13 +3878,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void writeClanMsg(Message msg, ClanMessage clanMsg) {
         try {
             msg.writer().writeByte(clanMsg.type);
@@ -4011,7 +3904,7 @@ public class Service {
             e.printStackTrace();
         }
     }
-    
+
     public void addClanMessage(ClanMessage clanMsg) {
         Message msg = null;
         try {
@@ -4020,38 +3913,38 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openNewMenuUI(String[] arrMenu) {
         Message msg = null;
         try {
             int i;
             msg = new Message(57);
             if (arrMenu != null && arrMenu.length > 0) {
-                for (i = 0 ; i < arrMenu.length; i++) {
+                for (i = 0; i < arrMenu.length; i++) {
                     msg.writer().writeUTF(arrMenu[i]);
                 }
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     /**
      * Hàm mở giao diện nhập liệu từ client
+     * 
      * @param title Tiêu đề giao diện
-     * @param name Mảng tên các trường nhập liệu
-     * @param type Mảng kiểu dữ liệu tương ứng với các trường nhập liệu (trong name)
+     * @param name  Mảng tên các trường nhập liệu
+     * @param type  Mảng kiểu dữ liệu tương ứng với các trường nhập liệu (trong
+     *              name)
      */
     public void openClientInput(String title, String[] name, int[] type) {
         Message msg = null;
@@ -4067,13 +3960,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void inputCard() {
         Message msg = null;
         try {
@@ -4081,13 +3973,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void addInfo(String s) {
         Message msg = null;
         try {
@@ -4096,13 +3987,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void top(Rank rank) {
         Message msg = null;
         try {
@@ -4122,48 +4012,61 @@ public class Service {
                 msg.writer().writeShort(top.leg);
                 msg.writer().writeUTF(top.name);
                 if (rank.rankId == 0) {
-                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_1, top.point, Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
-                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_2, Clan.getClan(top.name).leaderName, Util.gI().getFormatTime3(top.time)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_1, top.point,
+                            Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_2, Clan.getClan(top.name).leaderName,
+                            Util.gI().getFormatTime3(top.time)));
                 }
                 if (rank.rankId == 1) {
-                    msg.writer().writeUTF(String.format(mResources.TOP_CT_INFO_1, Util.gI().numberTostring(top.point), Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
-                    msg.writer().writeUTF(String.format(mResources.TOP_CT_INFO_2, Util.gI().getFormatNumber(top.point)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_CT_INFO_1, Util.gI().numberTostring(top.point),
+                            Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
+                    msg.writer()
+                            .writeUTF(String.format(mResources.TOP_CT_INFO_2, Util.gI().getFormatNumber(top.point)));
                 }
                 if (rank.rankId == 2) {
-                    msg.writer().writeUTF(String.format(mResources.TOP_DG_INFO_1, Util.gI().numberTostring(top.point), Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
-                    msg.writer().writeUTF(String.format(mResources.TOP_DG_INFO_2, Util.gI().getFormatNumber(top.point)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_DG_INFO_1, Util.gI().numberTostring(top.point),
+                            Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
+                    msg.writer()
+                            .writeUTF(String.format(mResources.TOP_DG_INFO_2, Util.gI().getFormatNumber(top.point)));
                 }
                 if (rank.rankId == 3) {
-                    msg.writer().writeUTF(String.format(mResources.TOP_SK_INFO_1, Util.gI().numberTostring(top.point), Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
-                    msg.writer().writeUTF(String.format(mResources.TOP_SK_INFO_2, Util.gI().getFormatNumber(top.point)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_SK_INFO_1, Util.gI().numberTostring(top.point),
+                            Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
+                    msg.writer()
+                            .writeUTF(String.format(mResources.TOP_SK_INFO_2, Util.gI().getFormatNumber(top.point)));
                 }
                 if (rank.rankId == 4) {
-                    msg.writer().writeUTF(String.format(mResources.TOP_SK_INFO_1, Util.gI().numberTostring(top.point), Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
-                    msg.writer().writeUTF(String.format(mResources.TOP_SK_INFO_2, Util.gI().getFormatNumber(top.point)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_SK_INFO_1, Util.gI().numberTostring(top.point),
+                            Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
+                    msg.writer()
+                            .writeUTF(String.format(mResources.TOP_SK_INFO_2, Util.gI().getFormatNumber(top.point)));
                 }
                 if (rank.rankId == 5) {
-                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_1, top.point, Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
-                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_2, Clan.getClan(top.name).leaderName, Util.gI().getFormatTime3(top.time)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_1, top.point,
+                            Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_GAS_INFO_2, Clan.getClan(top.name).leaderName,
+                            Util.gI().getFormatTime3(top.time)));
                 }
                 if (rank.rankId == 6) {
                     msg.writer().writeUTF(Server.gI().isHaveByCName(top.name) ? mResources.ONLINE : mResources.EMPTY);
                     msg.writer().writeUTF("...");
                 }
                 if (rank.rankId == 7) {
-                    msg.writer().writeUTF(String.format(mResources.TOP_PHOBAN_INFO_1, top.point, Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
-                    msg.writer().writeUTF(String.format(mResources.TOP_PHOBAN_INFO_2, Clan.getClan(top.name).leaderName, Util.gI().getFormatTime3(top.time)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_PHOBAN_INFO_1, top.point,
+                            Util.gI().getFormatTime2(System.currentTimeMillis() - top.lastTime)));
+                    msg.writer().writeUTF(String.format(mResources.TOP_PHOBAN_INFO_2, Clan.getClan(top.name).leaderName,
+                            Util.gI().getFormatTime3(top.time)));
                 }
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void top2() {
         Message msg = null;
         int i;
@@ -4173,25 +4076,24 @@ public class Service {
             msg.writer().writeUTF("Top 2");
             msg.writer().writeByte(2);
             for (i = 0; i < 2; i++) {
-                msg.writer().writeInt(i+1);
+                msg.writer().writeInt(i + 1);
                 msg.writer().writeInt(i);
                 msg.writer().writeShort(0);
                 msg.writer().writeShort(1);
                 msg.writer().writeShort(2);
-                msg.writer().writeUTF("rongma"+(i+1));
+                msg.writer().writeUTF("rongma" + (i + 1));
                 msg.writer().writeUTF("ok");
                 msg.writer().writeUTF("okz");
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getTask(int gender, int taskId, int taskIndex, int taskCount) {
         Message msg = null;
         int i;
@@ -4224,13 +4126,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void saleItem(int type, int id, String info) {
         Message msg = null;
         try {
@@ -4241,13 +4142,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void rada() {
         Message msg = null;
         try {
@@ -4284,13 +4184,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void addCard(int id, int amount, int max_amount) {
         Message msg = null;
         try {
@@ -4302,13 +4201,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setRadaLevel(int id, int level) {
         Message msg = null;
         try {
@@ -4319,13 +4217,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void isUseCard(int id, int b) {
         Message msg = null;
         try {
@@ -4336,13 +4233,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getAuraEff(int charId, int idAuraEff) {
         Message msg = null;
         try {
@@ -4353,13 +4249,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void petFollow(int charId, int smallID, int fimg, int[] frameNew, int wimg, int himg) {
         Message msg = null;
         try {
@@ -4379,13 +4274,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void clearPetFollow(int charId) {
         Message msg = null;
         try {
@@ -4395,13 +4289,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void messageTime(int id, String text, int time) {
         Message msg = null;
         try {
@@ -4412,13 +4305,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void stoneMe(int charId, int eff) {
         Message msg = null;
         try {
@@ -4430,13 +4322,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     private void writeDart(Message msg) throws IOException {
         int i1, i2, i3;
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
@@ -4481,7 +4372,7 @@ public class Service {
         msg.writer().writeInt(dataOutputStream.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     private void writeArrow(Message msg) throws IOException {
         int i1;
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
@@ -4496,7 +4387,7 @@ public class Service {
         msg.writer().writeInt(dataOutputStream.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     private void writeEffect(Message msg) throws IOException {
         int i1, i2;
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
@@ -4514,7 +4405,7 @@ public class Service {
         msg.writer().writeInt(dataOutputStream.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     private void writeImage(Message msg) throws IOException {
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(ab);
@@ -4529,7 +4420,7 @@ public class Service {
         msg.writer().writeInt(dataOutputStream.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     private void writePart(Message msg) throws IOException {
         int i;
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
@@ -4547,7 +4438,7 @@ public class Service {
         msg.writer().writeInt(o.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     private void writeSkill(Message msg) throws IOException {
         int i1, i2;
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
@@ -4593,7 +4484,7 @@ public class Service {
         msg.writer().writeInt(dataOutputStream.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     public void tMabu(int percentMabu) {
         Message msg = null;
         try {
@@ -4602,13 +4493,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setStatus(int id, int[] duahau, int duaHauIndex, int second) {
         Message msg = null;
         int i;
@@ -4624,13 +4514,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBossFly(int x, int y) {
         Message msg = null;
         try {
@@ -4641,13 +4530,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBossMove(int x, int y) {
         Message msg = null;
         try {
@@ -4658,13 +4546,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBossMove() {
         Message msg = null;
         try {
@@ -4673,13 +4560,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBossAttack(int type, ArrayList<Integer> ch, ArrayList<Integer> dam) {
         Message msg = null;
         int i;
@@ -4694,13 +4580,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBossAttack() {
         Message msg = null;
         int i;
@@ -4710,13 +4595,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBossB2(int x, int y) {
         Message msg = null;
         try {
@@ -4727,13 +4611,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBosshaftBody() {
         Message msg = null;
         try {
@@ -4742,13 +4625,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void showYourNumber(String str) {
         Message msg = null;
         try {
@@ -4758,13 +4640,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void showWinNumber(String num, String finish) {
         Message msg = null;
         try {
@@ -4776,13 +4657,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void npcChat(int npcId, String chat) {
         Message msg = null;
         try {
@@ -4792,13 +4672,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void addEffectServer(int loop, int layer, int id, int x, int y, int loopCount) {
         Message msg = null;
         try {
@@ -4812,14 +4691,14 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    public void getTaskOrder(int taskId, int count, int maxCount, String name, String description, int killId, int mapId) {
+
+    public void getTaskOrder(int taskId, int count, int maxCount, String name, String description, int killId,
+            int mapId) {
         Message msg = null;
         try {
             msg = new Message(96);
@@ -4833,13 +4712,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getTaskCount(int count) {
         Message msg = null;
         try {
@@ -4848,13 +4726,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void nextTaskIndex() {
         Message msg = null;
         try {
@@ -4862,13 +4739,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void hideNpc(int npcTemplateId, int b) {
         Message msg = null;
         try {
@@ -4878,13 +4754,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setPowerInfo(String info, int p, int maxP, int sc) {
         Message msg = null;
         try {
@@ -4896,13 +4771,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void gameInfo(ArrayList<GameInfo> gameinfos) {
         Message msg = null;
         int i;
@@ -4917,13 +4791,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setArchive(ArrayList<ArchivementTask> myList) {
         Message msg = null;
         try {
@@ -4932,14 +4805,19 @@ public class Service {
             msg.writer().writeByte(myList.size());
             for (int i = 0; i < myList.size(); i++) {
                 if (Archivement.get(myList.get(i).id).gold > 0 && !myList.get(i).isRecieve) {
-                    msg.writer().writeUTF(String.format(mResources.TASK_AND_GOLD, Archivement.get(myList.get(i).id).info1, Util.gI().numberTostring(Archivement.get(myList.get(i).id).gold)));
+                    msg.writer()
+                            .writeUTF(String.format(mResources.TASK_AND_GOLD, Archivement.get(myList.get(i).id).info1,
+                                    Util.gI().numberTostring(Archivement.get(myList.get(i).id).gold)));
                 } else {
                     msg.writer().writeUTF(Archivement.get(myList.get(i).id).info1);
                 }
                 if (Archivement.get(myList.get(i).id).max == -1) {
                     msg.writer().writeUTF(Archivement.get(myList.get(i).id).info2);
                 } else {
-                    msg.writer().writeUTF(String.format(mResources.TASK_AND_COUNT, Archivement.get(myList.get(i).id).info2, Util.gI().numberTostring(myList.get(i).count), Util.gI().numberTostring(Archivement.get(myList.get(i).id).max)));
+                    msg.writer()
+                            .writeUTF(String.format(mResources.TASK_AND_COUNT, Archivement.get(myList.get(i).id).info2,
+                                    Util.gI().numberTostring(myList.get(i).count),
+                                    Util.gI().numberTostring(Archivement.get(myList.get(i).id).max)));
                 }
                 msg.writer().writeShort(Archivement.get(myList.get(i).id).money);
                 msg.writer().writeBoolean(myList.get(i).isFinish);
@@ -4948,13 +4826,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setArchive(int index) {
         Message msg = null;
         try {
@@ -4964,13 +4841,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void eat(int charId, int playerId) {
         Message msg = null;
         try {
@@ -4981,13 +4857,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setMabuHold(boolean isMabuHold, int charId, int x, int y) {
         Message msg = null;
         try {
@@ -5004,13 +4879,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void setSkill(int charId, int skillID, int x, int y, int[] array, int[] array2) {
         Message msg = null;
         try {
@@ -5027,13 +4901,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBoss2Cut(int[] array, int[] array2) {
         Message msg = null;
         try {
@@ -5047,13 +4920,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBoss2Away(int[] array, int[] array2) {
         Message msg = null;
         try {
@@ -5067,13 +4939,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBoss2Fly(int[] array, int[] array2) {
         Message msg = null;
         try {
@@ -5087,13 +4958,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bachtuocRock(int[] array, int[] array2) {
         Message msg = null;
         try {
@@ -5107,13 +4977,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bachtuocAway(int[] array, int[] array2) {
         Message msg = null;
         try {
@@ -5127,13 +4996,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bachtuocMove(int x) {
         Message msg = null;
         try {
@@ -5143,13 +5011,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigBoss2haftBody() {
         Message msg = null;
         try {
@@ -5158,13 +5025,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bachtuochaftBody() {
         Message msg = null;
         try {
@@ -5173,13 +5039,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     private void writeData(Message msg, EffectData eff) throws IOException {
         int i, j, k, l;
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
@@ -5212,7 +5077,7 @@ public class Service {
         msg.writer().writeInt(o.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     private void writeDataNewBoss(Message msg, EffectData eff) throws IOException {
         int i, j, k, l;
         ByteArrayOutputStream ab = new ByteArrayOutputStream();
@@ -5250,10 +5115,10 @@ public class Service {
         msg.writer().writeInt(o.size());
         msg.writer().write(ab.toByteArray());
     }
-    
+
     private void writeFrameBoss(Message msg, int[][] frameBoss) throws IOException {
         msg.writer().writeByte(frameBoss.length);
-        int i,j;
+        int i, j;
         for (i = 0; i < frameBoss.length; i++) {
             msg.writer().writeByte(frameBoss[i].length);
             for (j = 0; j < frameBoss[i].length; j++) {
@@ -5261,7 +5126,7 @@ public class Service {
             }
         }
     }
-    
+
     public void shopKyGui(String[] shopName, ArrayList<ItemKyGui>[] arrItem) {
         Message msg = null;
         int i;
@@ -5294,17 +5159,22 @@ public class Service {
                     } else {
                         msg.writer().writeByte(arrItem[i].get(k).item.options.size());
                         for (m = 0; m < arrItem[i].get(k).item.options.size(); m++) {
-                            if (arrItem[i].get(k).item.template.type == 13 && arrItem[i].get(k).item.options.get(m).optionTemplate.id == 66 && this.session.myCharz().isExistAmu(arrItem[i].get(k).item.template.id)) {
+                            if (arrItem[i].get(k).item.template.type == 13
+                                    && arrItem[i].get(k).item.options.get(m).optionTemplate.id == 66
+                                    && this.session.myCharz().isExistAmu(arrItem[i].get(k).item.template.id)) {
                                 Amu amu = this.session.myCharz().getAmuById(arrItem[i].get(k).item.template.id);
                                 if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60 * 24) {
                                     msg.writer().writeByte(63);
-                                    msg.writer().writeShort((int) (((amu.second - (System.currentTimeMillis() / 1000))) / (60 * 60 * 24)));
+                                    msg.writer().writeShort((int) (((amu.second - (System.currentTimeMillis() / 1000)))
+                                            / (60 * 60 * 24)));
                                 } else if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60) {
                                     msg.writer().writeByte(64);
-                                    msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
+                                    msg.writer().writeShort(
+                                            (int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
                                 } else {
                                     msg.writer().writeByte(65);
-                                    msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
+                                    msg.writer().writeShort(
+                                            (int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
                                 }
                             } else {
                                 msg.writer().writeByte(arrItem[i].get(k).item.options.get(m).optionTemplate.id);
@@ -5312,15 +5182,16 @@ public class Service {
                             }
                         }
                     }
-                        
+
                     msg.writer().writeByte(0);
-                    if (arrItem[i].get(k).item.headTemp != -1 || arrItem[i].get(k).item.bodyTemp != -1 || arrItem[i].get(k).item.legTemp != -1 || arrItem[i].get(k).item.bagTemp != -1) {
+                    if (arrItem[i].get(k).item.headTemp != -1 || arrItem[i].get(k).item.bodyTemp != -1
+                            || arrItem[i].get(k).item.legTemp != -1 || arrItem[i].get(k).item.bagTemp != -1) {
                         msg.writer().writeByte(1);
                         msg.writer().writeShort(arrItem[i].get(k).item.headTemp);
                         msg.writer().writeShort(arrItem[i].get(k).item.bodyTemp);
                         msg.writer().writeShort(arrItem[i].get(k).item.legTemp);
                         msg.writer().writeShort(arrItem[i].get(k).item.bagTemp);
-                        
+
                     } else {
                         msg.writer().writeByte(0);
                     }
@@ -5329,14 +5200,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void shopKyGui(int index, int maxPageShop, int currPageShop, ArrayList<ItemKyGui> list_kygui) {
         Message msg = null;
         int k;
@@ -5366,17 +5236,22 @@ public class Service {
                 } else {
                     msg.writer().writeByte(list_kygui.get(k).item.options.size());
                     for (m = 0; m < list_kygui.get(k).item.options.size(); m++) {
-                        if (list_kygui.get(k).item.template.type == 13 && list_kygui.get(k).item.options.get(m).optionTemplate.id == 66 && this.session.myCharz().isExistAmu(list_kygui.get(k).item.template.id)) {
+                        if (list_kygui.get(k).item.template.type == 13
+                                && list_kygui.get(k).item.options.get(m).optionTemplate.id == 66
+                                && this.session.myCharz().isExistAmu(list_kygui.get(k).item.template.id)) {
                             Amu amu = this.session.myCharz().getAmuById(list_kygui.get(k).item.template.id);
                             if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60 * 24) {
                                 msg.writer().writeByte(63);
-                                msg.writer().writeShort((int) (((amu.second - (System.currentTimeMillis() / 1000))) / (60 * 60 * 24)));
+                                msg.writer().writeShort(
+                                        (int) (((amu.second - (System.currentTimeMillis() / 1000))) / (60 * 60 * 24)));
                             } else if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60) {
                                 msg.writer().writeByte(64);
-                                msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
+                                msg.writer().writeShort(
+                                        (int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
                             } else {
                                 msg.writer().writeByte(65);
-                                msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
+                                msg.writer()
+                                        .writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
                             }
                         } else {
                             msg.writer().writeByte(list_kygui.get(k).item.options.get(m).optionTemplate.id);
@@ -5384,7 +5259,8 @@ public class Service {
                         }
                     }
                 }
-                if (list_kygui.get(k).item.headTemp != -1 || list_kygui.get(k).item.bodyTemp != -1 || list_kygui.get(k).item.legTemp != -1 || list_kygui.get(k).item.bagTemp != -1) {
+                if (list_kygui.get(k).item.headTemp != -1 || list_kygui.get(k).item.bodyTemp != -1
+                        || list_kygui.get(k).item.legTemp != -1 || list_kygui.get(k).item.bagTemp != -1) {
                     msg.writer().writeByte(1);
                     msg.writer().writeShort(list_kygui.get(k).item.headTemp);
                     msg.writer().writeShort(list_kygui.get(k).item.bodyTemp);
@@ -5398,14 +5274,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void addCuuSat(int charId) {
         Message msg = null;
         try {
@@ -5414,13 +5289,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void meCuuSat(int charId) {
         Message msg = null;
         try {
@@ -5429,13 +5303,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void autoServer() {
         Message msg = null;
         try {
@@ -5444,13 +5317,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void meThrow(int itemMapID, int indexUI, int xEnd, int yEnd) {
         Message msg = null;
         try {
@@ -5462,13 +5334,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void playerThrow(int charID, int itemMapID, int itemTemplateId, int xEnd, int yEnd) {
         Message msg = null;
         try {
@@ -5481,13 +5352,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-       finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void openTransport(ArrayList<Transport> teleports) {
         Message msg = null;
         try {
@@ -5500,13 +5370,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void newBossMoveTo(int idBoss, int xTo, int yTo) {
         Message msg = null;
         try {
@@ -5518,13 +5387,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void newBossSetAttack(int type, int idBoss, ArrayList<Char> array, ArrayList<Integer> array2, int dir) {
         Message msg = null;
         try {
@@ -5542,13 +5410,12 @@ public class Service {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void newBossSetDie(int idBoss) {
         Message msg = null;
         try {
@@ -5558,13 +5425,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void newBossFlyTo(int idBoss, int xTo, int yTo) {
         Message msg = null;
         try {
@@ -5576,13 +5442,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void superRank(ArrayList<SuperRank> list) {
         Message msg = null;
         try {
@@ -5604,24 +5469,27 @@ public class Service {
                     msg.writer().writeUTF(list.get(i).strWar);
                 } else {
                     if (SuperRank.ngocNhan(list.get(i).rank) > 0) {
-                        msg.writer().writeUTF(String.format(mResources.GIFT_TOP_SUPER, SuperRank.ngocNhan(list.get(i).rank)));
+                        msg.writer().writeUTF(
+                                String.format(mResources.GIFT_TOP_SUPER, SuperRank.ngocNhan(list.get(i).rank)));
                     } else {
                         msg.writer().writeUTF(mResources.EMPTY);
                     }
                 }
-                msg.writer().writeUTF(String.format(mResources.INFO_TOP_SUPER, Util.gI().getFormatNumber(list.get(i).cHPfull), Util.gI().getFormatNumber(list.get(i).cDamfull), Util.gI().getFormatNumber(list.get(i).cDeffull), 0, ""));
+                msg.writer().writeUTF(String.format(mResources.INFO_TOP_SUPER,
+                        Util.gI().getFormatNumber(list.get(i).cHPfull), Util.gI().getFormatNumber(list.get(i).cDamfull),
+                        Util.gI().getFormatNumber(list.get(i).cDeffull), 0, ""));
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    public void SetSkillPaint_NEW(int playerId, short idskillPaint, int isFly, int typeFrame, int typePaint, int dir, int timeGong, int typeItem) {
+
+    public void SetSkillPaint_NEW(int playerId, short idskillPaint, int isFly, int typeFrame, int typePaint, int dir,
+            int timeGong, int typeItem) {
         Message msg = null;
         try {
             msg = new Message(-45);
@@ -5639,13 +5507,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void curExpSkill(int skillId, int curExp) {
         Message msg = null;
         try {
@@ -5656,13 +5523,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void get_Img_Skill(int skillId, int typePaint) {
         Message msg = null;
         try {
@@ -5673,14 +5539,14 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-    public void SetSkillPaint_STT(int playerId, short idskillPaint, dragon.t.Point targetDame, int timeDame, int rangeDame, int typePaint, ArrayList<Mob> list1, ArrayList<Char> list2, int typeItem) {
+
+    public void SetSkillPaint_STT(int playerId, short idskillPaint, dragon.t.Point targetDame, int timeDame,
+            int rangeDame, int typePaint, ArrayList<Mob> list1, ArrayList<Char> list2, int typeItem) {
         Message msg = null;
         try {
             msg = new Message(-45);
@@ -5711,13 +5577,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void steal(int playerId, int x, int y, int itemMapID, int templateId) {
         Message msg = null;
         try {
@@ -5728,21 +5593,20 @@ public class Service {
             msg.writer().writeShort(y);
             msg.writer().writeInt(0);
             this.session.sendMessage(msg);
-            
+
             msg = new Message(-19);
             msg.writer().writeShort(itemMapID);
             msg.writer().writeInt(playerId);
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void shopReBuyItem(ArrayList<Item> list) {
         Message msg = null;
         try {
@@ -5754,7 +5618,8 @@ public class Service {
             for (int i = list.size() - 1; i >= 0; i--) {
                 msg.writer().writeShort(list.get(i).template.id);
                 int price = (int) (SaleItemNew.priceItemCoin(list.get(i)) * list.get(i).quantity * 1.1);
-                if (price < 110) price = 110;
+                if (price < 110)
+                    price = 110;
                 msg.writer().writeInt(price);
                 msg.writer().writeInt(0);
                 if (this.session.getIntVersion() >= 222) {
@@ -5769,17 +5634,21 @@ public class Service {
                 } else {
                     msg.writer().writeByte(list.get(i).options.size());
                     for (int j = 0; j < list.get(i).options.size(); j++) {
-                        if (list.get(i).template.type == 13 && list.get(i).options.get(j).optionTemplate.id == 66 && this.session.myCharz().isExistAmu(list.get(i).template.id)) {
+                        if (list.get(i).template.type == 13 && list.get(i).options.get(j).optionTemplate.id == 66
+                                && this.session.myCharz().isExistAmu(list.get(i).template.id)) {
                             Amu amu = this.session.myCharz().getAmuById(list.get(i).template.id);
                             if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60 * 24) {
                                 msg.writer().writeByte(63);
-                                msg.writer().writeShort((int) (((amu.second - (System.currentTimeMillis() / 1000))) / (60 * 60 * 24)));
+                                msg.writer().writeShort(
+                                        (int) (((amu.second - (System.currentTimeMillis() / 1000))) / (60 * 60 * 24)));
                             } else if (amu.second - (System.currentTimeMillis() / 1000) > 60 * 60) {
                                 msg.writer().writeByte(64);
-                                msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
+                                msg.writer().writeShort(
+                                        (int) ((amu.second - (System.currentTimeMillis() / 1000)) / (60 * 60)));
                             } else {
                                 msg.writer().writeByte(65);
-                                msg.writer().writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
+                                msg.writer()
+                                        .writeShort((int) ((amu.second - (System.currentTimeMillis() / 1000)) / 60));
                             }
                         } else {
                             msg.writer().writeByte(list.get(i).options.get(j).optionTemplate.id);
@@ -5789,7 +5658,8 @@ public class Service {
                 }
 
                 msg.writer().writeByte(0);
-                if (list.get(i).headTemp != -1 || list.get(i).bodyTemp != -1 || list.get(i).legTemp != -1 || list.get(i).bagTemp != -1) {
+                if (list.get(i).headTemp != -1 || list.get(i).bodyTemp != -1 || list.get(i).legTemp != -1
+                        || list.get(i).bagTemp != -1) {
                     msg.writer().writeByte(1);
                     msg.writer().writeShort(list.get(i).headTemp);
                     msg.writer().writeShort(list.get(i).bodyTemp);
@@ -5803,14 +5673,13 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null) {
                 msg.cleanup();
             }
         }
     }
-    
+
     public void topLuyenTap(ArrayList<LuyenTap> list) {
         Message msg = null;
         try {
@@ -5828,19 +5697,20 @@ public class Service {
                 msg.writer().writeShort(list.get(i).body);
                 msg.writer().writeShort(list.get(i).leg);
                 msg.writer().writeUTF(list.get(i).name);
-                msg.writer().writeUTF(String.format(mResources.SRC_TOPLUYENTAP1, list.get(i).level, Util.gI().timeToSecondstring(list.get(i).timeFight)));
-                msg.writer().writeUTF(String.format(mResources.SRC_TOPLUYENTAP2, Util.gI().getStrTime(System.currentTimeMillis() - list.get(i).last)));
+                msg.writer().writeUTF(String.format(mResources.SRC_TOPLUYENTAP1, list.get(i).level,
+                        Util.gI().timeToSecondstring(list.get(i).timeFight)));
+                msg.writer().writeUTF(String.format(mResources.SRC_TOPLUYENTAP2,
+                        Util.gI().getStrTime(System.currentTimeMillis() - list.get(i).last)));
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void startGong(int playerId) {
         Message msg = null;
         try {
@@ -5851,13 +5721,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void endGong(int playerId) {
         Message msg = null;
         try {
@@ -5868,13 +5737,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigMessage(String chat, int avatar) {
         Message msg = null;
         try {
@@ -5885,13 +5753,12 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void bigMessage2(String chat, int avatar, String p, String caption) {
         Message msg = null;
         try {
@@ -5904,40 +5771,39 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
-//    public void removeEffect(int id) {
-//        Message msg = null;
-//        try {
-//            msg = new Message(-66);
-//            msg.writer().writeShort(id);
-//            if (this.session.getIntVersion() >= 218) {
-//                if (eff.typeread == 0) {
-//                    this.writeData(msg, eff);
-//                } else {
-//                    this.writeDataNewBoss(msg, eff);
-//                }
-//                msg.writer().writeByte(eff.typeread);
-//            } else {
-//                this.writeData(msg, eff);
-//            }
-//            msg.writer().writeInt(eff.img.length);
-//            msg.writer().write(eff.img);
-//            this.session.sendMessage(msg);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            if (msg != null)
-//                msg.cleanup();
-//        }
-//    }
-    
+
+    // public void removeEffect(int id) {
+    // Message msg = null;
+    // try {
+    // msg = new Message(-66);
+    // msg.writer().writeShort(id);
+    // if (this.session.getIntVersion() >= 218) {
+    // if (eff.typeread == 0) {
+    // this.writeData(msg, eff);
+    // } else {
+    // this.writeDataNewBoss(msg, eff);
+    // }
+    // msg.writer().writeByte(eff.typeread);
+    // } else {
+    // this.writeData(msg, eff);
+    // }
+    // msg.writer().writeInt(eff.img.length);
+    // msg.writer().write(eff.img);
+    // this.session.sendMessage(msg);
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // finally {
+    // if (msg != null)
+    // msg.cleanup();
+    // }
+    // }
+
     public void loginDE(int second) {
         Message msg = null;
         try {
@@ -5946,36 +5812,34 @@ public class Service {
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void playerLoadLevel(PlayerData array[]) {
         Message msg = null;
         try {
             msg = new Message(0);
             msg.writer().writeByte(array.length);
             for (int i = 0; i < array.length; i++) {
-	            msg.writer().writeInt(array[i].playerID);
-	            msg.writer().writeUTF(array[i].name);
-	            msg.writer().writeShort(array[i].head);
-	            msg.writer().writeShort(array[i].body);
-	            msg.writer().writeShort(array[i].leg);
-	            msg.writer().writeLong(array[i].powpoint);
+                msg.writer().writeInt(array[i].playerID);
+                msg.writer().writeUTF(array[i].name);
+                msg.writer().writeShort(array[i].head);
+                msg.writer().writeShort(array[i].body);
+                msg.writer().writeShort(array[i].leg);
+                msg.writer().writeLong(array[i].powpoint);
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (msg != null)
                 msg.cleanup();
         }
     }
-    
+
     public void getHat(int idHat) {
         Message msg = null;
         try {
@@ -5986,10 +5850,11 @@ public class Service {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (msg != null) msg.cleanup();
+            if (msg != null)
+                msg.cleanup();
         }
     }
-    
+
     public void danhhieu(int charID, int id, int second) {
         Message msg = null;
         try {
@@ -6002,10 +5867,11 @@ public class Service {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (msg != null) msg.cleanup();
+            if (msg != null)
+                msg.cleanup();
         }
     }
-    
+
     public void water(int id_water1) {
         Message msg = null;
         try {
@@ -6016,10 +5882,11 @@ public class Service {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (msg != null) msg.cleanup();
+            if (msg != null)
+                msg.cleanup();
         }
     }
-    
+
     public void messageServer(String text) {
         Message msg = null;
         try {
@@ -6030,10 +5897,11 @@ public class Service {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (msg != null) msg.cleanup();
+            if (msg != null)
+                msg.cleanup();
         }
     }
-    
+
     public void setEff(int playerId, int idAuraEff, int idEff_Set_Item) {
         Message msg = null;
         try {
@@ -6050,6 +5918,5 @@ public class Service {
                 msg.cleanup();
         }
     }
-    
-    
+
 }

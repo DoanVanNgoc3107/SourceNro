@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
+ * Class này
  *
  * @author Admin
  */
@@ -368,31 +369,11 @@ public class Char {
     public Char myChar4 = null;
     public Player myPet4 = null;
     public int instructionMapID;
-    public long[] powerSkillPet = new long[] { 0, 150000000, 1500000000, 20000000000L };
-    public String[] spowerSkillPet = new String[] { "", "Cần 150 triệu sức mạnh để mở", "Cần 1,5 tỉ sức mạnh để mở",
-            "Cần 20 tỉ sức mạnh để mở" };
-    public short[][] arrSkillPet = new short[][] {
-            { 0, 14, 28 },
-            { 7, 21, 35 },
-            { 42, 63, 56 },
-            { 121, 84, 91 }
-    };
-    public short[][] arrStone = new short[][] {
-            { 454, 455, 456 },
-            { 454, 455, 456 },
-            { 454, 455, 456 }
-    };
-    public int[][] arrMapOfflineId = new int[][] {
-            {
-                    21, 39, 45, 46, 47, 48, 50, 101, 111, 154
-            },
-            {
-                    22, 40, 45, 46, 47, 48, 50, 101, 111, 154
-            },
-            {
-                    23, 41, 45, 46, 47, 48, 50, 101, 111, 154
-            }
-    };
+    public long[] powerSkillPet = new long[]{0, 150000000, 1500000000, 20000000000L};
+    public String[] spowerSkillPet = new String[]{"", "Cần 150 triệu sức mạnh để mở", "Cần 1,5 tỉ sức mạnh để mở", "Cần 20 tỉ sức mạnh để mở"};
+    public short[][] arrSkillPet = new short[][]{{0, 14, 28}, {7, 21, 35}, {42, 63, 56}, {121, 84, 91}};
+    public short[][] arrStone = new short[][]{{454, 455, 456}, {454, 455, 456}, {454, 455, 456}};
+    public int[][] arrMapOfflineId = new int[][]{{21, 39, 45, 46, 47, 48, 50, 101, 111, 154}, {22, 40, 45, 46, 47, 48, 50, 101, 111, 154}, {23, 41, 45, 46, 47, 48, 50, 101, 111, 154}};
     public int timeHoiqua;
     public int timeNhat;
     public int delay_giaodich;
@@ -617,50 +598,12 @@ public class Char {
         if (instance == null) {
             instance = new Char();
             instance.char_baseId = 10000;
-            instance.info1 = new short[][] {
-                    {
-                            281,
-                            361,
-                            351
-                    },
-                    {
-                            512,
-                            513,
-                            536
-                    },
-                    {
-                            514,
-                            515,
-                            537
-                    }
-            };
-            instance.info2 = new String[][] {
-                    {
-                            "Puaru"
-                    },
-                    {
-                            "Piano"
-                    },
-                    {
-                            "Icarus"
-                    }
-            };
-            instance.hopThe = new short[][] {
-                    { 380, 381, 382 },
-                    { 391, 392, 393 },
-                    { 380, 381, 382 }
-            };
-            instance.hopThe2 = new short[][] {
-                    { 383, 384, 385 },
-                    { 391, 392, 393 },
-                    { 383, 384, 385 }
-            };
-            instance.hopThe3 = new short[][] {
-                    { 870, 871, 872 },
-                    { 873, 874, 875 },
-                    { 867, 868, 869 }
-            };
-            instance.pointDuiGa = new int[][] { { 625, 336 }, { 50, 336 }, { 627, 336 } };
+            instance.info1 = new short[][]{{281, 361, 351}, {512, 513, 536}, {514, 515, 537}};
+            instance.info2 = new String[][]{{"Puaru"}, {"Piano"}, {"Icarus"}};
+            instance.hopThe = new short[][]{{380, 381, 382}, {391, 392, 393}, {380, 381, 382}};
+            instance.hopThe2 = new short[][]{{383, 384, 385}, {391, 392, 393}, {383, 384, 385}};
+            instance.hopThe3 = new short[][]{{870, 871, 872}, {873, 874, 875}, {867, 868, 869}};
+            instance.pointDuiGa = new int[][]{{625, 336}, {50, 336}, {627, 336}};
         }
         return instance;
     }
@@ -748,7 +691,7 @@ public class Char {
     private int timeSteal;
     public long xuSteal = 0;
     private final Object LOCK = new Object();
-    public static final byte ARRHOCSKILL[] = new byte[] { 24, 26, 25 };
+    public static final byte ARRHOCSKILL[] = new byte[]{24, 26, 25};
     private int isThaCau;
     private Item moiCau;
     private int timeThaCau;
@@ -1071,16 +1014,14 @@ public class Char {
         this.bag = this.bagDefault;
 
         // ===UPDATE HP===//
-        this.cHPFull = (int) (this.cHPGoc + (this.paramItem(0, 2, 0) * 1000) + (this.paramItem(0, 22, 0) * 1000)
-                + this.paramItem(0, 6, 0) + this.paramItem(0, 48, 0));
+        this.cHPFull = (int) (this.cHPGoc + (this.paramItem(0, 2, 0) * 1000) + (this.paramItem(0, 22, 0) * 1000) + this.paramItem(0, 6, 0) + this.paramItem(0, 48, 0));
         this.cHPFull = (int) this.paramItem(this.cHPFull, 77, 1);
         if (this.isHaveItems(373)) {
             this.cHPFull = (int) (this.cHPFull * 1.15);
         }
 
         // ===UPDATE MP===//
-        this.cMPFull = (int) (this.cMPGoc + (this.paramItem(0, 2, 0) * 1000) + (this.paramItem(0, 23, 0) * 1000)
-                + this.paramItem(0, 7, 0) + this.paramItem(0, 48, 0));
+        this.cMPFull = (int) (this.cMPGoc + (this.paramItem(0, 2, 0) * 1000) + (this.paramItem(0, 23, 0) * 1000) + this.paramItem(0, 7, 0) + this.paramItem(0, 48, 0));
         this.cMPFull = (int) this.paramItem(this.cMPFull, 103, 1);
         if (this.isHaveItems(374)) {
             this.cMPFull = (int) (this.cMPFull * 1.15);
@@ -1134,10 +1075,8 @@ public class Char {
         }
         if (this.isMonkey != 0) {
             this.cCriticalFull = 110;
-            this.cHPFull = this.cHPFull
-                    + ((int) ((long) this.cHPFull * (long) Monkey.get(this.levelMonkey).addHP / 100L));
-            this.cDamFull = this.cDamFull
-                    + ((int) ((long) this.cDamFull * (long) Monkey.get(this.levelMonkey).addST / 100L));
+            this.cHPFull = this.cHPFull + ((int) ((long) this.cHPFull * (long) Monkey.get(this.levelMonkey).addHP / 100L));
+            this.cDamFull = this.cDamFull + ((int) ((long) this.cDamFull * (long) Monkey.get(this.levelMonkey).addST / 100L));
         }
 
         // ===UPDATE BUFFHP30 ===//
@@ -1230,64 +1169,27 @@ public class Char {
             this.downDamage_percent = this.downDamage_percent + 5;
         }
         // 9 nga, 9 cua, 9 hong mao
-        if (this.vPet9)
-            this.downDamage_percent += 9;
+        if (this.vPet9) this.downDamage_percent += 9;
 
         // isSetXiHang
-        this.isSetXiHang = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(127)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(127) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(127) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(127) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(127);
+        this.isSetXiHang = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(127) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(127) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(127) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(127) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(127);
 
         // isSetKirin
-        this.isSetKirin = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(128)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(128) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(128) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(128) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(128);
+        this.isSetKirin = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(128) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(128) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(128) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(128) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(128);
         // isSetSongoku
-        this.isSetSongoku = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(129)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(129) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(129) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(129) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(129);
+        this.isSetSongoku = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(129) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(129) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(129) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(129) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(129);
         // isSetPicolo
-        this.isSetPicolo = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(130)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(130) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(130) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(130) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(130);
+        this.isSetPicolo = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(130) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(130) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(130) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(130) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(130);
         // isSetOcTieu
-        this.isSetOcTieu = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(131)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(131) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(131) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(131) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(131);
+        this.isSetOcTieu = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(131) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(131) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(131) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(131) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(131);
         // isSetPikkoroDaimao
-        this.isSetPikkoroDaimao = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(132)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(132) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(132) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(132) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(132);
+        this.isSetPikkoroDaimao = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(132) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(132) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(132) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(132) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(132);
         // isSetKakarot
-        this.isSetKakarot = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(133)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(133) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(133) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(133) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(133);
+        this.isSetKakarot = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(133) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(133) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(133) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(133) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(133);
         // isSetCaDic
-        this.isSetCaDic = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(134)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(134) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(134) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(134) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(134);
+        this.isSetCaDic = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(134) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(134) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(134) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(134) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(134);
         // isSetNappa
-        this.isSetNappa = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(135)
-                && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(135) && this.arrItemBody[2] != null
-                && this.arrItemBody[2].isHaveOption(135) && this.arrItemBody[3] != null
-                && this.arrItemBody[3].isHaveOption(135) && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isHaveOption(135);
+        this.isSetNappa = this.arrItemBody[0] != null && this.arrItemBody[0].isHaveOption(135) && this.arrItemBody[1] != null && this.arrItemBody[1].isHaveOption(135) && this.arrItemBody[2] != null && this.arrItemBody[2].isHaveOption(135) && this.arrItemBody[3] != null && this.arrItemBody[3].isHaveOption(135) && this.arrItemBody[4] != null && this.arrItemBody[4].isHaveOption(135);
         if (this.isSetNappa) {
             this.cHPFull = this.cHPFull + (int) ((long) this.cHPFull * 8l / 10L);
         }
@@ -1319,20 +1221,10 @@ public class Char {
         this.xDamAway60s = (int) this.paramItem(0, 159, 0);
 
         // Trang bi than
-        this.isFullTBT = this.arrItemBody[0] != null && this.arrItemBody[0].template.id >= 555
-                && this.arrItemBody[0].template.id <= 567 && this.arrItemBody[1] != null
-                && this.arrItemBody[1].template.id >= 555 && this.arrItemBody[1].template.id <= 567
-                && this.arrItemBody[2] != null && this.arrItemBody[2].template.id >= 555
-                && this.arrItemBody[2].template.id <= 567 && this.arrItemBody[3] != null
-                && this.arrItemBody[3].template.id >= 555 && this.arrItemBody[3].template.id <= 567
-                && this.arrItemBody[4] != null && this.arrItemBody[4].template.id >= 555
-                && this.arrItemBody[4].template.id <= 567;
+        this.isFullTBT = this.arrItemBody[0] != null && this.arrItemBody[0].template.id >= 555 && this.arrItemBody[0].template.id <= 567 && this.arrItemBody[1] != null && this.arrItemBody[1].template.id >= 555 && this.arrItemBody[1].template.id <= 567 && this.arrItemBody[2] != null && this.arrItemBody[2].template.id >= 555 && this.arrItemBody[2].template.id <= 567 && this.arrItemBody[3] != null && this.arrItemBody[3].template.id >= 555 && this.arrItemBody[3].template.id <= 567 && this.arrItemBody[4] != null && this.arrItemBody[4].template.id >= 555 && this.arrItemBody[4].template.id <= 567;
 
         // Trang bi huy diet
-        this.isFullTBHD = this.arrItemBody[0] != null && this.arrItemBody[0].isItemHD() && this.arrItemBody[1] != null
-                && this.arrItemBody[1].isItemHD() && this.arrItemBody[2] != null && this.arrItemBody[2].isItemHD()
-                && this.arrItemBody[3] != null && this.arrItemBody[3].isItemHD() && this.arrItemBody[4] != null
-                && this.arrItemBody[4].isItemHD();
+        this.isFullTBHD = this.arrItemBody[0] != null && this.arrItemBody[0].isItemHD() && this.arrItemBody[1] != null && this.arrItemBody[1].isItemHD() && this.arrItemBody[2] != null && this.arrItemBody[2].isItemHD() && this.arrItemBody[3] != null && this.arrItemBody[3].isItemHD() && this.arrItemBody[4] != null && this.arrItemBody[4].isItemHD();
 
         // ===UPDATE QUAI KO CHU DONG===//
         this.isMobproactive = this.paramItem(0, 82, 3) == 1;
@@ -1414,9 +1306,7 @@ public class Char {
         this.isTBNezuko = this.arrItemBody[5] != null && this.arrItemBody[5].template.id == 1091;
 
         // Quan Hoa
-        this.isTBQuanHoa = this.arrItemBody[0] == null && this.arrItemBody[1] != null && this.arrItemBody[5] == null
-                && (this.arrItemBody[1].template.id == 691 || this.arrItemBody[1].template.id == 692
-                        || this.arrItemBody[1].template.id == 693);
+        this.isTBQuanHoa = this.arrItemBody[0] == null && this.arrItemBody[1] != null && this.arrItemBody[5] == null && (this.arrItemBody[1].template.id == 691 || this.arrItemBody[1].template.id == 692 || this.arrItemBody[1].template.id == 693);
 
         // Lo lang
         this.worrPercent = 0;
@@ -1479,10 +1369,7 @@ public class Char {
         this.isSendFreeze30 = this.arrItemBody[5] != null && this.arrItemBody[5].template.id == 1205;
 
         // Con khi nguy trang
-        this.isMonkeyCheat = this.arrItemBody[5] != null
-                && (this.arrItemBody[5].template.id == 544 || this.arrItemBody[5].template.id == 545
-                        || this.arrItemBody[5].template.id == 546)
-                && (this.myPet == null || this.myPetz().isHopThe == 0);
+        this.isMonkeyCheat = this.arrItemBody[5] != null && (this.arrItemBody[5].template.id == 544 || this.arrItemBody[5].template.id == 545 || this.arrItemBody[5].template.id == 546) && (this.myPet == null || this.myPetz().isHopThe == 0);
 
         // De tu
         if (!this.me) {
@@ -1491,8 +1378,7 @@ public class Char {
             this.addDamgeMasenko = (int) this.paramItem(0, 190, 0);
         }
         // Tb he
-        this.isSetNgayHe = this.arrItemBody[5] != null && (this.arrItemBody[5].template.id == 1234
-                || this.arrItemBody[5].template.id == 1235 || this.arrItemBody[5].template.id == 1236);
+        this.isSetNgayHe = this.arrItemBody[5] != null && (this.arrItemBody[5].template.id == 1234 || this.arrItemBody[5].template.id == 1235 || this.arrItemBody[5].template.id == 1236);
         if (this.isSetNgayHe) {
             this.sendDownDamagePercent = 5;
         }
@@ -1526,8 +1412,7 @@ public class Char {
                 this.leg = this.arrItemBody[1].template.part;
             }
         }
-        if (this.arrItemBody[5] != null && (!this.arrItemBody[5].isHaveOption(38)
-                || (this.arrItemBody[5].isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+        if (this.arrItemBody[5] != null && (!this.arrItemBody[5].isHaveOption(38) || (this.arrItemBody[5].isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
             if (this.arrItemBody[5].template.part != -1) {
                 this.head = this.arrItemBody[5].template.part;
             }
@@ -1549,12 +1434,9 @@ public class Char {
         }
         // Hop The
         if (this.myPet != null && this.myPetz().isHopThe > 0) {
-            this.cHPFull = this.cHPFull + this.myPetz().cHPFull
-                    + (int) (this.myPetz().isMabu == 1 ? this.myPetz().cHPFull * 0.1 : 0);
-            this.cMPFull = this.cMPFull + this.myPetz().cMPFull
-                    + (int) (this.myPetz().isMabu == 1 ? this.myPetz().cMPFull * 0.1 : 0);
-            this.cDamFull = this.cDamFull + this.myPetz().cDamFull
-                    + (int) (this.myPetz().isMabu == 1 ? this.myPetz().cDamFull * 0.1 : 0);
+            this.cHPFull = this.cHPFull + this.myPetz().cHPFull + (int) (this.myPetz().isMabu == 1 ? this.myPetz().cHPFull * 0.1 : 0);
+            this.cMPFull = this.cMPFull + this.myPetz().cMPFull + (int) (this.myPetz().isMabu == 1 ? this.myPetz().cMPFull * 0.1 : 0);
+            this.cDamFull = this.cDamFull + this.myPetz().cDamFull + (int) (this.myPetz().isMabu == 1 ? this.myPetz().cDamFull * 0.1 : 0);
         }
         try {
             // Giap Luyen Tap
@@ -1696,9 +1578,7 @@ public class Char {
         this.effThanThoai = this.getEffCharById(1008) != null;
 
         // Hop the
-        if (this.me && this.myPet != null && this.myPetz().isHopThe > 0
-                && (this.arrItemBody[5] == null || !this.arrItemBody[5].isHaveOption(38))
-                && (this.arrItemBody[5] == null || !this.myObj().isHideFusion)) {
+        if (this.me && this.myPet != null && this.myPetz().isHopThe > 0 && (this.arrItemBody[5] == null || !this.arrItemBody[5].isHaveOption(38)) && (this.arrItemBody[5] == null || !this.myObj().isHideFusion)) {
             if (this.myPetz().isHopThe == 1) {
                 this.head = Char.gI().hopThe[this.cgender][0];
                 this.body = Char.gI().hopThe[this.cgender][1];
@@ -1835,9 +1715,7 @@ public class Char {
         ItemOption option;
         for (i = 0; i < this.arrItemBody.length; ++i) {
             item = this.arrItemBody[i];
-            if (item != null && this.cPower >= item.getstrRequire()
-                    && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                            || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+            if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
                 count = item.options.size();
                 for (j = 0; j < count; ++j) {
                     option = item.options.get(j);
@@ -1862,9 +1740,7 @@ public class Char {
             }
         }
         item = Flag.FLAGS.get(this.cFlag).itemFlag;
-        if (item != null && this.cPower >= item.getstrRequire()
-                && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                        || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+        if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
             count = item.options.size();
             for (j = 0; j < count; ++j) {
                 option = item.options.get(j);
@@ -1888,9 +1764,7 @@ public class Char {
             }
         }
         item = this.getBongTai();
-        if (item != null && this.cPower >= item.getstrRequire()
-                && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                        || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+        if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
             count = item.options.size();
             for (j = 0; j < count; ++j) {
                 option = item.options.get(j);
@@ -1920,8 +1794,7 @@ public class Char {
                 if (r.level != 0) {
                     for (j = 0; j < RadaTemplate.getRadaTemplate(r.id).options.size(); j++) {
                         option = RadaTemplate.getRadaTemplate(r.id).options.get(j);
-                        if ((r.isUse || option.activeCard == 0) && option.activeCard <= r.level
-                                && option.optionTemplate.id == id) {
+                        if ((r.isUse || option.activeCard == 0) && option.activeCard <= r.level && option.optionTemplate.id == id) {
                             switch (status) {
                                 case 1:
                                     param = param + ((long) param * (long) option.param / 100L);
@@ -1944,9 +1817,7 @@ public class Char {
         }
         // usePet
         item = this.usePet;
-        if (item != null && this.cPower >= item.getstrRequire()
-                && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                        || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+        if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
             count = item.options.size();
             for (j = 0; j < count; ++j) {
                 option = item.options.get(j);
@@ -1972,9 +1843,7 @@ public class Char {
         // ItemTime
         for (i = 0; i < this.itemTime.size(); ++i) {
             item = this.itemTime.get(i).item;
-            if (item != null && this.cPower >= item.getstrRequire()
-                    && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                            || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+            if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
                 count = item.options.size();
                 for (j = 0; j < count; ++j) {
                     option = item.options.get(j);
@@ -2001,9 +1870,7 @@ public class Char {
         // TextTime
         for (i = 0; i < this.textTime.size(); ++i) {
             item = this.textTime.get(i).item;
-            if (item != null && this.cPower >= item.getstrRequire()
-                    && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                            || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+            if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
                 count = item.options.size();
                 for (j = 0; j < count; ++j) {
                     option = item.options.get(j);
@@ -2031,9 +1898,7 @@ public class Char {
 
         for (i = 0; i < this.itemVTs.size(); ++i) {
             item = this.itemVTs.get(i).item;
-            if (item != null && this.cPower >= item.getstrRequire()
-                    && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                            || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+            if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
                 count = item.options.size();
                 for (j = 0; j < count; ++j) {
                     option = item.options.get(j);
@@ -2059,9 +1924,7 @@ public class Char {
         }
         // usePetFollowz
         item = this.usePetFollowz;
-        if (item != null && this.cPower >= item.getstrRequire()
-                && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                        || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+        if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
             count = item.options.size();
             for (j = 0; j < count; ++j) {
                 option = item.options.get(j);
@@ -2090,9 +1953,7 @@ public class Char {
                 continue;
             }
             item = this.aEffChar.get(i).item;
-            if (item != null && this.cPower >= item.getstrRequire()
-                    && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38)
-                            || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
+            if (item != null && this.cPower >= item.getstrRequire() && (!item.isHaveOption(212) || item.getParamOption(212) > 0) && (!item.isHaveOption(38) || (item.isHaveOption(38) && this.myPet != null && this.myPetz().isHopThe > 0))) {
                 count = item.options.size();
                 for (j = 0; j < count; ++j) {
                     option = item.options.get(j);
@@ -2151,9 +2012,7 @@ public class Char {
             this.session.service.meLoadPoint();
             this.session.service.getTask(this.cgender, this.ctaskId, this.ctaskIndex, this.ctaskCount);
             if (CallDragon.gI().isRongThanXuatHien) {
-                this.session.service.callDragon(CallDragon.gI().mapId, CallDragon.gI().bgId, CallDragon.gI().zoneId,
-                        CallDragon.gI().charId, "", CallDragon.gI().rx, CallDragon.gI().ry,
-                        CallDragon.gI().isRongNamek ? 1 : 0);
+                this.session.service.callDragon(CallDragon.gI().mapId, CallDragon.gI().bgId, CallDragon.gI().zoneId, CallDragon.gI().charId, "", CallDragon.gI().rx, CallDragon.gI().ry, CallDragon.gI().isRongNamek ? 1 : 0);
             }
             // JOIN MAP
             ZoneMap zone;
@@ -2167,8 +2026,7 @@ public class Char {
                 }
             } else {
                 Map map = Map.getMapServer(this.mapTemplateId);
-                if (map != null && !map.isMapBigBoss() && !map.isMapBlackBall() && !map.isMapButcher()
-                        && !map.isMapMabu() && !map.isMapCace23() && map.templateId != 51) {
+                if (map != null && !map.isMapBigBoss() && !map.isMapBlackBall() && !map.isMapButcher() && !map.isMapMabu() && !map.isMapCace23() && map.templateId != 51) {
                     zone = map.getZone(this);
                 } else {
                     this.cx = 444;
@@ -2200,11 +2058,9 @@ public class Char {
                 ItemTime textTime2 = this.wtxt.get(i2);
                 if (textTime2.second > 0) {
                     if (textTime2.item == null) {
-                        this.setText(textTime2.idIcon, textTime2.text, textTime2.second, textTime2.type,
-                                textTime2.damage);
+                        this.setText(textTime2.idIcon, textTime2.text, textTime2.second, textTime2.type, textTime2.damage);
                     } else {
-                        this.setText(textTime2.idIcon, textTime2.text, textTime2.second, textTime2.type,
-                                textTime2.item);
+                        this.setText(textTime2.idIcon, textTime2.text, textTime2.second, textTime2.type, textTime2.item);
                     }
                 }
             }
@@ -2238,8 +2094,7 @@ public class Char {
 
             {
                 dragon.t.MeTask.infoTask(this);
-                this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.TASK_INFO,
-                        Task.getTask(this.ctaskId).subNames[this.cgender][this.ctaskIndex]), null, 0);
+                this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.TASK_INFO, Task.getTask(this.ctaskId).subNames[this.cgender][this.ctaskIndex]), null, 0);
             }
             this.session.service.gameInfo(GameInfo.infos);
             if (LuckyNumber.gI().isHavePlayer(this.playerId)) {
@@ -2262,9 +2117,7 @@ public class Char {
             // EffChar
             for (int i = 0; i < this.aEffChar.size(); i++) {
                 if (this.aEffChar.get(i).isPaint) {
-                    this.session.service.addEffectChar(this.charID, this.aEffChar.get(i).effId,
-                            this.aEffChar.get(i).layer, this.aEffChar.get(i).loop, this.aEffChar.get(i).tLoop,
-                            this.aEffChar.get(i).isStand);
+                    this.session.service.addEffectChar(this.charID, this.aEffChar.get(i).effId, this.aEffChar.get(i).layer, this.aEffChar.get(i).loop, this.aEffChar.get(i).tLoop, this.aEffChar.get(i).isStand);
                 }
             }
         }
@@ -2395,30 +2248,23 @@ public class Char {
     }
 
     public boolean isAlikeItem(Item... array) {
-        if (array.length == 0)
-            return true; // Handle empty array
+        if (array.length == 0) return true; // Handle empty array
 
         Item firstItem = array[0];
         for (Item item : array) {
-            if (item == null && firstItem != null)
-                return false;
-            if (item != null && firstItem == null)
-                return false;
+            if (item == null && firstItem != null) return false;
+            if (item != null && firstItem == null) return false;
 
             if (item == null || firstItem == null) {
                 continue;
             }
 
-            if (item.template.id != firstItem.template.id)
-                return false;
-            if (item.isLock != firstItem.isLock)
-                return false;
+            if (item.template.id != firstItem.template.id) return false;
+            if (item.isLock != firstItem.isLock) return false;
 
-            if (item.options.size() != firstItem.options.size())
-                return false;
+            if (item.options.size() != firstItem.options.size()) return false;
             for (int i = 0; i < item.options.size(); i++) {
-                if (item.options.size() != firstItem.options.size()
-                        || item.options.get(i).optionTemplate.id != firstItem.options.get(i).optionTemplate.id) {
+                if (item.options.size() != firstItem.options.size() || item.options.get(i).optionTemplate.id != firstItem.options.get(i).optionTemplate.id) {
                     return false;
                 }
             }
@@ -2459,8 +2305,7 @@ public class Char {
                 }
                 this.setAmu(item.template.id, second);
                 if (status == 0) {
-                    this.addInfo1(String.format(mResources.BAN_NHAN_DUOC_2, Util.gI().getFormatTime3(second * 1000L),
-                            item.template.name));
+                    this.addInfo1(String.format(mResources.BAN_NHAN_DUOC_2, Util.gI().getFormatTime3(second * 1000L), item.template.name));
                 }
                 return true;
             }
@@ -2495,8 +2340,7 @@ public class Char {
                         indexUI = 0;
                     } else if (this.isHaveItem(item.template.id)) {
                         for (int i = 0; i < item.options.size(); i++) {
-                            if (item.options.get(i).optionTemplate.id == 1
-                                    && this.getItem(item.template.id).getOption(1) != null) {
+                            if (item.options.get(i).optionTemplate.id == 1 && this.getItem(item.template.id).getOption(1) != null) {
                                 this.getItem(item.template.id).getOption(1).param += item.options.get(i).param;
                                 if (this.getItem(item.template.id).getOption(1).param > 520) {
                                     this.getItem(item.template.id).getOption(1).param = 520;
@@ -2523,15 +2367,13 @@ public class Char {
                         if (item.isItemSLL()) {
                             if (this.arrItemBag[i] == null) {
                                 totalQuantity = totalQuantity + 30000;
-                            } else if (this.isAlikeItem(item, this.arrItemBag[i])
-                                    && this.arrItemBag[i].getParamOption(31) < 30000) {
+                            } else if (this.isAlikeItem(item, this.arrItemBag[i]) && this.arrItemBag[i].getParamOption(31) < 30000) {
                                 totalQuantity = totalQuantity + (30000 - this.arrItemBag[i].quantity);
                             }
                         } else {
                             if (this.arrItemBag[i] == null) {
                                 totalQuantity = totalQuantity + item.maxQuantity();
-                            } else if (this.isAlikeItem(item, this.arrItemBag[i])
-                                    && this.arrItemBag[i].quantity < item.maxQuantity()) {
+                            } else if (this.isAlikeItem(item, this.arrItemBag[i]) && this.arrItemBag[i].quantity < item.maxQuantity()) {
                                 totalQuantity = totalQuantity + (item.maxQuantity() - this.arrItemBag[i].quantity);
                             }
                         }
@@ -2551,8 +2393,7 @@ public class Char {
                                         this.arrItemBag[i].quantity = totalQuantity;
                                         totalQuantity = totalQuantity - this.arrItemBag[i].quantity;
                                     }
-                                } else if (this.isAlikeItem(item, this.arrItemBag[i])
-                                        && this.arrItemBag[i].quantity < item.maxQuantity()) {
+                                } else if (this.isAlikeItem(item, this.arrItemBag[i]) && this.arrItemBag[i].quantity < item.maxQuantity()) {
                                     if (this.arrItemBag[i].quantity + totalQuantity > item.maxQuantity()) {
                                         int num = this.arrItemBag[i].quantity;
                                         this.arrItemBag[i].quantity = item.maxQuantity();
@@ -2602,14 +2443,12 @@ public class Char {
                         if (item.template.type == 6) {
                             this.addInfo1(String.format(mResources.BAN_NHAN_DUOC_3, item.quantity, item.template.name));
                         } else {
-                            this.session.service.chatTHEGIOI(mResources.EMPTY,
-                                    String.format(mResources.BAN_NHAN_DUOC, item.template.name), null, (byte) 1);
+                            this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.BAN_NHAN_DUOC, item.template.name), null, (byte) 1);
                         }
                     }
                     if (status == 3) {
                         if (item.template.type == 6) {
-                            this.addInfo1(3000,
-                                    String.format(mResources.BAN_NHAN_DUOC_3, item.quantity, item.template.name));
+                            this.addInfo1(3000, String.format(mResources.BAN_NHAN_DUOC_3, item.quantity, item.template.name));
                         } else {
                             this.addInfo1(3000, String.format(mResources.BAN_NHAN_DUOC, item.template.name));
                         }
@@ -2838,8 +2677,7 @@ public class Char {
         int i;
         for (i = 0; i < this.arrItemBag.length; i++) {
             Item item = this.arrItemBag[i];
-            if (item != null && item.template.id == id && item.isLock == isLock && item.isItemMerge()
-                    && item.quantity < maxQuantity) {
+            if (item != null && item.template.id == id && item.isLock == isLock && item.isItemMerge() && item.quantity < maxQuantity) {
                 return i;
             }
         }
@@ -3055,9 +2893,7 @@ public class Char {
             int num = 1;
             for (int i2 = 0; i2 < 5; i2++) {
                 long potential = this.myPetz().getMoneys(i2, num);
-                if (this.myPetz().cTiemNang >= potential
-                        && (this.myPetz().getPointNext(i2, num) + getPoint(i2)) <= this.myPetz().getPointLimit(i2)
-                        && (min == -1 || (min > this.getPointMin(i2, num)))) {
+                if (this.myPetz().cTiemNang >= potential && (this.myPetz().getPointNext(i2, num) + getPoint(i2)) <= this.myPetz().getPointLimit(i2) && (min == -1 || (min > this.getPointMin(i2, num)))) {
                     min = this.getPointMin(i2, num);
                     u = i2;
                 }
@@ -3103,8 +2939,7 @@ public class Char {
             } else if (num2 > 0 && potential > 0) {
                 if (potential > this.cTiemNang) {
                     if (session != null) {
-                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL,
-                                Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
+                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL, Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
                     }
                 } else {
                     this.cHPGoc += num2;
@@ -3127,8 +2962,7 @@ public class Char {
             } else if (num2 > 0 && potential > 0) {
                 if (potential > this.cTiemNang) {
                     if (session != null) {
-                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL,
-                                Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
+                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL, Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
                     }
                 } else {
                     this.cMPGoc += num2;
@@ -3151,8 +2985,7 @@ public class Char {
             } else if (num2 > 0 && potential > 0) {
                 if (potential > this.cTiemNang) {
                     if (session != null) {
-                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL,
-                                Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
+                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL, Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
                     }
                 } else {
                     this.cDamGoc += num2;
@@ -3175,8 +3008,7 @@ public class Char {
             } else if (num2 > 0 && potential > 0) {
                 if (potential > this.cTiemNang) {
                     if (session != null) {
-                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL,
-                                Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
+                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL, Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
                     }
                 } else {
                     this.cDefGoc += num2;
@@ -3199,8 +3031,7 @@ public class Char {
             } else if (num2 > 0 && potential > 0) {
                 if (potential > this.cTiemNang) {
                     if (session != null) {
-                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL,
-                                Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
+                        this.session.service.startOKDlg(String.format(mResources.NOT_ENOUGH_POTENTIAL, Util.gI().numberTostring(this.cTiemNang), Util.gI().numberTostring(potential)));
                     }
                 } else {
                     this.cCriticalGoc += num2;
@@ -3725,13 +3556,11 @@ public class Char {
             if (!this.me) {
                 // this.myPetz().twrPotential = 30000;
             }
-            if (!this.me && this.myPetz().powerSkillPet.length > this.myPetz().skills.size()
-                    && this.myPetz().powerSkillPet[this.myPetz().skills.size()] <= this.myPetz().cPower) {
+            if (!this.me && this.myPetz().powerSkillPet.length > this.myPetz().skills.size() && this.myPetz().powerSkillPet[this.myPetz().skills.size()] <= this.myPetz().cPower) {
                 this.myPetz().nextSkillPet(this.myPetz().skills.size(), 0);
             }
             if (power_old != this.cPower && this.me && !this.isTemplate) {
-                Rank.getRank(1).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID,
-                        this.cPower, -1);
+                Rank.getRank(1).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID, this.cPower, -1);
             }
         }
     }
@@ -3750,13 +3579,7 @@ public class Char {
         if (att.myChar3 != null && this.charID != att.myChar3.charID) {
             return false;
         }
-        return (!att.isDie && att.charID != this.charID && !att.isInvisiblez && att.isInMap
-                && att.zoneMap == this.zoneMap && !att.isBaoVe && !att.isSuper
-                && (this.me || (!this.me && this.myCharz().charID != att.charID))
-                && ((this.cTypePk == 5 || att.cTypePk == 5)
-                        || (att.IDFlag != 363 && IDFlag != 363
-                                && (this.IDFlag == 371 || att.IDFlag == 371 || (att.IDFlag != this.IDFlag)))
-                        || (cme.isChallenge && cme.challengeCharId == att.charID)));
+        return (!att.isDie && att.charID != this.charID && !att.isInvisiblez && att.isInMap && att.zoneMap == this.zoneMap && !att.isBaoVe && !att.isSuper && (this.me || (!this.me && this.myCharz().charID != att.charID)) && ((this.cTypePk == 5 || att.cTypePk == 5) || (att.IDFlag != 363 && IDFlag != 363 && (this.IDFlag == 371 || att.IDFlag == 371 || (att.IDFlag != this.IDFlag))) || (cme.isChallenge && cme.challengeCharId == att.charID)));
     }
 
     public boolean isMeCanAttackOtherMob(Mob mob) {
@@ -3764,12 +3587,7 @@ public class Char {
     }
 
     public void Attack(Skill skillFight, ArrayList<Mob> mobs, ArrayList<Char> chars, int type) {
-        if (skillFight != null && skillFight.template.type != 3
-                && skillFight.lastTimeUseThisSkill <= System.currentTimeMillis() && this.timeHit <= 0
-                && this.timeLoadSkill <= 0
-                && (skillFight.template.id != 9
-                        || (skillFight.template.id == 9 && 100f / (float) this.cHPFull * (float) this.cHP > 10))
-                && !this.is100Miss) {
+        if (skillFight != null && skillFight.template.type != 3 && skillFight.lastTimeUseThisSkill <= System.currentTimeMillis() && this.timeHit <= 0 && this.timeLoadSkill <= 0 && (skillFight.template.id != 9 || (skillFight.template.id == 9 && 100f / (float) this.cHPFull * (float) this.cHP > 10)) && !this.is100Miss) {
             int manaUse = skillFight.manaUse;
             long exps = 0;
             long hoiHPMPChar = 0, hoiHPMPMob = 0;
@@ -3802,17 +3620,14 @@ public class Char {
                 skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + skillFight.coolDown;
                 // TRai dat
                 if (this.cgender == 0 && this.cspeacialSkill == 3 && skillFight.template.id == 10) {
-                    skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + ((long) skillFight.coolDown
-                            - (skillFight.coolDown * (long) this.paramSpeacialSkill / 100L));
+                    skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + ((long) skillFight.coolDown - (skillFight.coolDown * (long) this.paramSpeacialSkill / 100L));
                     if (this.session != null) {
                         this.session.service.updateCoolDown(this.skills);
                     }
                 }
                 // Namek
-                if (this.cgender == 1 && ((this.cspeacialSkill == 2 && skillFight.template.id == 7)
-                        || (this.cspeacialSkill == 3 && skillFight.template.id == 11))) {
-                    skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + ((long) skillFight.coolDown
-                            - ((long) skillFight.coolDown * (long) this.paramSpeacialSkill / 100L));
+                if (this.cgender == 1 && ((this.cspeacialSkill == 2 && skillFight.template.id == 7) || (this.cspeacialSkill == 3 && skillFight.template.id == 11))) {
+                    skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + ((long) skillFight.coolDown - ((long) skillFight.coolDown * (long) this.paramSpeacialSkill / 100L));
                     if (this.session != null) {
                         this.session.service.updateCoolDown(this.skills);
                     }
@@ -3906,21 +3721,14 @@ public class Char {
                                 flag = true;
                             }
                             // Noi tai
-                            if (!flag && (skillFight.isChuong() || skillFight.isDonDanh())
-                                    && (((this.cgender == 0 && this.cspeacialSkill == 9)
-                                            || (this.cgender == 1 && this.cspeacialSkill == 10)
-                                            || (this.cgender == 2 && this.cspeacialSkill == 9))
-                                            && 100f / (float) this.cHPFull
-                                                    * (float) this.cHP < this.paramSpeacialSkill)) {
+                            if (!flag && (skillFight.isChuong() || skillFight.isDonDanh()) && (((this.cgender == 0 && this.cspeacialSkill == 9) || (this.cgender == 1 && this.cspeacialSkill == 10) || (this.cgender == 2 && this.cspeacialSkill == 9)) && 100f / (float) this.cHPFull * (float) this.cHP < this.paramSpeacialSkill)) {
                                 flag = true;
                             }
                             if (!skillFight.isChuong() && !skillFight.isDonDanh()) {
                                 flag = false;
                             }
                             this.intrinsicCrit = 0;
-                            if (skillFight.template.id == 10 || skillFight.template.id == 11
-                                    || (Math.abs(mob.pointx - this.cx) < skillFight.dx + 50
-                                            && Math.abs(mob.pointy - this.cy) < skillFight.dy + 30)) {
+                            if (skillFight.template.id == 10 || skillFight.template.id == 11 || (Math.abs(mob.pointx - this.cx) < skillFight.dx + 50 && Math.abs(mob.pointy - this.cy) < skillFight.dy + 30)) {
                                 dam = Util.gI().nextInt(((int) ((long) this.cDamFull * 9L / 10L)), this.cDamFull);
                                 dam = (int) ((long) ((long) dam * (long) skillFight.damage) / 100L);
                                 if (this.damMob_percent > 0) {
@@ -3934,11 +3742,7 @@ public class Char {
                                 }
                                 // Qua cau khenh khi
                                 if (skillFight.template.id == 10) {
-                                    dam = (int) (((float) this.zoneMap.totalHPMob(this.cx, this.cy, skillFight.dx,
-                                            skillFight.dy) * 0.1F)
-                                            + ((float) this.zoneMap.totalHpChar(this.cx, this.cy, skillFight.dx,
-                                                    skillFight.dy, this.charID) * 0.1F)
-                                            + ((float) this.cDamFull * 10L));
+                                    dam = (int) (((float) this.zoneMap.totalHPMob(this.cx, this.cy, skillFight.dx, skillFight.dy) * 0.1F) + ((float) this.zoneMap.totalHpChar(this.cx, this.cy, skillFight.dx, skillFight.dy, this.charID) * 0.1F) + ((float) this.cDamFull * 10L));
                                 }
                                 // Makankosappo
                                 if (skillFight.template.id == 11) {
@@ -3981,12 +3785,10 @@ public class Char {
                                     if (this.add1Damage_percent > 0) {
                                         dam = dam + (int) ((long) dam * (long) this.add1Damage_percent / 100L);
                                     }
-                                    if (this.damageNext_percent > 0
-                                            && (skillFight.isChuong() || skillFight.isDonDanh())) {
+                                    if (this.damageNext_percent > 0 && (skillFight.isChuong() || skillFight.isDonDanh())) {
                                         dam = dam + (int) ((long) dam * (long) this.damageNext_percent / 100L);
                                     }
-                                    if (this.damageNext_percent2 > 0
-                                            && (skillFight.isChuong() || skillFight.isDonDanh())) {
+                                    if (this.damageNext_percent2 > 0 && (skillFight.isChuong() || skillFight.isDonDanh())) {
                                         dam = dam + (int) ((long) dam * (long) this.damageNext_percent2 / 100L);
                                     }
                                     // Danh theo hp
@@ -4007,20 +3809,15 @@ public class Char {
                                     }
                                     // Noi tai
                                     // Trai dat
-                                    if (this.cgender == 0 && ((this.cspeacialSkill == 0 && skillFight.template.id == 0)
-                                            || (this.cspeacialSkill == 1 && skillFight.template.id == 1))) {
+                                    if (this.cgender == 0 && ((this.cspeacialSkill == 0 && skillFight.template.id == 0) || (this.cspeacialSkill == 1 && skillFight.template.id == 1))) {
                                         dam = dam + (int) ((long) dam * (long) this.paramSpeacialSkill / 100L);
                                     }
                                     // Namek
-                                    if (this.cgender == 1 && ((this.cspeacialSkill == 0 && skillFight.template.id == 2)
-                                            || (this.cspeacialSkill == 1 && skillFight.template.id == 3)
-                                            || (this.cspeacialSkill == 5 && skillFight.template.id == 17))) {
+                                    if (this.cgender == 1 && ((this.cspeacialSkill == 0 && skillFight.template.id == 2) || (this.cspeacialSkill == 1 && skillFight.template.id == 3) || (this.cspeacialSkill == 5 && skillFight.template.id == 17))) {
                                         dam = dam + (int) ((long) dam * (long) this.paramSpeacialSkill / 100L);
                                     }
                                     // Xaiyan
-                                    if (this.cgender == 2 && ((this.cspeacialSkill == 0 && skillFight.template.id == 4)
-                                            || (this.cspeacialSkill == 1 && skillFight.template.id == 5)
-                                            || (this.cspeacialSkill == 2 && this.isMonkey != 0))) {
+                                    if (this.cgender == 2 && ((this.cspeacialSkill == 0 && skillFight.template.id == 4) || (this.cspeacialSkill == 1 && skillFight.template.id == 5) || (this.cspeacialSkill == 2 && this.isMonkey != 0))) {
                                         dam = dam + (int) ((long) dam * (long) this.paramSpeacialSkill / 100L);
                                     }
                                     // SET TB
@@ -4074,8 +3871,7 @@ public class Char {
                                     if (dam <= 0) {
                                         flag = false;
                                     }
-                                    dam = mob.AttackMob(this, dam, flag, type,
-                                            this.bienHp_percent > 0 || this.bienMp_percent > 0 ? 37 : -1);
+                                    dam = mob.AttackMob(this, dam, flag, type, this.bienHp_percent > 0 || this.bienMp_percent > 0 ? 37 : -1);
                                     // if (this.me && dam > 50000000) {
                                     // Server.chatVip(String.format(mResources.PLAYER_DAMTO, this.cName,
                                     // skillFight.template.name, util.gI().getFormatNumber(dam)));
@@ -4086,22 +3882,19 @@ public class Char {
                                         hoiHPMPMob += dam;
                                     }
                                     if (dam > 0) {
-                                        long exp = (long) (1F
-                                                + ((float) (mob.damExp() * 4F) / (float) mob.maxHp * (float) dam));
+                                        long exp = (long) (1F + ((float) (mob.damExp() * 4F) / (float) mob.maxHp * (float) dam));
                                         // Exp ban do kho bau
                                         if (this.zoneMap.map.isMapKhoBau()) {
                                             int level = this.zoneMap.map.khobau.level;
                                             int levelC = (level / 10) + 1;
-                                            exp = (long) (1F + ((float) (mob.damExp() * (long) levelC)
-                                                    / (float) mob.maxHp * (float) dam));
+                                            exp = (long) (1F + ((float) (mob.damExp() * (long) levelC) / (float) mob.maxHp * (float) dam));
                                             exp += (level * 1000);
                                         }
                                         // Con duong ran doc
                                         if (this.zoneMap.map.isMapRoadSnake()) {
                                             int level = this.zoneMap.map.phoban.level;
                                             int levelC = (level / 10) + 1;
-                                            exp = (long) (1F + ((float) (mob.damExp() * (long) levelC)
-                                                    / (float) mob.maxHp * (float) dam));
+                                            exp = (long) (1F + ((float) (mob.damExp() * (long) levelC) / (float) mob.maxHp * (float) dam));
                                             exp += (level * 1000);
                                         }
                                         if (this.expMob_percent > 0) {
@@ -4159,8 +3952,7 @@ public class Char {
                                         if (this.mobMe != null && !mob.isDie && !isChim) {
                                             isChim = true;
                                             this.zoneMap.mobMeAttackMob(this.mobMe.mobId, mob.mobId);
-                                            dam = Util.gI().nextInt(this.cDamFull,
-                                                    ((int) ((long) this.cDamFull * 9L / 10L)));
+                                            dam = Util.gI().nextInt(this.cDamFull, ((int) ((long) this.cDamFull * 9L / 10L)));
                                             dam = (int) ((long) ((long) dam * (long) this.mobMe.damage) / 100L);
                                             if (this.isSetPikkoroDaimao) {
                                                 dam = dam * 2;
@@ -4168,15 +3960,13 @@ public class Char {
                                             if (this.damMob > 0) {
                                                 dam = (int) (dam + ((float) dam / 100F * (float) this.damMob));
                                             }
-                                            dam = mob.AttackMob(this, dam, false, type,
-                                                    this.bienHp_percent > 0 || this.bienMp_percent > 0 ? 37 : -1);
+                                            dam = mob.AttackMob(this, dam, false, type, this.bienHp_percent > 0 || this.bienMp_percent > 0 ? 37 : -1);
                                             totalDam += dam;
                                             totalDamMob += dam;
                                             if (mob.isSuckHP()) {
                                                 hoiHPMPMob += dam;
                                             }
-                                            exp = (long) (exp + (1F + ((float) (mob.damExp() * 10L) / (float) mob.maxHp
-                                                    * (float) dam)));
+                                            exp = (long) (exp + (1F + ((float) (mob.damExp() * 10L) / (float) mob.maxHp * (float) dam)));
                                             if (exp < 0) {
                                                 mLog.log("Am exp o chim");
                                             }
@@ -4208,11 +3998,8 @@ public class Char {
                 if (!chars.isEmpty()) {
                     for (int i = 0; i < chars.size(); i++) {
                         Char player = chars.get(i);
-                        if (player != null && player.zoneMap != null
-                                && ((skillFight.template.id == 7 && !player.isTemplate)
-                                        || (skillFight.template.id != 7 && this.isMeCanAttackOtherPlayer(player)))) {
-                            if (((player.cTemplateType == 23 || player.cTemplateType == 26 || player.cTemplateType == 27
-                                    || player.cTemplateType == 28) && skillFight.isChuong())) {
+                        if (player != null && player.zoneMap != null && ((skillFight.template.id == 7 && !player.isTemplate) || (skillFight.template.id != 7 && this.isMeCanAttackOtherPlayer(player)))) {
+                            if (((player.cTemplateType == 23 || player.cTemplateType == 26 || player.cTemplateType == 27 || player.cTemplateType == 28) && skillFight.isChuong())) {
                                 continue;
                             }
                             int dam;
@@ -4236,30 +4023,19 @@ public class Char {
                                 this.setItem(4082, 300, 0, 0);
                             }
                             // Noi tai
-                            if (!flag && (skillFight.isChuong() || skillFight.isDonDanh())
-                                    && (((this.cgender == 0 && this.cspeacialSkill == 9)
-                                            || (this.cgender == 1 && this.cspeacialSkill == 10)
-                                            || (this.cgender == 2 && this.cspeacialSkill == 9))
-                                            && 100f / (float) this.cHPFull
-                                                    * (float) this.cHP < this.paramSpeacialSkill)) {
+                            if (!flag && (skillFight.isChuong() || skillFight.isDonDanh()) && (((this.cgender == 0 && this.cspeacialSkill == 9) || (this.cgender == 1 && this.cspeacialSkill == 10) || (this.cgender == 2 && this.cspeacialSkill == 9)) && 100f / (float) this.cHPFull * (float) this.cHP < this.paramSpeacialSkill)) {
                                 flag = true;
                             }
                             if (!skillFight.isChuong() && !skillFight.isDonDanh()) {
                                 flag = false;
                             }
                             this.intrinsicCrit = 0;
-                            if (skillFight.template.id == 10 || skillFight.template.id == 11
-                                    || (Math.abs(player.cx - this.cx) < skillFight.dx + 50
-                                            && Math.abs(player.cy - this.cy) < skillFight.dy + 30)) {
+                            if (skillFight.template.id == 10 || skillFight.template.id == 11 || (Math.abs(player.cx - this.cx) < skillFight.dx + 50 && Math.abs(player.cy - this.cy) < skillFight.dy + 30)) {
                                 dam = Util.gI().nextInt(((int) ((long) this.cDamFull * 9L / 10L)), this.cDamFull);
                                 dam = (int) (((long) dam * (long) skillFight.damage) / 100L);
                                 // Qua cau khenh khi
                                 if (skillFight.template.id == 10) {
-                                    dam = (int) (((long) this.zoneMap.totalHPMob(this.cx, this.cy, skillFight.dx,
-                                            skillFight.dy) / 10L)
-                                            + ((long) this.zoneMap.totalHpChar(this.cx, this.cy, skillFight.dx,
-                                                    skillFight.dy, this.charID) / 10L)
-                                            + ((long) this.cDamFull * 10L));
+                                    dam = (int) (((long) this.zoneMap.totalHPMob(this.cx, this.cy, skillFight.dx, skillFight.dy) / 10L) + ((long) this.zoneMap.totalHpChar(this.cx, this.cy, skillFight.dx, skillFight.dy, this.charID) / 10L) + ((long) this.cDamFull * 10L));
                                     if (player.isTemplate) {
                                         dam = dam / 2;
                                     }
@@ -4324,14 +4100,11 @@ public class Char {
                                 if (!isContinue2) {
                                     // Giap aand Xuyen Giap
                                     // Xuyen giap can chien
-                                    boolean flag2 = Math.abs(this.cx - player.cx) < 30
-                                            && Math.abs(this.cy - player.cy) < 30 && this.nearCombatPercent > 0
-                                            && Util.gI().nextInt(100) < this.nearCombatPercent;
+                                    boolean flag2 = Math.abs(this.cx - player.cx) < 30 && Math.abs(this.cy - player.cy) < 30 && this.nearCombatPercent > 0 && Util.gI().nextInt(100) < this.nearCombatPercent;
                                     if (!flag2) {
                                         dam -= player.cDefull;
                                     }
-                                    if (this.cTemplateType == 10 || this.cTemplateType == 11 || this.cTemplateType == 12
-                                            || this.cTemplateType == 13 || this.cTemplateType == 14) {
+                                    if (this.cTemplateType == 10 || this.cTemplateType == 11 || this.cTemplateType == 12 || this.cTemplateType == 13 || this.cTemplateType == 14) {
                                         dam = (int) ((long) player.cHPFull * this.cDamGoc / 100L);
                                     }
                                     if (this.pDamHP > 0) {
@@ -4352,8 +4125,7 @@ public class Char {
                                         dam = (int) (dam - ((long) dam * (long) downDam_percent / 100L));
                                     }
                                     // GIam % moi sat thuong khi KI duoi 20%
-                                    if (player.downDamKI20_percent > 0
-                                            && (100F / (float) player.cMPFull * (float) player.cMP) < 20) {
+                                    if (player.downDamKI20_percent > 0 && (100F / (float) player.cMPFull * (float) player.cMP) < 20) {
                                         dam -= (int) ((long) dam * (long) player.downDamKI20_percent / 100L);
                                     }
                                     if (player.isXenBoHung) {
@@ -4386,12 +4158,10 @@ public class Char {
                                         if (this.add1Damage_percent > 0) {
                                             dam = dam + (int) ((long) dam * (long) this.add1Damage_percent / 100L);
                                         }
-                                        if (this.damageNext_percent > 0
-                                                && (skillFight.isChuong() || skillFight.isDonDanh())) {
+                                        if (this.damageNext_percent > 0 && (skillFight.isChuong() || skillFight.isDonDanh())) {
                                             dam = dam + (int) ((long) dam * (long) this.damageNext_percent / 100L);
                                         }
-                                        if (this.damageNext_percent2 > 0
-                                                && (skillFight.isChuong() || skillFight.isDonDanh())) {
+                                        if (this.damageNext_percent2 > 0 && (skillFight.isChuong() || skillFight.isDonDanh())) {
                                             dam = dam + (int) ((long) dam * (long) this.damageNext_percent2 / 100L);
                                         }
                                         // st toc Trai Dat
@@ -4424,23 +4194,15 @@ public class Char {
                                         }
                                         // Noi tai
                                         // Trai dat
-                                        if (this.cgender == 0
-                                                && ((this.cspeacialSkill == 0 && skillFight.template.id == 0)
-                                                        || (this.cspeacialSkill == 1 && skillFight.template.id == 1))) {
+                                        if (this.cgender == 0 && ((this.cspeacialSkill == 0 && skillFight.template.id == 0) || (this.cspeacialSkill == 1 && skillFight.template.id == 1))) {
                                             dam = dam + (int) ((long) dam * (long) this.paramSpeacialSkill / 100L);
                                         }
                                         // Namek
-                                        if (this.cgender == 1 && ((this.cspeacialSkill == 0
-                                                && skillFight.template.id == 2)
-                                                || (this.cspeacialSkill == 1 && skillFight.template.id == 3)
-                                                || (this.cspeacialSkill == 5 && skillFight.template.id == 17))) {
+                                        if (this.cgender == 1 && ((this.cspeacialSkill == 0 && skillFight.template.id == 2) || (this.cspeacialSkill == 1 && skillFight.template.id == 3) || (this.cspeacialSkill == 5 && skillFight.template.id == 17))) {
                                             dam = dam + (int) ((long) dam * (long) this.paramSpeacialSkill / 100L);
                                         }
                                         // Xaiyan
-                                        if (this.cgender == 2 && ((this.cspeacialSkill == 0
-                                                && skillFight.template.id == 4)
-                                                || (this.cspeacialSkill == 1 && skillFight.template.id == 5)
-                                                || (this.cspeacialSkill == 2 && skillFight.template.id == 13))) {
+                                        if (this.cgender == 2 && ((this.cspeacialSkill == 0 && skillFight.template.id == 4) || (this.cspeacialSkill == 1 && skillFight.template.id == 5) || (this.cspeacialSkill == 2 && skillFight.template.id == 13))) {
                                             dam = dam + (int) ((long) dam * (long) this.paramSpeacialSkill / 100L);
                                         }
                                         // SET TB
@@ -4465,8 +4227,7 @@ public class Char {
                                         if (skillFight.template.id == 3 && this.addDamgeMasenko > 0) {
                                             dam = (int) (dam + (dam * this.addDamgeMasenko / 100L));
                                         }
-                                        if (skillFight.isChuong() && this.xDamAway60s > 0 && this.time_xDamAway60s <= 0
-                                                && !player.isTemplate) {
+                                        if (skillFight.isChuong() && this.xDamAway60s > 0 && this.time_xDamAway60s <= 0 && !player.isTemplate) {
                                             dam = dam * this.xDamAway60s;
                                             this.time_xDamAway60s = 60000;
                                         }
@@ -4475,8 +4236,7 @@ public class Char {
                                             downAndKi = (int) ((long) dam * (long) player.damChuongToKi_percent / 100L);
                                             dam = dam - downAndKi;
                                         }
-                                        if (dam > 1 && player.isTemplate
-                                                && (player.cTemplateId == 13 || player.cTemplateId == 14)) {
+                                        if (dam > 1 && player.isTemplate && (player.cTemplateId == 13 || player.cTemplateId == 14)) {
                                             if (skillFight.template.id != 11) {
                                                 dam = (int) ((long) player.cHPFull / 100L);
                                             }
@@ -4484,13 +4244,10 @@ public class Char {
                                                 dam = (int) (this.cDamFull + ((long) this.cDamFull * 30L / 100L));
                                             }
                                         }
-                                        if (player.isTemplate && (player.cTemplateId == 78 || player.cTemplateId == 83)
-                                                && skillFight.template.id != 0 && skillFight.template.id != 2
-                                                && skillFight.template.id != 4) {
+                                        if (player.isTemplate && (player.cTemplateId == 78 || player.cTemplateId == 83) && skillFight.template.id != 0 && skillFight.template.id != 2 && skillFight.template.id != 4) {
                                             dam = (int) ((long) player.cHPFull / 600L);
                                         }
-                                        if (this.disperse_percent > 0
-                                                && this.disperse_percent > Util.gI().nextInt(100)) {
+                                        if (this.disperse_percent > 0 && this.disperse_percent > Util.gI().nextInt(100)) {
                                             dam = 0;
                                             if (Util.gI().nextInt(100) < 25) {
                                                 this.zoneMap.chat(this, mResources.CHAT_XINBATO_1);
@@ -4520,8 +4277,7 @@ public class Char {
                                             hoiHPMPChar += dam;
                                             // phan sat thuong
                                             if (!this.isDie && player.damReturn_percent > 0 && this.isRecDam) {
-                                                int recDam = (int) ((long) dam * (long) player.damReturn_percent
-                                                        / 100L);
+                                                int recDam = (int) ((long) dam * (long) player.damReturn_percent / 100L);
                                                 if (recDam > 0 && this.cHP > 1) {
                                                     this.haveAttackPLayer(player, 5, recDam, false, 36, true);
                                                 }
@@ -4534,8 +4290,7 @@ public class Char {
                                     // De trung
                                     if (this.mobMe != null && dam > 0 && !player.isDie && !isChim) {
                                         isChim = true;
-                                        dam = Util.gI().nextInt(this.cDamFull,
-                                                ((int) ((long) this.cDamFull * 9L / 10L)));
+                                        dam = Util.gI().nextInt(this.cDamFull, ((int) ((long) this.cDamFull * 9L / 10L)));
                                         dam = (int) ((long) ((long) dam * (long) this.mobMe.damage) / 100L);
                                         if (this.isSetPikkoroDaimao) {
                                             dam = dam * 2;
@@ -4556,8 +4311,7 @@ public class Char {
                                         } else {
 
                                         }
-                                        dam = player.haveAttackPLayer(this, 1, dam, false,
-                                                this.bienHp_percent > 0 || this.bienMp_percent > 0 ? 37 : -1, false);
+                                        dam = player.haveAttackPLayer(this, 1, dam, false, this.bienHp_percent > 0 || this.bienMp_percent > 0 ? 37 : -1, false);
                                         totalDam += dam;
                                         totalDamChar += dam;
                                         hoiHPMPChar += dam;
@@ -4666,8 +4420,7 @@ public class Char {
                 this.damageNext_percent = 0;
                 this.damageNext_percent2 = 0;
                 // Noi tai dich chuyen tuc thoi or Thoi mien
-                if (this.cgender == 0 && ((this.cspeacialSkill == 5 && skillFight.template.id == 20)
-                        || (this.cspeacialSkill == 6 && skillFight.template.id == 22))) {
+                if (this.cgender == 0 && ((this.cspeacialSkill == 5 && skillFight.template.id == 20) || (this.cspeacialSkill == 6 && skillFight.template.id == 22))) {
                     this.damageNext_percent = this.paramSpeacialSkill;
                 }
                 // Namek Bien socola
@@ -4685,8 +4438,7 @@ public class Char {
             }
         } else if (this.cTemplateType == 43) {
             if (skillFight != null) {
-                System.out.println(this.cName + " skill=" + skillFight.template.name + " timeLoad=" + this.timeLoadSkill
-                        + " 100Miss=" + this.is100Miss + " timeHit=" + this.timeHit);
+                System.out.println(this.cName + " skill=" + skillFight.template.name + " timeLoad=" + this.timeLoadSkill + " 100Miss=" + this.is100Miss + " timeHit=" + this.timeHit);
             }
         } else {
             if (skillFight != null) {
@@ -4701,22 +4453,19 @@ public class Char {
         if (skillFight != null && skillFight.lastTimeUseThisSkill <= System.currentTimeMillis()) {
             int manaUse = 0;
             this.isThaCau = 0;
-            if (status == 0 || status == 1 || status == 6 || status == 7 || status == 8 || status == 9 || status == 10
-                    || status == 20) {
+            if (status == 0 || status == 1 || status == 6 || status == 7 || status == 8 || status == 9 || status == 10 || status == 20) {
                 manaUse = skillFight.manaUse;
                 if (skillFight.template.manaUseType == 1) {
                     manaUse = (int) ((long) this.cMPFull * (long) manaUse / 100);
                 }
             }
             if (this.cMP >= manaUse) {
-                if (status == 0 || status == 1 || status == 6 || status == 7 || status == 8 || status == 9
-                        || status == 10 || status == 20) {
+                if (status == 0 || status == 1 || status == 6 || status == 7 || status == 8 || status == 9 || status == 10 || status == 20) {
                     skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + skillFight.coolDown;
                     // Noi tai
                     // Trai dat
                     if (this.cgender == 0 && ((this.cspeacialSkill == 2 && skillFight.template.id == 6))) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
                         manaUse = (int) (manaUse - ((long) manaUse * (long) this.paramSpeacialSkill / 100L));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
@@ -4725,48 +4474,42 @@ public class Char {
                     }
                     // De trung
                     if (this.cgender == 1 && ((this.cspeacialSkill == 4 && skillFight.template.id == 12))) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
                         }
                     }
                     // Noi tai khien nang luong
                     if (this.cgender == 0 && ((this.cspeacialSkill == 4 && skillFight.template.id == 19))) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
                         }
                     }
                     // Noi tai khien nang luong Namek
                     if (this.cgender == 1 && ((this.cspeacialSkill == 7 && skillFight.template.id == 19))) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
                         }
                     }
                     // Noi tai phat no
                     if (this.cgender == 2 && ((this.cspeacialSkill == 3 && skillFight.template.id == 14))) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
                         }
                     }
                     // Khien nang luong
                     if (this.cgender == 2 && ((this.cspeacialSkill == 4 && skillFight.template.id == 19))) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
                         }
                     }
                     // Huyt sao
                     if (this.cgender == 2 && ((this.cspeacialSkill == 5 && skillFight.template.id == 21))) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.paramSpeacialSkill / 100));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
                         }
@@ -4774,8 +4517,7 @@ public class Char {
                     // Trang bi
                     // Giam time khien nang luong
                     if (skillFight.template.id == 19 && this.downProtected > 0) {
-                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis()
-                                + (skillFight.coolDown - (skillFight.coolDown * this.downProtected / 100));
+                        skillFight.lastTimeUseThisSkill = System.currentTimeMillis() + (skillFight.coolDown - (skillFight.coolDown * this.downProtected / 100));
                         if (this.session != null) {
                             this.session.service.updateCoolDown(this.skills);
                         }
@@ -4797,11 +4539,8 @@ public class Char {
                     if (!this.isTemplate) {
                         synchronized (this.zoneMap.mobs) {
                             for (int i = 0; i < this.zoneMap.mobs.size(); i++) {
-                                if (!this.zoneMap.mobs.get(i).isDie && !this.zoneMap.mobs.get(i).isMobMe
-                                        && Math.abs(this.cx - this.zoneMap.mobs.get(i).pointx) <= skillFight.dx
-                                        && Math.abs(this.cy - this.zoneMap.mobs.get(i).pointy) <= skillFight.dy) {
-                                    this.zoneMap.mobs.get(i).updateFreez(true,
-                                            (this.isSetXiHang ? skillFight.damage * 2 : skillFight.damage));
+                                if (!this.zoneMap.mobs.get(i).isDie && !this.zoneMap.mobs.get(i).isMobMe && Math.abs(this.cx - this.zoneMap.mobs.get(i).pointx) <= skillFight.dx && Math.abs(this.cy - this.zoneMap.mobs.get(i).pointy) <= skillFight.dy) {
+                                    this.zoneMap.mobs.get(i).updateFreez(true, (this.isSetXiHang ? skillFight.damage * 2 : skillFight.damage));
                                     this.aMobFocus.add(this.zoneMap.mobs.get(i));
                                 }
                             }
@@ -4809,10 +4548,7 @@ public class Char {
                     }
                     synchronized (this.zoneMap.players) {
                         for (int i = 0; i < this.zoneMap.players.size(); i++) {
-                            if (!this.zoneMap.players.get(i).isDie && this.zoneMap.players.get(i).charID != this.charID
-                                    && Math.abs(this.cx - this.zoneMap.players.get(i).cx) <= skillFight.dx
-                                    && Math.abs(this.cy - this.zoneMap.players.get(i).cy) <= skillFight.dy
-                                    && (this.isMeCanAttackOtherPlayer(this.zoneMap.players.get(i)))) {
+                            if (!this.zoneMap.players.get(i).isDie && this.zoneMap.players.get(i).charID != this.charID && Math.abs(this.cx - this.zoneMap.players.get(i).cx) <= skillFight.dx && Math.abs(this.cy - this.zoneMap.players.get(i).cy) <= skillFight.dy && (this.isMeCanAttackOtherPlayer(this.zoneMap.players.get(i)))) {
                                 if (this.zoneMap.players.get(i).isAgainst20Sun && Util.gI().nextInt(100) < 20) {
                                     this.zoneMap.players.get(i).addChat(1000, mResources.XI_HUT);
                                     continue;
@@ -4824,8 +4560,7 @@ public class Char {
                     for (int i = 0; i < this.aCharFocus.size(); i++) {
                         int timeEff = this.isSetXiHang ? skillFight.damage * 2 : skillFight.damage;
                         if (this.aCharFocus.get(i).downEffblindPercent > 0) {
-                            timeEff = (int) (timeEff
-                                    - ((long) timeEff * (long) this.aCharFocus.get(i).downEffblindPercent / 100L));
+                            timeEff = (int) (timeEff - ((long) timeEff * (long) this.aCharFocus.get(i).downEffblindPercent / 100L));
                         }
                         if (this.aCharFocus.get(i).downEffblindSc > 0) {
                             timeEff = timeEff - (this.aCharFocus.get(i).downEffblindSc * 1000);
@@ -4850,18 +4585,15 @@ public class Char {
                             this.aCharFocus.get(i).charId_holder = -1;
                         }
                     }
-                    this.zoneMap.player_skill_not_focus(status, this.charID, skillFight.skillId, this.aMobFocus,
-                            this.aCharFocus, 3000);
+                    this.zoneMap.player_skill_not_focus(status, this.charID, skillFight.skillId, this.aMobFocus, this.aCharFocus, 3000);
                     if (this.session != null) {
-                        this.session.service.skill_not_focus(status, this.charID, skillFight.skillId, this.aMobFocus,
-                                this.aCharFocus, 0);
+                        this.session.service.skill_not_focus(status, this.charID, skillFight.skillId, this.aMobFocus, this.aCharFocus, 0);
                     }
                 }
                 // Qua cau khenh khi
                 if (status == -1 || (status == 4 && skillFight.template.id == 10)) {
                     this.timeLoadSkill = 3000;
-                    this.addSkillNotFocus(status, 5000, skillFight.skillId, skillFight.damage, skillFight.dx,
-                            skillFight.dy, skillFight.point);
+                    this.addSkillNotFocus(status, 5000, skillFight.skillId, skillFight.damage, skillFight.dx, skillFight.dy, skillFight.point);
                 }
                 // Khien nang luong
                 if (status == -1 || (status == 9 && skillFight.template.id == 19)) {
@@ -4900,15 +4632,13 @@ public class Char {
                 if (status == -1 || (status == 6 && skillFight.template.id == 13)) {
                     this.timeLoadSkill = 2000;
                     this.gong = true;
-                    this.addSkillNotFocus(status, 2000, skillFight.skillId, skillFight.damage, skillFight.dx,
-                            skillFight.dy, skillFight.point);
+                    this.addSkillNotFocus(status, 2000, skillFight.skillId, skillFight.damage, skillFight.dx, skillFight.dy, skillFight.point);
                 }
                 // Tu phat no
                 if (status == -1 || (status == 7 && skillFight.template.id == 14)) {
                     this.timeLoadSkill = 2000;
                     this.gong = true;
-                    this.addSkillNotFocus(status, 3000, skillFight.skillId, skillFight.damage, skillFight.dx,
-                            skillFight.dy, skillFight.point);
+                    this.addSkillNotFocus(status, 3000, skillFight.skillId, skillFight.damage, skillFight.dx, skillFight.dy, skillFight.point);
                 }
                 // Huyt sao
                 if (status == -1 || (status == 10 && skillFight.template.id == 21)) {
@@ -4928,11 +4658,8 @@ public class Char {
                     }
                     synchronized (this.zoneMap.players) {
                         for (int i = 0; i < this.zoneMap.players.size(); i++) {
-                            if (!this.zoneMap.players.get(i).isDie && !this.zoneMap.players.get(i).isTemplate
-                                    && Math.abs(this.cx - this.zoneMap.players.get(i).cx) <= skillFight.dx
-                                    && Math.abs(this.cy - this.zoneMap.players.get(i).cy) <= skillFight.dy) {
-                                this.zoneMap.players.get(i).setItem(skillFight.template.iconId, 31, 0,
-                                        skillFight.damage);
+                            if (!this.zoneMap.players.get(i).isDie && !this.zoneMap.players.get(i).isTemplate && Math.abs(this.cx - this.zoneMap.players.get(i).cx) <= skillFight.dx && Math.abs(this.cy - this.zoneMap.players.get(i).cy) <= skillFight.dy) {
+                                this.zoneMap.players.get(i).setItem(skillFight.template.iconId, 31, 0, skillFight.damage);
                             }
                         }
                     }
@@ -4940,14 +4667,12 @@ public class Char {
                 // Makankosappo
                 if (status == -1 || (status == 4 && skillFight.template.id == 11)) {
                     this.timeLoadSkill = 3000;
-                    this.addSkillNotFocus(status, 3000, skillFight.skillId, skillFight.damage, skillFight.dx,
-                            skillFight.dy, skillFight.point);
+                    this.addSkillNotFocus(status, 3000, skillFight.skillId, skillFight.damage, skillFight.dx, skillFight.dy, skillFight.point);
                 }
                 // De trung
                 if (status == -1 || (status == 8 && skillFight.template.id == 12)) {
                     this.zoneMap.player_skill_not_focus(status, this.charID, skillFight.skillId, null, null, 0);
-                    this.addMobMe(Mob.deTrungMobId[skillFight.point - 1], this.cHPFull,
-                            (skillFight.damage + 195) * 1000);
+                    this.addMobMe(Mob.deTrungMobId[skillFight.point - 1], this.cHPFull, (skillFight.damage + 195) * 1000);
                     this.mobMe.damage = skillFight.damage;
                 }
 
@@ -5016,11 +4741,9 @@ public class Char {
             if (dam > 0 && myChar != null && myChar.myCharz() != null && myChar.myCharz().charID != this.charID) {
                 this.addDam(myChar.myCharz().charID, dam);
                 this.addAtt(myChar.myCharz().charID);
-                if (this.isTemplate && (this.cTemplateType == 26 || this.cTemplateType == 27)
-                        && myChar.session != null) {
+                if (this.isTemplate && (this.cTemplateType == 26 || this.cTemplateType == 27) && myChar.session != null) {
                     if (dam % 2 == 0) {
-                        myChar.session.service.setPowerInfo(mResources.PERCENT,
-                                (int) (100f / (float) this.cHPFull * (float) this.getDam(myChar.charID)), 20, 1);
+                        myChar.session.service.setPowerInfo(mResources.PERCENT, (int) (100f / (float) this.cHPFull * (float) this.getDam(myChar.charID)), 20, 1);
                     }
                 }
             }
@@ -5053,8 +4776,7 @@ public class Char {
                 this.hold(0, 0, 41, -1, -1);
             }
             if (this.isSocola && this.isDie) {
-                ItemMap itemMap = this.zoneMap.addItemMap(-1, new Item(516, false, 0, null, null, null, null), cx,
-                        this.zoneMap.mapTemplate.touchY(cx, cy), 0, -1);
+                ItemMap itemMap = this.zoneMap.addItemMap(-1, new Item(516, false, 0, null, null, null, null), cx, this.zoneMap.mapTemplate.touchY(cx, cy), 0, -1);
                 this.zoneMap.itemMapAdd(itemMap);
             }
             // Nhiem vu
@@ -5075,15 +4797,13 @@ public class Char {
                         if (this.isBossMain) {
                             this.zoneMap.countMobDie++;
                             if (this.zoneMap.countMobDie >= this.zoneMap.map.doanhTrai.maxMobDieNextMap[indexMap]) {
-                                this.zoneMap.map.doanhTrai
-                                        .updateWin(this.zoneMap.map.doanhTrai.getIndexMaps(this.mapTemplateId));
+                                this.zoneMap.map.doanhTrai.updateWin(this.zoneMap.map.doanhTrai.getIndexMaps(this.mapTemplateId));
                             }
                         }
                     } else {
                         this.zoneMap.countMobDie++;
                         if (this.zoneMap.countMobDie >= this.zoneMap.map.doanhTrai.maxMobDieNextMap[indexMap]) {
-                            this.zoneMap.map.doanhTrai
-                                    .updateWin(this.zoneMap.map.doanhTrai.getIndexMaps(this.mapTemplateId));
+                            this.zoneMap.map.doanhTrai.updateWin(this.zoneMap.map.doanhTrai.getIndexMaps(this.mapTemplateId));
                         }
                     }
                 }
@@ -5164,8 +4884,7 @@ public class Char {
         this.itemGLT = null;
         if (this.arrItemBag != null) {
             for (i = 0; i < this.arrItemBag.length; i++) {
-                if (this.arrItemBag[i] != null && this.arrItemBag[i].isItemTraining()
-                        && this.arrItemBag[i].isHaveOption(9) && this.arrItemBag[i].getOption(9).param > 0) {
+                if (this.arrItemBag[i] != null && this.arrItemBag[i].isItemTraining() && this.arrItemBag[i].isHaveOption(9) && this.arrItemBag[i].getOption(9).param > 0) {
                     if (this.itemGLT == null || this.itemGLT.getParamOption(9) < this.arrItemBag[i].getParamOption(9)) {
                         this.itemGLT = this.arrItemBag[i];
                     }
@@ -5358,8 +5077,7 @@ public class Char {
     }
 
     public boolean moveFast(int x, int y) {
-        if (this.isStand() || (!this.zoneMap.mapTemplate.isCollisionPixel(x, (y == -1 ? this.cy : y) - 1, this.pixels)
-                && !(this.checkPixel(this.cx, this.cy - 1, x, (y == -1 ? this.cy : y) - 1)))) {
+        if (this.isStand() || (!this.zoneMap.mapTemplate.isCollisionPixel(x, (y == -1 ? this.cy : y) - 1, this.pixels) && !(this.checkPixel(this.cx, this.cy - 1, x, (y == -1 ? this.cy : y) - 1)))) {
             this.setPos(this.cx, this.cy, 1);
             return true;
         }
@@ -5367,8 +5085,7 @@ public class Char {
     }
 
     public boolean checkPixel(int x0, int y0, int x, int y) {
-        if (this.zoneMap.mapTemplate.isCollisionPixel(x0, y0, 0xff000000)
-                && this.zoneMap.mapTemplate.isCollisionPixel(x, y, 0xffffffff)) {
+        if (this.zoneMap.mapTemplate.isCollisionPixel(x0, y0, 0xff000000) && this.zoneMap.mapTemplate.isCollisionPixel(x, y, 0xffffffff)) {
             this.pixels = this.zoneMap.mapTemplate.getCollisionPixel(x, y);
             return true;
         }
@@ -5410,10 +5127,7 @@ public class Char {
         }
         this.zoneMap.playerMove(this.charID, this.cx, this.cy);
         if (this.myPet != null) {
-            if (!this.myPetz().isStand() && (this.myPetz().petStatus == 0 || this.myPetz().petStatus == 1
-                    || (this.myPetz().charFocus == null && this.myPetz().mobFocus == null)
-                    || (this.myPetz().charFocus != null && this.myPetz().charFocus.isDie)
-                    || (this.myPetz().mobFocus != null && this.myPetz().mobFocus.isDie))) {
+            if (!this.myPetz().isStand() && (this.myPetz().petStatus == 0 || this.myPetz().petStatus == 1 || (this.myPetz().charFocus == null && this.myPetz().mobFocus == null) || (this.myPetz().charFocus != null && this.myPetz().charFocus.isDie) || (this.myPetz().mobFocus != null && this.myPetz().mobFocus.isDie))) {
                 int x2 = Util.gI().nextInt(this.cx - 48, this.cx + 48);
                 if (Math.abs(x2 - this.cx) < 24) {
                     if (x2 > this.cx) {
@@ -5426,12 +5140,10 @@ public class Char {
                 this.myPetz().cx = x2;
                 this.myPetz().cy = cy;
                 this.zoneMap.playerMove(this.myPetz().charID, this.myPetz().cx, this.myPetz().cy);
-                if (this.myPetz().mobFocus != null && (Math.abs(this.myPetz().mobFocus.pointx - this.myPetz().cx) > 50
-                        || Math.abs(this.myPetz().mobFocus.pointy - this.myPetz().cy) > 50)) {
+                if (this.myPetz().mobFocus != null && (Math.abs(this.myPetz().mobFocus.pointx - this.myPetz().cx) > 50 || Math.abs(this.myPetz().mobFocus.pointy - this.myPetz().cy) > 50)) {
                     this.myPetz().mobFocus = null;
                 }
-                if (this.myPetz().charFocus != null && (Math.abs(this.myPetz().charFocus.cx - this.myPetz().cx) > 50
-                        || Math.abs(this.myPetz().charFocus.cy - this.myPetz().cy) > 50)) {
+                if (this.myPetz().charFocus != null && (Math.abs(this.myPetz().charFocus.cx - this.myPetz().cx) > 50 || Math.abs(this.myPetz().charFocus.cy - this.myPetz().cy) > 50)) {
                     this.myPetz().charFocus = null;
                 }
             }
@@ -5454,12 +5166,10 @@ public class Char {
             this.mobId_holder = -1;
             this.charId_holder = -1;
         }
-        if (this.mobFocus != null
-                && (Math.abs(this.mobFocus.pointx - this.cx) > 50 || Math.abs(this.mobFocus.pointy - this.cy) > 50)) {
+        if (this.mobFocus != null && (Math.abs(this.mobFocus.pointx - this.cx) > 50 || Math.abs(this.mobFocus.pointy - this.cy) > 50)) {
             this.mobFocus = null;
         }
-        if (this.charFocus != null
-                && (Math.abs(this.charFocus.cx - this.cx) > 50 || Math.abs(this.charFocus.cy - this.cy) > 50)) {
+        if (this.charFocus != null && (Math.abs(this.charFocus.cx - this.cx) > 50 || Math.abs(this.charFocus.cy - this.cy) > 50)) {
             this.charFocus = null;
         }
         // Check roi vo dai
@@ -5482,8 +5192,7 @@ public class Char {
         }
     }
 
-    public void transPort(int maxTime, int type, ZoneMap zone, int typeTeleport1, int typeTeleport2, int xTeleport,
-            int yTeleport) {
+    public void transPort(int maxTime, int type, ZoneMap zone, int typeTeleport1, int typeTeleport2, int xTeleport, int yTeleport) {
         if (!this.isTransport) {
             if (zone == null) {
                 Map map = Map.getMapServer(102);
@@ -5554,8 +5263,7 @@ public class Char {
             if (type == 0 && this.myPetz().timeHopThe > 0) {
                 this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.HOPTHE_BEFORE_10, null, (byte) 0);
             } else if (this.timeTach > 0) {
-                this.session.service.chatTHEGIOI(mResources.EMPTY,
-                        String.format(mResources.TIME_WITE, Util.gI().getStrTime(this.timeTach)), null, (byte) 0);
+                this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.TIME_WITE, Util.gI().getStrTime(this.timeTach)), null, (byte) 0);
             } else if (this.holder) {
                 this.addInfo1(mResources.NO_FINNISH);
             } else {
@@ -5615,9 +5323,7 @@ public class Char {
 
     public void nextSkillPet(int v, int n) {
         if (n == 0) {
-            this.myPetz().skills.add(
-                    Skill.arrSkill[this.myPetz().arrSkillPet[v][Util.gI().nextInt(this.myPetz().arrSkillPet[v].length)]]
-                            .clone());
+            this.myPetz().skills.add(Skill.arrSkill[this.myPetz().arrSkillPet[v][Util.gI().nextInt(this.myPetz().arrSkillPet[v].length)]].clone());
         } else {
             Skill uSkill = this.myPetz().skills.get(v);
             int i;
@@ -5843,8 +5549,7 @@ public class Char {
     }
 
     public void clanInvite(int action, int playerID, int clanID, int code) {
-        Util.gI()
-                .logln("clanInvite action=" + action + " playerID=" + playerID + " clanID=" + clanID + " code=" + code);
+        Util.gI().logln("clanInvite action=" + action + " playerID=" + playerID + " clanID=" + clanID + " code=" + code);
         if (action == 0) {
             if (this.clan != null) {
                 Session_ME player = Server.gI().getByCId(playerID);
@@ -5862,11 +5567,8 @@ public class Char {
                     } else if (this.clan.isHaveInvite(player.myCharz().playerId)) {
 
                     } else {
-                        player.service.clanInvite(
-                                String.format(mResources.SEND_CALN_INVITE2, this.cName, this.clan.name), this.clan.ID,
-                                this.clan.addInvite(player.myCharz().playerId));
-                        this.session.service.chatTHEGIOI(mResources.EMPTY,
-                                String.format(mResources.SEND_CALN_INVITE, player.myCharz().cName), null, 0);
+                        player.service.clanInvite(String.format(mResources.SEND_CALN_INVITE2, this.cName, this.clan.name), this.clan.ID, this.clan.addInvite(player.myCharz().playerId));
+                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.SEND_CALN_INVITE, player.myCharz().cName), null, 0);
                     }
                 }
             }
@@ -5939,8 +5641,7 @@ public class Char {
                     msg = new ClanMessage();
                     msg.type = 2;
                     msg.playerId = this.charID;
-                    msg.playerName = String.format(mResources.CNAME_CLAN_INVATE, this.cName,
-                            Util.gI().numberTostring(this.cPower));
+                    msg.playerName = String.format(mResources.CNAME_CLAN_INVATE, this.cName, Util.gI().numberTostring(this.cPower));
                     msg.headId = this.head;
                     msg.role = -1;
                     msg.time = (int) (System.currentTimeMillis() / 1000);
@@ -5954,8 +5655,7 @@ public class Char {
         // Xin dau
         if (type == 1 && this.clan != null) {
             if (this.lastXinDau - System.currentTimeMillis() > 0) {
-                this.addInfo1(String.format(mResources.NOT_CALL_DAU,
-                        Util.gI().getStrTime(this.lastXinDau - System.currentTimeMillis())));
+                this.addInfo1(String.format(mResources.NOT_CALL_DAU, Util.gI().getStrTime(this.lastXinDau - System.currentTimeMillis())));
             } else {
                 this.lastXinDau = System.currentTimeMillis() + 300000L;
                 msg = new ClanMessage();
@@ -6033,8 +5733,7 @@ public class Char {
         Session_ME player = Server.gI().getByCId(playerId);
         if (player != null) {
             if (this.isHaveFriend(player.myCharz().cName)) {
-                this.session.service.chatTHEGIOI(mResources.EMPTY,
-                        String.format(mResources.HAVE_PLAYER_FRIEND_LIST, player.myCharz().cName), null, 0);
+                this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.HAVE_PLAYER_FRIEND_LIST, player.myCharz().cName), null, 0);
             } else if (this.arrFriend.size() >= 5) {
                 this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.FRIEND_LIST_FULL, null, 0);
             } else {
@@ -6049,8 +5748,7 @@ public class Char {
                 f.isOnline = true;
                 f.power = player.myCharz().cPower;
                 this.arrFriend.add(f);
-                this.session.service.chatTHEGIOI(mResources.EMPTY,
-                        String.format(mResources.ADD_FRIEND_TO_LIST, player.myCharz().cName), null, 0);
+                this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.ADD_FRIEND_TO_LIST, player.myCharz().cName), null, 0);
             }
         }
     }
@@ -6206,8 +5904,7 @@ public class Char {
                         // this.session.myCharz().xu) / SaleItemNew.priceItemCoin(item)));
                         ////                            System.out.println("number="+this.clientInput.indexs.get(2));
                         // } else {
-                        this.session.service.saleItem(type, id, String.format(mResources.BAN_CO_MUON, quantity,
-                                item.template.name, Util.gI().getFormatNumber(coinSale)));
+                        this.session.service.saleItem(type, id, String.format(mResources.BAN_CO_MUON, quantity, item.template.name, Util.gI().getFormatNumber(coinSale)));
                         // }
                     }
                     if (action == 1) {
@@ -6249,8 +5946,7 @@ public class Char {
                             this.session.service.getBag(this.charID, this.bag);
                             this.session.service.setEff(this.charID, this.idAuraEff, this.idEff_Set_Item);
                         }
-                        this.addInfo1(String.format(mResources.SALE_SUCCESSFUL2, quantity, item.template.name,
-                                Util.gI().numberTostring(this.xu - xuOld)));
+                        this.addInfo1(String.format(mResources.SALE_SUCCESSFUL2, quantity, item.template.name, Util.gI().numberTostring(this.xu - xuOld)));
                         if (item.template.id != 457) {
                             this.myObj().reBuyItem.add(item);
                             if (this.myObj().reBuyItem.size() > 20) {
@@ -6273,25 +5969,14 @@ public class Char {
         } else {
             Session_ME player = Server.gI().getByCId(playerId);
             if (player != null) {
-                if (player.myCharz().zoneMap == null || Map.isMapOffline(player.myCharz().mapTemplateId)
-                        || player.myCharz().zoneMap.map.isMapDestronGas()
-                        || player.myCharz().zoneMap.map.isMapDoanhTrai() ||
-                        player.myCharz().zoneMap.map.isMapBigBoss() || player.myCharz().zoneMap.map.isMapButcher()
-                        || player.myCharz().zoneMap.map.isMapKhoBau() || player.myCharz().isAnDanh
-                        || !player.myCharz().zoneMap.isHelp(this) ||
-                        player.myCharz().zoneMap.map.isMapManorClan() || player.myCharz().zoneMap.map.isMapCace23()
-                        || player.myCharz().mapTemplateId == 51 || player.myCharz().mapTemplateId == 113
-                        || player.myCharz().mapTemplateId == 165) {
+                if (player.myCharz().zoneMap == null || Map.isMapOffline(player.myCharz().mapTemplateId) || player.myCharz().zoneMap.map.isMapDestronGas() || player.myCharz().zoneMap.map.isMapDoanhTrai() || player.myCharz().zoneMap.map.isMapBigBoss() || player.myCharz().zoneMap.map.isMapButcher() || player.myCharz().zoneMap.map.isMapKhoBau() || player.myCharz().isAnDanh || !player.myCharz().zoneMap.isHelp(this) || player.myCharz().zoneMap.map.isMapManorClan() || player.myCharz().zoneMap.map.isMapCace23() || player.myCharz().mapTemplateId == 51 || player.myCharz().mapTemplateId == 113 || player.myCharz().mapTemplateId == 165) {
                     this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.DCTT3, null, 0);
                 } else if (!dragon.t.MapTask.isNextMap(this, player.myCharz().mapTemplateId)) {
                     this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.YOUR_NOT_TO, null, 0);
                 } else if (player.myCharz().timeGoMe > 0) {
-                    this.session.service.chatTHEGIOI(mResources.EMPTY,
-                            String.format(mResources.TIME_WITE, Util.gI().getFormatTime2(player.myCharz().timeGoMe)),
-                            null, 0);
+                    this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.TIME_WITE, Util.gI().getFormatTime2(player.myCharz().timeGoMe)), null, 0);
                 } else if (this.timeGoPlayer > 0) {
-                    this.session.service.chatTHEGIOI(mResources.EMPTY,
-                            String.format(mResources.TIME_WITE, Util.gI().getFormatTime2(this.timeGoPlayer)), null, 0);
+                    this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.TIME_WITE, Util.gI().getFormatTime2(this.timeGoPlayer)), null, 0);
                 } else if (player.myCharz().zoneMap.getCountPLayerNotAI() >= player.myCharz().zoneMap.maxPlayer) {
                     this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.ZONE_FULL_PLAYER, null, 0);
                 } else {
@@ -6313,14 +5998,12 @@ public class Char {
     public Item getBongTai() {
         int i;
         for (i = 0; i < this.arrItemBag.length; i++) {
-            if (this.arrItemBag[i] != null
-                    && (this.arrItemBag[i].template.id == 454 || this.arrItemBag[i].template.id == 921)) {
+            if (this.arrItemBag[i] != null && (this.arrItemBag[i].template.id == 454 || this.arrItemBag[i].template.id == 921)) {
                 return this.arrItemBag[i];
             }
         }
         for (i = 0; i < this.arrItemBox.length; i++) {
-            if (this.arrItemBox[i] != null
-                    && (this.arrItemBox[i].template.id == 454 || this.arrItemBox[i].template.id == 921)) {
+            if (this.arrItemBox[i] != null && (this.arrItemBox[i].template.id == 454 || this.arrItemBox[i].template.id == 921)) {
                 return this.arrItemBox[i];
             }
         }
@@ -6529,8 +6212,7 @@ public class Char {
                 tempId = 145;
             }
             if (tempId != -1) {
-                Player o2 = Player.addBoss(tempId, 0, -1, 0, false, Util.gI().nextInt(this.cx - 70, this.cx + 70),
-                        this.cy, null, -1, -1);
+                Player o2 = Player.addBoss(tempId, 0, -1, 0, false, Util.gI().nextInt(this.cx - 70, this.cx + 70), this.cy, null, -1, -1);
                 o2.isCharId = this.charID;
                 o2.myChar2 = this;
                 this.myPet2 = o2;
@@ -6562,9 +6244,7 @@ public class Char {
             synchronized (this.zoneMap.itemMaps) {
                 for (int i1 = 0; i1 < this.zoneMap.itemMaps.size(); i1++) {
                     o2 = this.zoneMap.itemMaps.get(i1);
-                    if (o2.item.template.type == 22
-                            && (this.playerId == o2.plId || (this.clan != null && this.clan.ID == o2.clanID))
-                            && Math.abs(o2.x - this.cx) <= o2.r && Math.abs(o2.y - this.cy) <= o2.r) {
+                    if (o2.item.template.type == 22 && (this.playerId == o2.plId || (this.clan != null && this.clan.ID == o2.clanID)) && Math.abs(o2.x - this.cx) <= o2.r && Math.abs(o2.y - this.cy) <= o2.r) {
                         if (!this.isHaveVT(o2.item.template.id)) {
                             this.itemVTs.add(o2);
                             b = true;
@@ -6576,9 +6256,7 @@ public class Char {
             for (int i2 = this.itemVTs.size() - 1; i2 >= 0; i2--) {
                 o2 = this.itemVTs.get(i2);
                 if (this.zoneMap.isHaveItemMap(o2)) {
-                    if (o2.item.template.type != 22
-                            || (this.playerId != o2.plId && (this.clan == null || this.clan.ID != o2.clanID))
-                            || Math.abs(o2.x - this.cx) > o2.r || Math.abs(o2.y - this.cy) > o2.r) {
+                    if (o2.item.template.type != 22 || (this.playerId != o2.plId && (this.clan == null || this.clan.ID != o2.clanID)) || Math.abs(o2.x - this.cx) > o2.r || Math.abs(o2.y - this.cy) > o2.r) {
                         this.itemVTs.remove(o2);
                         b = true;
                     }
@@ -6607,8 +6285,7 @@ public class Char {
         }
         if (this.zoneMap != null) {
             this.zoneMap.playerLoadAll(this);
-            this.zoneMap.petFollow(this.charID, this.petFollow.smallID, this.petFollow.fimg, this.petFollow.frame,
-                    this.petFollow.wimg, this.petFollow.himg);
+            this.zoneMap.petFollow(this.charID, this.petFollow.smallID, this.petFollow.fimg, this.petFollow.frame, this.petFollow.wimg, this.petFollow.himg);
         }
     }
 
@@ -6623,8 +6300,7 @@ public class Char {
             this.zoneMap.clearPetFollow(this.charID);
             // petFollowz
             if (this.petFollowz != null) {
-                this.zoneMap.petFollow(this.charID, this.petFollowz.smallID, this.petFollowz.fimg,
-                        this.petFollowz.frame, this.petFollowz.wimg, this.petFollowz.himg);
+                this.zoneMap.petFollow(this.charID, this.petFollowz.smallID, this.petFollowz.fimg, this.petFollowz.frame, this.petFollowz.wimg, this.petFollowz.himg);
             }
         }
     }
@@ -6653,9 +6329,7 @@ public class Char {
                 }
             }
             for (i = 0; i < arr.length; i++) {
-                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie
-                        && arr[i].timeStone <= 0 && Math.abs(arr[i].cx - this.cx) <= 200
-                        && Math.abs(arr[i].cy - this.cy) <= 200 && !arr[i].isSendSocola30 && !arr[i].isAgainstEffect) {
+                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie && arr[i].timeStone <= 0 && Math.abs(arr[i].cx - this.cx) <= 200 && Math.abs(arr[i].cy - this.cy) <= 200 && !arr[i].isSendSocola30 && !arr[i].isAgainstEffect) {
                     arr[i].timeStone = 30000;
                     arr[i].setItem(4392, second, 0, 0);
                 }
@@ -6677,9 +6351,7 @@ public class Char {
                 if (num <= 0) {
                     break;
                 }
-                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie
-                        && arr[i].timeStone <= 0 && myChar.isMeCanAttackOtherPlayer(arr[i]) && !arr[i].isSendSocola30
-                        && !arr[i].isAgainstEffect) {
+                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie && arr[i].timeStone <= 0 && myChar.isMeCanAttackOtherPlayer(arr[i]) && !arr[i].isSendSocola30 && !arr[i].isAgainstEffect) {
                     arr[i].timeStone = 30000;
                     arr[i].setItem(4392, second, 0, 0);
                     num--;
@@ -6699,9 +6371,7 @@ public class Char {
                 }
             }
             for (i = 0; i < arr.length; i++) {
-                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie
-                        && Math.abs(arr[i].cx - this.cx) <= 200 && Math.abs(arr[i].cy - this.cy) <= 200
-                        && !arr[i].isSendSocola30 && !arr[i].isAgainstEffect) {
+                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie && Math.abs(arr[i].cx - this.cx) <= 200 && Math.abs(arr[i].cy - this.cy) <= 200 && !arr[i].isSendSocola30 && !arr[i].isAgainstEffect) {
                     arr[i].setItem(4133, second, 0, 0);
                 }
             }
@@ -6719,9 +6389,7 @@ public class Char {
                 }
             }
             for (i = 0; i < arr.length; i++) {
-                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie
-                        && Math.abs(arr[i].cx - this.cx) <= 200 && Math.abs(arr[i].cy - this.cy) <= 200
-                        && arr[i].cMP < arr[i].cMPFull) {
+                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie && Math.abs(arr[i].cx - this.cx) <= 200 && Math.abs(arr[i].cy - this.cy) <= 200 && arr[i].cMP < arr[i].cMPFull) {
                     arr[i].upMP((int) ((long) arr[i].cMPFull * (long) percent / 100L));
                     if (arr[i].session != null) {
                         arr[i].session.service.meLoadMP(arr[i].cMP);
@@ -6762,8 +6430,7 @@ public class Char {
         }
         for (i = 0; i < arrMob.length; i++) {
             Mob mob = arrMob[i];
-            if (mob != null && this.isMeCanAttackOtherMob(mob) && Math.abs(this.cx - mob.pointx) <= 200
-                    && Math.abs(this.cy - mob.pointy) <= 200) {
+            if (mob != null && this.isMeCanAttackOtherMob(mob) && Math.abs(this.cx - mob.pointx) <= 200 && Math.abs(this.cy - mob.pointy) <= 200) {
                 dam = this.cHPFull;
                 mob.AttackMob(this, dam, false, 3, -1);
             }
@@ -6771,10 +6438,8 @@ public class Char {
         for (i = 0; i < arrChar.length; i++) {
             Char player = arrChar[i];
             if (player != null) {
-                if (this.cTemplateType == 48 && player.isTemplate)
-                    continue;
-                if (!player.isDie && player.charID != this.charID && Math.abs(this.cx - player.cx) <= 200
-                        && Math.abs(this.cy - player.cy) <= 200 && this.isMeCanAttackOtherPlayer(player)) {
+                if (this.cTemplateType == 48 && player.isTemplate) continue;
+                if (!player.isDie && player.charID != this.charID && Math.abs(this.cx - player.cx) <= 200 && Math.abs(this.cy - player.cy) <= 200 && this.isMeCanAttackOtherPlayer(player)) {
                     dam = this.cHPFull;
                     // Bat khien
                     if (dam > 1 && player.protectEff) {
@@ -6818,8 +6483,7 @@ public class Char {
 
     public DuaHau getDuaHau(int id, int icon) {
         for (int i = 0; i < this.duahaus.size(); i++) {
-            if (this.duahaus.get(i).id == id
-                    && (icon == -1 || this.duahaus.get(i).duahau[this.duahaus.get(i).duaHauIndex] == icon)) {
+            if (this.duahaus.get(i).id == id && (icon == -1 || this.duahaus.get(i).duahau[this.duahaus.get(i).duaHauIndex] == icon)) {
                 return this.duahaus.get(i);
             }
         }
@@ -6828,8 +6492,7 @@ public class Char {
 
     public boolean isHaveDuaHau(int id, int icon) {
         for (int i = 0; i < this.duahaus.size(); i++) {
-            if (this.duahaus.get(i).id == id
-                    && (icon == -1 || this.duahaus.get(i).duahau[this.duahaus.get(i).duaHauIndex] == icon)) {
+            if (this.duahaus.get(i).id == id && (icon == -1 || this.duahaus.get(i).duahau[this.duahaus.get(i).duaHauIndex] == icon)) {
                 return true;
             }
         }
@@ -6983,10 +6646,7 @@ public class Char {
     }
 
     public void initArchivement() {
-        int myArray[] = new int[][] {
-                { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 },
-                { 0, 20, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 },
-                { 0, 21, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 } }[this.cgender];
+        int myArray[] = new int[][]{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}, {0, 20, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}, {0, 21, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}}[this.cgender];
         for (int i = 0; i < myArray.length; i++) {
             if (!this.isHaveArchivementById(myArray[i])) {
                 this.archivements.add(new ArchivementTask(myArray[i], 0, false, false));
@@ -7097,7 +6757,7 @@ public class Char {
 
     public void callDragon(Item item) {
         if (item.template.id == 14) {
-            this.arrItem = new Item[] { item };
+            this.arrItem = new Item[]{item};
             //
             this.resetMenu();
             this.menuBoard.chat = mResources.YOU_INVATE_DRAGON;
@@ -7108,7 +6768,7 @@ public class Char {
             this.menuBoard.openUIConfirm(5, null, null, -1);
         }
         if (item.template.id == 807) {
-            this.arrItem = new Item[] { item };
+            this.arrItem = new Item[]{item};
             //
             this.resetMenu();
             this.menuBoard.chat = mResources.YOU_INVATE_DRAGON_2;
@@ -7117,7 +6777,7 @@ public class Char {
             this.menuBoard.openUIConfirm(5, null, null, -1);
         }
         if (item.template.id == 925) {
-            this.arrItem = new Item[] { item };
+            this.arrItem = new Item[]{item};
             //
             this.resetMenu();
             this.menuBoard.chat = mResources.YOU_INVATE_DRAGON_3;
@@ -7127,7 +6787,7 @@ public class Char {
         }
         // Namek Dragon Ball (353-359)
         if (item.template.id >= 353 && item.template.id <= 359) {
-            this.arrItem = new Item[] { item };
+            this.arrItem = new Item[]{item};
             this.resetMenu();
             this.menuBoard.chat = "Sử dụng ngọc rồng?";
             this.menuBoard.arrMenu.add(new MenuInfo(mResources.AGREE, 294));
@@ -7144,8 +6804,7 @@ public class Char {
                 boolean b = true;
                 if (b) {
                     for (i = 0; i < this.arrItemBag.length; i++) {
-                        if (this.arrItemBag[i] != null && this.arrItemBag[i].template.type == j
-                                && this.arrItemBag[i].isItemSKH()) {
+                        if (this.arrItemBag[i] != null && this.arrItemBag[i].template.type == j && this.arrItemBag[i].isItemSKH()) {
                             num++;
                             b = false;
                             break;
@@ -7154,8 +6813,7 @@ public class Char {
                 }
                 if (b) {
                     for (i = 0; i < this.arrItemBox.length; i++) {
-                        if (this.arrItemBox[i] != null && this.arrItemBox[i].template.type == j
-                                && this.arrItemBox[i].isItemSKH()) {
+                        if (this.arrItemBox[i] != null && this.arrItemBox[i].template.type == j && this.arrItemBox[i].isItemSKH()) {
                             num++;
                             b = false;
                             break;
@@ -7164,8 +6822,7 @@ public class Char {
                 }
                 if (b) {
                     for (i = 0; i < this.arrItemBody.length; i++) {
-                        if (this.arrItemBody[i] != null && this.arrItemBody[i].template.type == j
-                                && this.arrItemBody[i].isItemSKH()) {
+                        if (this.arrItemBody[i] != null && this.arrItemBody[i].template.type == j && this.arrItemBody[i].isItemSKH()) {
                             num++;
                             b = false;
                             break;
@@ -7411,8 +7068,7 @@ public class Char {
         for (i = 0; i < this.arrItemBag.length; i++) {
             if (this.arrItemBag[i] != null) {
                 for (int j = 0; j < templateId.length; j++)
-                    if (this.arrItemBag[i].template.id == templateId[j])
-                        return true;
+                    if (this.arrItemBag[i].template.id == templateId[j]) return true;
             }
         }
         return false;
@@ -7458,8 +7114,7 @@ public class Char {
         if (this.arrItemBag[item.indexUI] != null && this.arrItemBag[item.indexUI] == item && item.quantity >= nShoot) {
             this.useItemBag(item.indexUI, nShoot);
             this.zoneMap.addPhaoHoa(nShoot, this.cx, this.cy - 24, (byte) 0);
-            Server.gI().chatVip(String.format(mResources.PLAYER_DOT_PHAO, this.cName, nShoot,
-                    this.zoneMap.mapTemplate.mapName, this.zoneMap.zoneID));
+            Server.gI().chatVip(String.format(mResources.PLAYER_DOT_PHAO, this.cName, nShoot, this.zoneMap.mapTemplate.mapName, this.zoneMap.zoneID));
         }
     }
 
@@ -7467,8 +7122,7 @@ public class Char {
         if (this.arrItemBag[item.indexUI] != null && this.arrItemBag[item.indexUI] == item && item.quantity >= nShoot) {
             this.useItemBag(item.indexUI, nShoot);
             this.zoneMap.addPhaoHoa(nShoot, this.cx, this.cy - 24, (byte) 1);
-            Server.gI().chatVip(String.format(mResources.PLAYER_HOA_DANG, this.cName, nShoot,
-                    this.zoneMap.mapTemplate.mapName, this.zoneMap.zoneID));
+            Server.gI().chatVip(String.format(mResources.PLAYER_HOA_DANG, this.cName, nShoot, this.zoneMap.mapTemplate.mapName, this.zoneMap.zoneID));
         }
     }
 
@@ -7627,13 +7281,11 @@ public class Char {
 
     private void petzAuto() {
         if (!this.isDie && this.petStatus != 3 && this.petStatus != 4) {
-            if ((this.myPetz().zoneMap != this.myCharz().zoneMap || !this.myPetz().isInMap)
-                    && !this.myPetz().isStand()) {
+            if ((this.myPetz().zoneMap != this.myCharz().zoneMap || !this.myPetz().isInMap) && !this.myPetz().isStand()) {
                 if (this.myPetz().isInMap) {
                     this.myPetz().zoneMap.exit(this.myPetz(), 0);
                 }
-                if (this.myCharz().zoneMap != null && !Map.isMapOffline(this.myCharz().mapTemplateId)
-                        && this.myCharz().mapTemplateId != 51 && this.myCharz().mapTemplateId != 113) {
+                if (this.myCharz().zoneMap != null && !Map.isMapOffline(this.myCharz().mapTemplateId) && this.myCharz().mapTemplateId != 51 && this.myCharz().mapTemplateId != 113) {
                     int x = Util.gI().nextInt(this.myCharz().cx - 48, this.myCharz().cx + 48);
                     if (Math.abs(x - this.myCharz().cx) < 24) {
                         if (x > this.myCharz().cx) {
@@ -7647,23 +7299,18 @@ public class Char {
             }
 
             // Tan cong lau lau go me
-            if (this.myPetz().isInMap && !this.myPetz().isStand() && !this.myPetz().isCharge
-                    && this.myPetz().petStatus != 2 && Util.gI().nextInt(1000) < 1) {
+            if (this.myPetz().isInMap && !this.myPetz().isStand() && !this.myPetz().isCharge && this.myPetz().petStatus != 2 && Util.gI().nextInt(1000) < 1) {
                 this.myPetz().goMe();
             }
             if (!this.myPetz().isCharge && !this.myPetz().gong && this.myPetz().timeLoadSkill <= 0) {
                 for (int i = this.myPetz().skills.size() - 1; i >= 0; --i) {
                     Skill skill = this.myPetz().skills.get(i);
-                    if (((skill.isChuong() || skill.isDonDanh()))
-                            || (skill.lastTimeUseThisSkill < System.currentTimeMillis() && (skill.template.id != 8
-                                    || (100f / (float) this.myPetz().cHPFull * (float) this.myPetz().cHP <= 10 || 100f
-                                            / (float) this.myPetz().cMPFull * (float) this.myPetz().cMP <= 10)))) {
+                    if (((skill.isChuong() || skill.isDonDanh())) || (skill.lastTimeUseThisSkill < System.currentTimeMillis() && (skill.template.id != 8 || (100f / (float) this.myPetz().cHPFull * (float) this.myPetz().cHP <= 10 || 100f / (float) this.myPetz().cMPFull * (float) this.myPetz().cMP <= 10)))) {
                         int manaUse = skill.manaUse;
                         if (skill.template.manaUseType == 1) {
                             manaUse = (int) ((long) this.myPetz().cMPFull * (long) manaUse / 100);
                         }
-                        if (this.myPetz().cMP >= manaUse && (skill.template.id != 9 || (skill.template.id == 9
-                                && 100f / (float) this.myPetz().cHPFull * (float) this.myPetz().cHP > 10))) {
+                        if (this.myPetz().cMP >= manaUse && (skill.template.id != 9 || (skill.template.id == 9 && 100f / (float) this.myPetz().cHPFull * (float) this.myPetz().cHP > 10))) {
                             this.myPetz().mySkill = skill;
                             break;
                         }
@@ -7671,12 +7318,9 @@ public class Char {
                     }
                 }
             }
-            if ((this.myPetz().petStatus == 1 || this.myPetz().petStatus == 2) && this.myPetz().isInMap
-                    && !this.myPetz().isStand() && this.myPetz().timeHit <= 0 && this.myPetz().timeLoadSkill <= 0
-                    && (this.myCharz().isBuaDeTu || this.myPetz().timeDanh != 0)) {
+            if ((this.myPetz().petStatus == 1 || this.myPetz().petStatus == 2) && this.myPetz().isInMap && !this.myPetz().isStand() && this.myPetz().timeHit <= 0 && this.myPetz().timeLoadSkill <= 0 && (this.myCharz().isBuaDeTu || this.myPetz().timeDanh != 0)) {
                 if (this.myPetz().cStamina <= 0) {
-                    if (Math.abs(this.myPetz().cx - this.myCharz().cx) > 50
-                            || Math.abs(this.myPetz().cy - this.myCharz().cy) > 50) {
+                    if (Math.abs(this.myPetz().cx - this.myCharz().cx) > 50 || Math.abs(this.myPetz().cy - this.myCharz().cy) > 50) {
                         this.myPetz().goMe();
                     }
                     if (!this.isCallDau) {
@@ -7721,8 +7365,7 @@ public class Char {
                                 default:
                                     this.myPetz().aMobFocus.clear();
                                     this.myPetz().aCharFocus.clear();
-                                    if (this.myPetz().charFocus != null
-                                            && this.myPetz().isMeCanAttackOtherPlayer(this.myPetz().charFocus)) {
+                                    if (this.myPetz().charFocus != null && this.myPetz().isMeCanAttackOtherPlayer(this.myPetz().charFocus)) {
                                         this.myPetz().aCharFocus.add(this.myPetz().charFocus);
                                     } else {
                                         if (this.myPetz().charFocus != null) {
@@ -7737,27 +7380,15 @@ public class Char {
                                                 if (this.myPetz().aMobFocus.size() >= skillF.maxFight) {
                                                     break;
                                                 }
-                                                if (!this.myPetz().zoneMap.mobs.get(i2).isDie
-                                                        && !this.myPetz().zoneMap.mobs.get(i2).isMobMe) {
-                                                    if ((this.myPetz().petStatus == 2) || (this.myPetz().petStatus == 1
-                                                            && Math.abs(this.myCharz().cx
-                                                                    - this.myPetz().zoneMap.mobs.get(i2).pointx) <= 125
-                                                            && Math.abs(this.myCharz().cy - this.myPetz().zoneMap.mobs
-                                                                    .get(i2).pointy) <= 125)) {
-                                                        if ((Math
-                                                                .abs(this.myPetz().zoneMap.mobs.get(i2).pointx
-                                                                        - this.myPetz().cx) > skillF.dx
-                                                                || Math.abs(this.myPetz().zoneMap.mobs.get(i2).pointy
-                                                                        - this.myPetz().cy) > skillF.dy)) {
+                                                if (!this.myPetz().zoneMap.mobs.get(i2).isDie && !this.myPetz().zoneMap.mobs.get(i2).isMobMe) {
+                                                    if ((this.myPetz().petStatus == 2) || (this.myPetz().petStatus == 1 && Math.abs(this.myCharz().cx - this.myPetz().zoneMap.mobs.get(i2).pointx) <= 125 && Math.abs(this.myCharz().cy - this.myPetz().zoneMap.mobs.get(i2).pointy) <= 125)) {
+                                                        if ((Math.abs(this.myPetz().zoneMap.mobs.get(i2).pointx - this.myPetz().cx) > skillF.dx || Math.abs(this.myPetz().zoneMap.mobs.get(i2).pointy - this.myPetz().cy) > skillF.dy)) {
                                                             goMob = this.myPetz().zoneMap.mobs.get(i2);
                                                             this.myPetz().cx = goMob.pointx;
                                                             this.myPetz().cy = goMob.pointy;
                                                         }
                                                     }
-                                                    if (Math.abs(this.myPetz().cx
-                                                            - this.myPetz().zoneMap.mobs.get(i2).pointx) <= skillF.dx
-                                                            && Math.abs(this.myPetz().cy - this.myPetz().zoneMap.mobs
-                                                                    .get(i2).pointy) <= skillF.dy) {
+                                                    if (Math.abs(this.myPetz().cx - this.myPetz().zoneMap.mobs.get(i2).pointx) <= skillF.dx && Math.abs(this.myPetz().cy - this.myPetz().zoneMap.mobs.get(i2).pointy) <= skillF.dy) {
                                                         this.myPetz().aMobFocus.add(this.myPetz().zoneMap.mobs.get(i2));
                                                     }
                                                 }
@@ -7770,45 +7401,30 @@ public class Char {
                                     if (this.myPetz().aMobFocus.size() > 0 || this.myPetz().aCharFocus.size() > 0) {
                                         if (this.myPetz().aMobFocus.size() > 0) {
                                             if (skillF.dx < 50 || skillF.dy < 50) {
-                                                this.myPetz().addMove(0,
-                                                        Util.gI().nextInt(
-                                                                this.myPetz().aMobFocus.get(0).pointx - skillF.dx,
-                                                                this.myPetz().aMobFocus.get(0).pointx + skillF.dx),
-                                                        this.myPetz().aMobFocus.get(0).pointy, 0);
+                                                this.myPetz().addMove(0, Util.gI().nextInt(this.myPetz().aMobFocus.get(0).pointx - skillF.dx, this.myPetz().aMobFocus.get(0).pointx + skillF.dx), this.myPetz().aMobFocus.get(0).pointy, 0);
                                             }
-                                            if (skillF.isChuong() && Math.abs(
-                                                    this.myPetz().cx - this.myPetz().aMobFocus.get(0).pointx) < 100) {
+                                            if (skillF.isChuong() && Math.abs(this.myPetz().cx - this.myPetz().aMobFocus.get(0).pointx) < 100) {
                                                 if (this.myPetz().cx > this.myPetz().aMobFocus.get(0).pointx) {
-                                                    this.myPetz().addMove(0,
-                                                            this.myPetz().aMobFocus.get(0).pointx + 120, -1, 0);
+                                                    this.myPetz().addMove(0, this.myPetz().aMobFocus.get(0).pointx + 120, -1, 0);
                                                 } else {
-                                                    this.myPetz().addMove(0,
-                                                            this.myPetz().aMobFocus.get(0).pointx - 120, -1, 0);
+                                                    this.myPetz().addMove(0, this.myPetz().aMobFocus.get(0).pointx - 120, -1, 0);
                                                 }
                                             }
                                         }
                                         if (this.myPetz().aCharFocus.size() > 0) {
                                             if (skillF.dx < 50 || skillF.dy < 50) {
-                                                this.myPetz().addMove(0,
-                                                        Util.gI().nextInt(
-                                                                this.myPetz().aCharFocus.get(0).cx - skillF.dx,
-                                                                this.myPetz().aCharFocus.get(0).cx + skillF.dx),
-                                                        this.myPetz().aCharFocus.get(0).cy, 0);
+                                                this.myPetz().addMove(0, Util.gI().nextInt(this.myPetz().aCharFocus.get(0).cx - skillF.dx, this.myPetz().aCharFocus.get(0).cx + skillF.dx), this.myPetz().aCharFocus.get(0).cy, 0);
                                             }
-                                            if (skillF.isChuong() && Math
-                                                    .abs(this.myPetz().cx - this.myPetz().aCharFocus.get(0).cx) < 100) {
+                                            if (skillF.isChuong() && Math.abs(this.myPetz().cx - this.myPetz().aCharFocus.get(0).cx) < 100) {
                                                 if (this.myPetz().cx > this.myPetz().aCharFocus.get(0).cx) {
-                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.get(0).cx + 120,
-                                                            -1, 0);
+                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.get(0).cx + 120, -1, 0);
                                                 } else {
-                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.get(0).cx - 120,
-                                                            -1, 0);
+                                                    this.myPetz().addMove(0, this.myPetz().aCharFocus.get(0).cx - 120, -1, 0);
                                                 }
                                             }
                                         }
                                         this.myPetz().cStamina--;
-                                        this.myPetz().Attack(skillF, this.myPetz().aMobFocus, this.myPetz().aCharFocus,
-                                                1);
+                                        this.myPetz().Attack(skillF, this.myPetz().aMobFocus, this.myPetz().aCharFocus, 1);
                                     }
                                     break;
                             }
@@ -7869,8 +7485,7 @@ public class Char {
                             if (this.session != null) {
                                 this.session.service.Body(this.head, this.arrItemBody);
                                 this.session.service.Bag(this.arrItemBag);
-                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                        this.isMonkey);
+                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             }
                         }
                     }
@@ -7912,8 +7527,7 @@ public class Char {
                             if (this.session != null) {
                                 this.session.service.Body(this.head, this.arrItemBody);
                                 this.session.service.Bag(this.arrItemBag);
-                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                        this.isMonkey);
+                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             }
                         }
                     }
@@ -7945,8 +7559,7 @@ public class Char {
                             if (this.session != null) {
                                 this.session.service.Body(this.head, this.arrItemBody);
                                 this.session.service.Bag(this.arrItemBag);
-                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                        this.isMonkey);
+                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             }
                         }
                     }
@@ -7978,8 +7591,7 @@ public class Char {
                             if (this.session != null) {
                                 this.session.service.Body(this.head, this.arrItemBody);
                                 this.session.service.Bag(this.arrItemBag);
-                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                        this.isMonkey);
+                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             }
                         }
                     }
@@ -8011,8 +7623,7 @@ public class Char {
                             if (this.session != null) {
                                 this.session.service.Body(this.head, this.arrItemBody);
                                 this.session.service.Bag(this.arrItemBag);
-                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                        this.isMonkey);
+                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             }
                         }
                     }
@@ -8041,8 +7652,7 @@ public class Char {
                             if (this.session != null) {
                                 this.session.service.Body(this.head, this.arrItemBody);
                                 this.session.service.Bag(this.arrItemBag);
-                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                        this.isMonkey);
+                                this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             }
                         }
                     }
@@ -8066,13 +7676,11 @@ public class Char {
         this.timeBlackBall -= this.delay;
         this.timeChatWinBlackBall -= this.delay;
         if (timeChatWinBlackBall <= 0) {
-            this.session.service.chatTHEGIOI(mResources.EMPTY,
-                    String.format(mResources.DELAY_WIN_NRSD, this.timeBlackBall / 1000), null, 0);
+            this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.DELAY_WIN_NRSD, this.timeBlackBall / 1000), null, 0);
             timeChatWinBlackBall = 10000;
         }
         if (this.timeBlackBall <= 0 || BlackBall.gI().isWinAll) {
-            this.session.service.chatTHEGIOI(mResources.EMPTY,
-                    String.format(mResources.NRSD_WIN_TO_CLAN, this.itemBlackBall.template.name), null, 0);
+            this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.NRSD_WIN_TO_CLAN, this.itemBlackBall.template.name), null, 0);
             this.zoneMap.isWinBlackBall = true;
             this.addItemBlackBall(this.itemBlackBall);
             this.throwBlackBall();
@@ -8082,8 +7690,7 @@ public class Char {
 
     private void updateMapClan() {
         // Ra khoi lanh dia
-        if (this.zoneMap != null && this.mapTemplateId == 153 && this.cx <= 35 && this.cy <= 400 && this.me
-                && !this.isTemplate) {
+        if (this.zoneMap != null && this.mapTemplateId == 153 && this.cx <= 35 && this.cy <= 400 && this.me && !this.isTemplate) {
             Map vodis_ = Map.getMapServer(5);
             if (vodis_ != null) {
                 ZoneMap ureit_ = vodis_.getZone(this);
@@ -8102,24 +7709,14 @@ public class Char {
         if (indexUI == -1) {
             indexUI = this.getEmptyBagIndex();
         }
-        return (indexUI != -1 && (this.arrItemBag[indexUI] == null
-                || (this.arrItemBag[indexUI].quantity + item.quantity <= item.maxQuantity())
-                || (item.isBigItem() && this.totalBagByItem(item) >= item.quantity)
-                || (item.isItemSLL()
-                        && this.arrItemBag[indexUI].getParamOption(31) + item.getParamOption(31) <= 30000)))
-                || item.template.id == 74 || item.template.id == 453 || item.template.id == 516
-                || item.template.id == 568 || item.template.type == 9 || item.template.type == 10
-                || item.template.type == 34 || item.isItemBlackBall() || item.isItemNameBall()
-                || (this.isHaveItem(item.template.id) && item.template.id == 521) || item.template.id == 517
-                || item.template.id == 518;
+        return (indexUI != -1 && (this.arrItemBag[indexUI] == null || (this.arrItemBag[indexUI].quantity + item.quantity <= item.maxQuantity()) || (item.isBigItem() && this.totalBagByItem(item) >= item.quantity) || (item.isItemSLL() && this.arrItemBag[indexUI].getParamOption(31) + item.getParamOption(31) <= 30000))) || item.template.id == 74 || item.template.id == 453 || item.template.id == 516 || item.template.id == 568 || item.template.type == 9 || item.template.type == 10 || item.template.type == 34 || item.isItemBlackBall() || item.isItemNameBall() || (this.isHaveItem(item.template.id) && item.template.id == 521) || item.template.id == 517 || item.template.id == 518;
     }
 
     private void updateStab() {
         this.tStab -= this.delay;
         if (this.tStab <= 0) {
             this.tStab = 1000;
-            if ((this.zoneMap.mapTemplate.tileAt(this.cx / 24, this.cy / 24) == 25
-                    || this.zoneMap.mapTemplate.tileAt(this.cx / 24, this.cy / 24) == 33)) {
+            if ((this.zoneMap.mapTemplate.tileAt(this.cx / 24, this.cy / 24) == 25 || this.zoneMap.mapTemplate.tileAt(this.cx / 24, this.cy / 24) == 33)) {
                 this.stab();
             }
         }
@@ -8143,15 +7740,13 @@ public class Char {
                 }
             }
         } else if (this.tToHome / 1000 > 0 && (this.tToHome / 1000) % 10 == 0) {
-            this.session.service.chatTHEGIOI(mResources.EMPTY,
-                    String.format(mResources.GO_HOME_AFTER, this.tToHome / 1000), null, 0);
+            this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.GO_HOME_AFTER, this.tToHome / 1000), null, 0);
         }
     }
 
     public void setMountIsStart() {
         this.isHaveMount = this.checkHaveMount();
-        if (this.mapTemplateId == 112 || this.mapTemplateId == 113 || this.mapTemplateId == 51
-                || this.mapTemplateId == 103) {
+        if (this.mapTemplateId == 112 || this.mapTemplateId == 113 || this.mapTemplateId == 51 || this.mapTemplateId == 103) {
             this.isHaveMount = false;
         }
     }
@@ -8603,8 +8198,7 @@ public class Char {
                         this.isXenBoHung2 = false;
                     }
                     // Hop the
-                    if ((this.itemTime.get(i).idIcon == 3790 || this.itemTime.get(i).idIcon == 3901)
-                            && this.myPet != null) {
+                    if ((this.itemTime.get(i).idIcon == 3790 || this.itemTime.get(i).idIcon == 3901) && this.myPet != null) {
                         this.myPetz().petStatus = 1;
                         this.myPetz().isHopThe = 0;
                         this.myPetz().timeHopThe = 1000 * 60;
@@ -8620,9 +8214,7 @@ public class Char {
                     }
 
                     // Thuc an
-                    if (this.itemTime.get(i).idIcon == 6324 || this.itemTime.get(i).idIcon == 6325
-                            || this.itemTime.get(i).idIcon == 6326 || this.itemTime.get(i).idIcon == 6327
-                            || this.itemTime.get(i).idIcon == 6328) {
+                    if (this.itemTime.get(i).idIcon == 6324 || this.itemTime.get(i).idIcon == 6325 || this.itemTime.get(i).idIcon == 6326 || this.itemTime.get(i).idIcon == 6327 || this.itemTime.get(i).idIcon == 6328) {
                         this.isThucAn = false;
                         this.updateAll();
                         if (this.session != null) {
@@ -8718,8 +8310,7 @@ public class Char {
                         this.isCommeson = false;
                     }
                     // ma phong ba
-                    if (this.itemTime.get(i).idIcon == 11183 || this.itemTime.get(i).idIcon == 11192
-                            || this.itemTime.get(i).idIcon == 11173) {
+                    if (this.itemTime.get(i).idIcon == 11183 || this.itemTime.get(i).idIcon == 11192 || this.itemTime.get(i).idIcon == 11173) {
                         this.isMaPhongBa1 = false;
                         this.updateAll();
                         if (this.zoneMap != null) {
@@ -8797,8 +8388,7 @@ public class Char {
                         this.updateAll();
                         if (this.session != null) {
                             this.session.service.meLoadPoint();
-                            this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                    this.isMonkey);
+                            this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             this.session.service.getBag(this.charID, this.bag);
                         }
                         if (this.zoneMap != null) {
@@ -8844,14 +8434,13 @@ public class Char {
 
     public void wish() {
         if (Util.gI().nextInt(100) < 20) {
-            short id_34523 = new short[] { 828, 829, 830, 831, 832, 833, 834, 835, 836 }[Util.gI().nextInt(9)];
+            short id_34523 = new short[]{828, 829, 830, 831, 832, 833, 834, 835, 836}[Util.gI().nextInt(9)];
             this.addItemBag(0, new Item(id_34523, false, 1, ItemOption.getOption(id_34523, 0, 0), "", "", ""));
         } else if (Util.gI().nextInt(100) < 20) {
-            short id_34533 = new short[] { 213, 214, 215, 216, 217, 218, 219 }[Util.gI().nextInt(7)];
+            short id_34533 = new short[]{213, 214, 215, 216, 217, 218, 219}[Util.gI().nextInt(7)];
             this.addItemBag(0, new Item(id_34533, false, 1, ItemOption.getOption(id_34533, 0, 0), "", "", ""));
         } else if (Util.gI().nextInt(100) < 20) {
-            this.addItemBag(0,
-                    new Item(595, false, Util.gI().nextInt(1, 3) * 10, ItemOption.getOption(595, 0, 0), "", "", ""));
+            this.addItemBag(0, new Item(595, false, Util.gI().nextInt(1, 3) * 10, ItemOption.getOption(595, 0, 0), "", "", ""));
         } else if (Util.gI().nextInt(100) < 10) {
             if (this.cgender == 0) {
                 Item item_496 = new Item(604, false, 1, ItemOption.getOption(604, 0, 0), "", "", "");
@@ -8877,18 +8466,17 @@ public class Char {
             item_450.options.add(new ItemOption(93, 3));
             this.addItemBag(0, item_450);
         } else {
-            this.addItemBag(0,
-                    new Item(595, false, Util.gI().nextInt(1, 3) * 10, ItemOption.getOption(595, 0, 0), "", "", ""));
+            this.addItemBag(0, new Item(595, false, Util.gI().nextInt(1, 3) * 10, ItemOption.getOption(595, 0, 0), "", "", ""));
         }
     }
 
     public void wish2() {
         Item item = null;
         if (Util.gI().nextInt(100) < 10) {
-            short id_34523 = new short[] { 828, 829, 830, 831, 832, 833, 834, 835, 836 }[Util.gI().nextInt(9)];
+            short id_34523 = new short[]{828, 829, 830, 831, 832, 833, 834, 835, 836}[Util.gI().nextInt(9)];
             item = new Item(id_34523, false, 1, ItemOption.getOption(id_34523, 0, 0), "", "", "");
         } else if (Util.gI().nextInt(100) < 10) {
-            short id_34533 = new short[] { 213, 214, 215, 216, 217, 218, 219 }[Util.gI().nextInt(7)];
+            short id_34533 = new short[]{213, 214, 215, 216, 217, 218, 219}[Util.gI().nextInt(7)];
             item = new Item(id_34533, false, 1, ItemOption.getOption(id_34533, 0, 0), "", "", "");
         } else if (Util.gI().nextInt(100) < 10) {
             item = new Item(595, false, Util.gI().nextInt(1, 3) * 10, ItemOption.getOption(595, 0, 0), "", "", "");
@@ -8909,14 +8497,14 @@ public class Char {
             item = new Item(765, false, 1, ItemOption.getOption(765, 0, 0), "", "", "");
             item.options.add(new ItemOption(93, 3));
         } else if (Util.gI().nextInt(100) < 10) {
-            short id_796 = new short[] { 382, 383 }[Util.gI().nextInt(2)];
+            short id_796 = new short[]{382, 383}[Util.gI().nextInt(2)];
             item = new Item(id_796, false, 1, ItemOption.getOption(id_796, 0, 0), "", "", "");
         } else if (Util.gI().nextInt(100) < 10) {
-            short id_9487 = new short[] { 916, 917, 918 }[Util.gI().nextInt(3)];
+            short id_9487 = new short[]{916, 917, 918}[Util.gI().nextInt(3)];
             item = new Item(id_9487, false, 1, ItemOption.getOption(id_9487, 0, 0), "", "", "");
             item.options.add(new ItemOption(93, Util.gI().nextInt(3, 14)));
         } else if (Util.gI().nextInt(100) < 10) {
-            short id_349 = new short[] { 465, 466 }[Util.gI().nextInt(2)];
+            short id_349 = new short[]{465, 466}[Util.gI().nextInt(2)];
             item = new Item(id_349, false, 1, ItemOption.getOption(id_349, 0, 0), "", "", "");
             item.options.add(new ItemOption(93, 30));
         } else if (Util.gI().nextInt(100) < 10) {
@@ -8936,7 +8524,7 @@ public class Char {
             int id_9023845 = Util.gI().nextInt(712, 716);
             item = new Item(id_9023845, false, 1, ItemOption.getOption(id_9023845, 0, 0), "", "", "");
         } else if (Util.gI().nextInt(300) < 1) {
-            short id_9sd8 = new short[] { 916, 917, 918 }[Util.gI().nextInt(3)];
+            short id_9sd8 = new short[]{916, 917, 918}[Util.gI().nextInt(3)];
             item = new Item(id_9sd8, false, 1, ItemOption.getOption(id_9sd8, 0, 0), "", "", "");
         } else if (Util.gI().nextInt(300) < 1) {
             item = new Item(734, false, 1, ItemOption.getOption(734, 0, 0), "", "", "");
@@ -8945,8 +8533,7 @@ public class Char {
         }
         if (item != null) {
             this.addItemBag(0, item);
-            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID,
-                    this.pointEvent += 1, -1);
+            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID, this.pointEvent += 1, -1);
         }
     }
 
@@ -9009,8 +8596,7 @@ public class Char {
             this.zoneMap.setCocoon(this.charID, false);
         }
         // Skill mabu
-        if (this.zoneMap != null && this.isSkillMabu && !this.isDie && !this.isFreez && !this.sleepEff && !this.holder
-                && this.isAtt && !this.isSuper) {
+        if (this.zoneMap != null && this.isSkillMabu && !this.isDie && !this.isFreez && !this.sleepEff && !this.holder && this.isAtt && !this.isSuper) {
             this.tUseMabu -= this.delay;
             if (this.tUseMabu <= 0) {
                 if (Util.gI().nextInt(100) < 25) {
@@ -9043,13 +8629,7 @@ public class Char {
     private boolean checkHaveEff_Set_Item() {
         this.idEff_Set_Item = -1;
         int level = -1;
-        Item myArray[] = new Item[] {
-                this.arrItemBody[0],
-                this.arrItemBody[1],
-                this.arrItemBody[2],
-                this.arrItemBody[3],
-                this.arrItemBody[4]
-        };
+        Item myArray[] = new Item[]{this.arrItemBody[0], this.arrItemBody[1], this.arrItemBody[2], this.arrItemBody[3], this.arrItemBody[4]};
         for (int i = 0; i < myArray.length; ++i) {
             Item item = myArray[i];
             if (item != null) {
@@ -9231,11 +8811,9 @@ public class Char {
                 this.hold(1, 9000, 40, -1, -1);
                 // Trong tai
                 if (dir == -1) {
-                    this.findBossInMapById(98).addChat(0,
-                            String.format(mResources.CHAT_TRONG_TAI_0, this.cName, bot.cName));
+                    this.findBossInMapById(98).addChat(0, String.format(mResources.CHAT_TRONG_TAI_0, this.cName, bot.cName));
                 }
-                this.findBossInMapById(98).addChat(2000,
-                        String.format(mResources.CHAT_TRONG_TAI_1, this.cName, bot.cName));
+                this.findBossInMapById(98).addChat(2000, String.format(mResources.CHAT_TRONG_TAI_1, this.cName, bot.cName));
                 this.findBossInMapById(98).addChat(4000, mResources.CHAT_TRONG_TAI_2);
                 this.findBossInMapById(98).addChat(6000, mResources.CHAT_TRONG_TAI_3);
                 this.findBossInMapById(98).addChat(8000, mResources.CHAT_TRONG_TAI_8);
@@ -9244,8 +8822,7 @@ public class Char {
                 // bat dau thach dau
                 this.setChallenge(9000, bot);
                 // Reset skill
-                if (this.myObj().nWinHD23 == 0 || this.myObj().nWinHD23 == 2 || this.myObj().nWinHD23 == 4
-                        || this.myObj().nWinHD23 == 6 || this.myObj().nWinHD23 == 8) {
+                if (this.myObj().nWinHD23 == 0 || this.myObj().nWinHD23 == 2 || this.myObj().nWinHD23 == 4 || this.myObj().nWinHD23 == 6 || this.myObj().nWinHD23 == 8) {
                     this.resetSkill();
                 }
             }
@@ -9273,8 +8850,7 @@ public class Char {
                         player.updateArchivement(3, 1L);
                     }
                     // Nhiem vu hang ngay danh bai nguoi khac
-                    if (this.session != null && player.myObj().taskEveryday != null
-                            && player.myObj().taskEveryday.template.type == 4) {
+                    if (this.session != null && player.myObj().taskEveryday != null && player.myObj().taskEveryday.template.type == 4) {
                         if (player.myObj().taskEveryday.addCount(1)) {
                             player.addInfo1(mResources.TAKE_GIFT3);
                         }
@@ -9367,15 +8943,13 @@ public class Char {
                 this.playerSetChallenge.timeThachDau = 0;
                 this.playerSetChallenge.myObj().nWinHD23++;
                 // Nhiem vu
-                if (this.playerSetChallenge.ctaskId == 20 && this.playerSetChallenge.ctaskIndex == 1
-                        && this.playerSetChallenge.myObj().nWinHD23 >= 2) {
+                if (this.playerSetChallenge.ctaskId == 20 && this.playerSetChallenge.ctaskIndex == 1 && this.playerSetChallenge.myObj().nWinHD23 >= 2) {
                     this.playerSetChallenge.updateTask(1);
                 }
                 if (this.playerSetChallenge.myObj().nWinHD23 > 10) {
                     this.playerSetChallenge.setPos(380, 360, 1);
                     // Vo dich giai
-                    this.playerSetChallenge
-                            .addInfo1(String.format(mResources.WINER_DHVT, this.playerSetChallenge.cName));
+                    this.playerSetChallenge.addInfo1(String.format(mResources.WINER_DHVT, this.playerSetChallenge.cName));
                 } else {
                     this.playerSetChallenge.cHP = this.playerSetChallenge.cHPFull;
                     this.playerSetChallenge.cMP = this.playerSetChallenge.cMPFull;
@@ -9403,8 +8977,7 @@ public class Char {
                 LuyenTap.set(this.fightWish1);
                 LuyenTap.get(this.fightWish1.cName).level++;
                 LuyenTap.get(this.fightWish1.cName).last = System.currentTimeMillis();
-                LuyenTap.get(this.fightWish1.cName).timeFight = (int) (System.currentTimeMillis()
-                        - this.fightWish1.lastFight);
+                LuyenTap.get(this.fightWish1.cName).timeFight = (int) (System.currentTimeMillis() - this.fightWish1.lastFight);
                 LuyenTap.sortTOP();
                 if (this.fightWish1.isCallCumber == 0 && Util.gI().nextInt(2) == 0) {
                     this.fightWish1.callMaiAndFu();
@@ -9530,8 +9103,7 @@ public class Char {
                     case 1:
                         this.nArb = 2;
                         this.tArb = 2000;
-                        this.zoneMap.chat(this, String.format(mResources.CHAT_TRONG_TAI_4, this.arbPlayer1.cName,
-                                this.arbPlayer2.cName));
+                        this.zoneMap.chat(this, String.format(mResources.CHAT_TRONG_TAI_4, this.arbPlayer1.cName, this.arbPlayer2.cName));
                         break;
                     case 2:
                         this.nArb = 3;
@@ -9676,8 +9248,7 @@ public class Char {
         if (this.sayConfirm != null && this.nConfirm < this.sayConfirm.length) {
             this.resetMenu();
             this.menuBoard.chat = this.sayConfirm[this.nConfirm];
-            this.menuBoard.arrMenu.add(new MenuInfo(this.sayConfirm.length - 1 == this.nConfirm ? mResources.OK
-                    : String.format(mResources.OK_2, this.sayConfirm.length - this.nConfirm - 1), 0) {
+            this.menuBoard.arrMenu.add(new MenuInfo(this.sayConfirm.length - 1 == this.nConfirm ? mResources.OK : String.format(mResources.OK_2, this.sayConfirm.length - this.nConfirm - 1), 0) {
                 @Override
                 public boolean execute() {
                     Char.this.openConfirm();
@@ -9809,8 +9380,7 @@ public class Char {
         // Tac dung voi chin nga ga chin cua ngua 9 hong mao
         if (!this.vPet9) {
             if (this.timevPet9 >= 20000) {
-                if (this.usePet != null && (this.usePet.template.id == 1224 || this.usePet.template.id == 1225
-                        || this.usePet.template.id == 1226)) {
+                if (this.usePet != null && (this.usePet.template.id == 1224 || this.usePet.template.id == 1225 || this.usePet.template.id == 1226)) {
                     this.timevPet9 = 0;
                     this.setText(10, mResources.NOITAI_CHIN, 10, 0, 15);
                 }
@@ -9832,8 +9402,7 @@ public class Char {
     private void updateTele() {
         if (this.zoneMap != null) {
             // BlackBall
-            if (this.transportOld != null && this.transportOld.map.templateId >= 85
-                    && this.transportOld.map.templateId <= 91 && !BlackBall.gI().isBlackBall) {
+            if (this.transportOld != null && this.transportOld.map.templateId >= 85 && this.transportOld.map.templateId <= 91 && !BlackBall.gI().isBlackBall) {
                 this.transportOld = null;
             }
         }
@@ -9848,8 +9417,7 @@ public class Char {
         }
     }
 
-    public void addEffRong(int rongId, int mapRID, int bgRID, int zoneRID, int charRID, String textR, int xR, int yR,
-            boolean isRongNamek) {
+    public void addEffRong(int rongId, int mapRID, int bgRID, int zoneRID, int charRID, String textR, int xR, int yR, boolean isRongNamek) {
         this.rID = rongId;
         this.mapRID = mapRID;
         this.bgRID = bgRID;
@@ -9860,8 +9428,7 @@ public class Char {
         this.yR = yR;
         this.isRongNamek = isRongNamek;
         this.isRongThanXuatHien = true;
-        this.session.service.callDragon(this.mapRID, this.bgRID, zoneRID, this.charRID, this.textR, this.xR, this.yR,
-                this.isRongNamek ? 1 : 0);
+        this.session.service.callDragon(this.mapRID, this.bgRID, zoneRID, this.charRID, this.textR, this.xR, this.yR, this.isRongNamek ? 1 : 0);
     }
 
     public void hideEffRong() {
@@ -9881,16 +9448,13 @@ public class Char {
         this.typeRong = typeRong;
         this.timeRong = timeRong;
         if (this.typeRong == 1) {
-            this.addEffRong(51, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, this.charID,
-                    mResources.EMPTY, this.cx, this.cy, true);
+            this.addEffRong(51, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, this.charID, mResources.EMPTY, this.cx, this.cy, true);
         }
         if (this.typeRong == 2) {
-            this.addEffRong(59, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, this.charID,
-                    mResources.EMPTY, this.cx, this.cy, true);
+            this.addEffRong(59, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, this.charID, mResources.EMPTY, this.cx, this.cy, true);
         }
         if (this.typeRong == 3) {
-            this.addEffRong(17, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, this.charID,
-                    mResources.EMPTY, this.cx, this.cy, true);
+            this.addEffRong(17, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, this.charID, mResources.EMPTY, this.cx, this.cy, true);
         }
         this.openMenuRong();
     }
@@ -9934,16 +9498,13 @@ public class Char {
                 case 1:
                     if (this.myPet != null) {
                         if (this.myPetz().skills.size() > 1) {
-                            this.myPetz().skills.set(1, Skill.arrSkill[this.myPetz().arrSkillPet[1][Util.gI()
-                                    .nextInt(this.myPetz().arrSkillPet[1].length)]].clone());
+                            this.myPetz().skills.set(1, Skill.arrSkill[this.myPetz().arrSkillPet[1][Util.gI().nextInt(this.myPetz().arrSkillPet[1].length)]].clone());
                         }
                         if (this.myPetz().skills.size() > 2) {
-                            this.myPetz().skills.set(2, Skill.arrSkill[this.myPetz().arrSkillPet[2][Util.gI()
-                                    .nextInt(this.myPetz().arrSkillPet[2].length)]].clone());
+                            this.myPetz().skills.set(2, Skill.arrSkill[this.myPetz().arrSkillPet[2][Util.gI().nextInt(this.myPetz().arrSkillPet[2].length)]].clone());
                         }
                         if (this.myPetz().skills.size() > 3) {
-                            this.myPetz().skills.set(3, Skill.arrSkill[this.myPetz().arrSkillPet[3][Util.gI()
-                                    .nextInt(this.myPetz().arrSkillPet[3].length)]].clone());
+                            this.myPetz().skills.set(3, Skill.arrSkill[this.myPetz().arrSkillPet[3][Util.gI().nextInt(this.myPetz().arrSkillPet[3].length)]].clone());
                         }
                     }
                     break;
@@ -9960,12 +9521,10 @@ public class Char {
                 case 1:
                     if (this.myPet != null) {
                         if (this.myPetz().skills.size() > 2) {
-                            this.myPetz().skills.set(2, Skill.arrSkill[this.myPetz().arrSkillPet[2][Util.gI()
-                                    .nextInt(this.myPetz().arrSkillPet[2].length)]].clone());
+                            this.myPetz().skills.set(2, Skill.arrSkill[this.myPetz().arrSkillPet[2][Util.gI().nextInt(this.myPetz().arrSkillPet[2].length)]].clone());
                         }
                         if (this.myPetz().skills.size() > 3) {
-                            this.myPetz().skills.set(3, Skill.arrSkill[this.myPetz().arrSkillPet[3][Util.gI()
-                                    .nextInt(this.myPetz().arrSkillPet[3].length)]].clone());
+                            this.myPetz().skills.set(3, Skill.arrSkill[this.myPetz().arrSkillPet[3][Util.gI().nextInt(this.myPetz().arrSkillPet[3].length)]].clone());
                         }
                     }
                     break;
@@ -9973,7 +9532,7 @@ public class Char {
                     this.setText(1, mResources.X2_TEXT, 3600, 2, 0);
                     break;
                 case 3:
-                    this.addDuaHau(50, new int[] { 4664 }, 0, 604800, 4664);
+                    this.addDuaHau(50, new int[]{4664}, 0, 604800, 4664);
                     break;
                 case 4:
                     this.setText(4, mResources.AD_SDHPKI_TEXT, 3600, 2, 0);
@@ -9989,16 +9548,13 @@ public class Char {
                     this.addInfo1(mResources.BAG_FULL);
                 } else {
                     if (this.cgender == 0) {
-                        this.addItemBag(0, new Item(227, false, 1, ItemOption.getOption(227, 0, -1), mResources.EMPTY,
-                                mResources.EMPTY, mResources.EMPTY));
+                        this.addItemBag(0, new Item(227, false, 1, ItemOption.getOption(227, 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                     }
                     if (this.cgender == 1) {
-                        this.addItemBag(0, new Item(228, false, 1, ItemOption.getOption(228, 0, -1), mResources.EMPTY,
-                                mResources.EMPTY, mResources.EMPTY));
+                        this.addItemBag(0, new Item(228, false, 1, ItemOption.getOption(228, 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                     }
                     if (this.cgender == 2) {
-                        this.addItemBag(0, new Item(229, false, 1, ItemOption.getOption(229, 0, -1), mResources.EMPTY,
-                                mResources.EMPTY, mResources.EMPTY));
+                        this.addItemBag(0, new Item(229, false, 1, ItemOption.getOption(229, 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                     }
                 }
             }
@@ -10014,8 +9570,7 @@ public class Char {
             if (this.selectRong == 4) {
                 if (this.myPet != null) {
                     if (this.myPetz().skills.size() > 1) {
-                        this.myPetz().skills.set(1, Skill.arrSkill[this.myPetz().arrSkillPet[1][Util.gI()
-                                .nextInt(this.myPetz().arrSkillPet[1].length)]].clone());
+                        this.myPetz().skills.set(1, Skill.arrSkill[this.myPetz().arrSkillPet[1][Util.gI().nextInt(this.myPetz().arrSkillPet[1].length)]].clone());
                     }
                     // if (charz.myPetz().skills.size() > 2) {
                     // charz.myPetz().skills.set(2,
@@ -10044,9 +9599,7 @@ public class Char {
     }
 
     public void menuRong() {
-        if (this.arrItem[0].template.id == 807 && this.getItemBagById(808) != null && this.getItemBagById(809) != null
-                && this.getItemBagById(810) != null && this.getItemBagById(811) != null
-                && this.getItemBagById(812) != null && this.getItemBagById(813) != null) {
+        if (this.arrItem[0].template.id == 807 && this.getItemBagById(808) != null && this.getItemBagById(809) != null && this.getItemBagById(810) != null && this.getItemBagById(811) != null && this.getItemBagById(812) != null && this.getItemBagById(813) != null) {
             this.useItemBag(this.arrItem[0].indexUI, 1);
             this.useItemBag(this.getItemBagById(808).indexUI, 1);
             this.useItemBag(this.getItemBagById(809).indexUI, 1);
@@ -10056,9 +9609,7 @@ public class Char {
             this.useItemBag(this.getItemBagById(813).indexUI, 1);
             this.goirong(1, 300000);
         }
-        if (this.arrItem[0].template.id == 925 && this.getItemBagById(926) != null && this.getItemBagById(927) != null
-                && this.getItemBagById(928) != null && this.getItemBagById(929) != null
-                && this.getItemBagById(930) != null && this.getItemBagById(931) != null) {
+        if (this.arrItem[0].template.id == 925 && this.getItemBagById(926) != null && this.getItemBagById(927) != null && this.getItemBagById(928) != null && this.getItemBagById(929) != null && this.getItemBagById(930) != null && this.getItemBagById(931) != null) {
             this.useItemBag(this.arrItem[0].indexUI, 1);
             this.useItemBag(this.getItemBagById(926).indexUI, 1);
             this.useItemBag(this.getItemBagById(927).indexUI, 1);
@@ -10068,9 +9619,7 @@ public class Char {
             this.useItemBag(this.getItemBagById(931).indexUI, 1);
             this.goirong(2, 300000);
         }
-        if (this.arrItem[0].template.id == 14 && this.getItemBagById(15) != null && this.getItemBagById(16) != null
-                && this.getItemBagById(17) != null && this.getItemBagById(18) != null && this.getItemBagById(19) != null
-                && this.getItemBagById(20) != null) {
+        if (this.arrItem[0].template.id == 14 && this.getItemBagById(15) != null && this.getItemBagById(16) != null && this.getItemBagById(17) != null && this.getItemBagById(18) != null && this.getItemBagById(19) != null && this.getItemBagById(20) != null) {
             this.useItemBag(this.arrItem[0].indexUI, 1);
             this.useItemBag(this.getItemBagById(15).indexUI, 1);
             this.useItemBag(this.getItemBagById(16).indexUI, 1);
@@ -10222,8 +9771,7 @@ public class Char {
                         this.updateAll();
                         if (this.session != null) {
                             this.session.service.meLoadPoint();
-                            this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                    this.isMonkey);
+                            this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             this.session.service.getBag(this.charID, this.bag);
                         }
                         if (this.zoneMap != null) {
@@ -10282,8 +9830,7 @@ public class Char {
     }
 
     public boolean isStand() {
-        return this.isDie || this.stone > 0 || this.isFreez || this.sleepEff || this.holder || this.blindEff
-                || this.isMabuHold;
+        return this.isDie || this.stone > 0 || this.isFreez || this.sleepEff || this.holder || this.blindEff || this.isMabuHold;
     }
 
     public void giftTanThu() {
@@ -10300,20 +9847,15 @@ public class Char {
         // Rong Vo Cuc
         if (this.zoneMap != null && this.session != null) {
             if (RongVoCuc.gI().isCallRongVoCuc) {
-                if (!this.isGoiRong && (this.mapTemplateId == 0 || this.mapTemplateId == 7 || this.mapTemplateId == 14)
-                        && (!this.isRongThanXuatHien || this.mapRID != this.mapTemplateId
-                                || this.zoneRID != this.zoneID)) {
+                if (!this.isGoiRong && (this.mapTemplateId == 0 || this.mapTemplateId == 7 || this.mapTemplateId == 14) && (!this.isRongThanXuatHien || this.mapRID != this.mapTemplateId || this.zoneRID != this.zoneID)) {
                     if (this.mapTemplateId == 0) {
-                        this.addEffRong(50, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, -1,
-                                mResources.EMPTY, 714, 450, true);
+                        this.addEffRong(50, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, -1, mResources.EMPTY, 714, 450, true);
                     }
                     if (this.mapTemplateId == 7) {
-                        this.addEffRong(50, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, -1,
-                                mResources.EMPTY, 659, 450, true);
+                        this.addEffRong(50, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, -1, mResources.EMPTY, 659, 450, true);
                     }
                     if (this.mapTemplateId == 14) {
-                        this.addEffRong(50, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, -1,
-                                mResources.EMPTY, 700, 426, true);
+                        this.addEffRong(50, this.mapTemplateId, this.zoneMap.mapTemplate.bgID, this.zoneMap.zoneID, -1, mResources.EMPTY, 700, 426, true);
                     }
                 }
             } else if (!this.isGoiRong && this.isRongThanXuatHien && this.rID == 50) {
@@ -10459,16 +10001,14 @@ public class Char {
                     if (this.waitSkill_not_focus.seconds <= 0) {
                         if (this.waitSkill_not_focus.status == 4) {
                             if (this.session != null) {
-                                this.session.service.skill_not_focus(this.waitSkill_not_focus.status, this.charID,
-                                        this.waitSkill_not_focus.skillId, null, null, 0);
+                                this.session.service.skill_not_focus(this.waitSkill_not_focus.status, this.charID, this.waitSkill_not_focus.skillId, null, null, 0);
                             }
                         }
                         // Bien hinh
                         if (this.waitSkill_not_focus.status == 6) {
                             this.gong = false;
                             if (this.session != null) {
-                                this.session.service.skill_not_focus(this.waitSkill_not_focus.status, this.charID,
-                                        this.waitSkill_not_focus.skillId, null, null, 0);
+                                this.session.service.skill_not_focus(this.waitSkill_not_focus.status, this.charID, this.waitSkill_not_focus.skillId, null, null, 0);
                             }
                             int timeH = 60000;
                             if (this.waitSkill_not_focus.point == 2) {
@@ -10497,11 +10037,9 @@ public class Char {
                         // Bom
                         if (this.waitSkill_not_focus.status == 7) {
                             this.gong = false;
-                            this.zoneMap.player_skill_not_focus(7, this.charID, this.waitSkill_not_focus.skillId, null,
-                                    null, -1);
+                            this.zoneMap.player_skill_not_focus(7, this.charID, this.waitSkill_not_focus.skillId, null, null, -1);
                             if (this.session != null) {
-                                this.session.service.skill_not_focus(7, this.charID, this.waitSkill_not_focus.skillId,
-                                        null, null, -1);
+                                this.session.service.skill_not_focus(7, this.charID, this.waitSkill_not_focus.skillId, null, null, -1);
                             }
                             // Thua cuoc
                             this.loser(5);
@@ -10521,10 +10059,7 @@ public class Char {
                             }
                             for (int i3 = 0; i3 < arrMob.length; i3 = i3 + 1) {
                                 Mob mob = arrMob[i3];
-                                if (mob != null && this.isMeCanAttackOtherMob(mob)
-                                        && (this.waitSkill_not_focus.point > 6 || (Math
-                                                .abs(this.cx - mob.pointx) <= this.waitSkill_not_focus.dx
-                                                && Math.abs(this.cy - mob.pointy) <= this.waitSkill_not_focus.dy))) {
+                                if (mob != null && this.isMeCanAttackOtherMob(mob) && (this.waitSkill_not_focus.point > 6 || (Math.abs(this.cx - mob.pointx) <= this.waitSkill_not_focus.dx && Math.abs(this.cy - mob.pointy) <= this.waitSkill_not_focus.dy))) {
                                     int num1 = this.cHPFull;
                                     mob.AttackMob(this, num1, false, 3, -1);
                                 }
@@ -10532,12 +10067,8 @@ public class Char {
                             for (int i4 = 0; i4 < arrChar.length; i4 = i4 + 1) {
                                 Char player = arrChar[i4];
                                 if (player != null) {
-                                    if (!player.isDie && (this.waitSkill_not_focus.point > 6
-                                            || (Math.abs(this.cx - player.cx) <= this.waitSkill_not_focus.dx
-                                                    && Math.abs(this.cy - player.cy) <= this.waitSkill_not_focus.dy))
-                                            && this.isMeCanAttackOtherPlayer(player)) {
-                                        if (player.cTemplateId != 26 && player.cTemplateId != 27
-                                                && player.cTemplateId != 28) {
+                                    if (!player.isDie && (this.waitSkill_not_focus.point > 6 || (Math.abs(this.cx - player.cx) <= this.waitSkill_not_focus.dx && Math.abs(this.cy - player.cy) <= this.waitSkill_not_focus.dy)) && this.isMeCanAttackOtherPlayer(player)) {
+                                        if (player.cTemplateId != 26 && player.cTemplateId != 27 && player.cTemplateId != 28) {
                                             int num2 = this.cHPFull;
                                             if (player.isTemplate) {
                                                 if (this.isMonkey != 0) {
@@ -10678,8 +10209,7 @@ public class Char {
                     this.zoneMap.player_skill_not_focus(3, this.charID, -1, null, null, 0);
                 }
                 if (this.cHP < this.cHPFull && this.gameTick % 5 == 0) {
-                    this.addChat(1, String.format(mResources.RECOVER_ENERGY,
-                            (int) (100.0F / (float) this.cHPFull * (float) this.cHP)));
+                    this.addChat(1, String.format(mResources.RECOVER_ENERGY, (int) (100.0F / (float) this.cHPFull * (float) this.cHP)));
                 }
             } else {
                 this.isCharge = false;
@@ -10738,8 +10268,7 @@ public class Char {
                         }
                     }
                 }
-                if (this.HutHPKI5_percent > 0 && !this.zoneMap.map.isMapBlackBall()
-                        && (this.cMP < this.cMPFull || this.cHP < this.cHPFull)) {
+                if (this.HutHPKI5_percent > 0 && !this.zoneMap.map.isMapBlackBall() && (this.cMP < this.cMPFull || this.cHP < this.cHPFull)) {
                     int num = this.zoneMap.getHutHPKI(this);
                     if (num > 0) {
                         this.upHP(num);
@@ -10759,8 +10288,7 @@ public class Char {
             if (!this.isDie) {
                 if (this.cHP < this.cHPFull) {
                     if (this.eff30BuffHp_percent > 0 || this.eff30BuffHp > 0) {
-                        this.upHP(((int) ((long) this.cHPFull * (long) this.eff30BuffHp_percent / 100))
-                                + this.eff30BuffHp);
+                        this.upHP(((int) ((long) this.cHPFull * (long) this.eff30BuffHp_percent / 100)) + this.eff30BuffHp);
                         if (this.session != null) {
                             this.session.service.meLoadHP(this.cHP);
                         }
@@ -10769,8 +10297,7 @@ public class Char {
                 }
                 if (this.cMP < this.cMPFull) {
                     if (this.eff30BuffMp_percent > 0 || this.eff30BuffMp > 0) {
-                        this.upMP(((int) ((long) this.cMPFull * (long) this.eff30BuffMp_percent / 100))
-                                + this.eff30BuffMp);
+                        this.upMP(((int) ((long) this.cMPFull * (long) this.eff30BuffMp_percent / 100)) + this.eff30BuffMp);
                         if (this.session != null) {
                             this.session.service.meLoadMP(this.cMP);
                         }
@@ -10788,8 +10315,7 @@ public class Char {
             if (this.magicTree_miliseconds <= System.currentTimeMillis()) {
                 this.magicTree_level++;
                 this.magicTree_isUpdate = false;
-                this.magicTree_miliseconds = System.currentTimeMillis()
-                        + (MagicTree.timePeas[this.magicTree_level - 1]);
+                this.magicTree_miliseconds = System.currentTimeMillis() + (MagicTree.timePeas[this.magicTree_level - 1]);
             }
         }
         // CHat KTG
@@ -10861,8 +10387,7 @@ public class Char {
             }
         }
         // sm tach hop the
-        if (this.myPet != null && this.myPetz().petStatus == 4
-                && (this.myPetz().isHopThe == 2 || this.myPetz().isHopThe == 3) && this.cPower < 1500000L) {
+        if (this.myPet != null && this.myPetz().petStatus == 4 && (this.myPetz().isHopThe == 2 || this.myPetz().isHopThe == 3) && this.cPower < 1500000L) {
             this.zoneMap.setFusion(1, this.charID);
             this.myPetz().petStatus = 1;
             this.myPetz().isHopThe = 0;
@@ -10883,7 +10408,7 @@ public class Char {
                     this.tSkillXayda1 = 20000;
                     Char player1 = this.zoneMap.getPlayerClosest(this);
                     if (player1 != null) {
-                        this.addMove(0, player1.cx + new int[] { -120, 120 }[Util.gI().nextInt(2)], player1.cy, 0);
+                        this.addMove(0, player1.cx + new int[]{-120, 120}[Util.gI().nextInt(2)], player1.cy, 0);
                         this.skillXayda1(3000, player1);
                     }
                 }
@@ -10920,7 +10445,7 @@ public class Char {
                     this.tSkillXayda2 = 25000;
                     Char player1 = this.zoneMap.getPlayerClosest(this);
                     if (player1 != null) {
-                        this.addMove(0, player1.cx + new int[] { -50, 50 }[Util.gI().nextInt(2)], player1.cy, 0);
+                        this.addMove(0, player1.cx + new int[]{-50, 50}[Util.gI().nextInt(2)], player1.cy, 0);
                         this.skillXayda2(3000, player1);
                     }
                 }
@@ -10979,12 +10504,9 @@ public class Char {
             this.skillXayda4(10000, 5);
         }
         // Trong map pho ban danh boss bang hoi het goi kick
-        if (this.clan != null && this.mapTemplateId == 165 && this.clan.doelBossClan != null
-                && this.clan.doelBossClan.miliTime <= 30000 && !isCommand(0)) {
-            this.addCommand(0, new Object[] { this.clan.doelBossClan.miliTime - 1000,
-                    this.clan.getMap(153).getZone(this), mResources.CHAT_GO_MAP_CLAN, 0, 160, 432 });
-            this.setText(0, String.format(mResources.DOELBOSSCLAN, this.clan.doelBossClanLevel + 1),
-                    this.clan.doelBossClan.miliTime / 1000, 0, 0);
+        if (this.clan != null && this.mapTemplateId == 165 && this.clan.doelBossClan != null && this.clan.doelBossClan.miliTime <= 30000 && !isCommand(0)) {
+            this.addCommand(0, new Object[]{this.clan.doelBossClan.miliTime - 1000, this.clan.getMap(153).getZone(this), mResources.CHAT_GO_MAP_CLAN, 0, 160, 432});
+            this.setText(0, String.format(mResources.DOELBOSSCLAN, this.clan.doelBossClanLevel + 1), this.clan.doelBossClan.miliTime / 1000, 0, 0);
         }
         // Map la dua ve nha
         if (this.mapTemplateId == 153 && this.clan == null) {
@@ -11299,8 +10821,7 @@ public class Char {
         if (this.tPetzStCrit <= 0) {
             this.tPetzStCrit = 120000;
             if (this.usePetFollowz != null && this.usePetFollowz.template.id == 2013) {
-                this.setText(5, String.format(mResources.DAMAGE_CRIT, 1 + this.usePetFollowz.getParamOption(72)), 30, 0,
-                        1 + this.usePetFollowz.getParamOption(72));
+                this.setText(5, String.format(mResources.DAMAGE_CRIT, 1 + this.usePetFollowz.getParamOption(72)), 30, 0, 1 + this.usePetFollowz.getParamOption(72));
             }
         }
         // delay khang sat thuong chi mang
@@ -11329,16 +10850,13 @@ public class Char {
         } else {
             Memory.get(this.session.userId).pointEvent2 -= 50;
             if (Util.gI().nextInt(100) < 1) {
-                int id_934 = new int[] { 1087, 1088, 1091 }[Util.gI().nextInt(3)];
-                this.addItemBag(0, new Item(id_934, false, 1, ItemOption.getOption(id_934, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY));
+                int id_934 = new int[]{1087, 1088, 1091}[Util.gI().nextInt(3)];
+                this.addItemBag(0, new Item(id_934, false, 1, ItemOption.getOption(id_934, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
             } else if (Util.gI().nextInt(100) < 25) {
-                this.addItemBag(0, new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY));
+                this.addItemBag(0, new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
             } else {
-                int id_935 = new int[] { 1087, 1088, 1091 }[Util.gI().nextInt(3)];
-                this.addItemBag(0, new Item(id_935, false, 1, ItemOption.getOption(id_935, 15, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY));
+                int id_935 = new int[]{1087, 1088, 1091}[Util.gI().nextInt(3)];
+                this.addItemBag(0, new Item(id_935, false, 1, ItemOption.getOption(id_935, 15, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
             }
         }
     }
@@ -11407,8 +10925,7 @@ public class Char {
         this.closeRPS(1);
     }
 
-    public boolean requestOpenUIItem(int npcId, String tile, int[] templateId, int[] quantity, int typeBoeard, int coin,
-            int ngoc, boolean isUse, int quntityEmptyBag) {
+    public boolean requestOpenUIItem(int npcId, String tile, int[] templateId, int[] quantity, int typeBoeard, int coin, int ngoc, boolean isUse, int quntityEmptyBag) {
         if (quntityEmptyBag != -1 && quntityEmptyBag > this.getEmptyBagCount()) {
             this.addInfo1(String.format(mResources.BAG_FULL_2, quntityEmptyBag));
             return false;
@@ -11424,17 +10941,13 @@ public class Char {
             this.resetMenu();
             this.menuBoard.chat = "|1|" + tile;
             for (int i2 = 0; i2 < templateId.length; i2++) {
-                this.menuBoard.chat += "\n|" + (this.getItemBagQuantityById(templateId[i2]) >= quantity[i2] ? 2 : 7)
-                        + "|" + ItemTemplate.get((short) templateId[i2]).name + " "
-                        + this.getItemBagQuantityById(templateId[i2]) + "/" + quantity[i2];
+                this.menuBoard.chat += "\n|" + (this.getItemBagQuantityById(templateId[i2]) >= quantity[i2] ? 2 : 7) + "|" + ItemTemplate.get((short) templateId[i2]).name + " " + this.getItemBagQuantityById(templateId[i2]) + "/" + quantity[i2];
             }
             if (coin != -1) {
-                this.menuBoard.chat += "\n|" + (this.xu >= coin ? 2 : 7) + "| Giá vàng: "
-                        + Util.gI().getFormatNumber(coin);
+                this.menuBoard.chat += "\n|" + (this.xu >= coin ? 2 : 7) + "| Giá vàng: " + Util.gI().getFormatNumber(coin);
             }
             if (ngoc != -1) {
-                this.menuBoard.chat += "\n|" + (this.getLuong() >= ngoc ? 2 : 7) + "| Giá ngọc: "
-                        + Util.gI().getFormatNumber(ngoc);
+                this.menuBoard.chat += "\n|" + (this.getLuong() >= ngoc ? 2 : 7) + "| Giá ngọc: " + Util.gI().getFormatNumber(ngoc);
             }
             this.menuBoard.arrMenu.add(new MenuInfo(mResources.REFUSE, typeBoeard));
             this.menuBoard.openUIConfirm(npcId, null, null, -1);
@@ -11502,8 +11015,7 @@ public class Char {
     private void updateNoiBanh() {
         if (!this.myObj().arrBanh.isEmpty()) {
             for (int i = 0; i < this.myObj().arrBanh.size(); i++) {
-                if (!this.myObj().arrBanh.get(i).finish
-                        && this.myObj().arrBanh.get(i).time < System.currentTimeMillis()) {
+                if (!this.myObj().arrBanh.get(i).finish && this.myObj().arrBanh.get(i).time < System.currentTimeMillis()) {
                     this.addInfo1(mResources.FINISH_BANH);
                     this.myObj().arrBanh.get(i).finish = true;
                 }
@@ -11518,8 +11030,7 @@ public class Char {
             this.menuBoard.arrMenu.add(new MenuInfo(mResources.OK, 0));
             this.menuBoard.openUIConfirm(npcId, null, null, -1);
         }
-        Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                mResources.EMPTY);
+        Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
         String text = String.format(mResources.NHAN_ITEM, item.template.name);
         if (id == 752) {
             text = mResources.NHAN_BANH_TET;
@@ -11546,8 +11057,7 @@ public class Char {
             return false;
         }
         this.isMove = true;
-        if (this.moveAutos == null)
-            this.moveAutos = new ArrayList<>();
+        if (this.moveAutos == null) this.moveAutos = new ArrayList<>();
         int x0 = this.cx, y0 = this.cy, dir = (byte) (x0 < tox ? 1 : -1);
         while (x0 != tox || y0 != toy) {
             x0 += (dir * dx);
@@ -11556,9 +11066,9 @@ public class Char {
             }
             y0 = toy;
             if (status == 1) {
-                this.moveAutos.add(new int[] { type, x0, this.zoneMap.mapTemplate.touchY(x0, y0), 1, delayMove });
+                this.moveAutos.add(new int[]{type, x0, this.zoneMap.mapTemplate.touchY(x0, y0), 1, delayMove});
             } else {
-                this.moveAutos.add(new int[] { type, x0, y0, 1, delayMove });
+                this.moveAutos.add(new int[]{type, x0, y0, 1, delayMove});
             }
         }
         return true;
@@ -11573,10 +11083,8 @@ public class Char {
                 Item item = new Item(648, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(30, 0));
                 item.options.add(new ItemOption(93, 7));
-                ItemMap itemMap = this.zoneMap.addItemMap(-1, item, this.cx,
-                        this.zoneMap.mapTemplate.touchY(this.cx, this.cy), 0, -1);
-                this.zoneMap.playerThrow(this.charID, itemMap.itemMapID, itemMap.item.template.id, itemMap.x,
-                        itemMap.y);
+                ItemMap itemMap = this.zoneMap.addItemMap(-1, item, this.cx, this.zoneMap.mapTemplate.touchY(this.cx, this.cy), 0, -1);
+                this.zoneMap.playerThrow(this.charID, itemMap.itemMapID, itemMap.item.template.id, itemMap.x, itemMap.y);
                 this.nSendGift++;
             }
         }
@@ -11667,7 +11175,8 @@ public class Char {
             }
             if (map != null) {
                 ZoneMap zoneNew = map.getZone(this);
-                wp: {
+                wp:
+                {
                     if (zoneNew == null) {
                         this.session.service.startOKDlg(mResources.MAP_OVERLOAD);
                         break wp;
@@ -11744,8 +11253,7 @@ public class Char {
     }
 
     private void quaLanCon() {
-        this.addItemBag(0, new Item(758, false, 1, ItemOption.getOption(758, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                mResources.EMPTY));
+        this.addItemBag(0, new Item(758, false, 1, ItemOption.getOption(758, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
     }
 
     private void updateReGo() {
@@ -12214,7 +11722,7 @@ public class Char {
     }
 
     public void addOptionHide(Item item, int numOption) {
-        int[] array = new int[] { 80, 19, 3, 81, 5, 114, 42, 43, 44, 45, 46, 197, 198, 199, 200, 201, 202, 203, 204 };
+        int[] array = new int[]{80, 19, 3, 81, 5, 114, 42, 43, 44, 45, 46, 197, 198, 199, 200, 201, 202, 203, 204};
         ArrayList<Integer> list = new ArrayList<>();
         for (int i3 = 0; i3 < array.length; i3++) {
             list.add(array[i3]);
@@ -12258,127 +11766,97 @@ public class Char {
         this.transports = new ArrayList<>();
         if (type == 0) {
             // Quay ve cho cu
-            if (this.transportOld != null && this.transportOld.map.templateId != 21
-                    && this.transportOld.map.templateId != 22 && this.transportOld.map.templateId != 23) {
-                this.transports.add(new Transport(type, String.format(mResources.GO_BACK, this.transportOld.mapName),
-                        this.transportOld.planet, this.transportOld.map, this.transportOld.zone, this.transportOld.xGo,
-                        this.transportOld.yGo, this.typeTeleport));
+            if (this.transportOld != null && this.transportOld.map.templateId != 21 && this.transportOld.map.templateId != 22 && this.transportOld.map.templateId != 23) {
+                this.transports.add(new Transport(type, String.format(mResources.GO_BACK, this.transportOld.mapName), this.transportOld.planet, this.transportOld.map, this.transportOld.zone, this.transportOld.xGo, this.transportOld.yGo, this.typeTeleport));
             }
             // Ve nha
             if (this.cgender == 0 && this.mapTemplateId != 21) {
-                this.transports.add(new Transport(type, mResources.GO_HOME, mResources.THE_EARTH,
-                        this.getMapOffline(21), null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, mResources.GO_HOME, mResources.THE_EARTH, this.getMapOffline(21), null, 300, 5, this.typeTeleport));
             }
             if (this.cgender == 1 && this.mapTemplateId != 22) {
-                this.transports.add(new Transport(type, mResources.GO_HOME, mResources.NAMEK, this.getMapOffline(22),
-                        null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, mResources.GO_HOME, mResources.NAMEK, this.getMapOffline(22), null, 300, 5, this.typeTeleport));
             }
             if (this.cgender == 2 && this.mapTemplateId != 23) {
-                this.transports.add(new Transport(type, mResources.GO_HOME, mResources.XAYDA, this.getMapOffline(23),
-                        null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, mResources.GO_HOME, mResources.XAYDA, this.getMapOffline(23), null, 300, 5, this.typeTeleport));
             }
             // Rung Karin
             if (this.mapTemplateId != 47) {
-                this.transports.add(new Transport(type, this.getMapOffline(47).template.mapName, mResources.THE_EARTH,
-                        this.getMapOffline(47), null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, this.getMapOffline(47).template.mapName, mResources.THE_EARTH, this.getMapOffline(47), null, 300, 5, this.typeTeleport));
             }
             // Than dien
             if (this.mapTemplateId != 45) {
-                this.transports.add(new Transport(type, this.getMapOffline(45).template.mapName, mResources.THE_EARTH,
-                        this.getMapOffline(45), null, 350, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, this.getMapOffline(45).template.mapName, mResources.THE_EARTH, this.getMapOffline(45), null, 350, 5, this.typeTeleport));
             }
             // Lang Aru
             if (this.mapTemplateId != 0) {
-                this.transports.add(new Transport(type, Map.getMapServer(0).template.mapName, mResources.THE_EARTH,
-                        Map.getMapServer(0), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(0).template.mapName, mResources.THE_EARTH, Map.getMapServer(0), null, 200, 5, this.typeTeleport));
             }
             // Lang Morri
             if (this.mapTemplateId != 7) {
-                this.transports.add(new Transport(type, Map.getMapServer(7).template.mapName, mResources.NAMEK,
-                        Map.getMapServer(7), null, 400, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(7).template.mapName, mResources.NAMEK, Map.getMapServer(7), null, 400, 5, this.typeTeleport));
             }
             // Lang Kakarot
             if (this.mapTemplateId != 14) {
-                this.transports.add(new Transport(type, Map.getMapServer(14).template.mapName, mResources.XAYDA,
-                        Map.getMapServer(14), null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(14).template.mapName, mResources.XAYDA, Map.getMapServer(14), null, 300, 5, this.typeTeleport));
             }
             // Dao Kame
             if (this.mapTemplateId != 5) {
-                this.transports.add(new Transport(type, Map.getMapServer(5).template.mapName, mResources.THE_EARTH,
-                        Map.getMapServer(5), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(5).template.mapName, mResources.THE_EARTH, Map.getMapServer(5), null, 200, 5, this.typeTeleport));
             }
             // Vach nui den
             if (this.mapTemplateId != 20) {
-                this.transports.add(new Transport(type, Map.getMapServer(20).template.mapName, mResources.XAYDA,
-                        Map.getMapServer(20), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(20).template.mapName, mResources.XAYDA, Map.getMapServer(20), null, 200, 5, this.typeTeleport));
             }
             // Dao Gurru
             if (this.mapTemplateId != 13) {
-                this.transports.add(new Transport(type, Map.getMapServer(13).template.mapName, mResources.NAMEK,
-                        Map.getMapServer(13), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(13).template.mapName, mResources.NAMEK, Map.getMapServer(13), null, 200, 5, this.typeTeleport));
             }
             // Tram tau vu tru
             if (this.cgender == 0 && this.mapTemplateId != 24) {
-                this.transports.add(new Transport(type, Map.getMapServer(24).template.mapName, mResources.THE_EARTH,
-                        Map.getMapServer(24), null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(24).template.mapName, mResources.THE_EARTH, Map.getMapServer(24), null, 300, 5, this.typeTeleport));
             }
             if (this.cgender == 1 && this.mapTemplateId != 25) {
-                this.transports.add(new Transport(type, Map.getMapServer(25).template.mapName, mResources.NAMEK,
-                        Map.getMapServer(25), null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(25).template.mapName, mResources.NAMEK, Map.getMapServer(25), null, 300, 5, this.typeTeleport));
             }
             if (this.cgender == 2 && this.mapTemplateId != 26) {
-                this.transports.add(new Transport(type, Map.getMapServer(26).template.mapName, mResources.XAYDA,
-                        Map.getMapServer(26), null, 300, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(26).template.mapName, mResources.XAYDA, Map.getMapServer(26), null, 300, 5, this.typeTeleport));
             }
             // Rung Bamboo
             if (this.mapTemplateId != 27) {
-                this.transports.add(new Transport(type, Map.getMapServer(27).template.mapName, mResources.THE_EARTH,
-                        Map.getMapServer(27), null, 150, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(27).template.mapName, mResources.THE_EARTH, Map.getMapServer(27), null, 150, 5, this.typeTeleport));
             }
             // Thanh pho Vegeta
             if (this.mapTemplateId != 19) {
-                this.transports.add(new Transport(type, Map.getMapServer(19).template.mapName, mResources.XAYDA,
-                        Map.getMapServer(19), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(19).template.mapName, mResources.XAYDA, Map.getMapServer(19), null, 200, 5, this.typeTeleport));
             }
             // Nui khi do
             if (this.mapTemplateId != 79) {
-                this.transports.add(new Transport(type, Map.getMapServer(79).template.mapName, mResources.FIDE,
-                        Map.getMapServer(79), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(79).template.mapName, mResources.FIDE, Map.getMapServer(79), null, 200, 5, this.typeTeleport));
             }
             // Sieu thi
             if (this.mapTemplateId != 84) {
-                this.transports.add(new Transport(type, Map.getMapServer(84).template.mapName,
-                        mResources.SHOPPING_HEAVEN, Map.getMapServer(84), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(84).template.mapName, mResources.SHOPPING_HEAVEN, Map.getMapServer(84), null, 200, 5, this.typeTeleport));
             }
             // Hanh tinh bill
             if (this.mapTemplateId != 154) {
                 if (this.cPower >= 40000000000L) {
-                    this.transports.add(new Transport(type, this.getMapOffline(154).template.mapName,
-                            mResources.HOME_BY_BILL, this.getMapOffline(154), null, 780, 5, this.typeTeleport));
+                    this.transports.add(new Transport(type, this.getMapOffline(154).template.mapName, mResources.HOME_BY_BILL, this.getMapOffline(154), null, 780, 5, this.typeTeleport));
                 }
             }
             // Dai hoi vo thuat
             if (this.mapTemplateId != 52) {
-                this.transports.add(new Transport(type, Map.getMapServer(52).template.mapName,
-                        mResources.TRANH_TAI_NHAN_THUONG, Map.getMapServer(52), null, 200, 5, this.typeTeleport));
+                this.transports.add(new Transport(type, Map.getMapServer(52).template.mapName, mResources.TRANH_TAI_NHAN_THUONG, Map.getMapServer(52), null, 200, 5, this.typeTeleport));
             }
 
         }
         if (type == 1) {
-            this.transports.add(new Transport(type, Map.getMapServer(85).template.mapName, mResources.UNIVERSE,
-                    Map.getMapServer(85), null, 100, 100, 0));
-            this.transports.add(new Transport(type, Map.getMapServer(86).template.mapName, mResources.UNIVERSE,
-                    Map.getMapServer(86), null, 100, 100, 0));
-            this.transports.add(new Transport(type, Map.getMapServer(87).template.mapName, mResources.UNIVERSE,
-                    Map.getMapServer(87), null, 100, 100, 0));
-            this.transports.add(new Transport(type, Map.getMapServer(88).template.mapName, mResources.UNIVERSE,
-                    Map.getMapServer(88), null, 100, 100, 0));
-            this.transports.add(new Transport(type, Map.getMapServer(89).template.mapName, mResources.UNIVERSE,
-                    Map.getMapServer(89), null, 100, 100, 0));
-            this.transports.add(new Transport(type, Map.getMapServer(90).template.mapName, mResources.UNIVERSE,
-                    Map.getMapServer(90), null, 100, 100, 0));
-            this.transports.add(new Transport(type, Map.getMapServer(91).template.mapName, mResources.UNIVERSE,
-                    Map.getMapServer(91), null, 100, 100, 0));
+            this.transports.add(new Transport(type, Map.getMapServer(85).template.mapName, mResources.UNIVERSE, Map.getMapServer(85), null, 100, 100, 0));
+            this.transports.add(new Transport(type, Map.getMapServer(86).template.mapName, mResources.UNIVERSE, Map.getMapServer(86), null, 100, 100, 0));
+            this.transports.add(new Transport(type, Map.getMapServer(87).template.mapName, mResources.UNIVERSE, Map.getMapServer(87), null, 100, 100, 0));
+            this.transports.add(new Transport(type, Map.getMapServer(88).template.mapName, mResources.UNIVERSE, Map.getMapServer(88), null, 100, 100, 0));
+            this.transports.add(new Transport(type, Map.getMapServer(89).template.mapName, mResources.UNIVERSE, Map.getMapServer(89), null, 100, 100, 0));
+            this.transports.add(new Transport(type, Map.getMapServer(90).template.mapName, mResources.UNIVERSE, Map.getMapServer(90), null, 100, 100, 0));
+            this.transports.add(new Transport(type, Map.getMapServer(91).template.mapName, mResources.UNIVERSE, Map.getMapServer(91), null, 100, 100, 0));
         }
         this.session.service.openTransport(this.transports);
     }
@@ -12386,10 +11864,7 @@ public class Char {
     public void requestMapSelect(int index) {
         if (this.transports != null && index >= 0 && index < this.transports.size()) {
             Transport tr = this.transports.get(index);
-            if ((tr.type == 1 && this.cPower >= 1000000000L) || (tr.type == 0 && this.itemUse != null
-                    && (this.itemUse == this.arrItemBag[this.itemUse.indexUI]
-                            || this.itemUse == this.arrItemBox[this.itemUse.indexUI])
-                    && (this.itemUse.template.id == 194 || this.itemUse.template.id == 193))) {
+            if ((tr.type == 1 && this.cPower >= 1000000000L) || (tr.type == 0 && this.itemUse != null && (this.itemUse == this.arrItemBag[this.itemUse.indexUI] || this.itemUse == this.arrItemBox[this.itemUse.indexUI]) && (this.itemUse.template.id == 194 || this.itemUse.template.id == 193))) {
                 if (!dragon.t.MapTask.isNextMap(this, tr.map.templateId)) {
                     this.addInfo1(mResources.YOUR_NOT_TO);
                 } else {
@@ -12406,18 +11881,10 @@ public class Char {
                         int xTele = tr.xGo;
                         int yTele = tr.yGo;
                         if (tr.type == 0) {
-                            if (this.transportOld != null && tr.map.templateId == this.transportOld.map.templateId
-                                    && index == 0) {
+                            if (this.transportOld != null && tr.map.templateId == this.transportOld.map.templateId && index == 0) {
                                 this.transportOld = null;
-                            } else if (!this.zoneMap.map.isMapTL() && !this.zoneMap.map.isMapDestronGas()
-                                    && !this.zoneMap.map.isMapDoanhTrai() && !this.zoneMap.map.isMapBigBoss()
-                                    && !this.zoneMap.map.isMapButcher() && !this.zoneMap.map.isMapMabu()
-                                    && !this.zoneMap.map.isMapThucVat() && !this.zoneMap.map.isMapManorClan()
-                                    && !this.zoneMap.map.isMapManor() && !this.zoneMap.map.isMapCace23()
-                                    && this.mapTemplateId != 51 && this.mapTemplateId != 113
-                                    && !this.zoneMap.map.isMapRoadSnake() && this.mapTemplateId != 165) {
-                                this.transportOld = new Transport(0, this.zoneMap.mapTemplate.mapName, tr.planet,
-                                        this.zoneMap.map, this.zoneMap, this.cx, 5, this.typeTeleport);
+                            } else if (!this.zoneMap.map.isMapTL() && !this.zoneMap.map.isMapDestronGas() && !this.zoneMap.map.isMapDoanhTrai() && !this.zoneMap.map.isMapBigBoss() && !this.zoneMap.map.isMapButcher() && !this.zoneMap.map.isMapMabu() && !this.zoneMap.map.isMapThucVat() && !this.zoneMap.map.isMapManorClan() && !this.zoneMap.map.isMapManor() && !this.zoneMap.map.isMapCace23() && this.mapTemplateId != 51 && this.mapTemplateId != 113 && !this.zoneMap.map.isMapRoadSnake() && this.mapTemplateId != 165) {
+                                this.transportOld = new Transport(0, this.zoneMap.mapTemplate.mapName, tr.planet, this.zoneMap.map, this.zoneMap, this.cx, 5, this.typeTeleport);
                             }
                         }
                         this.zoneMap.exit(this, tr.typeTeleport);
@@ -12541,15 +12008,11 @@ public class Char {
         // Trung
         if (this.gameTick % 20 == 0) {
             if (this.isHaveDuaHau(50, -1)) {
-                if (this.isHaveDuaHau(50, 4664)
-                        && !this.getMapOffline(this.mainHome()).zones.get(0).isHaveNpc(this.getDuaHau(50, 4664).id)) {
-                    this.getMapOffline(this.mainHome()).zones.get(0).addNpc(50, 1,
-                            this.mainHome() == 21 ? 700 : this.mainHome() == 22 ? 700 : this.mainHome() == 23 ? 688 : 0,
-                            336, 50, 0);
+                if (this.isHaveDuaHau(50, 4664) && !this.getMapOffline(this.mainHome()).zones.get(0).isHaveNpc(this.getDuaHau(50, 4664).id)) {
+                    this.getMapOffline(this.mainHome()).zones.get(0).addNpc(50, 1, this.mainHome() == 21 ? 700 : this.mainHome() == 22 ? 700 : this.mainHome() == 23 ? 688 : 0, 336, 50, 0);
                     this.getMapOffline(this.mainHome()).zones.get(0).findNPCInMap(50).duahau = this.getDuaHau(50, 4664);
                 }
-                if (this.isHaveDuaHau(50, 6546)
-                        && !this.getMapOffline(154).zones.get(0).isHaveNpc(this.getDuaHau(50, 6546).id)) {
+                if (this.isHaveDuaHau(50, 6546) && !this.getMapOffline(154).zones.get(0).isHaveNpc(this.getDuaHau(50, 6546).id)) {
                     this.getMapOffline(154).zones.get(0).addNpc(50, 1, 115, 312, 50, 0);
                     this.getMapOffline(154).zones.get(0).findNPCInMap(50).duahau = this.getDuaHau(50, 6546);
                 }
@@ -12561,13 +12024,10 @@ public class Char {
         if (this.gameTick % 28 == 0) {
             if (this.isHaveDuaHau(51, -1)) {
                 if (!this.getMapOffline(this.mainHome()).zones.get(0).isHaveNpc(this.getDuaHau(51, -1).id)) {
-                    this.getMapOffline(this.mainHome()).zones.get(0).addNpc(51, 1,
-                            this.mainHome() == 21 ? 574 : this.mainHome() == 22 ? 115 : this.mainHome() == 23 ? 563 : 0,
-                            336, 51, 0);
+                    this.getMapOffline(this.mainHome()).zones.get(0).addNpc(51, 1, this.mainHome() == 21 ? 574 : this.mainHome() == 22 ? 115 : this.mainHome() == 23 ? 563 : 0, 336, 51, 0);
                     this.getMapOffline(this.mainHome()).zones.get(0).findNPCInMap(51).duahau = this.getDuaHau(51, -1);
                 } else {
-                    float pDuaHau = (float) ((System.currentTimeMillis() / 1000L) - this.getDuaHau(51, -1).last)
-                            / (float) this.getDuaHau(51, -1).second;
+                    float pDuaHau = (float) ((System.currentTimeMillis() / 1000L) - this.getDuaHau(51, -1).last) / (float) this.getDuaHau(51, -1).second;
                     if (pDuaHau >= 1.0F) {
                         this.getDuaHau(51, -1).duaHauIndex = 3;
                     } else if (pDuaHau >= 0.75F) {
@@ -12577,13 +12037,10 @@ public class Char {
                     } else {
                         this.getDuaHau(51, -1).duaHauIndex = 0;
                     }
-                    if (this.indexDuaHau != this.getDuaHau(51, -1).duaHauIndex
-                            && this.mapTemplateId == this.mainHome()) {
+                    if (this.indexDuaHau != this.getDuaHau(51, -1).duaHauIndex && this.mapTemplateId == this.mainHome()) {
                         this.indexDuaHau = this.getDuaHau(51, -1).duaHauIndex;
                         if (this.session != null) {
-                            this.session.service.setStatus(51, this.getDuaHau(51, -1).duahau,
-                                    this.getDuaHau(51, -1).duaHauIndex, (int) (this.getDuaHau(51, -1).second
-                                            - ((System.currentTimeMillis() / 1000L) - this.getDuaHau(51, -1).last)));
+                            this.session.service.setStatus(51, this.getDuaHau(51, -1).duahau, this.getDuaHau(51, -1).duaHauIndex, (int) (this.getDuaHau(51, -1).second - ((System.currentTimeMillis() / 1000L) - this.getDuaHau(51, -1).last)));
                         }
                     }
                 }
@@ -12607,13 +12064,11 @@ public class Char {
     }
 
     public boolean isHavePetFollowzs() {
-        return (this.myCharz() != null && this.myCharz().usePetFollowz != null)
-                || (this.myPetz() != null && this.myPetz().usePetFollowz != null);
+        return (this.myCharz() != null && this.myCharz().usePetFollowz != null) || (this.myPetz() != null && this.myPetz().usePetFollowz != null);
     }
 
     public boolean checkPetFollowz(Item item) {
-        return (this.myCharz() != null && item == this.myCharz().usePetFollowz)
-                || (this.myPetz() != null && item == this.myPetz().usePetFollowz);
+        return (this.myCharz() != null && item == this.myCharz().usePetFollowz) || (this.myPetz() != null && item == this.myPetz().usePetFollowz);
     }
 
     public void usePetFollowz(Item item) {
@@ -12628,30 +12083,29 @@ public class Char {
             if (this.zoneMap != null) {
                 this.zoneMap.playerLoadAll(this);
                 if (this.petFollow != null) {
-                    this.zoneMap.petFollow(this.charID, this.petFollow.smallID, this.petFollow.fimg,
-                            this.petFollow.frame, this.petFollow.wimg, this.petFollow.himg);
+                    this.zoneMap.petFollow(this.charID, this.petFollow.smallID, this.petFollow.fimg, this.petFollow.frame, this.petFollow.wimg, this.petFollow.himg);
                 } else {
                     this.zoneMap.clearPetFollow(this.charID);
                 }
             }
         } else {
             if (item.template.id == 2010) {
-                this.petFollowz = new PetFollow(6535, 1, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 75, 75, -1);
+                this.petFollowz = new PetFollow(6535, 1, new int[]{0, 1, 2, 3, 4, 5, 6}, 75, 75, -1);
             }
             if (item.template.id == 2011) {
-                this.petFollowz = new PetFollow(6537, 1, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 75, 75, -1);
+                this.petFollowz = new PetFollow(6537, 1, new int[]{0, 1, 2, 3, 4, 5, 6}, 75, 75, -1);
             }
             if (item.template.id == 2012) {
-                this.petFollowz = new PetFollow(6539, 1, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 75, 75, -1);
+                this.petFollowz = new PetFollow(6539, 1, new int[]{0, 1, 2, 3, 4, 5, 6}, 75, 75, -1);
             }
             if (item.template.id == 2013) {
-                this.petFollowz = new PetFollow(6541, 1, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 75, 75, -1);
+                this.petFollowz = new PetFollow(6541, 1, new int[]{0, 1, 2, 3, 4, 5, 6}, 75, 75, -1);
             }
             if (item.template.id == 2014) {
-                this.petFollowz = new PetFollow(6543, 1, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 75, 75, -1);
+                this.petFollowz = new PetFollow(6543, 1, new int[]{0, 1, 2, 3, 4, 5, 6}, 75, 75, -1);
             }
             if (item.template.id == 2015) {
-                this.petFollowz = new PetFollow(6545, 1, new int[] { 0, 1, 2, 3, 4, 5, 6 }, 75, 75, -1);
+                this.petFollowz = new PetFollow(6545, 1, new int[]{0, 1, 2, 3, 4, 5, 6}, 75, 75, -1);
             }
             this.usePetFollowz = item;
             System.out.println("cName: " + this.cName + " usePetFollowz=" + usePetFollowz);
@@ -12661,8 +12115,7 @@ public class Char {
             }
             if (this.zoneMap != null) {
                 this.zoneMap.playerLoadAll(this);
-                this.zoneMap.petFollow(this.charID, this.petFollowz.smallID, this.petFollowz.fimg,
-                        this.petFollowz.frame, this.petFollowz.wimg, this.petFollowz.himg);
+                this.zoneMap.petFollow(this.charID, this.petFollowz.smallID, this.petFollowz.fimg, this.petFollowz.frame, this.petFollowz.wimg, this.petFollowz.himg);
             }
         }
     }
@@ -12719,7 +12172,7 @@ public class Char {
     }
 
     public void openSelectPetFollowz(Item item) {
-        this.arrItem = new Item[] { item };
+        this.arrItem = new Item[]{item};
         this.resetMenu();
         this.menuBoard.chat = mResources.SELECT_PET_FOLLOWZ;
         this.menuBoard.arrMenu.add(new MenuInfo(mResources.USE, 96));
@@ -12749,9 +12202,7 @@ public class Char {
         for (int i = 353; i <= 359; i++) {
             BallRada rada = BallRada.getById(i);
             if (rada != null && !rada.stone) {
-                str += (num + " Sao:" + rada.zoneMap.mapTemplate.mapName + " (" + rada.x + " m)(kv "
-                        + rada.zoneMap.zoneID + ")" + (rada.player != null ? "(" + rada.player.cName + ")" : "")
-                        + "\n");
+                str += (num + " Sao:" + rada.zoneMap.mapTemplate.mapName + " (" + rada.x + " m)(kv " + rada.zoneMap.zoneID + ")" + (rada.player != null ? "(" + rada.player.cName + ")" : "") + "\n");
             }
             num++;
         }
@@ -12765,10 +12216,8 @@ public class Char {
             }
             this.resetMenu();
             this.menuBoard.chat = str;
-            this.menuBoard.arrMenu
-                    .add(new MenuInfo(String.format(mResources.GO_NAMEK_BALL1, this.goNamekBallStar), 100));
-            this.menuBoard.arrMenu
-                    .add(new MenuInfo(String.format(mResources.GO_NAMEK_BALL2, this.goNamekBallStar), 101));
+            this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.GO_NAMEK_BALL1, this.goNamekBallStar), 100));
+            this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.GO_NAMEK_BALL2, this.goNamekBallStar), 101));
             this.menuBoard.arrMenu.add(new MenuInfo(mResources.THE_END, 0));
             this.menuBoard.openUIConfirm(5, null, null, 2294);
             return true;
@@ -12780,8 +12229,7 @@ public class Char {
             ArrayList<Short> arrayList = new ArrayList<>();
             for (int i = 0; i < this.zoneMap.players.size(); i++) {
                 Char player = this.zoneMap.players.get(i);
-                if (player.itemNamekBall != null && !arrayList.contains(player.itemNamekBall.template.id)
-                        && player.clan != null && this.clan != null && player.clan.ID == this.clan.ID) {
+                if (player.itemNamekBall != null && !arrayList.contains(player.itemNamekBall.template.id) && player.clan != null && this.clan != null && player.clan.ID == this.clan.ID) {
                     arrayList.add(player.itemNamekBall.template.id);
                 }
             }
@@ -12836,52 +12284,41 @@ public class Char {
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(984, false, 1, ItemOption.getOption(984, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(984, false, 1, ItemOption.getOption(984, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(30, 0));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(699, false, 1, ItemOption.getOption(699, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(699, false, 1, ItemOption.getOption(699, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(701, false, 5, ItemOption.getOption(701, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(701, false, 5, ItemOption.getOption(701, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
                 int id = Util.gI().nextInt(712, 716);
-                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(1143, false, 1, ItemOption.getOption(1143, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1143, false, 1, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(1104, false, 1, ItemOption.getOption(1104, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1104, false, 1, ItemOption.getOption(1104, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(120) < 1) {
-                Item item = new Item(1105, false, 1, ItemOption.getOption(1105, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1105, false, 1, ItemOption.getOption(1105, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(200) < 1) {
-                Item item = new Item(1106, false, 1, ItemOption.getOption(1106, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1106, false, 1, ItemOption.getOption(1106, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else {
-                int idct = new int[] { 1104, 1105, 1106 }[Util.gI().nextInt(3)];
-                Item item = new Item(idct, false, 1, ItemOption.getOption(idct, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                int idct = new int[]{1104, 1105, 1106}[Util.gI().nextInt(3)];
+                Item item = new Item(idct, false, 1, ItemOption.getOption(idct, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                 this.addItemBag(0, item);
             }
-            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID,
-                    this.pointEvent += 1, -1);
+            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID, this.pointEvent += 1, -1);
         }
     }
 
@@ -12900,8 +12337,7 @@ public class Char {
             this.updateEXP(2, 1000);
             if (Util.gI().nextInt(100) < 15) {
                 int id = Util.gI().nextInt(1066, 1070);
-                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0),
-                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 25) {
                 Item item = new Item(1039, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -12928,71 +12364,56 @@ public class Char {
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(899, false, 1, ItemOption.getOption(899, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(899, false, 1, ItemOption.getOption(899, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, 15));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(902, false, 1, ItemOption.getOption(902, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(902, false, 1, ItemOption.getOption(902, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, 15));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 25) {
                 int id = Util.gI().nextInt(712, 716);
-                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(15, false, 1, ItemOption.getOption(15, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(15, false, 1, ItemOption.getOption(15, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(673, false, 1, ItemOption.getOption(673, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(673, false, 1, ItemOption.getOption(673, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(997, false, 1, ItemOption.getOption(997, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(997, false, 1, ItemOption.getOption(997, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(998, false, 1, ItemOption.getOption(998, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(998, false, 1, ItemOption.getOption(998, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(1000, false, 1, ItemOption.getOption(1000, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1000, false, 1, ItemOption.getOption(1000, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(16, false, 1, ItemOption.getOption(15, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(16, false, 1, ItemOption.getOption(15, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(1039, false, 1, ItemOption.getOption(1039, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1039, false, 1, ItemOption.getOption(1039, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 mLog.log("Quay ra vv " + item.template.name);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(120) < 1) {
-                Item item = new Item(1040, false, 1, ItemOption.getOption(1040, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1040, false, 1, ItemOption.getOption(1040, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 mLog.log("Quay ra vv " + item.template.name);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(150) < 1) {
-                Item item = new Item(1114, false, 1, ItemOption.getOption(1114, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1114, false, 1, ItemOption.getOption(1114, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 mLog.log("Quay ra vv " + item.template.name);
                 this.addItemBag(0, item);
             } else {
                 int id = Util.gI().nextInt(1066, 1070);
-                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0),
-                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             }
-            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID,
-                    this.pointEvent += 3, -1);
+            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID, this.pointEvent += 3, -1);
         }
     }
 
@@ -13009,8 +12430,7 @@ public class Char {
             this.myObj().nPointTang1 += n;
             if (this.myObj().nPointTang1 >= 99) {
                 this.myObj().nPointTang1 = 0;
-                this.addItemBag(0, new Item(722, false, 1, ItemOption.getOption(722, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY));
+                this.addItemBag(0, new Item(722, false, 1, ItemOption.getOption(722, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 Server.gI().nSendFl1++;
                 if (Server.gI().nSendFl1 >= 999) {
                     Server.gI().nSendFl1 = 0;
@@ -13059,8 +12479,7 @@ public class Char {
                     if (!DaiHoi.isRegister) {
                         this.addChat(3000, String.format(mResources.WAR_PRIZE_CHAT2, DaiHoi.getNextHour()));
                     } else {
-                        this.addChat(3000,
-                                String.format(mResources.WAR_PRIZE_CHAT5, Util.gI().convertTime(DaiHoi.timeRegister)));
+                        this.addChat(3000, String.format(mResources.WAR_PRIZE_CHAT5, Util.gI().convertTime(DaiHoi.timeRegister)));
                     }
                 }
                 this.addChat(6000, mResources.WAR_PRIZE_CHAT3);
@@ -13078,24 +12497,25 @@ public class Char {
 
     public static long getPotentialAdded(int planet, int hpGoc, int kiGoc, int damGoc, int defGoc, int critGoc) {
         long potential = 0;
-        labe: {
+        labe:
+        {
             // hp
-            for (int i = planet == 0 ? 200 : planet == 1 ? 100 : planet == 2 ? 100 : 0; i < hpGoc;) {
+            for (int i = planet == 0 ? 200 : planet == 1 ? 100 : planet == 2 ? 100 : 0; i < hpGoc; ) {
                 potential += (i + 1000);
                 i += 20;
             }
             // ki
-            for (int i = planet == 0 ? 100 : planet == 1 ? 200 : planet == 2 ? 100 : 0; i < kiGoc;) {
+            for (int i = planet == 0 ? 100 : planet == 1 ? 200 : planet == 2 ? 100 : 0; i < kiGoc; ) {
                 potential += (i + 1000);
                 i += 20;
             }
             // dam
-            for (int i = planet == 0 ? 12 : planet == 1 ? 12 : planet == 2 ? 15 : 0; i < damGoc;) {
+            for (int i = planet == 0 ? 12 : planet == 1 ? 12 : planet == 2 ? 15 : 0; i < damGoc; ) {
                 potential += (i * 100);
                 i += 1;
             }
             // def
-            for (int i = 0; i < defGoc;) {
+            for (int i = 0; i < defGoc; ) {
                 potential += (500000 + i * 100000);
                 i += 1;
             }
@@ -13134,19 +12554,19 @@ public class Char {
 
     public int getQuantityItem(int templateId) {
         int quantity = 0;
-        for (int i = 0; i < this.arrItemBag.length;) {
+        for (int i = 0; i < this.arrItemBag.length; ) {
             if (this.arrItemBag[i] != null && this.arrItemBag[i].template.id == templateId) {
                 quantity += this.arrItemBag[i].quantity;
             }
             i++;
         }
-        for (int i = 0; i < this.arrItemBox.length;) {
+        for (int i = 0; i < this.arrItemBox.length; ) {
             if (this.arrItemBox[i] != null && this.arrItemBox[i].template.id == templateId) {
                 quantity += this.arrItemBox[i].quantity;
             }
             i++;
         }
-        for (int i = 0; i < this.arrItemBody.length;) {
+        for (int i = 0; i < this.arrItemBody.length; ) {
             if (this.arrItemBody[i] != null && this.arrItemBody[i].template.id == templateId) {
                 quantity += this.arrItemBody[i].quantity;
             }
@@ -13181,7 +12601,8 @@ public class Char {
                     // Tim phong
                     Map map = Map.getMapServer(113);
                     if (map != null) {
-                        trandau: {
+                        trandau:
+                        {
                             boolean flag = false;
                             for (int j = 0; j < map.zones.size(); j++) {
                                 if (!map.zones.get(j).isRace) {
@@ -13303,9 +12724,7 @@ public class Char {
             } else {
                 for (int i = 0; i < this.arrSuperRank.size(); i++) {
                     if (this.arrSuperRank.get(i).charID == playerId) {
-                        if (this.arrSuperRank.get(this.arrSuperRank.size() - 1).rank < 20
-                                && Math.abs(this.arrSuperRank.get(this.arrSuperRank.size() - 1).rank
-                                        - this.arrSuperRank.get(i).rank) > 2) {
+                        if (this.arrSuperRank.get(this.arrSuperRank.size() - 1).rank < 20 && Math.abs(this.arrSuperRank.get(this.arrSuperRank.size() - 1).rank - this.arrSuperRank.get(i).rank) > 2) {
                             this.addInfo1(mResources.FAIL_THACH_DAU1);
                         } else {
                             this.superRankName = this.arrSuperRank.get(i).name;
@@ -13456,17 +12875,14 @@ public class Char {
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(2009, false, 1, ItemOption.getOption(2009, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(2009, false, 1, ItemOption.getOption(2009, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(984, false, 1, ItemOption.getOption(984, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(984, false, 1, ItemOption.getOption(984, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(30, 0));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(699, false, 1, ItemOption.getOption(699, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(699, false, 1, ItemOption.getOption(699, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
                 Item item = new Item(1110, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -13485,50 +12901,39 @@ public class Char {
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(925, false, 1, ItemOption.getOption(925, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(925, false, 1, ItemOption.getOption(925, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, 15));
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(1151, false, 1, ItemOption.getOption(1151, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1151, false, 1, ItemOption.getOption(1151, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
                 int id = Util.gI().nextInt(712, 716);
-                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(1143, false, 1, ItemOption.getOption(1143, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1143, false, 1, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(1110, false, 1, ItemOption.getOption(1110, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1110, false, 1, ItemOption.getOption(1110, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(120) < 1) {
-                Item item = new Item(1111, false, 1, ItemOption.getOption(1111, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1111, false, 1, ItemOption.getOption(1111, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(200) < 1) {
-                Item item = new Item(867, false, 1, ItemOption.getOption(867, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(867, false, 1, ItemOption.getOption(867, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(200) < 1) {
-                Item item = new Item(868, false, 1, ItemOption.getOption(868, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(868, false, 1, ItemOption.getOption(868, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else {
-                int idct = new int[] { 867, 868 }[Util.gI().nextInt(2)];
-                Item item = new Item(idct, false, 1, ItemOption.getOption(idct, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                int idct = new int[]{867, 868}[Util.gI().nextInt(2)];
+                Item item = new Item(idct, false, 1, ItemOption.getOption(idct, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                 this.addItemBag(0, item);
             }
-            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID,
-                    this.pointEvent += 1, -1);
+            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID, this.pointEvent += 1, -1);
         }
     }
 
@@ -13546,8 +12951,7 @@ public class Char {
             this.updateEXP(2, 1000);
             if (Util.gI().nextInt(100) < 15) {
                 int id = Util.gI().nextInt(1066, 1070);
-                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0),
-                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 25) {
                 Item item = new Item(908, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -13574,79 +12978,62 @@ public class Char {
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(1152, false, 1, ItemOption.getOption(1152, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1152, false, 1, ItemOption.getOption(1152, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(1150, false, 1, ItemOption.getOption(1150, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1150, false, 1, ItemOption.getOption(1150, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
                 int id = Util.gI().nextInt(712, 716);
-                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(15, false, 1, ItemOption.getOption(15, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(15, false, 1, ItemOption.getOption(15, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(2008, false, 1, ItemOption.getOption(2008, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(2008, false, 1, ItemOption.getOption(2008, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(1013, false, 1, ItemOption.getOption(1013, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1013, false, 1, ItemOption.getOption(1013, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(1021, false, 1, ItemOption.getOption(1021, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1021, false, 1, ItemOption.getOption(1021, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(1022, false, 1, ItemOption.getOption(1022, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1022, false, 1, ItemOption.getOption(1022, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(908, false, 1, ItemOption.getOption(908, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(908, false, 1, ItemOption.getOption(908, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 mLog.log("Quay ra vv " + item.template.name);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(909, false, 1, ItemOption.getOption(909, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(909, false, 1, ItemOption.getOption(909, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 mLog.log("Quay ra vv " + item.template.name);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 1) {
-                Item item = new Item(910, false, 1, ItemOption.getOption(910, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(910, false, 1, ItemOption.getOption(910, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 mLog.log("Quay ra vv " + item.template.name);
                 this.addItemBag(0, item);
             } else {
                 int id = Util.gI().nextInt(1066, 1070);
-                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0),
-                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             }
-            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID,
-                    this.pointEvent += 3, -1);
+            Rank.getRank(3).addTop(this.cName, this.head, this.headICON, this.body, this.leg, this.charID, this.pointEvent += 3, -1);
         }
     }
 
     public void curExpSkill() {
-        if (this.session == null)
-            return;
+        if (this.session == null) return;
         if (this.session.getIntVersion() >= 231) {
             for (int i = 0; i < this.skills.size(); i++) {
                 if (this.skills.get(i).template.type == 4) {
@@ -13667,16 +13054,13 @@ public class Char {
         this.typeItem = typeItem;
         this.session.service.get_Img_Skill(newSkill.skillId, typePaint);
         if (newSkill.template.id == 24) {
-            this.zoneMap.SetSkillPaint_NEW(this.charID, newSkill.template.id, 0, 1, typePaint, this.cdir, this.timeGong,
-                    this.typeItem);
+            this.zoneMap.SetSkillPaint_NEW(this.charID, newSkill.template.id, 0, 1, typePaint, this.cdir, this.timeGong, this.typeItem);
         }
         if (newSkill.template.id == 25) {
-            this.zoneMap.SetSkillPaint_NEW(this.charID, newSkill.template.id, 0, 2, typePaint, this.cdir, this.timeGong,
-                    this.typeItem);
+            this.zoneMap.SetSkillPaint_NEW(this.charID, newSkill.template.id, 0, 2, typePaint, this.cdir, this.timeGong, this.typeItem);
         }
         if (newSkill.template.id == 26) {
-            this.zoneMap.SetSkillPaint_NEW(this.charID, newSkill.template.id, 0, 3, typePaint, this.cdir, this.timeGong,
-                    this.typeItem);
+            this.zoneMap.SetSkillPaint_NEW(this.charID, newSkill.template.id, 0, 3, typePaint, this.cdir, this.timeGong, this.typeItem);
         }
     }
 
@@ -13691,12 +13075,10 @@ public class Char {
                     if (this.timeGong <= 0) {
                         this.timeGong = 0;
                         if (this.newSkill.template.id == 24) {
-                            this.zoneMap.SetSkillPaint_STT(this.charID, this.newSkill.template.id, this.targetDame,
-                                    this.timeDame, this.newSkill.dy, this.typePaint, null, null, this.typeItem);
+                            this.zoneMap.SetSkillPaint_STT(this.charID, this.newSkill.template.id, this.targetDame, this.timeDame, this.newSkill.dy, this.typePaint, null, null, this.typeItem);
                         }
                         if (this.newSkill.template.id == 25) {
-                            this.zoneMap.SetSkillPaint_STT(this.charID, this.newSkill.template.id, this.targetDame,
-                                    this.timeDame, 30, this.typePaint, null, null, this.typeItem);
+                            this.zoneMap.SetSkillPaint_STT(this.charID, this.newSkill.template.id, this.targetDame, this.timeDame, 30, this.typePaint, null, null, this.typeItem);
                         }
                         // ma phong ba
                         if (this.newSkill.template.id == 26) {
@@ -13712,10 +13094,7 @@ public class Char {
                             synchronized (this.zoneMap.players) {
                                 for (int i = 0; i < this.zoneMap.players.size() && num < maxJail; i++) {
                                     Char player = this.zoneMap.players.get(i);
-                                    if (this.isMeCanAttackOtherPlayer(player)
-                                            && Math.abs(player.cx - this.cx) <= this.newSkill.dx
-                                            && Math.abs(this.cy - player.cy) <= this.newSkill.dy
-                                            && (this.cdir == 1 ? player.cx >= this.cx : player.cx <= this.cx)) {
+                                    if (this.isMeCanAttackOtherPlayer(player) && Math.abs(player.cx - this.cx) <= this.newSkill.dx && Math.abs(this.cy - player.cy) <= this.newSkill.dy && (this.cdir == 1 ? player.cx >= this.cx : player.cx <= this.cx)) {
                                         this.mPhongBa2.add(player);
                                         num++;
                                     }
@@ -13724,18 +13103,13 @@ public class Char {
                             synchronized (this.zoneMap.mobs) {
                                 for (int i = 0; i < this.zoneMap.mobs.size() && num < maxJail; i++) {
                                     Mob mob = this.zoneMap.mobs.get(i);
-                                    if (this.isMeCanAttackOtherMob(mob)
-                                            && Math.abs(mob.pointx - this.cx) <= this.newSkill.dx
-                                            && Math.abs(this.cy - mob.pointy) <= this.newSkill.dy
-                                            && (this.cdir == 1 ? mob.pointx >= this.cx : mob.pointx <= this.cx)) {
+                                    if (this.isMeCanAttackOtherMob(mob) && Math.abs(mob.pointx - this.cx) <= this.newSkill.dx && Math.abs(this.cy - mob.pointy) <= this.newSkill.dy && (this.cdir == 1 ? mob.pointx >= this.cx : mob.pointx <= this.cx)) {
                                         this.mPhongBa1.add(mob);
                                         num++;
                                     }
                                 }
                             }
-                            this.zoneMap.SetSkillPaint_STT(this.charID, this.newSkill.template.id, this.targetDame,
-                                    this.timeDame, this.newSkill.dy, this.typePaint, this.mPhongBa1, this.mPhongBa2,
-                                    this.typeItem);
+                            this.zoneMap.SetSkillPaint_STT(this.charID, this.newSkill.template.id, this.targetDame, this.timeDame, this.newSkill.dy, this.typePaint, this.mPhongBa1, this.mPhongBa2, this.typeItem);
                         }
                     }
                 }
@@ -13757,13 +13131,12 @@ public class Char {
                         this.timeDanhSkill -= this.delay;
                         if (this.timeDanhSkill <= 0) {
                             this.timeDanhSkill = 210;
-                            this.cadicLienHoanChuong(
-                                    (this.cDamFull * (this.newSkill.damage / 100 / 100)) + this.cDamFull);
+                            this.cadicLienHoanChuong((this.cDamFull * (this.newSkill.damage / 100 / 100)) + this.cDamFull);
                         }
                     }
                     // cho vao lo
                     if (this.timeDame == 0) {
-                        short array[] = new short[] { 11183, 11192, 11173 };
+                        short array[] = new short[]{11183, 11192, 11173};
                         if (!this.mPhongBa1.isEmpty()) {
                             for (int i = 0; i < this.mPhongBa1.size(); i++) {
                                 this.mPhongBa1.get(i).setBody(array[this.typeItem], 12000);
@@ -13814,18 +13187,14 @@ public class Char {
         }
         for (int i3 = 0; i3 < arrMob.length; i3 = i3 + 1) {
             Mob mob = arrMob[i3];
-            if (mob != null && this.isMeCanAttackOtherMob(mob) && mob.pointx > Math.min(this.targetDame.x, this.cx)
-                    && mob.pointx < Math.max(this.targetDame.x, this.cx)
-                    && Math.abs(mob.pointy - this.cy) < this.targetDame.y) {
+            if (mob != null && this.isMeCanAttackOtherMob(mob) && mob.pointx > Math.min(this.targetDame.x, this.cx) && mob.pointx < Math.max(this.targetDame.x, this.cx) && Math.abs(mob.pointy - this.cy) < this.targetDame.y) {
                 mob.AttackMob(this, damage, false, 3, -1);
             }
         }
         for (int i4 = 0; i4 < arrChar.length; i4 = i4 + 1) {
             Char player = arrChar[i4];
             if (player != null) {
-                if (this.isMeCanAttackOtherPlayer(player) && player.cy > Math.min(this.targetDame.x, this.cx)
-                        && player.cy < Math.max(this.targetDame.x, this.cx)
-                        && Math.abs(player.cy - this.cy) < this.targetDame.y) {
+                if (this.isMeCanAttackOtherPlayer(player) && player.cy > Math.min(this.targetDame.x, this.cx) && player.cy < Math.max(this.targetDame.x, this.cx) && Math.abs(player.cy - this.cy) < this.targetDame.y) {
                     int damage2 = damage;
                     if (player.isTemplate) {
                         if (this.isMonkey != 0) {
@@ -13872,17 +13241,14 @@ public class Char {
         }
         for (int i3 = 0; i3 < arrMob.length; i3 = i3 + 1) {
             Mob mob = arrMob[i3];
-            if (mob != null && this.isMeCanAttackOtherMob(mob)
-                    && Math.abs(this.targetDame.x - mob.pointx) < this.newSkill.dx
-                    && Math.abs(this.targetDame.y - mob.pointy) < this.newSkill.dy) {
+            if (mob != null && this.isMeCanAttackOtherMob(mob) && Math.abs(this.targetDame.x - mob.pointx) < this.newSkill.dx && Math.abs(this.targetDame.y - mob.pointy) < this.newSkill.dy) {
                 mob.AttackMob(this, damage, false, 3, -1);
             }
         }
         for (int i4 = 0; i4 < arrChar.length; i4 = i4 + 1) {
             Char player = arrChar[i4];
             if (player != null) {
-                if (this.isMeCanAttackOtherPlayer(player) && Math.abs(this.targetDame.x - player.cx) < this.newSkill.dx
-                        && Math.abs(this.targetDame.y - player.cy) < this.newSkill.dy) {
+                if (this.isMeCanAttackOtherPlayer(player) && Math.abs(this.targetDame.x - player.cx) < this.newSkill.dx && Math.abs(this.targetDame.y - player.cy) < this.newSkill.dy) {
                     int damage2 = damage;
                     if (player.isTemplate) {
                         if (this.isMonkey != 0) {
@@ -13923,9 +13289,7 @@ public class Char {
                 }
             }
             for (i = 0; i < arr.length; i++) {
-                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie
-                        && arr[i].timeStone <= 0 && Math.abs(arr[i].cx - this.cx) <= 200
-                        && Math.abs(arr[i].cy - this.cy) <= 200 && !arr[i].isSendSocola30 && !arr[i].isAgainstEffect) {
+                if (arr[i] != null && !arr[i].isTemplate && arr[i].charID != this.charID && !arr[i].isDie && arr[i].timeStone <= 0 && Math.abs(arr[i].cx - this.cx) <= 200 && Math.abs(arr[i].cy - this.cy) <= 200 && !arr[i].isSendSocola30 && !arr[i].isAgainstEffect) {
                     arr[i].timeStone = 30000;
                     arr[i].setItem(11085, second, 0, 0);
                     this.zoneMap.addEffectChar(arr[i].charID, 202, 1, 1, 1, 0);
@@ -13963,11 +13327,9 @@ public class Char {
                                 if (!this.isStand()) {
                                     if (Math.abs(this.cx - player.cx) <= 50 && Math.abs(this.cy - player.cy) <= 50) {
                                         // hut vang
-                                        this.zoneMap.steal(this.charID, player.cx, player.cy,
-                                                this.zoneMap.createItemMapId(), 188);
+                                        this.zoneMap.steal(this.charID, player.cx, player.cy, this.zoneMap.createItemMapId(), 188);
                                         long soVang = Util.gI().nextInt(500, 5000);
-                                        if (soVang > player.xu)
-                                            soVang = player.xu;
+                                        if (soVang > player.xu) soVang = player.xu;
                                         player.updateXu(-soVang, 1);
                                         this.xuSteal += soVang;
                                         this.timeChuyenMap = 60000;
@@ -14070,18 +13432,14 @@ public class Char {
 
     public void openTabGold() {
         this.resetMenu();
-        this.menuBoard.chat = String.format(mResources.INFO_LUCKYROUND, LuckyRoundNew.history,
-                Util.gI().getStrTime(LuckyRoundNew.time), Util.gI().getFormatNumber(LuckyRoundNew.totalMoney),
-                LuckyRoundNew.countID(), Util.gI().getFormatNumber(LuckyRoundNew.countMoneyME(this.playerId)),
-                LuckyRoundNew.percentME(this.playerId));
+        this.menuBoard.chat = String.format(mResources.INFO_LUCKYROUND, LuckyRoundNew.history, Util.gI().getStrTime(LuckyRoundNew.time), Util.gI().getFormatNumber(LuckyRoundNew.totalMoney), LuckyRoundNew.countID(), Util.gI().getFormatNumber(LuckyRoundNew.countMoneyME(this.playerId)), LuckyRoundNew.percentME(this.playerId));
         this.menuBoard.arrMenu.add(new MenuInfo(mResources.REFRESH, 175));
         this.menuBoard.arrMenu.add(new MenuInfo(mResources.LUCKY_ROUND_NEW_JOIN1, 176));
         this.menuBoard.arrMenu.add(new MenuInfo(mResources.LUCKY_ROUND_NEW_JOIN10, 177));
         this.menuBoard.arrMenu.add(new MenuInfo(mResources.LUCKY_ROUND_NEW_JOIN20, 178));
         int win = LuckyRoundNew.countWin(this.playerId);
         if (win > 0) {
-            this.menuBoard.arrMenu.add(
-                    new MenuInfo(String.format(mResources.LUCKY_ROUND_NEW_WIN, Util.gI().getFormatNumber(win)), 179));
+            this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.LUCKY_ROUND_NEW_WIN, Util.gI().getFormatNumber(win)), 179));
         }
         this.menuBoard.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
         this.menuBoard.openUIConfirm(54, null, null, -1);
@@ -14091,8 +13449,7 @@ public class Char {
         int win = LuckyRoundNew.countWin(this.playerId);
         if (win > 0) {
             LuckyRoundNew.removeWin(this.playerId);
-            Item item = new Item(457, false, win, ItemOption.getOption(457, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
+            Item item = new Item(457, false, win, ItemOption.getOption(457, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             this.addItemBag(0, item);
         }
     }
@@ -14108,8 +13465,7 @@ public class Char {
             if (item != null) {
                 if (this.checkBag(item)) {
                     int price = (int) (SaleItemNew.priceItemCoin(item) * item.quantity * 1.1);
-                    if (price < 110)
-                        price = 110;
+                    if (price < 110) price = 110;
                     if (price > this.xu) {
                         this.addInfo1(String.format(mResources.NOT_XU, price - this.xu));
                     } else {
@@ -14148,9 +13504,8 @@ public class Char {
     }
 
     private void cauSKHe() {
-        int tempId = new int[] { 1991, 1992, 1993, 1002, 1002, 1003, 1003, 1004, 1004 }[Util.gI().nextInt(9)];
-        Item item = new Item(tempId, false, 1, ItemOption.getOption(tempId, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                mResources.EMPTY);
+        int tempId = new int[]{1991, 1992, 1993, 1002, 1002, 1003, 1003, 1004, 1004}[Util.gI().nextInt(9)];
+        Item item = new Item(tempId, false, 1, ItemOption.getOption(tempId, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
         if (this.checkBag(item)) {
             this.addChat(1, String.format(mResources.CAU_CA_SUCCESS2, item.template.name));
             this.addItemBag(1, item);
@@ -14165,8 +13520,7 @@ public class Char {
             if (this.timeThaCau <= 0) {
                 this.timeThaCau = 0;
                 if (!this.isgiaodich && (this.moiCau == null || this.arrItemBag[this.moiCau.indexUI] == this.moiCau)) {
-                    if (this.moiCau != null)
-                        this.useItemBag(this.moiCau.indexUI, 1);
+                    if (this.moiCau != null) this.useItemBag(this.moiCau.indexUI, 1);
                     if (this.isThaCau == 1) {
                         this.cauSKHe();
                     }
@@ -14178,8 +13532,7 @@ public class Char {
     }
 
     private void updateEffectChar() {
-        if (this.zoneMap == null || this.gameTick % 20 == 0)
-            return;
+        if (this.zoneMap == null || this.gameTick % 20 == 0) return;
         for (int i = this.aEffChar.size() - 1; i >= 0; i--) {
             EffChar eff = this.aEffChar.get(i);
             if (eff.second != -1 && eff.last / 1000L + eff.second < System.currentTimeMillis() / 1000L) {
@@ -14188,8 +13541,7 @@ public class Char {
         }
     }
 
-    public void addEffectChar(int effId, int layer, int loop, int loopCount, int isStand, int second, int typeEff,
-            boolean isPaint, boolean isSave, Item item) {
+    public void addEffectChar(int effId, int layer, int loop, int loopCount, int isStand, int second, int typeEff, boolean isPaint, boolean isSave, Item item) {
         EffChar iEff = new EffChar();
         iEff.effId = effId;
         iEff.layer = layer;
@@ -14233,16 +13585,14 @@ public class Char {
 
     public void removeEffVip() {
         for (int i = this.aEffChar.size() - 1; i >= 0; i--) {
-            if (this.aEffChar.get(i).effId == 1000 || this.aEffChar.get(i).effId == 1001
-                    || this.aEffChar.get(i).effId == 1002) {
+            if (this.aEffChar.get(i).effId == 1000 || this.aEffChar.get(i).effId == 1001 || this.aEffChar.get(i).effId == 1002) {
                 this.aEffChar.remove(i);
             }
         }
     }
 
     public void unseal() {
-        if (this.getItemBagQuantityById(537) < 10 || this.getItemBagQuantityById(538) < 10
-                || this.getItemBagQuantityById(539) < 10 || this.getItemBagQuantityById(540) < 10) {
+        if (this.getItemBagQuantityById(537) < 10 || this.getItemBagQuantityById(538) < 10 || this.getItemBagQuantityById(539) < 10 || this.getItemBagQuantityById(540) < 10) {
             this.resetMenu();
             this.menuBoard.chat = mResources.SAY_DUONG_TANG_3;
             this.menuBoard.arrMenu.add(new MenuInfo(mResources.OK, 0));
@@ -14257,83 +13607,67 @@ public class Char {
             Item item = null;
             if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(994, false, 1, ItemOption.getOption(994, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                            mResources.EMPTY);
+                    item = new Item(994, false, 1, ItemOption.getOption(994, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(994, false, 1, ItemOption.getOption(994, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(994, false, 1, ItemOption.getOption(994, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(995, false, 1, ItemOption.getOption(995, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                            mResources.EMPTY);
+                    item = new Item(995, false, 1, ItemOption.getOption(995, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(995, false, 1, ItemOption.getOption(995, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(995, false, 1, ItemOption.getOption(995, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(996, false, 1, ItemOption.getOption(996, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                            mResources.EMPTY);
+                    item = new Item(996, false, 1, ItemOption.getOption(996, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(996, false, 1, ItemOption.getOption(996, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(996, false, 1, ItemOption.getOption(996, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(997, false, 1, ItemOption.getOption(997, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                            mResources.EMPTY);
+                    item = new Item(997, false, 1, ItemOption.getOption(997, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(997, false, 1, ItemOption.getOption(997, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(997, false, 1, ItemOption.getOption(997, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(999, false, 1, ItemOption.getOption(999, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                            mResources.EMPTY);
+                    item = new Item(999, false, 1, ItemOption.getOption(999, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(999, false, 1, ItemOption.getOption(999, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(999, false, 1, ItemOption.getOption(999, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(1000, false, 1, ItemOption.getOption(1000, 0, 0), mResources.EMPTY,
-                            mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1000, false, 1, ItemOption.getOption(1000, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(1000, false, 1, ItemOption.getOption(1000, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1000, false, 1, ItemOption.getOption(1000, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(1001, false, 1, ItemOption.getOption(1001, 0, 0), mResources.EMPTY,
-                            mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1001, false, 1, ItemOption.getOption(1001, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(1001, false, 1, ItemOption.getOption(1001, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1001, false, 1, ItemOption.getOption(1001, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(1000) < 1) {
-                    item = new Item(1007, false, 1, ItemOption.getOption(1007, 0, 0), mResources.EMPTY,
-                            mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1007, false, 1, ItemOption.getOption(1007, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                     mLog.log("Giai phong an vv " + item.template.name);
                 } else {
-                    item = new Item(1007, false, 1, ItemOption.getOption(1007, Util.gI().nextInt(3, 7), 0),
-                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1007, false, 1, ItemOption.getOption(1007, Util.gI().nextInt(3, 7), 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 }
             } else {
                 int ctId = -1;
@@ -14348,20 +13682,17 @@ public class Char {
                 }
                 if (ctId != -1) {
                     if (Util.gI().nextInt(10000) < 1) {
-                        item = new Item(ctId, false, 1, ItemOption.getOption(ctId, 0, 0), mResources.EMPTY,
-                                mResources.EMPTY, mResources.EMPTY);
+                        item = new Item(ctId, false, 1, ItemOption.getOption(ctId, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                         Server.gI().chatVip(String.format(mResources.EVENT_IDOL, this.cName, item.template.name));
                         mLog.log("Giai phong an vv " + item.template.name);
                     } else {
-                        item = new Item(ctId, false, 1, ItemOption.getOption(ctId, 3, 0), mResources.EMPTY,
-                                mResources.EMPTY, mResources.EMPTY);
+                        item = new Item(ctId, false, 1, ItemOption.getOption(ctId, 3, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     }
                 }
             }
             if (item != null) {
                 if (item.isHaveOption(93)) {
-                    item.setExpires(System.currentTimeMillis()
-                            + (long) (1000l * 60l * 60l * 24l * (long) (item.getParamOption(93) + 1)));
+                    item.setExpires(System.currentTimeMillis() + (long) (1000l * 60l * 60l * 24l * (long) (item.getParamOption(93) + 1)));
                 }
                 this.addItemBag(0, item);
             }
@@ -14380,8 +13711,7 @@ public class Char {
                 if (this.securityCode == -1) {
                     this.resetMenu();
                     final int gia = 1000;
-                    this.menuBoard.chat = String.format(mResources.YES_NO_CODE, this.securityCode2,
-                            Util.gI().numberTostring(gia));
+                    this.menuBoard.chat = String.format(mResources.YES_NO_CODE, this.securityCode2, Util.gI().numberTostring(gia));
                     this.menuBoard.arrMenu.add(new MenuInfo(mResources.OK, 308, gia));
                     this.menuBoard.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.menuBoard.openUIConfirm(5, null, null, -1);
@@ -14389,8 +13719,7 @@ public class Char {
                     this.addInfo1(String.format(mResources.CODE_OK, this.securityCode2));
                     this.resetMenu();
                     this.menuBoard.chat = mResources.SAY_CODE;
-                    this.menuBoard.arrMenu
-                            .add(new MenuInfo(this.isSecurity ? mResources.TURN_OFF : mResources.TURN_ON, 309));
+                    this.menuBoard.arrMenu.add(new MenuInfo(this.isSecurity ? mResources.TURN_OFF : mResources.TURN_ON, 309));
                     this.menuBoard.arrMenu.add(new MenuInfo(mResources.CHANGE_CODE, 310));
                     this.menuBoard.arrMenu.add(new MenuInfo(mResources.CANCEL_CODE, 311));
                     this.menuBoard.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
@@ -14419,8 +13748,7 @@ public class Char {
             this.myPet4.delay = this.delay;
             this.myPet4.update();
             if (this.gameTick % 300 == 0) {
-                this.myPet4.addChat(1, String.format(mResources.HO_TONG1,
-                        MapTemplate.arrMapTemplate[this.myPet4.instructionMapID].mapName));
+                this.myPet4.addChat(1, String.format(mResources.HO_TONG1, MapTemplate.arrMapTemplate[this.myPet4.instructionMapID].mapName));
             }
             if (this.myPet4.instructionMapID == this.myPet4.mapTemplateId) {
                 int point = Util.gI().nextInt(1, 100);
@@ -14439,12 +13767,10 @@ public class Char {
                 this.clearPet4();
                 return;
             }
-            if (!this.myPet4.isMove
-                    && (Math.abs(this.cx - this.myPet4.cx) > 50 || Math.abs(this.cy - this.myPet4.cy) > 50)) {
+            if (!this.myPet4.isMove && (Math.abs(this.cx - this.myPet4.cx) > 50 || Math.abs(this.cy - this.myPet4.cy) > 50)) {
                 this.myPet4.setMove(0, this.cx += Util.gI().nextInt(-24, 24), this.cy, 50, 0, 300);
             }
-            if (Map.isMapOffline(this.mapTemplateId) || (this.zoneMap == this.myPet4.zoneMap
-                    && (Math.abs(this.cx - this.myPet4.cx) > 400 || Math.abs(this.cy - this.myPet4.cy) > 400))) {
+            if (Map.isMapOffline(this.mapTemplateId) || (this.zoneMap == this.myPet4.zoneMap && (Math.abs(this.cx - this.myPet4.cx) > 400 || Math.abs(this.cy - this.myPet4.cy) > 400))) {
                 this.clearPet4();
             } else if (this.zoneMap != this.myPet4.zoneMap) {
                 if (this.myPet4.zoneMap != null) {
@@ -14522,7 +13848,7 @@ public class Char {
 
     public void addDuongTang() {
         this.myPet4 = Player.addBoss(146, 5, this.cHPFull, 0, false, this.cx, this.cy, this.zoneMap, -1, -1);
-        int array[] = new int[] { 5 };
+        int array[] = new int[]{5};
         this.myPet4.instructionMapID = array[Util.gI().nextInt(array.length)];
         this.myPet4.myChar4 = this;
     }
@@ -14546,8 +13872,7 @@ public class Char {
             }
         }
 
-        if (this.zoneMap != null && this.isMove && !this.isStand() && this.moveAutos != null
-                && !this.moveAutos.isEmpty()) {
+        if (this.zoneMap != null && this.isMove && !this.isStand() && this.moveAutos != null && !this.moveAutos.isEmpty()) {
             int array[] = this.moveAutos.get(0);
             array[4] -= this.delay;
             if (array[4] <= 0) {
@@ -14621,8 +13946,7 @@ public class Char {
             }
         }
         // Kieu di chuyen
-        if (this.zoneMap != null && this.isInMap && !this.isStand() && !this.isSuper && this.timeMove <= 0
-                && this.tCharge <= 0) {
+        if (this.zoneMap != null && this.isInMap && !this.isStand() && !this.isSuper && this.timeMove <= 0 && this.tCharge <= 0) {
             if (this.autoMove == 1 && this.gameTick % 20 == 0) {
                 this.setMove(0, this.cx + Util.gI().nextInt(-50, 50), 150, 50, 1, 0);
             }
@@ -14669,15 +13993,14 @@ public class Char {
     }
 
     public void addMove(int type, int sendX, int sendY, int status) {
-        if (this.isCheckWaypoint)
-            return;
+        if (this.isCheckWaypoint) return;
         if (this.moves == null) {
             this.moves = new ArrayList<>();
         }
         if (status == 1) {
             this.fMove(type, sendX, sendY, status);
         } else {
-            this.moves.add(new int[] { type, sendX, sendY, status });
+            this.moves.add(new int[]{type, sendX, sendY, status});
         }
         // int kcX = this.cspeed * 7;
         // int x = this.cx;
@@ -14714,8 +14037,7 @@ public class Char {
     }
 
     public void addFightWish() {
-        Player bot = Player.addBoss(147, 0, this.getPercentLevel(550000, LuyenTap.getLevel(this.cName), 1.1F),
-                this.getPercentLevel(5000, LuyenTap.getLevel(this.cName), 1.05F), true, 385, 360, null, 2000, -1);
+        Player bot = Player.addBoss(147, 0, this.getPercentLevel(550000, LuyenTap.getLevel(this.cName), 1.1F), this.getPercentLevel(5000, LuyenTap.getLevel(this.cName), 1.05F), true, 385, 360, null, 2000, -1);
         bot.cName = String.format(bot.cName, LuyenTap.getLevel(this.cName));
         bot.fightWish1 = this;
         if (LuyenTap.getLevel(this.cName) >= 100) {
@@ -14740,24 +14062,21 @@ public class Char {
                     item.options.add(new ItemOption(77, 3));
                     item.options.add(new ItemOption(103, 3));
                     item.options.add(new ItemOption(50, 3));
-                    this.addEffectChar(58, 1, 0, 1, 1, (int) ((o.last - System.currentTimeMillis()) / 1000L), 2, true,
-                            true, item);
+                    this.addEffectChar(58, 1, 0, 1, 1, (int) ((o.last - System.currentTimeMillis()) / 1000L), 2, true, true, item);
                 }
                 if (o.gift == 2) {
                     Item item = new Item(0, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     item.options.add(new ItemOption(77, 2));
                     item.options.add(new ItemOption(103, 2));
                     item.options.add(new ItemOption(50, 2));
-                    this.addEffectChar(57, 1, 0, 1, 1, (int) ((o.last - System.currentTimeMillis()) / 1000L), 2, true,
-                            true, item);
+                    this.addEffectChar(57, 1, 0, 1, 1, (int) ((o.last - System.currentTimeMillis()) / 1000L), 2, true, true, item);
                 }
                 if (o.gift == 3) {
                     Item item = new Item(0, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     item.options.add(new ItemOption(77, 1));
                     item.options.add(new ItemOption(103, 1));
                     item.options.add(new ItemOption(50, 1));
-                    this.addEffectChar(56, 1, 0, 1, 1, (int) ((o.last - System.currentTimeMillis()) / 1000L), 2, true,
-                            true, item);
+                    this.addEffectChar(56, 1, 0, 1, 1, (int) ((o.last - System.currentTimeMillis()) / 1000L), 2, true, true, item);
                 }
             }
         }
@@ -14813,8 +14132,7 @@ public class Char {
             }
             if (item != null) {
                 int indexUI = item.getIndexBody();
-                if (item.isTypeBody() && item.getstrRequire() <= this.cPower && this.arrItemBody[indexUI] == null
-                        && (item.template.gender == 3 || (item.template.gender == this.cgender))) {
+                if (item.isTypeBody() && item.getstrRequire() <= this.cPower && this.arrItemBody[indexUI] == null && (item.template.gender == 3 || (item.template.gender == this.cgender))) {
                     this.addItemBody(item, indexUI);
                     this.arrItemBox[id] = null;
                     this.updateAll();
@@ -14835,10 +14153,8 @@ public class Char {
                                 this.addItemBag(item.clone(), i);
                                 item.quantity = 0;
                             } else {
-                                if (this.isAlikeItem(this.arrItemBag[i], item)
-                                        && this.arrItemBag[i].quantity < this.arrItemBag[i].maxQuantity()) {
-                                    if (this.arrItemBag[i].quantity + item.quantity > this.arrItemBag[i]
-                                            .maxQuantity()) {
+                                if (this.isAlikeItem(this.arrItemBag[i], item) && this.arrItemBag[i].quantity < this.arrItemBag[i].maxQuantity()) {
+                                    if (this.arrItemBag[i].quantity + item.quantity > this.arrItemBag[i].maxQuantity()) {
                                         int num = this.arrItemBag[i].quantity;
                                         this.arrItemBag[i].quantity = this.arrItemBag[i].maxQuantity();
                                         item.quantity = item.quantity - (this.arrItemBag[i].quantity - num);
@@ -14919,8 +14235,7 @@ public class Char {
                             this.addItemBox(item.clone(), i);
                             item.quantity = 0;
                         } else {
-                            if (this.isAlikeItem(this.arrItemBox[i], item)
-                                    && this.arrItemBox[i].quantity < this.arrItemBox[i].maxQuantity()) {
+                            if (this.isAlikeItem(this.arrItemBox[i], item) && this.arrItemBox[i].quantity < this.arrItemBox[i].maxQuantity()) {
                                 if (this.arrItemBox[i].quantity + item.quantity > this.arrItemBox[i].maxQuantity()) {
                                     int num = this.arrItemBox[i].quantity;
                                     this.arrItemBox[i].quantity = this.arrItemBox[i].maxQuantity();
@@ -15024,19 +14339,15 @@ public class Char {
             }
             if (item != null) {
                 if (item.getstrRequire() > this.cPower) {
-                    this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.ITEM_USE_NOT_POWER_TB,
-                            Util.gI().numberTostring(item.getstrRequire() - this.cPower)), null, (byte) 0);
+                    this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.ITEM_USE_NOT_POWER_TB, Util.gI().numberTostring(item.getstrRequire() - this.cPower)), null, (byte) 0);
                 } else if (item.template.gender != 3 && item.template.gender != this.cgender) {
                     this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.TRANGBI_O_PHU_HOP, null, (byte) 0);
                 } else if (item.template.id == 1986) {
                     if (item.getParamOption(72) < 6) {
-                        int array1[] = new int[] { 2, 3, 4, 5, 6, 7 };
-                        int array2[] = new int[] { 2, 3, 4, 5, 6, 7 };
-                        int array3[] = new int[] { 30, 15, 10, 5, 3, 2 };
-                        this.session.myCharz().requestOpenUIItem(5,
-                                String.format(mResources.NANG_CAP_KIEMZ, item.template.name,
-                                        array1[item.getParamOption(72)], array2[item.getParamOption(72)],
-                                        array3[item.getParamOption(72)], item.indexUI));
+                        int array1[] = new int[]{2, 3, 4, 5, 6, 7};
+                        int array2[] = new int[]{2, 3, 4, 5, 6, 7};
+                        int array3[] = new int[]{30, 15, 10, 5, 3, 2};
+                        this.session.myCharz().requestOpenUIItem(5, String.format(mResources.NANG_CAP_KIEMZ, item.template.name, array1[item.getParamOption(72)], array2[item.getParamOption(72)], array3[item.getParamOption(72)], item.indexUI));
                     } else {
                         this.addInfo1(mResources.TB_CHIDANH_CHODE);
                     }
@@ -15100,17 +14411,11 @@ public class Char {
                 }
                 if (item != null) {
                     if (item.getstrRequire() > this.myPetz().cPower) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY,
-                                String.format(mResources.ITEM_USE_NOT_POWER_TB,
-                                        Util.gI().numberTostring(item.getstrRequire() - this.myPetz().cPower)),
-                                null, (byte) 0);
+                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.ITEM_USE_NOT_POWER_TB, Util.gI().numberTostring(item.getstrRequire() - this.myPetz().cPower)), null, (byte) 0);
                     } else if (item.template.gender != 3 && item.template.gender != this.myPetz().cgender) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.TRANGBI_O_PHU_HOP, null,
-                                (byte) 0);
+                        this.session.service.chatTHEGIOI(mResources.EMPTY, mResources.TRANGBI_O_PHU_HOP, null, (byte) 0);
                     } else if (item.isTypeBody()) {
-                        if ((item.template.type == 0 || item.template.type == 1 || item.template.type == 2
-                                || item.template.type == 3 || item.template.type == 4 || item.template.type == 5
-                                || item.template.id == 1986)) {
+                        if ((item.template.type == 0 || item.template.type == 1 || item.template.type == 2 || item.template.type == 3 || item.template.type == 4 || item.template.type == 5 || item.template.id == 1986)) {
 
                             int indexUI2 = item.getIndexBody();
                             Item item2 = this.myPetz().arrItemBody[indexUI2];
@@ -15201,8 +14506,7 @@ public class Char {
                 if (where == 2) {
                     this.addInfo1(mResources.LAY_RA_DI);
                 } else if (item.getstrRequire() > this.cPower) {
-                    this.addInfo1(String.format(mResources.ITEM_USE_NOT_POWER,
-                            Util.gI().numberTostring(item.getstrRequire() - this.cPower)));
+                    this.addInfo1(String.format(mResources.ITEM_USE_NOT_POWER, Util.gI().numberTostring(item.getstrRequire() - this.cPower)));
                 } else {
                     dragon.t.UseItem.useItem(this, item);
                 }
@@ -15245,19 +14549,16 @@ public class Char {
             }
             // Vut item
             if (item != null && !item.isItemTask()) {
-                if (item.template.id == 570 || !item.isItemForThrow()
-                        || (this.canAutoPlay && item.template.id == 521)) {
+                if (item.template.id == 570 || !item.isItemForThrow() || (this.canAutoPlay && item.template.id == 521)) {
                     this.addInfo1(mResources.NOT_THOWS_ITEM);
                 } else if (this.zoneMap.map.isMapHome()) {
                     this.addInfo1(mResources.THOWS_ITEM_SAN_NHA);
                 } else {
                     if (type == 1) {
                         if (item.isItemTL()) {
-                            this.session.service.itemRequest(56, where, index,
-                                    String.format(mResources.LOAI_BO_2, item.template.name));
+                            this.session.service.itemRequest(56, where, index, String.format(mResources.LOAI_BO_2, item.template.name));
                         } else {
-                            this.session.service.itemRequest(56, where, index,
-                                    String.format(mResources.LOAI_BO, item.template.name));
+                            this.session.service.itemRequest(56, where, index, String.format(mResources.LOAI_BO, item.template.name));
                         }
                     } else {
                         if (item.typeUI == 5) {
@@ -15266,8 +14567,7 @@ public class Char {
                             this.session.service.Body(this.head, this.arrItemBody);
                             this.session.service.meLoadPoint();
                             this.zoneMap.playerLoadAll(this);
-                            this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg,
-                                    this.isMonkey);
+                            this.session.service.updateBody(1, this.charID, this.head, this.body, this.leg, this.isMonkey);
                             this.session.service.getBag(this.charID, this.bag);
                             this.session.service.setEff(this.charID, this.idAuraEff, this.idEff_Set_Item);
                         }
@@ -15296,10 +14596,7 @@ public class Char {
                         // Nhan manh
                         if (item.isItemTL()) {
                             int itemBo = Util.gI().nextInt(1066, 1070);
-                            this.addItemBag(0,
-                                    new Item(itemBo, false, Util.gI().nextInt(30, 50),
-                                            ItemOption.getOption(itemBo, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                                            mResources.EMPTY));
+                            this.addItemBag(0, new Item(itemBo, false, Util.gI().nextInt(30, 50), ItemOption.getOption(itemBo, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                         }
                     }
                 }
@@ -15435,8 +14732,7 @@ public class Char {
         for (int i = 0, top = 1; i < array.length && top <= nTop; i++) {
             Session_ME player = Server.gI().getByCId(array[i][0]);
             if (player != null) {
-                str += String.format("#%d %s [%d%%]\n", top, player.myCharz().cName,
-                        (int) (100.0F / (float) total * (float) array[i][1]));
+                str += String.format("#%d %s [%d%%]\n", top, player.myCharz().cName, (int) (100.0F / (float) total * (float) array[i][1]));
                 top++;
             }
         }
@@ -15505,27 +14801,22 @@ public class Char {
                 item.options.add(new ItemOption(30, 0));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(934, false, 1, ItemOption.getOption(934, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(934, false, 1, ItemOption.getOption(934, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(1229, false, 5, ItemOption.getOption(1229, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1229, false, 5, ItemOption.getOption(1229, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(30, 0));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(733, false, 1, ItemOption.getOption(733, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(733, false, 1, ItemOption.getOption(733, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, 7));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 5)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(1000) < 1) {
-                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
                 Item item = new Item(591, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -15535,12 +14826,10 @@ public class Char {
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 5)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(1000) < 1) {
-                Item item = new Item(591, false, 1, ItemOption.getOption(591, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(591, false, 1, ItemOption.getOption(591, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(120) < 1) {
-                Item item = new Item(1143, false, 1, ItemOption.getOption(1143, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1143, false, 1, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else {
                 Item item = new Item(933, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -15558,12 +14847,10 @@ public class Char {
             // qua tai day
             this.updateEXP(2, 1000);
             if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(20, false, 1, ItemOption.getOption(20, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(20, false, 1, ItemOption.getOption(20, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(595, false, 10, ItemOption.getOption(595, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(595, false, 10, ItemOption.getOption(595, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 15) {
                 Item item = new Item(933, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -15571,40 +14858,32 @@ public class Char {
                 item.options.add(new ItemOption(30, 0));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(934, false, 1, ItemOption.getOption(934, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(934, false, 1, ItemOption.getOption(934, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(821, false, 1, ItemOption.getOption(821, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(821, false, 1, ItemOption.getOption(821, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(30, 0));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 20) {
-                Item item = new Item(1229, false, 1, ItemOption.getOption(1229, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                Item item = new Item(1229, false, 1, ItemOption.getOption(1229, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(30, 0));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(734, false, 1, ItemOption.getOption(734, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(734, false, 1, ItemOption.getOption(734, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, 7));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 item.options.add(new ItemOption(93, Util.gI().nextInt(1, 5)));
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 10) {
-                Item item = new Item(671, false, 1, ItemOption.getOption(671, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(671, false, 1, ItemOption.getOption(671, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(100) < 5) {
-                Item item = new Item(672, false, 1, ItemOption.getOption(672, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(672, false, 1, ItemOption.getOption(672, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else if (Util.gI().nextInt(1000) < 1) {
-                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                Item item = new Item(464, false, 1, ItemOption.getOption(464, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 this.addItemBag(0, item);
             } else {
                 Item item = new Item(933, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
@@ -15641,8 +14920,7 @@ public class Char {
                 int quantity = Integer.parseInt(array3[1]);
                 int quantity0 = this.getItemBagQuantityById(id);
                 if (status == 0) {
-                    chat = String.format("%s\n|%d|%s %d/%d", chat, quantity0 >= quantity ? 2 : 7,
-                            ItemTemplate.get((short) id).name, quantity0, quantity);
+                    chat = String.format("%s\n|%d|%s %d/%d", chat, quantity0 >= quantity ? 2 : 7, ItemTemplate.get((short) id).name, quantity0, quantity);
                     if (aItemCombine != null && quantity0 > 0) {
                         aItemCombine.add(this.getItemBagById(id));
                     }
@@ -15660,8 +14938,7 @@ public class Char {
                 int quantity2 = Integer.parseInt(array3[2]);
                 int quantity0 = this.getItemBagQuantityById(id);
                 if (status == 0) {
-                    chat = String.format("%s\n|%d|%s %d/%d", chat, quantity0 >= quantity ? 2 : 7,
-                            ItemTemplate.get((short) id).name, quantity0, quantity);
+                    chat = String.format("%s\n|%d|%s %d/%d", chat, quantity0 >= quantity ? 2 : 7, ItemTemplate.get((short) id).name, quantity0, quantity);
                     if (aItemCombine != null && quantity0 > 0) {
                         aItemCombine.add(this.getItemBagById(id));
                     }
@@ -15691,8 +14968,7 @@ public class Char {
             if (array2[0].equals("xu0")) {
                 int quantity = Integer.parseInt(array2[1]);
                 if (status == 0) {
-                    chat = String.format("%s\n|%d|%s: %s", chat, this.xu >= quantity ? 2 : 7, mResources.GOLD_PRICE,
-                            Util.gI().getFormatNumber(quantity));
+                    chat = String.format("%s\n|%d|%s: %s", chat, this.xu >= quantity ? 2 : 7, mResources.GOLD_PRICE, Util.gI().getFormatNumber(quantity));
                     if (this.xu < quantity) {
                         flag0 = false;
                     }
@@ -15703,8 +14979,7 @@ public class Char {
             if (array2[0].equals("ngoc0")) {
                 int quantity = Integer.parseInt(array2[1]);
                 if (status == 0) {
-                    chat = String.format("%s\n|%d|%s: %s", chat, this.getLuong() >= quantity ? 2 : 7,
-                            mResources.JADE_PRICE, Util.gI().getFormatNumber(quantity));
+                    chat = String.format("%s\n|%d|%s: %s", chat, this.getLuong() >= quantity ? 2 : 7, mResources.JADE_PRICE, Util.gI().getFormatNumber(quantity));
                     if (this.getLuong() < quantity) {
                         flag0 = false;
                     }
@@ -15721,8 +14996,7 @@ public class Char {
                         boolean flag = id0 == this.mapTemplateId;
                         for (int j = 1; j < array3.length; j++) {
                             int id = Integer.parseInt(array3[j]);
-                            text = String.format("%s%s%s", text, j % 2 != 0 ? ", " : "\n",
-                                    MapTemplate.arrMapTemplate[id].mapName);
+                            text = String.format("%s%s%s", text, j % 2 != 0 ? ", " : "\n", MapTemplate.arrMapTemplate[id].mapName);
                             if (id == this.mapTemplateId) {
                                 flag = true;
                             }
@@ -15774,11 +15048,9 @@ public class Char {
                         String array4[] = array3[2].split(" ");
                         String tileMN = array3[0];
                         if (array4.length > 0) {
-                            String lName = String.format("X%s %s", array4[0],
-                                    ItemTemplate.get(Short.parseShort(array4[1])).name);
+                            String lName = String.format("X%s %s", array4[0], ItemTemplate.get(Short.parseShort(array4[1])).name);
                             for (int j = 2; j < array4.length; j++) {
-                                lName = String.format("%s, %s", lName,
-                                        ItemTemplate.get(Short.parseShort(array4[j])).name);
+                                lName = String.format("%s, %s", lName, ItemTemplate.get(Short.parseShort(array4[j])).name);
                             }
                             tileMN = String.format(tileMN, lName);
                         }
@@ -15795,11 +15067,9 @@ public class Char {
                                         int quantity0 = Char.this.getItemBagQuantityById(id);
                                         if (quantity0 < quantity) {
                                             if (quantity > 1) {
-                                                Char.this.addInfo1(String.format(mResources.LACK_ITEM1, quantity,
-                                                        ItemTemplate.get(id).name));
+                                                Char.this.addInfo1(String.format(mResources.LACK_ITEM1, quantity, ItemTemplate.get(id).name));
                                             } else {
-                                                Char.this.addInfo1(String.format(mResources.LACK_ITEM2,
-                                                        ItemTemplate.get(id).name));
+                                                Char.this.addInfo1(String.format(mResources.LACK_ITEM2, ItemTemplate.get(id).name));
                                             }
                                             return false;
                                         }
@@ -15870,7 +15140,7 @@ public class Char {
         if (aItemCombine != null) {
             this.session.service.setCombineEff(aItemCombine, npcId);
         }
-        return new Object[] { flag0, chat, menus, quntityEmptyBag };
+        return new Object[]{flag0, chat, menus, quntityEmptyBag};
     }
 
     public void requestOpenUIItem(int npcId, String src) {
@@ -15888,14 +15158,10 @@ public class Char {
             synchronized (this.zoneMap.players) {
                 Char pclosest = null;
                 for (int i = 0; i < this.zoneMap.players.size(); i++) {
-                    if (!this.isMeCanAttackOtherPlayer(this.zoneMap.players.get(i))
-                            || this.isTemplate == this.zoneMap.players.get(i).isTemplate) {
+                    if (!this.isMeCanAttackOtherPlayer(this.zoneMap.players.get(i)) || this.isTemplate == this.zoneMap.players.get(i).isTemplate) {
                         continue;
                     }
-                    if (pclosest == null
-                            || (Math.abs(this.zoneMap.players.get(i).cx - this.cx) <= Math.abs(pclosest.cx - this.cx)
-                                    && Math.abs(this.zoneMap.players.get(i).cy - this.cy) <= Math
-                                            .abs(pclosest.cy - this.zoneMap.players.get(i).cy))) {
+                    if (pclosest == null || (Math.abs(this.zoneMap.players.get(i).cx - this.cx) <= Math.abs(pclosest.cx - this.cx) && Math.abs(this.zoneMap.players.get(i).cy - this.cy) <= Math.abs(pclosest.cy - this.zoneMap.players.get(i).cy))) {
                         pclosest = this.zoneMap.players.get(i);
                     }
                 }
@@ -15907,23 +15173,13 @@ public class Char {
 
     public int nangKiemZ(int type, Item item) {
         if (item != null && item.template.id == 1986 && item.getParamOption(72) < 6) {
-            boolean flag = Util.gI().nextInt(100) < new int[] { 30, 15, 5, 3, 2, 1 }[item.getParamOption(72)];
+            boolean flag = Util.gI().nextInt(100) < new int[]{30, 15, 5, 3, 2, 1}[item.getParamOption(72)];
             if (flag) {
                 if (type == 1) {
                     this.addInfo1(mResources.THANH_CONG);
                 }
                 // ++
-                int array[][] = new int[][] {
-                        { 50, 1, 2, 3, 4, 7, 9 },
-                        { 77, 1, 3, 5, 7, 9, 12 },
-                        { 103, 1, 3, 5, 7, 9, 12 },
-                        { 77, 1, 3, 5, 7, 9, 12 },
-                        { 103, 1, 3, 5, 7, 9, 12 },
-                        { 50, 1, 2, 3, 4, 7, 9 },
-                        { 103, 1, 3, 5, 7, 9, 12 },
-                        { 77, 1, 3, 5, 7, 9, 12 },
-                        { 50, 1, 2, 3, 4, 7, 9 },
-                };
+                int array[][] = new int[][]{{50, 1, 2, 3, 4, 7, 9}, {77, 1, 3, 5, 7, 9, 12}, {103, 1, 3, 5, 7, 9, 12}, {77, 1, 3, 5, 7, 9, 12}, {103, 1, 3, 5, 7, 9, 12}, {50, 1, 2, 3, 4, 7, 9}, {103, 1, 3, 5, 7, 9, 12}, {77, 1, 3, 5, 7, 9, 12}, {50, 1, 2, 3, 4, 7, 9},};
                 int num1 = Util.gI().nextInt(array.length);
                 if (item.isHaveOption(array[num1][0])) {
                     item.getOption(array[num1][0]).param += array[num1][item.getParamOption(72) + 1];
@@ -15961,17 +15217,12 @@ public class Char {
             }
 
             // qua tai day
-            Item item1 = new Item(1229, false, 4999, ItemOption.getOption(1229, 0, 0), mResources.EMPTY,
-                    mResources.EMPTY, mResources.EMPTY);
+            Item item1 = new Item(1229, false, 4999, ItemOption.getOption(1229, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             // lech teamobi 1987
-            Item item2 = new Item(1987, false, 299, ItemOption.getOption(1987, 0, 0), mResources.EMPTY,
-                    mResources.EMPTY, mResources.EMPTY);
-            Item item3 = new Item(970, false, 10, ItemOption.getOption(970, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
-            Item item4 = new Item(956, false, 10, ItemOption.getOption(956, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
-            Item item5 = new Item(1143, false, 99, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
+            Item item2 = new Item(1987, false, 299, ItemOption.getOption(1987, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item3 = new Item(970, false, 10, ItemOption.getOption(970, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item4 = new Item(956, false, 10, ItemOption.getOption(956, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item5 = new Item(1143, false, 99, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             Item item6 = new Item(904, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             item6.options.add(new ItemOption(50, 32));
             item6.options.add(new ItemOption(77, 32));
@@ -15992,8 +15243,7 @@ public class Char {
             item9.options.add(new ItemOption(84, 1));
             item9.options.add(new ItemOption(175, 20));
             item9.options.add(new ItemOption(93, 30));
-            Item item10 = new Item(1204, false, 3, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
+            Item item10 = new Item(1204, false, 3, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             // add bag
             this.addItemBag(0, item1);
             this.addItemBag(0, item2);
@@ -16031,17 +15281,12 @@ public class Char {
                 // Player.petInfo(this, this.cgender);
             }
             // qua tai day
-            Item item1 = new Item(1229, false, 2000, ItemOption.getOption(1229, 0, 0), mResources.EMPTY,
-                    mResources.EMPTY, mResources.EMPTY);
+            Item item1 = new Item(1229, false, 2000, ItemOption.getOption(1229, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             // lech teamobi 1987
-            Item item2 = new Item(1987, false, 199, ItemOption.getOption(1987, 0, 0), mResources.EMPTY,
-                    mResources.EMPTY, mResources.EMPTY);
-            Item item3 = new Item(970, false, 5, ItemOption.getOption(970, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
-            Item item4 = new Item(956, false, 5, ItemOption.getOption(956, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
-            Item item5 = new Item(1143, false, 30, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
+            Item item2 = new Item(1987, false, 199, ItemOption.getOption(1987, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item3 = new Item(970, false, 5, ItemOption.getOption(970, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item4 = new Item(956, false, 5, ItemOption.getOption(956, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item5 = new Item(1143, false, 30, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             Item item6 = new Item(904, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             item6.options.add(new ItemOption(50, 32));
             item6.options.add(new ItemOption(77, 32));
@@ -16065,8 +15310,7 @@ public class Char {
             item9.options.add(new ItemOption(84, 1));
             item9.options.add(new ItemOption(175, 20));
             item9.options.add(new ItemOption(93, 30));
-            Item item10 = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
+            Item item10 = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             // add bag
             this.addItemBag(0, item1);
             this.addItemBag(0, item2);
@@ -16104,17 +15348,12 @@ public class Char {
                 // Player.petInfo(this, this.cgender);
             }
             // qua tai day
-            Item item1 = new Item(1229, false, 999, ItemOption.getOption(1229, 0, 0), mResources.EMPTY,
-                    mResources.EMPTY, mResources.EMPTY);
+            Item item1 = new Item(1229, false, 999, ItemOption.getOption(1229, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             // lech teamobi 1987
-            Item item2 = new Item(1987, false, 99, ItemOption.getOption(1987, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
-            Item item3 = new Item(970, false, 1, ItemOption.getOption(970, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
-            Item item4 = new Item(956, false, 3, ItemOption.getOption(956, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
-            Item item5 = new Item(1143, false, 10, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                    mResources.EMPTY);
+            Item item2 = new Item(1987, false, 99, ItemOption.getOption(1987, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item3 = new Item(970, false, 1, ItemOption.getOption(970, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item4 = new Item(956, false, 3, ItemOption.getOption(956, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+            Item item5 = new Item(1143, false, 10, ItemOption.getOption(1143, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             Item item6 = new Item(904, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
             item6.options.add(new ItemOption(50, 32));
             item6.options.add(new ItemOption(77, 32));
@@ -16280,8 +15519,7 @@ public class Char {
                 }
             }
         }
-        if (this.minuteOnline != this.minuteOld && this.itemGLT != null && this.itemGLT.template.type == 32
-                && this.itemGLT.isHaveOption(9)) {
+        if (this.minuteOnline != this.minuteOld && this.itemGLT != null && this.itemGLT.template.type == 32 && this.itemGLT.isHaveOption(9)) {
             ItemOption option = this.itemGLT.getOption(9);
             if (option.param > 0) {
                 option.param--;
@@ -16294,27 +15532,17 @@ public class Char {
 
     public boolean isCheckSetTb() {
 
-        return this.isSetXiHang ||
-                this.isSetKirin ||
-                this.isSetSongoku ||
-                this.isSetPicolo ||
-                this.isSetOcTieu ||
-                this.isSetPikkoroDaimao ||
-                this.isSetKakarot ||
-                this.isSetCaDic ||
-                this.isSetNappa; ///
+        return this.isSetXiHang || this.isSetKirin || this.isSetSongoku || this.isSetPicolo || this.isSetOcTieu || this.isSetPikkoroDaimao || this.isSetKakarot || this.isSetCaDic || this.isSetNappa; ///
     }
 
     public Char.ChatGameBot nextChatGameBot(int id) {
         ArrayList<Char.ChatGameBot> myList = getChatGameBots(id);
-        if (myList != null)
-            return myList.get(Util.gI().nextInt(myList.size()));
+        if (myList != null) return myList.get(Util.gI().nextInt(myList.size()));
         return null;
     }
 
     public ArrayList<Char.ChatGameBot> getChatGameBots(int id) {
-        if (this.chatGameBot == null)
-            return null;
+        if (this.chatGameBot == null) return null;
         ArrayList<Char.ChatGameBot> myList = new ArrayList<>();
         for (int i = 0; i < this.chatGameBot.size(); i++) {
             if (this.chatGameBot.get(i).id == id) {
@@ -16325,8 +15553,7 @@ public class Char {
     }
 
     public boolean isHaveChatGameBot(int id) {
-        if (this.chatGameBot == null)
-            return false;
+        if (this.chatGameBot == null) return false;
         for (int i = 0; i < this.chatGameBot.size(); i++) {
             if (this.chatGameBot.get(i).id == id) {
                 return true;
@@ -16353,33 +15580,25 @@ public class Char {
                 this.addChat(this.nextChatGameBot(2).chat);
             }
         }
-        if (this.zoneMap != null && !this.isCharge && !this.isCommand(1) && !this.isDie && this.isHaveChatGameBot(4)
-                && this.cTypePk == 5) {
+        if (this.zoneMap != null && !this.isCharge && !this.isCommand(1) && !this.isDie && this.isHaveChatGameBot(4) && this.cTypePk == 5) {
             String myArray[] = this.nextChatGameBot(4).chat.split("\\|");
             String chat = myArray[0];
             Char player = this.zoneMap.getPlayerClosest(this);
             if (!chat.isEmpty() && player != null) {
                 this.addChat(chat);
             }
-            this.addCommand(1,
-                    new Object[] { chat, (short) Short.parseShort(myArray[1]), (int) Integer.parseInt(myArray[2]),
-                            (int) Integer.parseInt(myArray[3]), 0, (int) Integer.parseInt(myArray[4]), player });
+            this.addCommand(1, new Object[]{chat, (short) Short.parseShort(myArray[1]), (int) Integer.parseInt(myArray[2]), (int) Integer.parseInt(myArray[3]), 0, (int) Integer.parseInt(myArray[4]), player});
         }
-        if (this.zoneMap != null && !this.isCharge && !this.isCommand(2) && !this.isDie && this.isHaveChatGameBot(5)
-                && this.cTypePk == 5) {
+        if (this.zoneMap != null && !this.isCharge && !this.isCommand(2) && !this.isDie && this.isHaveChatGameBot(5) && this.cTypePk == 5) {
             String myArray[] = this.nextChatGameBot(5).chat.split("\\|");
             String chat = myArray[0];
             if (!chat.isEmpty()) {
                 this.addChat(chat);
             }
-            this.addCommand(2,
-                    new Object[] { chat, (short) Short.parseShort(myArray[1]), (int) Integer.parseInt(myArray[2]),
-                            (int) Integer.parseInt(myArray[3]), 0, (int) Integer.parseInt(myArray[4]),
-                            (short) Short.parseShort(myArray[5]) });
+            this.addCommand(2, new Object[]{chat, (short) Short.parseShort(myArray[1]), (int) Integer.parseInt(myArray[2]), (int) Integer.parseInt(myArray[3]), 0, (int) Integer.parseInt(myArray[4]), (short) Short.parseShort(myArray[5])});
         }
         // Goku vs Ca Dic
-        if (this.zoneMap != null && !this.isCharge && !this.isArgue && !this.isDie && this.isHaveChatGameBot(6)
-                && this.cTypePk == 5) {
+        if (this.zoneMap != null && !this.isCharge && !this.isArgue && !this.isDie && this.isHaveChatGameBot(6) && this.cTypePk == 5) {
             String myArray[] = this.nextChatGameBot(6).chat.split("\\|");
             int hpMin = Integer.parseInt(myArray[1]);
             if (100f / (float) this.cHPFull * (float) this.cHP <= hpMin) {
@@ -16421,17 +15640,14 @@ public class Char {
     }
 
     public void addCommand(int action, Object p) {
-        if (this.myCommands == null)
-            this.myCommands = new ArrayList<>();
+        if (this.myCommands == null) this.myCommands = new ArrayList<>();
         this.myCommands.add(new Char.Command(action, p));
     }
 
     public boolean isCommand(int action) {
-        if (this.myCommands == null)
-            return false;
+        if (this.myCommands == null) return false;
         for (int i = 0; i < this.myCommands.size(); i++) {
-            if (this.myCommands.get(i).action == action)
-                return true;
+            if (this.myCommands.get(i).action == action) return true;
         }
         return false;
     }
@@ -16475,27 +15691,18 @@ public class Char {
                             array[4] = array[3];
                             array[2] = --count;
                             Char player = (Char) array[6];
-                            if (player != null && this.isMeCanAttackOtherPlayer(player) && !this.isStand()
-                                    && player.timeReady <= 0) {
+                            if (player != null && this.isMeCanAttackOtherPlayer(player) && !this.isStand() && player.timeReady <= 0) {
                                 Skill skill = Skill.arrSkill[(short) array[1]].clone();
                                 this.aMobFocus.clear();
                                 this.aCharFocus.clear();
                                 this.aCharFocus.add(player);
                                 if (skill.isChuong()) {
-                                    if (!this.isMove && (Math.abs(this.cx - this.aCharFocus.get(0).cx) > 120
-                                            || Math.abs(this.cx - this.aCharFocus.get(0).cx) < 30
-                                            || Math.abs(this.cy - this.aCharFocus.get(0).cy) > 50)) {
-                                        this.addMove(0,
-                                                this.aCharFocus.get(0).cx
-                                                        + new int[] { 120, -120 }[Util.gI().nextInt(2)],
-                                                this.aCharFocus.get(0).cy, 1);
+                                    if (!this.isMove && (Math.abs(this.cx - this.aCharFocus.get(0).cx) > 120 || Math.abs(this.cx - this.aCharFocus.get(0).cx) < 30 || Math.abs(this.cy - this.aCharFocus.get(0).cy) > 50)) {
+                                        this.addMove(0, this.aCharFocus.get(0).cx + new int[]{120, -120}[Util.gI().nextInt(2)], this.aCharFocus.get(0).cy, 1);
                                     }
                                 } else {
-                                    if (!this.isMove && (Math.abs(this.aCharFocus.get(0).cx - this.cx) > 24
-                                            || Math.abs(this.aCharFocus.get(0).cy - this.cy) > 24)) {
-                                        this.addMove(0,
-                                                this.aCharFocus.get(0).cx + new int[] { 24, -24 }[Util.gI().nextInt(2)],
-                                                this.aCharFocus.get(0).cy, 1);
+                                    if (!this.isMove && (Math.abs(this.aCharFocus.get(0).cx - this.cx) > 24 || Math.abs(this.aCharFocus.get(0).cy - this.cy) > 24)) {
+                                        this.addMove(0, this.aCharFocus.get(0).cx + new int[]{24, -24}[Util.gI().nextInt(2)], this.aCharFocus.get(0).cy, 1);
                                     }
                                 }
                                 this.timeLoadSkill = 0;
@@ -16568,8 +15775,7 @@ public class Char {
 
     public void chatWorld(String chat, int money) {
         if (this.xu < money) {
-            this.addInfo1(String.format(mResources.CONTHIEU_VANG,
-                    Util.gI().numberTostring(money - this.session.myCharz().xu)));
+            this.addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(money - this.session.myCharz().xu)));
         } else {
             this.updateXu(-money, 1);
             Server.gI().chatTheGioi(this, chat);
@@ -16591,21 +15797,19 @@ public class Char {
 
     public void createGacha() {
         Item item;
-        random: {
+        random:
+        {
             if (Util.gI().nextInt(100) < 10) {
                 int id = Util.gI().nextInt(220, 224);
-                item = new Item(id, false, Util.gI().nextInt(20, 50), ItemOption.getOption(id, 0, 0), mResources.EMPTY,
-                        mResources.EMPTY, mResources.EMPTY);
+                item = new Item(id, false, Util.gI().nextInt(20, 50), ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 break random;
             }
             if (Util.gI().nextInt(100) < 10) {
-                item = new Item(1229, false, 10, ItemOption.getOption(1299, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                item = new Item(1229, false, 10, ItemOption.getOption(1299, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 break random;
             }
             if (Util.gI().nextInt(100) < 5) {
-                item = new Item(861, false, Util.gI().nextInt(50, 100), null, mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                item = new Item(861, false, Util.gI().nextInt(50, 100), null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 break random;
             }
             if (Util.gI().nextInt(100) < 5) {
@@ -16644,8 +15848,7 @@ public class Char {
             }
             if (Util.gI().nextInt(100) < 5) {
                 if (Util.gI().nextInt(100) < 1) {
-                    int id2 = new int[] { 1013, 1021, 1022, 1023, 1047, 1100, 1108, 1109, 1110, 1111, 1112, 1140 }[Util
-                            .gI().nextInt(12)];
+                    int id2 = new int[]{1013, 1021, 1022, 1023, 1047, 1100, 1108, 1109, 1110, 1111, 1112, 1140}[Util.gI().nextInt(12)];
                     item = new Item(id2, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     item.options.add(new ItemOption(50, Util.gI().nextInt(3, Util.gI().nextInt(3, 10))));
                     item.options.add(new ItemOption(77, Util.gI().nextInt(3, Util.gI().nextInt(3, 10))));
@@ -16653,8 +15856,7 @@ public class Char {
                     item.options.add(new ItemOption(14, Util.gI().nextInt(3, Util.gI().nextInt(3, 10))));
                     item.options.add(new ItemOption(160, 20));
                 } else {
-                    int id = new int[] { 1013, 1021, 1022, 1023, 1047, 1100, 1108, 1109, 1110, 1111, 1112, 1140 }[Util
-                            .gI().nextInt(12)];
+                    int id = new int[]{1013, 1021, 1022, 1023, 1047, 1100, 1108, 1109, 1110, 1111, 1112, 1140}[Util.gI().nextInt(12)];
                     item = new Item(id, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     item.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                     item.options.add(new ItemOption(50, Util.gI().nextInt(3, Util.gI().nextInt(5, 10))));
@@ -16681,14 +15883,12 @@ public class Char {
                 break random;
             }
             if (Util.gI().nextInt(500) < 1) {
-                item = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                item = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 break random;
             }
             if (Util.gI().nextInt(100) < 3) {
                 int id = Util.gI().nextInt(1150, 1154);
-                item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY,
-                        mResources.EMPTY);
+                item = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                 break random;
             }
 
@@ -16697,8 +15897,7 @@ public class Char {
         }
         CaiTrang.gI().setPartTemp(item);
         if (item.isHaveOption(93)) {
-            item.setExpires(System.currentTimeMillis()
-                    + (long) (1000l * 60l * 60l * 24l * (long) (item.getParamOption(93) + 1)));
+            item.setExpires(System.currentTimeMillis() + (long) (1000l * 60l * 60l * 24l * (long) (item.getParamOption(93) + 1)));
         }
         if (item.template.type != 9) {
             this.addItemMore(1, item);
@@ -16722,8 +15921,7 @@ public class Char {
                     continue;
                 }
                 // Xoa bong tai
-                if (item.template.id == 454
-                        && (this.session.myCharz().isHaveItem(454) || this.session.myCharz().isHaveItem(921))) {
+                if (item.template.id == 454 && (this.session.myCharz().isHaveItem(454) || this.session.myCharz().isHaveItem(921))) {
                     continue;
                 }
                 arrItemShops[i].add(item);
@@ -16737,9 +15935,7 @@ public class Char {
                     if (eff.second != -1) {
                         item.removeOption(93);
 
-                        item.options.add(0, new ItemOption(93,
-                                (int) ((((eff.last / 1000) + eff.second) - (System.currentTimeMillis() / 1000)) / 86400)
-                                        + 1));
+                        item.options.add(0, new ItemOption(93, (int) ((((eff.last / 1000) + eff.second) - (System.currentTimeMillis() / 1000)) / 86400) + 1));
                     }
                     arrItemShops[1].add(item);
                     arrItemShops[0].remove(i);
@@ -16760,13 +15956,11 @@ public class Char {
     public void addTaskPointDH(int id, int point) {
         int pointSet = point + this.getTaskPointDH(id);
         Memory.get(this.session.userId).hTaskDH.put((short) id, pointSet);
-        if (pointSet >= TaskDanhHieu.hTask.get((short) id).maxCount
-                && this.getEffCharById(ItemTemplate.get((short) id).part) == null) {
+        if (pointSet >= TaskDanhHieu.hTask.get((short) id).maxCount && this.getEffCharById(ItemTemplate.get((short) id).part) == null) {
             Item item = Shop.getItem(30, id);
             if (item != null) {
                 item = item.clone();
-                this.addEffectChar(item.template.part, 1, 0, 1, 1,
-                        item.isHaveOption(93) ? 86400 * item.getParamOption(93) : -1, 2, false, true, item);
+                this.addEffectChar(item.template.part, 1, 0, 1, 1, item.isHaveOption(93) ? 86400 * item.getParamOption(93) : -1, 2, false, true, item);
             }
         }
     }
@@ -16806,8 +16000,7 @@ public class Char {
             this.challengeCharId = player.charID;
             //
             this.resetMenu();
-            this.menuBoard.chat = String.format(mResources.CHALLENGE_SELECT_XU, player.cName,
-                    Util.gI().numberTostring(player.cPower));
+            this.menuBoard.chat = String.format(mResources.CHALLENGE_SELECT_XU, player.cName, Util.gI().numberTostring(player.cPower));
             this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.XU_FORMAT, 1000), 300, 1000));
             this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.XU_FORMAT, 10000), 300, 10000));
             this.menuBoard.arrMenu.add(new MenuInfo(String.format(mResources.XU_FORMAT, 100000), 300, 100000));
@@ -16834,8 +16027,7 @@ public class Char {
                     if (this.isRPS) {
                         this.addInfo1(mResources.PLEASE_WAIT);
                     } else if (this.xu < this.xu_player_vs_player) {
-                        this.addInfo1(String.format(mResources.CONTHIEU_VANG,
-                                Util.gI().numberTostring(this.xu_player_vs_player - this.xu)));
+                        this.addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(this.xu_player_vs_player - this.xu)));
                     } else if (!this.isChallenge && !player.isChallenge && player.challengeCharId == this.charID) {
                         this.setChallenge(playerId, this.xu_player_vs_player);
                     }
@@ -16846,8 +16038,7 @@ public class Char {
                 // Chap nhan choi oan tu ti
                 if (this.canProceed()) {
                     if (this.xu < player.xu_player_vs_player) {
-                        this.addInfo1(String.format(mResources.CONTHIEU_VANG,
-                                Util.gI().numberTostring(this.xu_player_vs_player - this.xu)));
+                        this.addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(this.xu_player_vs_player - this.xu)));
                         player.addInfo1(String.format(mResources.OAN_TU_TI4, this.cName));
                     } else if (!this.isRPS && !player.isRPS && player.rPSCharId == this.charID) {
                         this.isRPS = true;
@@ -16860,8 +16051,7 @@ public class Char {
                         player.xuRPS = this.xu_player_vs_player;
                         // Bang choi oan tu ti
                         this.resetMenu();
-                        this.menuBoard.chat = String.format(mResources.SAY_KEO_BUA_BAO2,
-                                Util.gI().getFormatNumber(this.xuRPS));
+                        this.menuBoard.chat = String.format(mResources.SAY_KEO_BUA_BAO2, Util.gI().getFormatNumber(this.xuRPS));
                         this.menuBoard.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 410, 0));
                         this.menuBoard.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 410, 1));
                         this.menuBoard.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 410, 2));
@@ -16870,8 +16060,7 @@ public class Char {
                         // Player
 
                         player.resetMenu();
-                        player.menuBoard.chat = String.format(mResources.SAY_KEO_BUA_BAO2,
-                                Util.gI().getFormatNumber(player.xuRPS));
+                        player.menuBoard.chat = String.format(mResources.SAY_KEO_BUA_BAO2, Util.gI().getFormatNumber(player.xuRPS));
                         player.menuBoard.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 410, 0));
                         player.menuBoard.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 410, 1));
                         player.menuBoard.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 410, 2));
@@ -16921,11 +16110,10 @@ public class Char {
     public Char[] checkWinRPS(Char player) {
         if (this.statusRPS == player.statusRPS) {
             return null;
-        } else if ((this.statusRPS == 0 && player.statusRPS == 2) || (this.statusRPS == 1 && player.statusRPS == 0)
-                || (this.statusRPS == 2 && player.statusRPS == 1)) {
-            return new Char[] { this, player };
+        } else if ((this.statusRPS == 0 && player.statusRPS == 2) || (this.statusRPS == 1 && player.statusRPS == 0) || (this.statusRPS == 2 && player.statusRPS == 1)) {
+            return new Char[]{this, player};
         } else {
-            return new Char[] { player, this };
+            return new Char[]{player, this};
         }
     }
 
@@ -16945,8 +16133,7 @@ public class Char {
                 // Kiem tra xem da cả 2 ben chon chua
                 if (player.statusRPS != -1) {
                     Char array[] = this.checkWinRPS(player);
-                    String str, array2[] = new String[] { mResources.KEO_BUA_BAO31, mResources.KEO_BUA_BAO32,
-                            mResources.KEO_BUA_BAO33 };
+                    String str, array2[] = new String[]{mResources.KEO_BUA_BAO31, mResources.KEO_BUA_BAO32, mResources.KEO_BUA_BAO33};
                     // Hoa
                     if (array == null) {
                         str = String.format(mResources.SAY_KEO_BUA_BAO23, array2[this.statusRPS]);
@@ -16956,13 +16143,10 @@ public class Char {
                         array[0].updateXu((int) (xuThang * 0.9), 1);
                         array[0].winRPS++;
                         array[1].updateXu(-xuThang, 1);
-                        str = String.format(mResources.SAY_KEO_BUA_BAO22, array[0].cName, array2[array[0].statusRPS],
-                                array[1].cName, array2[array[1].statusRPS], array[0].cName,
-                                Util.gI().getFormatNumber((int) (xuThang * 0.9F)));
+                        str = String.format(mResources.SAY_KEO_BUA_BAO22, array[0].cName, array2[array[0].statusRPS], array[1].cName, array2[array[1].statusRPS], array[0].cName, Util.gI().getFormatNumber((int) (xuThang * 0.9F)));
                     }
                     // Bang choi oan tu ti
-                    String chat = String.format(mResources.SAY_KEO_BUA_BAO21, Util.gI().getFormatNumber(this.xuRPS),
-                            str, this.cName, this.winRPS, player.cName, player.winRPS);
+                    String chat = String.format(mResources.SAY_KEO_BUA_BAO21, Util.gI().getFormatNumber(this.xuRPS), str, this.cName, this.winRPS, player.cName, player.winRPS);
                     this.resetMenu();
                     this.menuBoard.chat = chat;
                     this.menuBoard.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 410, 0));

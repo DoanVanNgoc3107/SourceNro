@@ -63,8 +63,8 @@ public class Item {
     }
 
     public boolean isHaveOption(int id) {
-        for (int i = 0; i < this.options.size(); i++) {
-            if (this.options.get(i).optionTemplate.id == id) {
+        for (ItemOption option : this.options) {
+            if (option.optionTemplate.id == id) {
                 return true;
             }
         }
@@ -741,30 +741,30 @@ public class Item {
     }
 
     public String optionCombine() {
-        String str = mResources.EMPTY;
+        StringBuilder str = new StringBuilder(mResources.EMPTY);
         int i;
         for (i = 0; i < this.options.size(); i++) {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
-                str += String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
-                        .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param));
+                str.append(String.format(mResources.FONT_COLOR_OPTION, option.optionTemplate.name
+                        .replaceAll(mResources.OPTION_PARAM, mResources.EMPTY + option.param)));
             }
         }
-        return str;
+        return str.toString();
     }
 
     public String optionCombine1() {
-        String str = mResources.EMPTY;
+        StringBuilder str = new StringBuilder(mResources.EMPTY);
         int i;
         for (i = 0; i < this.options.size(); i++) {
             ItemOption option = this.options.get(i);
             if (option.optionTemplate.id != 102 && option.optionTemplate.id != 107) {
-                str += String.format(mResources.FONT_COLOR_OPTION1,
+                str.append(String.format(mResources.FONT_COLOR_OPTION1,
                         option.optionTemplate.name.replaceAll(mResources.OPTION_PARAM,
-                                mResources.EMPTY + Combine.nextParamOption(option.optionTemplate.id, 1, option.param)));
+                                mResources.EMPTY + Combine.nextParamOption(option.optionTemplate.id, 1, option.param))));
             }
         }
-        return str;
+        return str.toString();
     }
 
     public int getStarBlue() {
@@ -819,8 +819,8 @@ public class Item {
         item.isBuySpec = Boolean.parseBoolean(jarr.get(m++).toString());
         item.options = new ArrayList<>();
         JSONArray options = (JSONArray) jarr.get(m++);
-        for (int i = 0; i < options.size(); i++) {
-            JSONArray jop = (JSONArray) options.get(i);
+        for (Object o : options) {
+            JSONArray jop = (JSONArray) o;
             ItemOption option = new ItemOption();
             option.optionTemplate = GameData.iOptionTemplates[Integer.parseInt(jop.get(0).toString())];
             option.param = Integer.parseInt(jop.get(1).toString());
@@ -941,10 +941,7 @@ public class Item {
         if (this.isItem11_1() && !Dragon.isEvent_Noel) {
             return true;
         }
-        if ((this.template.id == 752 || this.template.id == 753) && !Dragon.isEvent_TetNguyenDan) {
-            return true;
-        }
-        return false;
+        return (this.template.id == 752 || this.template.id == 753) && !Dragon.isEvent_TetNguyenDan;
     }
 
     public boolean isItemForSale() {

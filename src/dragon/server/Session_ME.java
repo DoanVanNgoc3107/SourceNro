@@ -3,6 +3,7 @@ package dragon.server;
 import io.IMessageHandler;
 import io.ISession;
 import io.Message;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
@@ -28,9 +30,9 @@ import dragon.t.Util;
  * @author Admin
  */
 public class Session_ME implements ISession {
-    
+
     private final byte[] key = "rose".getBytes();
-    
+
     private boolean getKeyComplete = false;
     public Socket sc;
     protected DataInputStream dis;
@@ -47,7 +49,7 @@ public class Session_ME implements ISession {
     protected int recvByteCount;
     private final IMessageHandler controller;
     public final Service service;
-    
+
     protected boolean isSetClient = false;
     protected byte typeClient;
     protected byte zoomLevel;
@@ -60,7 +62,7 @@ public class Session_ME implements ISession {
     protected String version;
     public int loginFaid;
     public int versionInt = -1;
-    
+
     public int timeDisconnect;
     public boolean isLoad = true;
     public long l;
@@ -74,9 +76,9 @@ public class Session_ME implements ISession {
     public int isAdmin = 0;
     public boolean isBackup = false;
     private final long curr;
-    
+
     private final Updater updater;
-    
+
     private class Sender implements Runnable {
 
         private final ArrayList<Message> sendingMessage;
@@ -94,30 +96,29 @@ public class Session_ME implements ISession {
         @Override
         public void run() {
             try {
-                while(isConnected()) {
-                    while(!this.sendingMessage.isEmpty() && isConnected()) {
-                        Message m = this.sendingMessage.remove(0);
+                while (isConnected()) {
+                    while (!this.sendingMessage.isEmpty() && isConnected()) {
+                        Message m = this.sendingMessage.removeFirst();
                         if (m != null) {
                             doSendMessage(m);
                         }
                     }
                     try {
                         TimeUnit.MILLISECONDS.sleep(Server.SESSION_DELAY_MILISECOND);
-                    } catch(InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-            } catch (IOException e) {
-            } catch (Exception e) {
+            } catch (Exception _) {
             }
             disconnect();
         }
     }
-    
+
     private class Updater extends Thread {
 
         private long last;
-        
+
         private final ArrayList<Message> recevingMessage;
 
         protected Updater() {
@@ -130,18 +131,18 @@ public class Session_ME implements ISession {
                 this.recevingMessage.add(message);
             }
         }
-        
+
         @Override
         public void run() {
             try {
-                while(isConnected()) {
+                while (isConnected()) {
                     status = 0;
                     this.last = l = System.currentTimeMillis();
                     //controller
                     status = 1;
-                    if (this.recevingMessage.size() > 0 && Server.start) {
+                    if (!this.recevingMessage.isEmpty() && Server.start) {
                         if (this.recevingMessage.size() <= 500) {
-                            Message message = this.recevingMessage.remove(0);
+                            Message message = this.recevingMessage.removeFirst();
                             if (message != null) {
                                 controller.onMessage(message);
                                 message.cleanup();
@@ -154,7 +155,7 @@ public class Session_ME implements ISession {
                     update();
                     try {
                         TimeUnit.MILLISECONDS.sleep(Server.SESSION_DELAY_MILISECOND);
-                    } catch(InterruptedException e) {
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     status = 4;
@@ -172,17 +173,17 @@ public class Session_ME implements ISession {
         @Override
         public void run() {
             try {
-                while(isConnected()) {
+                while (isConnected()) {
                     Message message = readMessage();
                     updater.AddMessage(message);
                 }
-            } catch(IOException ex) {
+            } catch (IOException ex) {
             } catch (Exception ex) {
-                
+
             }
             disconnect();
         }
-        
+
         private Message readMessage() throws IOException {
             byte cmd = dis.readByte();
             if (getKeyComplete) {
@@ -215,7 +216,7 @@ public class Session_ME implements ISession {
             return msg;
         }
     }
-    
+
     protected Session_ME(Socket sc, int id) throws IOException {
         this.sc = sc;
         this.id = id;
@@ -230,16 +231,16 @@ public class Session_ME implements ISession {
         this.updater = new Updater();
         this.isLogin = false;
         this.curr = System.currentTimeMillis();
-        
-        
+
+
     }
-    
+
     public void run() {
         this.sendThread.start();
         this.collectorThread.start();
         this.updater.start();
     }
-    
+
     @Override
     public boolean isConnected() {
         return connected;
@@ -290,7 +291,7 @@ public class Session_ME implements ISession {
             dos.write(data);
             sendByteCount += 5 + data.length;
             if (Util.gI().debug) {
-                Util.gI().logln("do mss "+cmd+" szie "+((sendByteCount+recvByteCount)/1024)+"."+((sendByteCount+recvByteCount)%1024/102)+" kb");
+                Util.gI().logln("do mss " + cmd + " szie " + ((sendByteCount + recvByteCount) / 1024) + "." + ((sendByteCount + recvByteCount) % 1024 / 102) + " kb");
             }
         } else {
             this.sendByteCount += 5;
@@ -299,16 +300,14 @@ public class Session_ME implements ISession {
     }
 
     private byte readKey(byte b) {
-        byte i = (byte)((key[curR++] & 255) ^ (b & 255));
-        if (curR >= key.length)
-            curR %= key.length;
+        byte i = (byte) ((key[curR++] & 255) ^ (b & 255));
+        if (curR >= key.length) curR %= (byte) key.length;
         return i;
     }
 
     private byte writeKey(byte b) {
-        byte i = (byte)((key[curW++] & 255) ^ (b & 255));
-        if (curW >= key.length)
-            curW %= key.length;
+        byte i = (byte) ((key[curW++] & 255) ^ (b & 255));
+        if (curW >= key.length) curW %= (byte) key.length;
         return i;
     }
 
@@ -332,7 +331,7 @@ public class Session_ME implements ISession {
         this.curW = 0;
         try {
             this.connected = false;
-            if(this.sc != null) {
+            if (this.sc != null) {
                 this.sc.close();
                 this.sc = null;
             }
@@ -340,22 +339,22 @@ public class Session_ME implements ISession {
                 this.dos.close();
                 this.dos = null;
             }
-            if(this.dis != null) {
+            if (this.dis != null) {
                 this.dis.close();
                 this.dis = null;
             }
             this.sendThread = null;
             this.collectorThread = null;
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public String toString() {
-        return "Client "+this.id;
+        return "Client " + this.id;
     }
-    
+
     public void getKey() {
         try {
             Message msg = new Message(-27);
@@ -368,9 +367,9 @@ public class Session_ME implements ISession {
                 }
             }
             msg.writer().writeUTF("username");//IP2
-            msg.writer().writeInt(14445);//PORT2
-            msg.writer().writeByte(0);//isConnect2
-            
+            msg.writer().writeInt(14445);       //PORT2
+            msg.writer().writeByte(0);          //isConnect2
+
             doSendMessage(msg);
             msg.cleanup();
             this.getKeyComplete = true;
@@ -382,7 +381,7 @@ public class Session_ME implements ISession {
     public void disconnect() {
         this.connected = false;
     }
-    
+
     public int getIntVersion() {
         if (this.versionInt == -1) {
             try {
@@ -394,11 +393,11 @@ public class Session_ME implements ISession {
         }
         return this.versionInt;
     }
-    
+
     public Char myCharz() {
         return this.myChar;
     }
-    
+
     private void saveData() {
         if (this.userId != -1) {
             Memory.get(this.userId).lastlogout = (int) (System.currentTimeMillis() / 1000L);
@@ -450,7 +449,7 @@ public class Session_ME implements ISession {
                             for (int i = 0; i < this.myCharz().arrItemBody.length; i++) {
                                 Item item3 = this.myCharz().arrItemBody[i];
                                 if (item3 != null) {
-                                    arrItemBody.add(((JSONArray)JSONValue.parseWithException(item3.toString())));
+                                    arrItemBody.add(((JSONArray) JSONValue.parseWithException(item3.toString())));
                                 }
                             }
                             //WRITE KSkill
@@ -479,7 +478,7 @@ public class Session_ME implements ISession {
                                     itemTime.add(this.myCharz().itemTime.get(i).idIcon);
                                     itemTime.add(this.myCharz().itemTime.get(i).type);
                                     if (this.myCharz().itemTime.get(i).type == 2) {
-                                        itemTime.add((((int)(System.currentTimeMillis() / 1000L)) + this.myCharz().itemTime.get(i).second));
+                                        itemTime.add((((int) (System.currentTimeMillis() / 1000L)) + this.myCharz().itemTime.get(i).second));
                                     } else {
                                         itemTime.add(this.myCharz().itemTime.get(i).second);
                                     }
@@ -564,7 +563,7 @@ public class Session_ME implements ISession {
                                 //duahau
                                 JSONArray duahau = new JSONArray();
                                 int num = 0;
-                                while(num < d.duahau.length) {
+                                while (num < d.duahau.length) {
                                     duahau.add(d.duahau[num]);
                                     num++;
                                 }
@@ -575,7 +574,7 @@ public class Session_ME implements ISession {
                                 duahaus.add(dh);
                             }
                             //Push MySQL
-                            SetSQL strSQL = new SetSQL("UPDATE `options` SET % WHERE `playerId` = '"+ this.myCharz().playerId +"' LIMIT 1;");
+                            SetSQL strSQL = new SetSQL("UPDATE `options` SET % WHERE `playerId` = '" + this.myCharz().playerId + "' LIMIT 1;");
                             strSQL.addSet("head", this.myCharz().headDefault);
                             strSQL.addSet("ctaskId", this.myCharz().ctaskId);
                             strSQL.addSet("ctaskIndex", this.myCharz().ctaskIndex);
@@ -621,7 +620,7 @@ public class Session_ME implements ISession {
                             strSQL.addSet("timeReceiveNamek", this.myCharz().timeReceiveNamek);
                             strSQL.addSet("pointVip", this.myCharz().pointVip);
                             strSQL.addSet("maxXu", this.myCharz().maxXu);
-                            
+
                             mySQL2.getConnection().prepareStatement(strSQL.toSQL()).executeUpdate();
                             //Dua hau
                             mySQL3.getConnection().prepareStatement(String.format(mResources.UPDATE_DUAHAUS, Util.gI().stringSQL(duahaus.toJSONString()), this.myCharz().playerId)).executeUpdate();
@@ -657,40 +656,11 @@ public class Session_ME implements ISession {
                                     }
                                     jarr2.add(jarr3);
                                 }
-                                mySQL3.getConnection().prepareStatement(String.format(
-                                        mResources.UPDATE_PETZS,
-                                        Util.gI().stringSQL(this.myCharz().myPet.cName),
-                                        this.myCharz().myPet.headDefault,
-                                        this.myCharz().myPet.bodyDefault,
-                                        this.myCharz().myPet.legDefault,
-                                        this.myCharz().myPet.cPower,
-                                        this.myCharz().myPet.cPowerLimit,
-                                        this.myCharz().myPet.cgender,
-                                        this.myCharz().myPet.nClassId,
-                                        this.myCharz().myPet.cHPGoc,
-                                        this.myCharz().myPet.cMPGoc,
-                                        this.myCharz().myPet.cDamGoc,
-                                        this.myCharz().myPet.cDefGoc,
-                                        this.myCharz().myPet.cCriticalGoc,
-                                        this.myCharz().myPet.cTiemNang,
-                                        this.myCharz().myPet.petStatus,
-                                        this.myCharz().myPet.cHP,
-                                        this.myCharz().myPet.cMP,
-                                        this.myCharz().myPet.cStamina,
-                                        this.myCharz().myPet.cMaxStamina,
-                                        this.myCharz().myPet.timeHS,
-                                        this.myCharz().myPet.timeHopThe,
-                                        this.myCharz().myPet.isBaby,
-                                        this.myCharz().myPet.isHopThe,
-                                        Util.gI().stringSQL(petzarrItemBody.toJSONString()),
-                                        Util.gI().stringSQL(jarr2.toJSONString()),
-                                        this.myCharz().myPet.isMabu,
-                                        this.myCharz().playerId
-                                )).executeUpdate();
+                                mySQL3.getConnection().prepareStatement(String.format(mResources.UPDATE_PETZS, Util.gI().stringSQL(this.myCharz().myPet.cName), this.myCharz().myPet.headDefault, this.myCharz().myPet.bodyDefault, this.myCharz().myPet.legDefault, this.myCharz().myPet.cPower, this.myCharz().myPet.cPowerLimit, this.myCharz().myPet.cgender, this.myCharz().myPet.nClassId, this.myCharz().myPet.cHPGoc, this.myCharz().myPet.cMPGoc, this.myCharz().myPet.cDamGoc, this.myCharz().myPet.cDefGoc, this.myCharz().myPet.cCriticalGoc, this.myCharz().myPet.cTiemNang, this.myCharz().myPet.petStatus, this.myCharz().myPet.cHP, this.myCharz().myPet.cMP, this.myCharz().myPet.cStamina, this.myCharz().myPet.cMaxStamina, this.myCharz().myPet.timeHS, this.myCharz().myPet.timeHopThe, this.myCharz().myPet.isBaby, this.myCharz().myPet.isHopThe, Util.gI().stringSQL(petzarrItemBody.toJSONString()), Util.gI().stringSQL(jarr2.toJSONString()), this.myCharz().myPet.isMabu, this.myCharz().playerId)).executeUpdate();
                             } else {
                                 mySQL3.getConnection().prepareStatement(String.format(mResources.UPDATE_PETZS2, this.myCharz().playerId)).executeUpdate();
                             }
-                            
+
                             //WRITE arrTask
                             JSONArray arrTask = new JSONArray();
                             for (int i = 0; i < this.myCharz().archivements.size(); i++) {
@@ -704,7 +674,7 @@ public class Session_ME implements ISession {
                             }
                             //arrTask
                             mySQL3.getConnection().prepareStatement(String.format(mResources.UPDATE_ARRTASKS, Util.gI().stringSQL(arrTask.toJSONString()), this.myCharz().playerId)).executeUpdate();
-                            
+
                             //WRITE textTime
                             JSONArray textTimes = new JSONArray();
                             if (!this.myCharz().isTextTime) {
@@ -717,7 +687,7 @@ public class Session_ME implements ISession {
                                     textTime.add(this.myCharz().textTime.get(i).text);
                                     textTime.add(this.myCharz().textTime.get(i).type);
                                     if (this.myCharz().textTime.get(i).type == 2) {
-                                        textTime.add((((int)(System.currentTimeMillis() / 1000L)) + this.myCharz().textTime.get(i).second));
+                                        textTime.add((((int) (System.currentTimeMillis() / 1000L)) + this.myCharz().textTime.get(i).second));
                                     } else {
                                         textTime.add(this.myCharz().textTime.get(i).second);
                                     }
@@ -763,7 +733,7 @@ public class Session_ME implements ISession {
             }
         }
     }
-    
+
     private void update() {
         this.status = 2;
         if (this.isSave) {
@@ -787,9 +757,10 @@ public class Session_ME implements ISession {
                 this.myCharz().myPetz().update();
             }
         }
-//        if (System.currentTimeMillis() - this.curr > 500 && this.zoomLevel == 0) {
-//            this.disconnect();
-//        }
+
+        //
+        if (System.currentTimeMillis() - this.curr > 500 && this.zoomLevel == 0) {
+            this.disconnect();
+        }
     }
-    
 }

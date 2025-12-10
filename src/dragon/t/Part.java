@@ -2,6 +2,8 @@ package dragon.t;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
@@ -45,7 +47,7 @@ public class Part {
                 this.pi = new PartImage[2];
             }
             JSONArray jarr = (JSONArray) JSONValue.parseWithException(res.getString(3));
-            for (i = 0; i  < this.pi.length; i++) {
+            for (i = 0; i  < Objects.requireNonNull(this.pi).length; i++) {
                 JSONArray jarr2 = (JSONArray) jarr.get(i);
                 this.pi[i] = new PartImage();
                 this.pi[i].id = Short.parseShort(jarr2.get(0).toString());

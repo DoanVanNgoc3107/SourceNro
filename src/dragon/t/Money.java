@@ -12,25 +12,25 @@ import java.sql.SQLException;
  * @author TGDD
  */
 public class Money {
-    
+
     private static Money instance;
-    
+
     public static Money gI() {
         if (instance == null) {
             instance = new Money();
         }
         return instance;
     }
-    
+
     public boolean isNapNgoc = true;
     public boolean isNapVang = true;
-    
+
     public int xNgoc = 1;
     public int xVang = 1;
-    
-    public int[][] arrMoneyNgoc = new int[][] {{10000, 5000}, {50000, 30000}, {100000, 70000}, {200000, 160000}, {500000, 400000}, {1000000, 1000000}, {5000000, 5500000}};
-    public int[][] arrMoneyGold = new int[][] {{9999, 10}, {20000, 20}, {30000, 36}, {50000, 60}, {100000, 140}, {200000, 360}, {500000, 1000}, {1000000, 2200}};
-    
+
+    public int[][] arrMoneyNgoc = new int[][]{{10000, 5000}, {50000, 30000}, {100000, 70000}, {200000, 160000}, {500000, 400000}, {1000000, 1000000}, {5000000, 5500000}};
+    public int[][] arrMoneyGold = new int[][]{{9999, 10}, {20000, 20}, {30000, 36}, {50000, 60}, {100000, 140}, {200000, 360}, {500000, 1000}, {1000000, 2200}};
+
     public long getMoney(Char charz) {
         try {
             MySQL mySQL = MySQL.createData2();
@@ -46,11 +46,10 @@ public class Money {
         }
         return -1;
     }
-    
+
     public void changeMoney(Char charz, int type, int select) {
         switch (type) {
-            case 0:
-            {
+            case 0: {
                 if (select >= 0 && select < arrMoneyNgoc.length) {
                     int max = arrMoneyNgoc[select][0];
                     int min = arrMoneyNgoc[select][1];
@@ -83,7 +82,7 @@ public class Money {
                                             }
                                             if (it3e4 != null) {
                                                 if (it3e4.isHaveOption(93)) {
-                                                    it3e4.setExpires(System.currentTimeMillis() + (long)(1000l * 60l * 60l * 24l * (long)(it3e4.getParamOption(93) + 1)));
+                                                    it3e4.setExpires(System.currentTimeMillis() + (long) (1000l * 60l * 60l * 24l * (long) (it3e4.getParamOption(93) + 1)));
                                                 }
                                                 charz.addItemBag(0, it3e4);
                                             }
@@ -96,7 +95,7 @@ public class Money {
                                                 charz.addItemMore(0, new Item(644, false, 1, ItemOption.getOption(644, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                             }
                                             if (charz.cgender == 1) {
-                                               charz.addItemMore(0, new Item(645, false, 1, ItemOption.getOption(645, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                                                charz.addItemMore(0, new Item(645, false, 1, ItemOption.getOption(645, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                             }
                                             if (charz.cgender == 2) {
                                                 charz.addItemMore(0, new Item(646, false, 1, ItemOption.getOption(646, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
@@ -105,17 +104,17 @@ public class Money {
                                     }
                                     //Cai trang
                                     if (max >= 50000) {
-                                       if (Util.gI().nextInt(100) < 50) {
+                                        if (Util.gI().nextInt(100) < 50) {
                                             charz.addItemMore2(0, new Item(732, false, 1, ItemOption.getOption(732, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         } else if (Util.gI().nextInt(100) < 30) {
-                                            charz.addItemMore2(0, new Item(731, false, 1, ItemOption.getOption(731, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY)); 
+                                            charz.addItemMore2(0, new Item(731, false, 1, ItemOption.getOption(731, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         } else if (Util.gI().nextInt(100) < 10) {
-                                            charz.addItemMore2(0, new Item(730, false, 1, ItemOption.getOption(730, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY)); 
+                                            charz.addItemMore2(0, new Item(730, false, 1, ItemOption.getOption(730, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         } else {
-                                            charz.addItemMore2(0, new Item(732, false, 1, ItemOption.getOption(732, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY)); 
+                                            charz.addItemMore2(0, new Item(732, false, 1, ItemOption.getOption(732, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         }
                                     }
-                                    charz.updateLuong((min * this.xNgoc), 2);
+                                    charz.updateLuong(((long) min * this.xNgoc), 2);
                                     mySQL.getConnection().commit();
                                     charz.session.isSave = true;
                                     if (max >= 10000) {
@@ -142,10 +141,10 @@ public class Money {
                                         charz.myObj().pointEventVIP += diem;
                                     }
 //                                    //Nap lan dau
-//                                    if (!charz.isCan()) {
-//                                        charz.updateXu(5000000000L, 2);
-//                                        charz.isCan = true;
-//                                    }
+                                    if (!charz.isCan()) {
+                                        charz.updateXu(5000000000L, 2);
+                                        charz.isCan = true;
+                                    }
                                     //Nhiem vu danh hieu
                                     charz.addTaskPointDH(1289, max);
                                 } catch (SQLException e) {
@@ -162,8 +161,7 @@ public class Money {
                 }
             }
             break;
-            case 1:
-            {
+            case 1: {
                 if (select >= 0 && select < arrMoneyGold.length) {
                     int max2 = arrMoneyGold[select][0];
                     int min2 = arrMoneyGold[select][1];
@@ -195,15 +193,15 @@ public class Money {
                                     //Cai trang
                                     if (max2 >= 50000) {
                                         if (Util.gI().nextInt(100) < 50) {
-                                            charz.addItemMore2 (0, new Item(732, false, 1, ItemOption.getOption(732, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                                            charz.addItemMore2(0, new Item(732, false, 1, ItemOption.getOption(732, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         } else if (Util.gI().nextInt(100) < 30) {
-                                            charz.addItemMore2 (0, new Item(731, false, 1, ItemOption.getOption(731, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY)); 
+                                            charz.addItemMore2(0, new Item(731, false, 1, ItemOption.getOption(731, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         } else if (Util.gI().nextInt(100) < 10) {
-                                            charz.addItemMore2 (0, new Item(730, false, 1, ItemOption.getOption(730, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY)); 
+                                            charz.addItemMore2(0, new Item(730, false, 1, ItemOption.getOption(730, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         } else {
-                                            charz.addItemMore2 (0, new Item(732, false, 1, ItemOption.getOption(732, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY)); 
+                                            charz.addItemMore2(0, new Item(732, false, 1, ItemOption.getOption(732, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                         }
-                                    }     
+                                    }
                                     charz.totalGold = charz.totalGold + (min2 * this.xVang);
                                     charz.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.TOTAL_GOLD, Util.gI().getFormatNumber(charz.totalGold)), null, 0);
                                     mySQL2.getConnection().commit();
@@ -254,7 +252,7 @@ public class Money {
             break;
         }
     }
-    
+
     public void updateMoeny(Char charz, long x) {
         try {
             MySQL mySQL = MySQL.createData2();
@@ -263,7 +261,7 @@ public class Money {
                 try {
                     mySQL.getConnection().prepareStatement(String.format(mResources.UPDATE_USER_MONEY, x, charz.session.userId)).executeUpdate();
                     mySQL.getConnection().commit();
-                } catch (SQLException e){
+                } catch (SQLException e) {
                     mySQL.getConnection().rollback();
                     e.printStackTrace();
                 }
@@ -274,5 +272,5 @@ public class Money {
             e.printStackTrace();
         }
     }
-    
+
 }

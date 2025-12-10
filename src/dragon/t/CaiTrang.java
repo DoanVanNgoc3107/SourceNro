@@ -5,19 +5,19 @@ package dragon.t;
  * @author Admin
  */
 public class CaiTrang {
-    
+
     private static CaiTrang instance;
-    
+
     public static CaiTrang gI() {
         if (instance == null) {
             instance = new CaiTrang();
         }
         return instance;
     }
-    
+
     public void setPartTemp(Item item) {
         switch (item.template.id) {
-            case 0:
+            case 0, 33:
                 item.headTemp = 64;
                 item.bodyTemp = 14;
                 item.legTemp = 58;
@@ -28,14 +28,7 @@ public class CaiTrang {
                 item.bodyTemp = 1;
                 item.legTemp = 58;
                 item.bagTemp = -1;
-                break;    
-            case 33:
-                item.headTemp = 64;
-                item.bodyTemp = 14;
-                item.legTemp = 58;
-                item.bagTemp = -1;
                 break;
-      
             case 34:
                 item.headTemp = 64;
                 item.bodyTemp = 1;
@@ -72,7 +65,6 @@ public class CaiTrang {
                 item.legTemp = 58;
                 item.bagTemp = -1;
                 break;
-            
             case 231:
                 item.headTemp = 64;
                 item.bodyTemp = 155;
@@ -483,19 +475,19 @@ public class CaiTrang {
                 item.bodyTemp = 555;
                 item.legTemp = 556;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 711:
                 item.headTemp = 356;
                 item.bodyTemp = 357;
                 item.legTemp = 358;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 719:
                 item.headTemp = 724;
                 item.bodyTemp = 725;
                 item.legTemp = 726;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 210:
                 item.headTemp = 0;
                 item.bodyTemp = -1;
@@ -513,13 +505,13 @@ public class CaiTrang {
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 229:
                 item.headTemp = 126;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 762:
                 item.headTemp = 777;
                 item.bodyTemp = -1;
@@ -555,25 +547,25 @@ public class CaiTrang {
                 item.bodyTemp = 428;
                 item.legTemp = 429;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 806:
                 item.headTemp = 790;
                 item.bodyTemp = 791;
                 item.legTemp = 792;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 819:
                 item.headTemp = 802;
                 item.bodyTemp = 803;
                 item.legTemp = 804;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 824:
                 item.headTemp = 805;
                 item.bodyTemp = 806;
                 item.legTemp = 807;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 825:
                 item.headTemp = 809;
                 item.bodyTemp = 806;
@@ -585,7 +577,7 @@ public class CaiTrang {
                 item.bodyTemp = 806;
                 item.legTemp = 807;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 827:
                 item.headTemp = 810;
                 item.bodyTemp = 811;
@@ -597,7 +589,7 @@ public class CaiTrang {
                 item.bodyTemp = 817;
                 item.legTemp = 818;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 844:
                 item.headTemp = 822;
                 item.bodyTemp = 823;
@@ -609,7 +601,7 @@ public class CaiTrang {
                 item.bodyTemp = 820;
                 item.legTemp = 821;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 846:
                 item.headTemp = 825;
                 item.bodyTemp = -1;
@@ -621,13 +613,13 @@ public class CaiTrang {
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 848:
                 item.headTemp = 826;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 685:
                 item.headTemp = 101;
                 item.bodyTemp = -1;
@@ -657,13 +649,13 @@ public class CaiTrang {
                 item.bodyTemp = 551;
                 item.legTemp = 552;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 198:
                 item.headTemp = 508;
                 item.bodyTemp = 509;
                 item.legTemp = 510;
                 item.bagTemp = -1;
-                break;                      
+                break;
             case 412:
                 item.headTemp = 64;
                 item.bodyTemp = -1;
@@ -720,7 +712,7 @@ public class CaiTrang {
                 item.legTemp = -1;
                 item.bagTemp = -1;
                 break;
-             case 421:
+            case 421:
                 item.headTemp = 314;
                 item.bodyTemp = 315;
                 item.legTemp = 316;
@@ -731,7 +723,7 @@ public class CaiTrang {
                 item.bodyTemp = 312;
                 item.legTemp = 313;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 386:
                 item.headTemp = 277;
                 item.bodyTemp = -1;
@@ -812,12 +804,12 @@ public class CaiTrang {
                 item.headTemp = 306;
                 item.bodyTemp = 307;
                 item.legTemp = 308;
-                item.bagTemp = -1;  
+                item.bagTemp = -1;
             case 411:
                 item.headTemp = 240;
                 item.bodyTemp = 241;
                 item.legTemp = 242;
-                item.bagTemp = -1;      
+                item.bagTemp = -1;
             case 423:
                 item.headTemp = 341;
                 item.bodyTemp = 342;
@@ -937,13 +929,13 @@ public class CaiTrang {
                 item.bodyTemp = 404;
                 item.legTemp = 405;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 464:
                 item.headTemp = 409;
                 item.bodyTemp = 410;
                 item.legTemp = 411;
                 item.bagTemp = -1;
-                break;        
+                break;
             case 524:
                 item.headTemp = 249;
                 item.bodyTemp = 250;
@@ -979,19 +971,19 @@ public class CaiTrang {
                 item.bodyTemp = 458;
                 item.legTemp = 459;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 545:
                 item.headTemp = 460;
                 item.bodyTemp = 458;
                 item.legTemp = 459;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 546:
                 item.headTemp = 461;
                 item.bodyTemp = 458;
                 item.legTemp = 459;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 547:
                 item.headTemp = 462;
                 item.bodyTemp = 463;
@@ -1003,7 +995,7 @@ public class CaiTrang {
                 item.bodyTemp = 466;
                 item.legTemp = 464;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 549:
                 item.headTemp = 264;
                 item.bodyTemp = 265;
@@ -1057,7 +1049,7 @@ public class CaiTrang {
                 item.bodyTemp = 298;
                 item.legTemp = 299;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 581:
                 item.headTemp = 309;
                 item.bodyTemp = 298;
@@ -1069,7 +1061,7 @@ public class CaiTrang {
                 item.bodyTemp = 307;
                 item.legTemp = 308;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 583:
                 item.headTemp = 240;
                 item.bodyTemp = 241;
@@ -1081,7 +1073,7 @@ public class CaiTrang {
                 item.bodyTemp = 410;
                 item.legTemp = 411;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 586:
                 item.headTemp = 350;
                 item.bodyTemp = 351;
@@ -1094,12 +1086,12 @@ public class CaiTrang {
                 item.legTemp = 346;
                 item.bagTemp = -1;
                 break;
-             case 588:
+            case 588:
                 item.headTemp = 353;
                 item.bodyTemp = 354;
                 item.legTemp = 355;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 591:
                 item.headTemp = 542;
                 item.bodyTemp = 523;
@@ -1129,8 +1121,8 @@ public class CaiTrang {
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;   
-             case 599:
+                break;
+            case 599:
                 item.headTemp = 560;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
@@ -1140,8 +1132,8 @@ public class CaiTrang {
                 item.headTemp = 562;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
-                item.bagTemp = -1;    
-                break;      
+                item.bagTemp = -1;
+                break;
             case 601:
                 item.headTemp = 566;
                 item.bodyTemp = 567;
@@ -1201,7 +1193,7 @@ public class CaiTrang {
                 item.bodyTemp = 583;
                 item.legTemp = 584;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 619:
                 item.headTemp = 585;
                 item.bodyTemp = 586;
@@ -1249,7 +1241,7 @@ public class CaiTrang {
                 item.bodyTemp = 604;
                 item.legTemp = 605;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 629:
                 item.headTemp = 502;
                 item.bodyTemp = 503;
@@ -1291,19 +1283,19 @@ public class CaiTrang {
                 item.bodyTemp = 613;
                 item.legTemp = 614;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 636:
                 item.headTemp = 615;
                 item.bodyTemp = 616;
                 item.legTemp = 617;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 637:
                 item.headTemp = 618;
                 item.bodyTemp = 619;
                 item.legTemp = 620;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 640:
                 item.headTemp = 630;
                 item.bodyTemp = 631;
@@ -1321,25 +1313,25 @@ public class CaiTrang {
                 item.bodyTemp = 655;
                 item.legTemp = 656;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 644:
                 item.headTemp = 545;
                 item.bodyTemp = 548;
                 item.legTemp = 549;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 645:
                 item.headTemp = 547;
                 item.bodyTemp = 548;
                 item.legTemp = 549;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 646:
                 item.headTemp = 546;
                 item.bodyTemp = 548;
                 item.legTemp = 549;
                 item.bagTemp = -1;
-                break;       
+                break;
             case 647:
                 item.headTemp = 642;
                 item.bodyTemp = 643;
@@ -1370,54 +1362,54 @@ public class CaiTrang {
                 item.legTemp = 750;
                 item.bagTemp = -1;
                 break;
-             case 732:
+            case 732:
                 item.headTemp = 751;
                 item.bodyTemp = 752;
                 item.legTemp = 753;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 738:
                 item.headTemp = 742;
                 item.bodyTemp = 743;
                 item.legTemp = 744;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 739:
                 item.headTemp = 754;
                 item.bodyTemp = 755;
                 item.legTemp = 756;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 742:
                 item.headTemp = 757;
                 item.bodyTemp = 758;
                 item.legTemp = 759;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 754:
                 item.headTemp = 769;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 755:
                 item.headTemp = 771;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 756:
                 item.headTemp = 770;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 760:
                 item.headTemp = 772;
                 item.bodyTemp = 773;
                 item.legTemp = 774;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 389:
                 item.headTemp = 274;
                 item.bodyTemp = -1;
@@ -1429,7 +1421,7 @@ public class CaiTrang {
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 391:
                 item.headTemp = 275;
                 item.bodyTemp = -1;
@@ -1484,18 +1476,18 @@ public class CaiTrang {
                 item.legTemp = 698;
                 item.bagTemp = -1;
                 break;
-             case 676:
+            case 676:
                 item.headTemp = 684;
                 item.bodyTemp = 685;
                 item.legTemp = 686;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 677:
                 item.headTemp = 693;
                 item.bodyTemp = 694;
                 item.legTemp = 695;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 678:
                 item.headTemp = 687;
                 item.bodyTemp = 688;
@@ -1507,19 +1499,19 @@ public class CaiTrang {
                 item.bodyTemp = 682;
                 item.legTemp = 683;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 680:
                 item.headTemp = 690;
                 item.bodyTemp = 691;
                 item.legTemp = 692;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 681:
                 item.headTemp = 678;
                 item.bodyTemp = 679;
                 item.legTemp = 680;
                 item.bagTemp = -1;
-                break;        
+                break;
             case 392:
                 item.headTemp = 280;
                 item.bodyTemp = -1;
@@ -1531,7 +1523,7 @@ public class CaiTrang {
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 394:
                 item.headTemp = 281;
                 item.bodyTemp = -1;
@@ -1580,50 +1572,49 @@ public class CaiTrang {
                 item.legTemp = 91;
                 item.bagTemp = -1;
                 break;
-				//////BEGIN HIEU
             case 853:
                 item.headTemp = 833;
                 item.bodyTemp = 834;
                 item.legTemp = 835;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 854:
                 item.headTemp = 837;
                 item.bodyTemp = 834;
                 item.legTemp = 835;
                 item.bagTemp = -1;
-                break;  
-             case 855:
+                break;
+            case 855:
                 item.headTemp = 836;
                 item.bodyTemp = 834;
                 item.legTemp = 835;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 856:
                 item.headTemp = 828;
                 item.bodyTemp = 829;
                 item.legTemp = 830;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 857:
                 item.headTemp = 832;
                 item.bodyTemp = 829;
                 item.legTemp = 830;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 858:
                 item.headTemp = 831;
                 item.bodyTemp = 829;
                 item.legTemp = 830;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 860:
                 item.headTemp = 841;
                 item.bodyTemp = 842;
                 item.legTemp = 843;
                 item.bagTemp = -1;
-                break;  
-             case 862:
+                break;
+            case 862:
                 item.headTemp = 844;
                 item.bodyTemp = 845;
                 item.legTemp = 846;
@@ -1640,13 +1631,13 @@ public class CaiTrang {
                 item.bodyTemp = 848;
                 item.legTemp = 849;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 866:
                 item.headTemp = 1033;
                 item.bodyTemp = 1027;
                 item.legTemp = 1028;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 867:
                 item.headTemp = 1032;
                 item.bodyTemp = 1034;
@@ -1658,7 +1649,7 @@ public class CaiTrang {
                 item.bodyTemp = 1047;
                 item.legTemp = 1048;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 872:
                 item.headTemp = 856;
                 item.bodyTemp = -1;
@@ -1705,20 +1696,20 @@ public class CaiTrang {
                 item.headTemp = 520;
                 item.bodyTemp = 521;
                 item.legTemp = 522;
-                item.bagTemp = -1; 
+                item.bagTemp = -1;
                 break;
             case 885:
                 item.headTemp = 888;
                 item.bodyTemp = 889;
                 item.legTemp = 890;
-                item.bagTemp = -1; 
+                item.bagTemp = -1;
                 break;
             case 896:
                 item.headTemp = 901;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 898:
                 item.headTemp = 903;
                 item.bodyTemp = 904;
@@ -1754,13 +1745,13 @@ public class CaiTrang {
                 item.bodyTemp = 523;
                 item.legTemp = 524;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 912:
                 item.headTemp = 916;
                 item.bodyTemp = 917;
                 item.legTemp = 918;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 914:
                 item.headTemp = 922;
                 item.bodyTemp = 923;
@@ -1785,7 +1776,7 @@ public class CaiTrang {
                 item.legTemp = 945;
                 item.bagTemp = -1;
                 break;
-             case 924:
+            case 924:
                 item.headTemp = 940;
                 item.bodyTemp = 941;
                 item.legTemp = 942;
@@ -1809,7 +1800,7 @@ public class CaiTrang {
                 item.legTemp = 958;
                 item.bagTemp = -1;
                 break;
-             case 940:
+            case 940:
                 item.headTemp = 962;
                 item.bodyTemp = 963;
                 item.legTemp = 964;
@@ -1862,121 +1853,121 @@ public class CaiTrang {
                 item.bodyTemp = 987;
                 item.legTemp = 988;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 953:
                 item.headTemp = 989;
                 item.bodyTemp = 990;
                 item.legTemp = 991;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 883:
                 item.headTemp = 879;
                 item.bodyTemp = 880;
                 item.legTemp = 881;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 957:
                 item.headTemp = 997;
                 item.bodyTemp = 998;
                 item.legTemp = 999;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 958:
                 item.headTemp = 1000;
                 item.bodyTemp = 1001;
                 item.legTemp = 1002;
                 item.bagTemp = -1;
-                break;          
+                break;
             case 959:
                 item.headTemp = 1003;
                 item.bodyTemp = 1004;
                 item.legTemp = 1005;
                 item.bagTemp = -1;
-                break;      
+                break;
             case 1010:
                 item.headTemp = 1065;
                 item.bodyTemp = 1066;
                 item.legTemp = 1067;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 1011:
                 item.headTemp = 1068;
                 item.bodyTemp = 1069;
                 item.legTemp = 1070;
                 item.bagTemp = -1;
-                break;   
-             case 1012:
+                break;
+            case 1012:
                 item.headTemp = 1071;
                 item.bodyTemp = 1072;
                 item.legTemp = 1073;
                 item.bagTemp = -1;
-                break;       
+                break;
             case 1018:
                 item.headTemp = 1080;
                 item.bodyTemp = 1081;
                 item.legTemp = 1082;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 1019:
                 item.headTemp = 1086;
                 item.bodyTemp = 1087;
                 item.legTemp = 1088;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 1020:
                 item.headTemp = 1083;
                 item.bodyTemp = 1084;
                 item.legTemp = 1085;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 989:
                 item.headTemp = 1053;
                 item.bodyTemp = 1054;
                 item.legTemp = 1055;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 990:
                 item.headTemp = 1056;
                 item.bodyTemp = 1057;
                 item.legTemp = 1058;
                 item.bagTemp = -1;
-                break;   
+                break;
             case 991:
                 item.headTemp = 1059;
                 item.bodyTemp = 1060;
                 item.legTemp = 1061;
                 item.bagTemp = -1;
-                break;  
+                break;
             case 1041:
                 item.headTemp = 1095;
                 item.bodyTemp = 1096;
                 item.legTemp = 1097;
                 item.bagTemp = -1;
-                break;          
+                break;
             case 1042:
                 item.headTemp = 1098;
                 item.bodyTemp = 1099;
                 item.legTemp = 1100;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 1043:
                 item.headTemp = 1101;
                 item.bodyTemp = 1102;
                 item.legTemp = 1103;
                 item.bagTemp = -1;
-                break;     
+                break;
             case 1047:
                 item.headTemp = -1;
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = 80;
-                break;       
+                break;
             case 1087:
                 item.headTemp = 1119;
                 item.bodyTemp = 1120;
                 item.legTemp = 1121;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 1088:
                 item.headTemp = 1122;
                 item.bodyTemp = 1123;
@@ -2000,7 +1991,7 @@ public class CaiTrang {
                 item.bodyTemp = 1132;
                 item.legTemp = 1133;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 1103:
                 item.headTemp = 1140;
                 item.bodyTemp = 1141;
@@ -2036,13 +2027,13 @@ public class CaiTrang {
                 item.bodyTemp = 1196;
                 item.legTemp = 1197;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 1176:
                 item.headTemp = 1192;
                 item.bodyTemp = 1193;
                 item.legTemp = 1194;
                 item.bagTemp = -1;
-                break; 
+                break;
             case 1198:
                 item.headTemp = 1186;
                 item.bodyTemp = -1;
@@ -2054,7 +2045,7 @@ public class CaiTrang {
                 item.bodyTemp = -1;
                 item.legTemp = -1;
                 item.bagTemp = -1;
-                break;    
+                break;
             case 1200:
                 item.headTemp = 1187;
                 item.bodyTemp = -1;
@@ -2073,7 +2064,7 @@ public class CaiTrang {
                 item.legTemp = 1209;
                 item.bagTemp = -1;
                 break;
-                // sk he
+            // sk he
             case 1208:
                 item.headTemp = 1213;
                 item.bodyTemp = 1214;
@@ -2121,8 +2112,8 @@ public class CaiTrang {
                 item.bodyTemp = 649;
                 item.legTemp = 650;
                 item.bagTemp = -1;
-                break;         
+                break;
         }
     }
-    
+
 }

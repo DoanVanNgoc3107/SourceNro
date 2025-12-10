@@ -5,6 +5,7 @@ import dragon.server.Session_ME;
 import dragon.server.mResources;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -163,43 +164,43 @@ public class Player extends Char {
                                 if ((this.charTemplate.id != 42 || (this.charTemplate.id == 42 && super.isBossMain && Util.gI().nextInt(100) < 20) || (this.charTemplate.id == 42 && !super.isBossMain && Util.gI().nextInt(100) < 5))) {
                                     if (super.isGo) {
                                         if (skillF.isChuong()) {
-                                            if ((Math.abs(super.cx - super.aCharFocus.get(0).cx) > 100 || Math.abs(super.cy - super.aCharFocus.get(0).cy) < 30)) {
-                                                super.addMove(0, super.aCharFocus.get(0).cx + ((super.cx > super.aCharFocus.get(0).cx) ? 100 : - 100), super.aCharFocus.get(0).cy, 1);
+                                            if ((Math.abs(super.cx - super.aCharFocus.getFirst().cx) > 100 || Math.abs(super.cy - super.aCharFocus.getFirst().cy) < 30)) {
+                                                super.addMove(0, super.aCharFocus.getFirst().cx + ((super.cx > super.aCharFocus.getFirst().cx) ? 100 : - 100), super.aCharFocus.getFirst().cy, 1);
                                             }
                                         } else if (skillF.isDonDanh()) {
                                             if (this.charTemplate.type == 6) {
-                                                if (Math.abs(this.pre_x - super.aCharFocus.get(0).cx) < 150 && Math.abs(this.pre_y - super.aCharFocus.get(0).cy) < 70) {
-                                                    super.addMove(0, Util.gI().nextInt(super.aCharFocus.get(0).cx - 10, super.aCharFocus.get(0).cx + 10), super.aCharFocus.get(0).cy, 1);
+                                                if (Math.abs(this.pre_x - super.aCharFocus.getFirst().cx) < 150 && Math.abs(this.pre_y - super.aCharFocus.getFirst().cy) < 70) {
+                                                    super.addMove(0, Util.gI().nextInt(super.aCharFocus.getFirst().cx - 10, super.aCharFocus.getFirst().cx + 10), super.aCharFocus.getFirst().cy, 1);
                                                     super.timeMove = 1000;
                                                 }
                                             } else {
                                                 if (super.strike == 2) {
-                                                    super.addMove(0, super.aCharFocus.get(0).cx + new int[]{-24, 24}[Util.gI().nextInt(2)], super.aCharFocus.get(0).cy + new int[]{0, -18, -18}[Util.gI().nextInt(3)], 1);
+                                                    super.addMove(0, super.aCharFocus.getFirst().cx + new int[]{-24, 24}[Util.gI().nextInt(2)], super.aCharFocus.getFirst().cy + new int[]{0, -18, -18}[Util.gI().nextInt(3)], 1);
                                                     if (Util.gI().nextInt(3) == 0) {
                                                         int dX = new int[]{-120, 120}[Util.gI().nextInt(2)];
-                                                        int dY = super.aCharFocus.get(0).cy + new int[]{0, -50}[Util.gI().nextInt(2)];
-                                                        super.addMove(0, super.aCharFocus.get(0).cx + dX / 2, dY, 0);
-                                                        super.addMove(0, super.aCharFocus.get(0).cx + dX / 2, dY, 0);
+                                                        int dY = super.aCharFocus.getFirst().cy + new int[]{0, -50}[Util.gI().nextInt(2)];
+                                                        super.addMove(0, super.aCharFocus.getFirst().cx + dX / 2, dY, 0);
+                                                        super.addMove(0, super.aCharFocus.getFirst().cx + dX / 2, dY, 0);
                                                         super.timeLoadSkill = 1000;
                                                     }
                                                 } else {
-                                                    super.addMove(0, Util.gI().nextInt(super.aCharFocus.get(0).cx - 24, super.aCharFocus.get(0).cx + 24), super.aCharFocus.get(0).cy, 1);
+                                                    super.addMove(0, Util.gI().nextInt(super.aCharFocus.getFirst().cx - 24, super.aCharFocus.getFirst().cx + 24), super.aCharFocus.getFirst().cy, 1);
                                                 }
                                             }
                                         }
                                     }
                                     if (super.isCome) {
                                         if (skillF.isChuong()) {
-                                            if (!super.isMove && (Math.abs(super.cx - super.aCharFocus.get(0).cx) > 100 || Math.abs(super.cx - super.aCharFocus.get(0).cx) < 30 || Math.abs(super.cy - super.aCharFocus.get(0).cy) > 50)) {
-                                                super.setMove(0, super.aCharFocus.get(0).cx + ((super.cx > super.aCharFocus.get(0).cx) ? 100 : - 100), super.aCharFocus.get(0).cy, 50, 0, 50);
+                                            if (!super.isMove && (Math.abs(super.cx - super.aCharFocus.getFirst().cx) > 100 || Math.abs(super.cx - super.aCharFocus.getFirst().cx) < 30 || Math.abs(super.cy - super.aCharFocus.getFirst().cy) > 50)) {
+                                                super.setMove(0, super.aCharFocus.getFirst().cx + ((super.cx > super.aCharFocus.getFirst().cx) ? 100 : - 100), super.aCharFocus.getFirst().cy, 50, 0, 50);
                                             }
                                         } else {
-                                            if (!super.isMove && (Math.abs(super.aCharFocus.get(0).cx - super.cx) > 24 || Math.abs(super.aCharFocus.get(0).cy - super.cy) > 24)) {
-                                                super.setMove(0, Util.gI().nextInt(super.aCharFocus.get(0).cx - 24, super.aCharFocus.get(0).cx + 24), super.aCharFocus.get(0).cy, 50, 0, 50);
+                                            if (!super.isMove && (Math.abs(super.aCharFocus.getFirst().cx - super.cx) > 24 || Math.abs(super.aCharFocus.getFirst().cy - super.cy) > 24)) {
+                                                super.setMove(0, Util.gI().nextInt(super.aCharFocus.getFirst().cx - 24, super.aCharFocus.getFirst().cx + 24), super.aCharFocus.getFirst().cy, 50, 0, 50);
                                             }
                                         }
                                     }
-                                    if (!super.aCharFocus.isEmpty() && Math.abs(super.aCharFocus.get(0).cx - super.cx) <= skillF.dx && Math.abs(super.aCharFocus.get(0).cy - super.cy) <= skillF.dy) {
+                                    if (!super.aCharFocus.isEmpty() && Math.abs(super.aCharFocus.getFirst().cx - super.cx) <= skillF.dx && Math.abs(super.aCharFocus.getFirst().cy - super.cy) <= skillF.dy) {
                                         super.Attack(skillF, super.aMobFocus, super.aCharFocus, 2);
                                     }
                                 }
@@ -213,16 +214,16 @@ public class Player extends Char {
                 super.timeResetCloneTop -= delay;
                 if (super.timeResetCloneTop <= 0) {
                     super.timeResetCloneTop = 10000;
-                    super.cName = String.format(mResources.CNAME_ADD_STR, this.charTemplate.name, Rank.getRank(1).tops.get(0).name);
-                    Session_ME player = Server.gI().getByCName(Rank.getRank(1).tops.get(0).name);
+                    super.cName = String.format(mResources.CNAME_ADD_STR, this.charTemplate.name, Rank.getRank(1).tops.getFirst().name);
+                    Session_ME player = Server.gI().getByCName(Rank.getRank(1).tops.getFirst().name);
                     if (player != null) {
                         super.head = super.headDefault = player.myCharz().head;
                         super.body = super.bodyDefault = player.myCharz().body;
                         super.leg = super.legDefault = player.myCharz().leg;
                     } else {
-                        super.head = super.headDefault = (short) Rank.getRank(1).tops.get(0).headID;
-                        super.body = super.bodyDefault = Rank.getRank(1).tops.get(0).body;
-                        super.leg = super.legDefault = Rank.getRank(1).tops.get(0).leg;
+                        super.head = super.headDefault = (short) Rank.getRank(1).tops.getFirst().headID;
+                        super.body = super.bodyDefault = Rank.getRank(1).tops.getFirst().body;
+                        super.leg = super.legDefault = Rank.getRank(1).tops.getFirst().leg;
                     }
                     if (super.zoneMap != null) {
                         super.zoneMap.playerLoadAll(this);
@@ -302,6 +303,9 @@ public class Player extends Char {
                             while(num2++ < 100) {
                                 try {
                                     Map map_432 = Map.getMapServer(bot2.arrInMap[Util.gI().nextInt(bot2.arrInMap.length)]);
+                                    if (map_432 == null) {
+                                        continue;
+                                    }
                                     ZoneMap zone_123 = map_432.zones.get(Util.gI().nextInt(20));
                                     if (zone_123.countBossById(14) > 0) {
                                         continue;
@@ -326,6 +330,9 @@ public class Player extends Char {
                                 try {
                                     num3++;
                                     Map map_434 = Map.getMapServer(bot_12.arrInMap[Util.gI().nextInt(bot_12.arrInMap.length)]);
+                                    if (map_434 == null) {
+                                        continue;
+                                    }
                                     ZoneMap zone_125 = map_434.zones.get(Util.gI().nextInt(20));
                                     if (zone_125.countBossById(this.charTemplate.id) > 0) {
                                         continue;
@@ -370,6 +377,9 @@ public class Player extends Char {
                 }
                 if (this.charTemplate.type == 9 && this.isPlayerId != -1) {
                     Map map = Map.getMapServer(Server.gI().arrMapMabu[Util.gI().nextInt(Server.gI().arrMapMabu.length)]);
+                    if (map == null) {
+                        return;
+                    }
                     int zoneId = Util.gI().nextInt(5);
                     int x = Util.gI().nextInt(24, map.zones.get(zoneId).mapTemplate.pxw - 24);
                     int y = map.zones.get(zoneId).mapTemplate.touchY(x, 150);
@@ -396,6 +406,9 @@ public class Player extends Char {
                     while(num4++ < 100) {
                         try {
                             Map map_419 = Map.getMapServer(bot4.arrInMap[Util.gI().nextInt(bot4.arrInMap.length)]);
+                            if (map_419 == null) {
+                                continue;
+                            }
                             ZoneMap zone_120 = map_419.zones.get(Util.gI().nextInt(20));
                             if (zone_120.countBossById(this.charTemplate.id)> 0) {
                                 continue;
@@ -403,6 +416,7 @@ public class Player extends Char {
                             zone_120.join(bot4, 0, -1, -1);
                             break;
                         } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -518,6 +532,9 @@ public class Player extends Char {
                             try {
                                 num4++;
                                 Map map_435 = Map.getMapServer(bot_13.arrInMap[Util.gI().nextInt(bot_13.arrInMap.length)]);
+                                if (map_435 == null) {
+                                    continue;
+                                }
                                 ZoneMap zone_126 = map_435.zones.get(Util.gI().nextInt(super.maxZoneXH));
                                 int x = Util.gI().nextInt(50, zone_126.mapTemplate.pxw - 50);
                                 zone_126.join(bot_13, 0, x, zone_126.mapTemplate.touchY(x, 150));
@@ -542,7 +559,7 @@ public class Player extends Char {
                 o = super.zoneMap.findCharInMap2(super.isPlayerId);
             }
             if (super.timeMove <= 0) {
-                if (this.itemBuys != null && this.itemBuys.size() > 0) {
+                if (this.itemBuys != null && !this.itemBuys.isEmpty()) {
                     super.timeMove = 500;
                     if (o != null && Math.abs(o.cx - this.cx) < 120 && Math.abs(o.cy - super.cy) < 200 && Math.abs(o.cx - super.cx) > 24) {
                         int tdelay = (this.itemBuys.size() * 5);
@@ -671,7 +688,7 @@ public class Player extends Char {
                 this.isNhinThay = false;
             }
         }
-        //Check xem con bao ve ko 
+        //Check xem con bao ve ko
         if (this.charTemplate.type == 12) {
             this.isBaoVe = super.zoneMap.isBaoVe(this);
         }
@@ -728,6 +745,7 @@ public class Player extends Char {
         if (!super.isEx2 && (this.charTemplate.id == 68 || this.charTemplate.id == 67) && 100f / (float)super.cHPFull * (float)super.cHP <= 40) {
             super.isEx2 = true;
             Char bot67;
+            assert super.zoneMap != null; // Sử dụng zoneMap sau khi đã kiểm tra không null
             if (!super.zoneMap.isHaveBoss(66)) {
                 bot67 = Player.addBoss(66, 0, -1, -1, true, super.cx + 24, super.cy, super.zoneMap, 20000, super.indexXH);
                 Server.gI().chatVip(String.format(mResources.BOSS_HAVE, super.cName, super.zoneMap.mapTemplate.mapName));
@@ -772,7 +790,7 @@ public class Player extends Char {
             super.isInvisiblez5 = true;
         }
     }
-    
+
     @Override
     public void close() {
         this.isPlay = false;
@@ -856,6 +874,7 @@ public class Player extends Char {
         super.me = true;
         super.charID = -Char.getNewCharID();
         this.charTemplate = CharTemplate.get(super.cTemplateId = charTemplateId);
+        assert this.charTemplate != null;
         super.cName = this.charTemplate.name;
         super.head = super.headDefault = this.charTemplate.headId;
         super.body = super.bodyDefault = this.charTemplate.bodyId;
@@ -875,7 +894,7 @@ public class Player extends Char {
             super.skills.add(Skill.arrSkill[this.charTemplate.skills[i]].clone());
         }
         if (!super.skills.isEmpty()) {
-            super.mySkill = super.skills.get(0);
+            super.mySkill = super.skills.getFirst();
         }
         super.cgender = this.charTemplate.cgender;
         super.nClassId = this.charTemplate.nClassId;
@@ -894,11 +913,11 @@ public class Player extends Char {
         super.chatGameBot = (ArrayList<ChatGameBot>) this.charTemplate.chatGameBot.clone();
         
         if (this.charTemplate.type == 3) {
-            this.cName = String.format(mResources.CNAME_ADD_STR, this.charTemplate.name, Rank.getRank(1).tops.get(0).name);
+            this.cName = String.format(mResources.CNAME_ADD_STR, this.charTemplate.name, Objects.requireNonNull(Rank.getRank(1)).tops.getFirst().name);
             this.timeResetCloneTop = 10000;
-            super.head = super.headDefault = (short) Rank.getRank(1).tops.get(0).headID;
-            super.body = super.bodyDefault = Rank.getRank(1).tops.get(0).body;
-            super.leg = super.legDefault = Rank.getRank(1).tops.get(0).leg;
+            super.head = super.headDefault = (short) Objects.requireNonNull(Rank.getRank(1)).tops.getFirst().headID;
+            super.body = super.bodyDefault = Objects.requireNonNull(Rank.getRank(1)).tops.getFirst().body;
+            super.leg = super.legDefault = Objects.requireNonNull(Rank.getRank(1)).tops.getFirst().leg;
         }
         if (this.charTemplate.type == 1) {
             super.cHP = super.cHPFull = super.cHPGoc = Util.gI().nextInt(500, 100000);

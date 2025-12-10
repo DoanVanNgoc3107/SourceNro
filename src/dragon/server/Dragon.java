@@ -15,6 +15,7 @@ import dragon.t.SuperRank;
 import dragon.t.Util;
 import hethong.ServerActivity;
 import io.Message;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -38,7 +39,7 @@ public class Dragon {
     public static boolean isEvent_TrungThu = false;
     public static boolean isEvent_Halloween = false;
     public static boolean isEvent_WorldCup2022 = false;
-    public static boolean isEvent_TetNguyenDan = false;
+    public static boolean isEvent_TetNguyenDan = true;
     public static boolean isEvent_Girl = false;
     public static boolean isEvent_HungVuong = false;
     public static boolean isEvent_HE2023 = false;
@@ -61,7 +62,7 @@ public class Dragon {
         BgItem.init();
         GameInfo.init();
         Server.gI().initEvent();
-       Server.gI().initAnTrom();
+        Server.gI().initAnTrom();
         Server.gI().initNpc();
         NamekBall.gI().initNamekBall();
         Server.gI().openPrize();

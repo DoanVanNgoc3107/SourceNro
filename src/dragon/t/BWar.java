@@ -3,6 +3,7 @@ package dragon.t;
 import dragon.server.mResources;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * 
@@ -53,12 +54,9 @@ public class BWar {
     public static void update() {
         ARRBWAR2.clear();
         synchronized (ARRBWAR) {
-            for (int i = 0; i < ARRBWAR.size(); i++) {
-                ARRBWAR2.add(ARRBWAR.get(i));
-            }
+            ARRBWAR2.addAll(ARRBWAR);
         }
-        for (int i = 0; i < ARRBWAR2.size(); i++) {
-            BWar bWar = ARRBWAR2.get(i);
+        for (BWar bWar : ARRBWAR2) {
             // delay
             if (bWar.timeDelay > 0) {
                 bWar.timeDelay -= delay;
@@ -79,29 +77,30 @@ public class BWar {
                         }
                         if (bWar.ARRPLAYER.get(1).gameTick % 150 == 0) {
                             // thuy tinh doi mi nuong
-                            bWar.ARRPLAYER.get(0).addChat(1, mResources.THUY_TINH_CHAT1);
+                            bWar.ARRPLAYER.getFirst().addChat(1, mResources.THUY_TINH_CHAT1);
                             // son tinh thach
                             bWar.ARRPLAYER.get(1).addChat(1, mResources.SON_TINH_CHAT1);
                         }
                         if (bWar.ARRPLAYER.get(1).gameTick % 250 == 0) {
                             // thuy tinh goi nuoc
-                            bWar.ARRPLAYER.get(0).addChat(1, mResources.THUY_TINH_CHAT2);
+                            bWar.ARRPLAYER.getFirst().addChat(1, mResources.THUY_TINH_CHAT2);
                             // son tinh thach
                             bWar.ARRPLAYER.get(1).addChat(1, mResources.SON_TINH_CHAT2);
                         }
                     }
                     if (bWar.bId == 2) {
-                        if (bWar.ARRPLAYER.get(0).gameTick % 20 == 0 && !bWar.ARRPLAYER.get(0).isMove
-                                && !bWar.ARRPLAYER.get(0).isChuyenMap && bWar.ARRPLAYER.get(0).stealCharId == -1) {
+                        if (bWar.ARRPLAYER.getFirst().gameTick % 20 == 0 && !bWar.ARRPLAYER.getFirst().isMove
+                                && !bWar.ARRPLAYER.getFirst().isChuyenMap && bWar.ARRPLAYER.getFirst().stealCharId == -1) {
                             // di lai
-                            int xTo = Util.gI().nextInt(50, bWar.ARRPLAYER.get(0).zoneMap.mapTemplate.pxw - 50);
-                            bWar.ARRPLAYER.get(0).setMove(0, xTo, 150, 50, 1, 200);
+                            int xTo = Util.gI().nextInt(50, bWar.ARRPLAYER.getFirst().zoneMap.mapTemplate.pxw - 50);
+                            bWar.ARRPLAYER.getFirst().setMove(0, xTo, 150, 50, 1, 200);
                         }
                         // Chuyen map or khu
-                        if (!bWar.ARRPLAYER.get(0).isStand() && bWar.ARRPLAYER.get(0).isChuyenMap) {
-                            bWar.ARRPLAYER.get(0).isChuyenMap = false;
-                            bWar.ARRPLAYER.get(0).isSteal = true;
-                            kiemtra: {
+                        if (!bWar.ARRPLAYER.getFirst().isStand() && bWar.ARRPLAYER.getFirst().isChuyenMap) {
+                            bWar.ARRPLAYER.getFirst().isChuyenMap = false;
+                            bWar.ARRPLAYER.getFirst().isSteal = true;
+                            kiemtra:
+                            {
                                 // tim map uu tien dong nguoi
                                 int num2 = 0;
                                 int max = 500;
@@ -114,19 +113,19 @@ public class BWar {
                                         if (map.isMapThuong() || map.isMapNappa() || map.isMapCold1()
                                                 || map.isMapTL()) {
                                             ZoneMap zone = map.zones.get(Util.gI().nextInt(map.zones.size()));
-                                            if (zone.countBossById(138) > 0 || bWar.ARRPLAYER.get(0).zoneMap == zone) {
+                                            if (zone.countBossById(138) > 0 || bWar.ARRPLAYER.getFirst().zoneMap == zone) {
                                                 continue;
                                             }
                                             if (num2 < max / 1.5) {
                                                 Char player = zone.getPLayerNotAI();
                                                 if (player != null) {
-                                                    bWar.ARRPLAYER.get(0).zoneMap.exit(bWar.ARRPLAYER.get(0), 0);
-                                                    zone.join(bWar.ARRPLAYER.get(0), 0, player.cx, player.cy);
+                                                    bWar.ARRPLAYER.getFirst().zoneMap.exit(bWar.ARRPLAYER.getFirst(), 0);
+                                                    zone.join(bWar.ARRPLAYER.getFirst(), 0, player.cx, player.cy);
                                                     break kiemtra;
                                                 }
                                             } else {
-                                                bWar.ARRPLAYER.get(0).zoneMap.exit(bWar.ARRPLAYER.get(0), 0);
-                                                zone.join(bWar.ARRPLAYER.get(0), 0, 120, 150);
+                                                bWar.ARRPLAYER.getFirst().zoneMap.exit(bWar.ARRPLAYER.getFirst(), 0);
+                                                zone.join(bWar.ARRPLAYER.getFirst(), 0, 120, 150);
                                                 break kiemtra;
                                             }
                                         }
@@ -168,10 +167,11 @@ public class BWar {
                         // son tinh thuy tinh
                         if (bWar.bId == 1) {
 
-                            int[] arrMap = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-                                    19, 20, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 42, 43, 44 };
+                            int[] arrMap = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+                                    19, 20, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 42, 43, 44};
                             // thuy tinh, son tinh
-                            kiemtra: {
+                            kiemtra:
+                            {
                                 // Tim map and khu
                                 int num2 = 0;
                                 while (num2++ < 50) {
@@ -179,6 +179,7 @@ public class BWar {
                                         Map map = Map.getMapServer(arrMap[Util.gI().nextInt(arrMap.length)]);
                                         // Map map = Map.getMapServer(0);
                                         // xuat hien uu tien cac khu truoc
+                                        assert map != null;
                                         ZoneMap zone = map.zones
                                                 .get(Util.gI().nextInt(Util.gI().nextInt(Util.gI().nextInt(20))));
                                         if (zone.countBossById(136) > 0) {
@@ -187,8 +188,8 @@ public class BWar {
                                         // thuy tinh
                                         bWar.ARRPLAYER.add(Player.addBoss(136, 0, -1, -1, true,
                                                 Util.gI().nextInt(50, zone.mapTemplate.pxw - 50), 150, zone, -1, -1));
-                                        bWar.ARRPLAYER.get(0).bWar = bWar;
-                                        bWar.ARRPLAYER.get(0).changeFlag(1);
+                                        bWar.ARRPLAYER.getFirst().bWar = bWar;
+                                        bWar.ARRPLAYER.getFirst().changeFlag(1);
                                         // son tinh
                                         bWar.ARRPLAYER.add(Player.addBoss(137, 0, -1, -1, true,
                                                 Util.gI().nextInt(50, zone.mapTemplate.pxw - 50), 150, zone, -1, -1));
@@ -204,7 +205,8 @@ public class BWar {
                         }
                         // an trom
                         if (bWar.bId == 2) {
-                            kiemtra: {
+                            kiemtra:
+                            {
                                 // Tim map and khu
                                 int num2 = 0;
                                 while (num2++ < 50) {
@@ -222,10 +224,10 @@ public class BWar {
                                             bWar.ARRPLAYER.add(Player.addBoss(138, 5, -1, -1, false,
                                                     Util.gI().nextInt(50, zone.mapTemplate.pxw - 50), 150, null, -1,
                                                     -1));
-                                            bWar.ARRPLAYER.get(0).cName = bWar.name;
-                                            bWar.ARRPLAYER.get(0).bWar = bWar;
+                                            bWar.ARRPLAYER.getFirst().cName = bWar.name;
+                                            bWar.ARRPLAYER.getFirst().bWar = bWar;
                                             bWar.isWar = true;
-                                            zone.join(bWar.ARRPLAYER.get(0), 0, -1, -1);
+                                            zone.join(bWar.ARRPLAYER.getFirst(), 0, -1, -1);
                                             break kiemtra;
                                         }
                                     } catch (Exception e) {
@@ -237,20 +239,21 @@ public class BWar {
                         }
                         // Goku ca dic
                         if (bWar.bId == 3) {
-                            kiemtra: {
+                            kiemtra:
+                            {
                                 if (bWar.tick == 0) {
                                     // Cadic
                                     bWar.ARRPLAYER
                                             .add(Player.addBoss(85, 0, -1, -1, true, 480, 336, bWar.zone, -1, -1));
-                                    bWar.ARRPLAYER.get(0).bWar = bWar;
-                                    bWar.ARRPLAYER.get(0).timeClear = 60000;
-                                    bWar.ARRPLAYER.get(0).changeFlag(Flag.get(520).id);
+                                    bWar.ARRPLAYER.getFirst().bWar = bWar;
+                                    bWar.ARRPLAYER.getFirst().timeClear = 60000;
+                                    bWar.ARRPLAYER.getFirst().changeFlag(Objects.requireNonNull(Flag.get(520)).id);
                                     // Goku
                                     bWar.ARRPLAYER
                                             .add(Player.addBoss(84, 0, -1, -1, true, 490, 336, bWar.zone, -1, -1));
                                     bWar.ARRPLAYER.get(1).bWar = bWar;
                                     bWar.ARRPLAYER.get(1).timeClear = 60000;
-                                    bWar.ARRPLAYER.get(1).changeFlag(Flag.get(519).id);
+                                    bWar.ARRPLAYER.get(1).changeFlag(Objects.requireNonNull(Flag.get(519)).id);
                                     bWar.isWar = true;
                                     bWar.tick++;
                                 } else {

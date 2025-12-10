@@ -1,7 +1,7 @@
 package dragon.t;
 
 /**
- *
+ * File này dùng để lưu thông tin ngọc rồng sao đen
  * @author TGDD
  */
 public class BlackBall {
@@ -26,8 +26,6 @@ public class BlackBall {
     public void openBlackBall() {
         this.isBlackBall = true;
         this.isWinAll = false;
-//        this.timePickBlackBall = 1000 * 10;
-//        this.timeXongBlackBall = 1000 * 60;
         this.timeKeepBlackBall = 300000;
         this.timePickBlackBall = 1000 * 60 * 30;
         this.timeXongBlackBall = 1000 * 60 * 60;
@@ -38,11 +36,11 @@ public class BlackBall {
                 array[i] = Map.MAPS.get(i);
             }
         }
-        for (int i2 = 0; i2 < array.length; ++i2) {
-            if (array[i2].isMapBlackBall()) {
-                for (int j = 0; j < array[i2].zones.size(); j++) {
-                    array[i2].zones.get(j).isWinBlackBall = false;
-                    array[i2].zones.get(j).resetItemBlackBall();
+        for (Map map : array) {
+            if (map.isMapBlackBall()) {
+                for (int j = 0; j < map.zones.size(); j++) {
+                    map.zones.get(j).isWinBlackBall = false;
+                    map.zones.get(j).resetItemBlackBall();
                 }
             }
         }
@@ -58,15 +56,16 @@ public class BlackBall {
                 array[i] = Map.MAPS.get(i);
             }
         }
-        for (int i2 = 0; i2 < array.length; ++i2) {
-            if (array[i2].isMapBlackBall()) {
-                for (int j = 0; j < array[i2].zones.size(); j++) {
-                    array[i2].zones.get(j).pushPlayers(0);
+        for (Map map : array) {
+            if (map.isMapBlackBall()) {
+                for (int j = 0; j < map.zones.size(); j++) {
+                    map.zones.get(j).pushPlayers(0);
                 }
             }
         }
     }
-    
+
+
     public void update() {
         //Time nhat ngoc rong sao den
         if (this.timePickBlackBall > 0) {

@@ -14,11 +14,11 @@ public class DoelBossClan extends Instancing {
         super.lastOpen = System.currentTimeMillis();
         super.miliTime = 1800000;
         clan.doelBossClan = this;
-        short arrMapId[] = new short[]{165};
-        for (int i = 0; i < arrMapId.length; ++i) {
-            Map map = new Map(arrMapId[i], 1, 20, 0);
+        short[] arrMapId = new short[]{165};
+        for (short value : arrMapId) {
+            Map map = new Map(value, 1, 20, 0);
             map.phoban = this;
-            map.isOpen = i == 0;
+            map.isOpen = true;
             super.maps.add(map);
             Map.add(map);
         }
@@ -26,22 +26,22 @@ public class DoelBossClan extends Instancing {
         if (level == 0) {
             Player fideDaiCa = Player.addBoss(163, 0, -1, -1, true, 120, 552, null, 2000, -1);
             //Dua vao map
-            super.maps.get(0).zones.get(0).join(fideDaiCa, 0, -1, -1);
+            super.maps.getFirst().zones.getFirst().join(fideDaiCa, 0, -1, -1);
         }
         if (level == 1) {
             Player sieuBoHung = Player.addBoss(164, 0, -1, -1, true, 120, 552, null, 2000, -1);
             //Dua vao map
-            super.maps.get(0).zones.get(0).join(sieuBoHung, 0, -1, -1);
+            super.maps.getFirst().zones.getFirst().join(sieuBoHung, 0, -1, -1);
         }
         if (level == 2) {
             Player mabu = Player.addBoss(165, 0, -1, -1, true, 120, 552, null, 2000, -1);
             //Dua vao map
-            super.maps.get(0).zones.get(0).join(mabu, 0, -1, -1);
+            super.maps.getFirst().zones.getFirst().join(mabu, 0, -1, -1);
         }
         if (level == 3) {
             Player zamasu = Player.addBoss(166, 0, -1, -1, true, 120, 552, null, 2000, -1);
             //Dua vao map
-            super.maps.get(0).zones.get(0).join(zamasu, 0, -1, -1);
+            super.maps.getFirst().zones.getFirst().join(zamasu, 0, -1, -1);
         }
     }
     

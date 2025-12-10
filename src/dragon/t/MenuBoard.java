@@ -79,6 +79,7 @@ public class MenuBoard {
             this.typeInfo = -1;
             return;
         }
+
         //Vong xoay may man
         if (npcId == 54) {
             this.session.myCharz().openTabGold();
@@ -405,7 +406,7 @@ public class MenuBoard {
                             this.arrMenu.add(new MenuInfo(mResources.CHANGE_DANHHIEU, 200));
                         }
                         if (Dragon.isEvent_DIET_SAU_BO_2023) {
-                            this.arrMenu.add(new MenuInfo(mResources.EVENT_HE_2023, 332));
+                            this.arrMenu.add(new MenuInfo(mResources.EVENT_HE_2026, 332));
                             this.arrMenu.add(new MenuInfo(mResources.CHANGE_GIFT1, 341));
                             this.arrMenu.add(new MenuInfo(mResources.DONATE_BUG1, 339));
                             this.arrMenu.add(new MenuInfo(mResources.DONATE_BUG2, 340));

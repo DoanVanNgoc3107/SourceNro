@@ -176,7 +176,7 @@ public class CallDragon {
                                 }
                             }
                         }
-//                        //rong namek x2 tnsm
+                       //rong namek x2 tnsm
                         if (this.select == 0) {
                             for (i = 0; i < array.length; i++) {
                                 if (array[i] != null && array[i].timeReceiveNamek < System.currentTimeMillis()) {

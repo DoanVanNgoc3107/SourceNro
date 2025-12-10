@@ -55,7 +55,7 @@ public class Piano extends NewBoss {
                             this.aCharDam.set(i, super.atkPlayer(this.aCharDam.get(i), this.aCharFocus.get(i)));
                         }
                         if (!this.aCharFocus.isEmpty()) {
-                            if (this.aCharFocus.get(0).cx > super.pointx) {
+                            if (this.aCharFocus.getFirst().cx > super.pointx) {
                                 super.dir = 1;
                             } else {
                                 super.dir = -1;
@@ -82,7 +82,7 @@ public class Piano extends NewBoss {
                             this.aCharDam.set(i, super.atkPlayer(this.aCharDam.get(i), this.aCharFocus.get(i)));
                         }
                         if (!this.aCharFocus.isEmpty()) {
-                            if (this.aCharFocus.get(0).cx > super.pointx) {
+                            if (this.aCharFocus.getFirst().cx > super.pointx) {
                                 super.dir = 1;
                             } else {
                                 super.dir = -1;
@@ -113,7 +113,7 @@ public class Piano extends NewBoss {
                             }
                         }
                         if (!this.aCharFocus.isEmpty()) {
-                            if (this.aCharFocus.get(0).cx > super.pointx) {
+                            if (this.aCharFocus.getFirst().cx > super.pointx) {
                                 super.dir = 1;
                             } else {
                                 super.dir = -1;
@@ -141,7 +141,7 @@ public class Piano extends NewBoss {
                             this.aCharDam.set(i, super.atkPlayer(this.aCharDam.get(i), this.aCharFocus.get(i)));
                         }
                         if (!this.aCharFocus.isEmpty()) {
-                            if (this.aCharFocus.get(0).cx > super.pointx) {
+                            if (this.aCharFocus.getFirst().cx > super.pointx) {
                                 super.dir = 1;
                             } else {
                                 super.dir = -1;

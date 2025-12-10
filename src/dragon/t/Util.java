@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
 /**
- *
+ * Class chứa các hàm tiện ích chung
  * @author Văn Tú
  */
 public class Util {
@@ -287,11 +287,11 @@ public class Util {
     }
     
     public int getWeekGap(long v) {
-        return (int) (Math.abs(((System.currentTimeMillis() + (3600000 * UTC) + 259200000) / 604800000) - ((v + (3600000 * UTC) + 259200000) / 604800000)));
+        return (int) (Math.abs(((System.currentTimeMillis() + (3600000L * UTC) + 259200000) / 604800000) - ((v + (3600000L * UTC) + 259200000) / 604800000)));
     }
     
     public int getDayGap(long v) {
-        return (int) (Math.abs(((System.currentTimeMillis() + (3600000 * UTC))/ 86400000) - ((v + (3600000 * UTC)) / 86400000)));
+        return (int) (Math.abs(((System.currentTimeMillis() + (3600000L * UTC))/ 86400000) - ((v + (3600000L * UTC)) / 86400000)));
     }
     
     public String numberTostring(long number) {

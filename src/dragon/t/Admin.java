@@ -35,7 +35,7 @@ public class Admin {
         charz.menuBoard.openUIConfirm(5, null, null, -1);
     }
 
-    public class MenuInfoAdmin extends MenuInfo {
+    public static class MenuInfoAdmin extends MenuInfo {
 
         Char player;
 

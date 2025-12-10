@@ -5,25 +5,27 @@ import dragon.server.mResources;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
 /**
+ * GiftCode class - xử lý mã quà tặng
  *
  * @author TGDD
  */
 public class GiftCode {
-    
+
     private static GiftCode in;
-    
+
     public static GiftCode gI() {
         if (in == null) {
             in = new GiftCode();
         }
         return in;
     }
-    
+
     public synchronized void inputCode(Char charz, String code) {
         try {
             if (!code.isEmpty()) {
@@ -45,35 +47,35 @@ public class GiftCode {
                             String str = red.getString("str");
                             String str2 = red.getString("str2");
                             //Check tui
-                            if (items.size() + (charz.cgender == 0 ? items0.size() : charz.cgender == 1 ? items1.size() : charz.cgender == 2 ? items2.size(): 0) > charz.getEmptyBagCount()) {
+                            if (items.size() + (charz.cgender == 0 ? items0.size() : charz.cgender == 1 ? items1.size() : charz.cgender == 2 ? items2.size() : 0) > charz.getEmptyBagCount()) {
                                 charz.session.service.startOKDlg(String.format(mResources.GIFT_CODE_NHAN4, items.size() - charz.getEmptyBagCount()));
-                            } else if (limit != -1 && limit <= users.size()){
+                            } else if (limit != -1 && limit <= users.size()) {
                                 charz.session.service.startOKDlg(mResources.GIFT_CODE_NHAN5);
-                            } else if (type != 0 && users.contains(charz.session.userName)){ 
+                            } else if (type != 0 && users.contains(charz.session.userName)) {
                                 charz.session.service.startOKDlg(mResources.GIFT_CODE_NHAN6);
-                            } else if (!str2.isEmpty() && ((str2.startsWith("isCan") && !charz.isCan()) || (str2.startsWith("setId") && !str2.contains(" "+charz.cName)))) {
+                            } else if (!str2.isEmpty() && ((str2.startsWith("isCan") && !charz.isCan()) || (str2.startsWith("setId") && !str2.contains(" " + charz.cName)))) {
                                 charz.session.service.startOKDlg(mResources.GIFT_CODE_NHAN7);
                             } else {
                                 users.add(charz.session.userName);
                                 mySQL.getConnection().prepareStatement(String.format(mResources.UPDATE_GIFTCODE, Util.gI().stringSQL(users.toJSONString()), Util.gI().stringSQL_LIKE(code))).executeUpdate();
-                                //add item to bag
-                                String giftStr = new String();
-                                for (int i = 0; i < items.size(); i++) {
-                                    JSONArray item = (JSONArray) items.get(i);
+                                //add item to the bag
+                                StringBuilder giftStr = new StringBuilder(new String());
+                                for (Object o : items) {
+                                    JSONArray item = (JSONArray) o;
                                     if ("item".equals(item.get(0).toString())) {
                                         Item gift = Item.parseItem(item.get(1).toString());
                                         charz.addItemBag(0, gift);
-                                        giftStr += String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name);
+                                        giftStr.append(String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name));
                                     }
                                 }
                                 //Theo hanh tinh
                                 if (charz.cgender == 0) {
-                                    for (int i = 0; i < items0.size(); i++) {
-                                        JSONArray item0 = (JSONArray) items0.get(i);
+                                    for (Object o : items0) {
+                                        JSONArray item0 = (JSONArray) o;
                                         if ("item".equals(item0.get(0).toString())) {
                                             Item gift = Item.parseItem(item0.get(1).toString());
                                             charz.addItemBag(0, gift);
-                                            giftStr += String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name);
+                                            giftStr.append(String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name));
                                         }
                                     }
                                 }
@@ -83,7 +85,7 @@ public class GiftCode {
                                         if ("item".equals(item1.get(0).toString())) {
                                             Item gift = Item.parseItem(item1.get(1).toString());
                                             charz.addItemBag(0, gift);
-                                            giftStr += String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name);
+                                            giftStr.append(String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name));
                                         }
                                     }
                                 }
@@ -93,7 +95,7 @@ public class GiftCode {
                                         if ("item".equals(item2.get(0).toString())) {
                                             Item gift = Item.parseItem(item2.get(1).toString());
                                             charz.addItemBag(0, gift);
-                                            giftStr += String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name);
+                                            giftStr.append(String.format(mResources.GIFT_CODE_NHAN2, Util.gI().numberTostring(gift.quantity), gift.template.name));
                                         }
                                     }
                                 }
@@ -104,7 +106,7 @@ public class GiftCode {
                                     charz.menuBoard.openUIConfirm(5, null, null, -1);
                                 } else {
                                     charz.resetMenu();
-                                    charz.menuBoard.chat = String.format(mResources.GIFT_CODE_NHAN, giftStr);
+                                    charz.menuBoard.chat = String.format(mResources.GIFT_CODE_NHAN, giftStr.toString());
                                     charz.menuBoard.arrMenu.add(new MenuInfo(mResources.OK, 0));
                                     charz.menuBoard.openUIConfirm(5, null, null, -1);
                                 }
@@ -125,5 +127,5 @@ public class GiftCode {
             e.printStackTrace();
         }
     }
-    
+
 }
