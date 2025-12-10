@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit;
  * @author TGDD
  */
 public class Player extends Char {
-    
+
     private class thr extends Thread {
-        
+
         @Override
         public void run() {
             while (isPlay) {
@@ -23,15 +23,15 @@ public class Player extends Char {
                 update();
                 try {
                     TimeUnit.MILLISECONDS.sleep(Server.SERVER_DELAY_MILISECOND);
-                } catch(InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    System.out.println("Bot thr error: " + e.getMessage());
                 }
                 delay = (int) (System.currentTimeMillis() - l);
             }
             clear();
         }
     }
-    
+
     public static final ArrayList<Player> BOTS = new ArrayList<>();
 
     public CharTemplate charTemplate;
@@ -47,23 +47,24 @@ public class Player extends Char {
     public int transport_speed;
     public int transport_level;
     public boolean isNoiKore;
-    
+
     public void initBot() {
         isPlay = true;
         isClear = false;
         thr = new thr();
         thr.start();
     }
-    
+
     @Override
     public void update() {
         super.update();
         Player bot;
         int i;
-        if (super.zoneMap !=  null) { 
-            //Di chuyen
+        if (super.zoneMap != null) {
+
+            // Di chuyen
             if (!super.isStand() && !super.isSuper && super.timeMove <= 0 && super.tCharge <= 0) {
-                int x = Util.gI().nextInt(super.cx-100, super.cx+100);
+                int x = Util.gI().nextInt(super.cx - 100, super.cx + 100);
                 if (x > super.zoneMap.mapTemplate.pxw - 50) {
                     x = super.zoneMap.mapTemplate.pxw - 50;
                 }
@@ -71,7 +72,7 @@ public class Player extends Char {
                     x = 50;
                 }
                 int y = super.zoneMap.mapTemplate.touchY(x, 150);
-                if (this.charTemplate.type == 6 && Util.gI().nextInt(100) < 40 && (this.charFocus == null || this.charFocus.isDie ||  Math.abs(this.charFocus.cx - this.cx) > 150 || Math.abs(this.charFocus.cy - this.cy) > 70)) {
+                if (this.charTemplate.type == 6 && Util.gI().nextInt(100) < 40 && (this.charFocus == null || this.charFocus.isDie || Math.abs(this.charFocus.cx - this.cx) > 150 || Math.abs(this.charFocus.cy - this.cy) > 70)) {
                     x = Util.gI().nextInt(this.pre_x - 70, this.pre_x + 70);
                     super.addMove(0, x, y, 0);
                 }
@@ -88,9 +89,9 @@ public class Player extends Char {
                             if (skill.lastTimeUseThisSkill < System.currentTimeMillis()) {
                                 int manaUse = skill.manaUse;
                                 if (skill.template.manaUseType == 1) {
-                                    manaUse = (int)((long)super.cMPFull * (long)manaUse / 100);
+                                    manaUse = (int) ((long) super.cMPFull * (long) manaUse / 100);
                                 }
-                                if (super.cMP >= manaUse && (skill.template.id != 9 || (skill.template.id == 9 && 100f / (float)super.cHPFull * (float)super.cHP > 10))) {
+                                if (super.cMP >= manaUse && (skill.template.id != 9 || 100f / (float) super.cHPFull * (float) super.cHP > 10)) {
                                     super.mySkill = skill;
                                     break;
                                 }
@@ -104,7 +105,7 @@ public class Player extends Char {
                     switch (skillF.template.id) {
                         case 6:
                             super.zoneMap.chat(this, "Thái Dương Hạ San");
-                            super.skill_not_focus((byte)0, skillF);
+                            super.skill_not_focus((byte) 0, skillF);
                             if (super.isBossMain && super.cTemplateId == 108) {
                                 super.isAddClone = !super.isAddClone;
                                 if (super.isAddClone) {
@@ -115,21 +116,21 @@ public class Player extends Char {
                             }
                             break;
                         case 8:
-                            super.skill_not_focus((byte)1, skillF);
+                            super.skill_not_focus((byte) 1, skillF);
                             super.chargeDamage = 5;
                             super.tCharge = 10000;
                             break;
                         case 12:
-                            super.skill_not_focus((byte)8, skillF);
+                            super.skill_not_focus((byte) 8, skillF);
                             break;
                         case 13:
-                            super.skill_not_focus((byte)6, skillF);
+                            super.skill_not_focus((byte) 6, skillF);
                             break;
                         case 19:
-                            super.skill_not_focus((byte)9, skillF);
+                            super.skill_not_focus((byte) 9, skillF);
                             break;
                         case 21:
-                            super.skill_not_focus((byte)10, skillF);
+                            super.skill_not_focus((byte) 10, skillF);
                             break;
                         default:
                             super.aCharFocus.clear();
@@ -165,7 +166,7 @@ public class Player extends Char {
                                     if (super.isGo) {
                                         if (skillF.isChuong()) {
                                             if ((Math.abs(super.cx - super.aCharFocus.getFirst().cx) > 100 || Math.abs(super.cy - super.aCharFocus.getFirst().cy) < 30)) {
-                                                super.addMove(0, super.aCharFocus.getFirst().cx + ((super.cx > super.aCharFocus.getFirst().cx) ? 100 : - 100), super.aCharFocus.getFirst().cy, 1);
+                                                super.addMove(0, super.aCharFocus.getFirst().cx + ((super.cx > super.aCharFocus.getFirst().cx) ? 100 : -100), super.aCharFocus.getFirst().cy, 1);
                                             }
                                         } else if (skillF.isDonDanh()) {
                                             if (this.charTemplate.type == 6) {
@@ -192,7 +193,7 @@ public class Player extends Char {
                                     if (super.isCome) {
                                         if (skillF.isChuong()) {
                                             if (!super.isMove && (Math.abs(super.cx - super.aCharFocus.getFirst().cx) > 100 || Math.abs(super.cx - super.aCharFocus.getFirst().cx) < 30 || Math.abs(super.cy - super.aCharFocus.getFirst().cy) > 50)) {
-                                                super.setMove(0, super.aCharFocus.getFirst().cx + ((super.cx > super.aCharFocus.getFirst().cx) ? 100 : - 100), super.aCharFocus.getFirst().cy, 50, 0, 50);
+                                                super.setMove(0, super.aCharFocus.getFirst().cx + ((super.cx > super.aCharFocus.getFirst().cx) ? 100 : -100), super.aCharFocus.getFirst().cy, 50, 0, 50);
                                             }
                                         } else {
                                             if (!super.isMove && (Math.abs(super.aCharFocus.getFirst().cx - super.cx) > 24 || Math.abs(super.aCharFocus.getFirst().cy - super.cy) > 24)) {
@@ -238,7 +239,7 @@ public class Player extends Char {
             super.timeClear -= super.delay;
             if (super.timeClear <= 0) {
                 this.close();
-                
+
                 //Xuat hien lai
                 if (this.charTemplate.id != 6 && this.charTemplate.id != 8 && this.charTemplate.id != 9 && this.charTemplate.id != 10) {
                     //Super Broly
@@ -270,7 +271,7 @@ public class Player extends Char {
                             bot2.numberXH = super.numberXH;
                             bot2.arrInMap = super.arrInMap;
                             int num1 = 0;
-                            while(num1++ < 100) {
+                            while (num1++ < 100) {
                                 try {
                                     Map map_437 = Map.getMapServer(bot2.arrInMap[Util.gI().nextInt(bot2.arrInMap.length)]);
                                     ZoneMap zone_128 = map_437.zones.get(Util.gI().nextInt(20));
@@ -300,7 +301,7 @@ public class Player extends Char {
                             bot2.numberXH = super.numberXH;
                             bot2.arrInMap = super.arrInMap;
                             int num2 = 0;
-                            while(num2++ < 100) {
+                            while (num2++ < 100) {
                                 try {
                                     Map map_432 = Map.getMapServer(bot2.arrInMap[Util.gI().nextInt(bot2.arrInMap.length)]);
                                     if (map_432 == null) {
@@ -318,7 +319,7 @@ public class Player extends Char {
                             }
                         }
                     }
-                    
+
                     if (this.charTemplate.type == 33) {
                         if (super.numberXH != -1) {
                             Char bot_12 = Player.addBoss(this.charTemplate.id, 5, -1, -1, true, super.cx, super.cy, null, -1, super.indexXH);
@@ -326,7 +327,7 @@ public class Player extends Char {
                             bot_12.numberXH = super.numberXH;
                             bot_12.arrInMap = super.arrInMap;
                             int num3 = 0;
-                            while(num3++ < 100) {
+                            while (num3++ < 100) {
                                 try {
                                     num3++;
                                     Map map_434 = Map.getMapServer(bot_12.arrInMap[Util.gI().nextInt(bot_12.arrInMap.length)]);
@@ -391,11 +392,11 @@ public class Player extends Char {
                     }
                 }
                 //Child
-                    if (this.charTemplate.id == 169) {
-                        Char bot170 = Player.addBoss(170, 5, -1, -1, true, super.cx, super.cy, null, -1, super.indexXH);
-                        super.zoneMap.join(bot170, 0, -1, -1);
-                        Server.gI().chatVip(String.format(mResources.BOSS_HAVE, bot170.cName, zoneMap.mapTemplate.mapName));
-                    }
+                if (this.charTemplate.id == 169) {
+                    Char bot170 = Player.addBoss(170, 5, -1, -1, true, super.cx, super.cy, null, -1, super.indexXH);
+                    super.zoneMap.join(bot170, 0, -1, -1);
+                    Server.gI().chatVip(String.format(mResources.BOSS_HAVE, bot170.cName, zoneMap.mapTemplate.mapName));
+                }
                 //Xuat hien lai
                 if (super.numberXH2 != -1) {
                     Char bot4 = Player.addBoss(this.charTemplate.id, 5, -1, -1, true, super.cx, super.cy, null, -1, super.indexXH);
@@ -403,14 +404,14 @@ public class Player extends Char {
                     bot4.numberXH2 = super.numberXH2;
                     bot4.arrInMap = super.arrInMap;
                     int num4 = 0;
-                    while(num4++ < 100) {
+                    while (num4++ < 100) {
                         try {
                             Map map_419 = Map.getMapServer(bot4.arrInMap[Util.gI().nextInt(bot4.arrInMap.length)]);
                             if (map_419 == null) {
                                 continue;
                             }
                             ZoneMap zone_120 = map_419.zones.get(Util.gI().nextInt(20));
-                            if (zone_120.countBossById(this.charTemplate.id)> 0) {
+                            if (zone_120.countBossById(this.charTemplate.id) > 0) {
                                 continue;
                             }
                             zone_120.join(bot4, 0, -1, -1);
@@ -420,7 +421,7 @@ public class Player extends Char {
                         }
                     }
                 }
-                
+
                 //tdst
                 if (this.charTemplate.id == 58) {
                     Char player = super.findBossInMapById(59);
@@ -508,10 +509,13 @@ public class Player extends Char {
                         bot_13.timeRego = super.timeRego;
                         bot_13.maxZoneXH = super.maxZoneXH;
                         int num4 = 0;
-                        while(num4++ < 100) {
+                        while (num4++ < 100) {
                             try {
                                 num4++;
                                 Map map_435 = Map.getMapServer(bot_13.arrInMap[Util.gI().nextInt(bot_13.arrInMap.length)]);
+                                if (map_435 == null) {
+                                    continue;
+                                }
                                 ZoneMap zone_126 = map_435.zones.get(Util.gI().nextInt(super.maxZoneXH));
                                 zone_126.join(bot_13, 0, -1, -1);
                                 break;
@@ -528,7 +532,7 @@ public class Player extends Char {
                         bot_13.arrInMap = super.arrInMap;
                         bot_13.maxZoneXH = super.maxZoneXH;
                         int num4 = 0;
-                        while(num4++ < 100) {
+                        while (num4++ < 100) {
                             try {
                                 num4++;
                                 Map map_435 = Map.getMapServer(bot_13.arrInMap[Util.gI().nextInt(bot_13.arrInMap.length)]);
@@ -540,6 +544,7 @@ public class Player extends Char {
                                 zone_126.join(bot_13, 0, x, zone_126.mapTemplate.touchY(x, 150));
                                 break;
                             } catch (Exception e) {
+                                System.out.println("Bug hoa xh");
                             }
                         }
                     }
@@ -596,16 +601,46 @@ public class Player extends Char {
                     }
                 } else if (this.charTemplate.type == 38) {
                     super.timeMove = 0;
-                    if (super.gameTick % 10 == 0) {
-                        if (o != null && Math.abs(o.cx - this.cx) < 300 && Math.abs(o.cy - super.cy) < 200 && Math.abs(o.cx - super.cx) > 24) {
-                            if (o.cx > super.cx) {
-                                super.cx += 50;
-                            } else {
-                                super.cx -= 50;
+                    // Con Lân phản ứng nhanh: check mỗi 5 tick (0.5 giây)
+                    if (super.gameTick % 5 == 0) {
+                        if (o != null && Math.abs(o.cx - this.cx) < 600 && Math.abs(o.cy - super.cy) < 200) {
+                            int distance = Math.abs(o.cx - super.cx);
+
+                            // Phát hiện user đang di chuyển (isMove) hoặc Lân quá xa
+                            boolean userIsMoving = o.isMove;
+                            boolean tooFar = distance > 250;
+
+                            // Nếu user đang di chuyển HOẶC Lân quá xa, theo ngay lập tức
+                            if (userIsMoving || tooFar) {
+                                // Nếu quá xa (> 350 pixels), warp về gần user
+                                if (distance > 350) {
+                                    int targetX = o.cx + Util.gI().nextInt(-80, 80);
+                                    int targetY = super.zoneMap.mapTemplate.touchY(targetX, 125);
+                                    super.setMove(0, targetX, targetY, 50, 1, 200);
+                                }
+                                // Nếu user đang di chuyển, theo sau user
+                                else if (userIsMoving && distance > 100) {
+                                    // Theo hướng di chuyển của user
+                                    int targetX = o.cx + Util.gI().nextInt(-60, 60);
+                                    int targetY = super.zoneMap.mapTemplate.touchY(targetX, 125);
+                                    super.setMove(0, targetX, targetY, 50, 1, 200);
+                                }
+                                // Nếu ở khoảng cách 250-350, di chuyển về gần
+                                else if (tooFar) {
+                                    int targetX = o.cx + Util.gI().nextInt(-100, 100);
+                                    int targetY = super.zoneMap.mapTemplate.touchY(targetX, 125);
+                                    super.setMove(0, targetX, targetY, 50, 1, 200);
+                                }
                             }
-                            super.cy = super.zoneMap.mapTemplate.touchY(super.cx, 125);
-                            super.zoneMap.playerMove(super.charID, super.cx, super.cy);
-                        } else if (o == null || Math.abs(o.cx - this.cx) > 320) {
+                            // User đứng yên VÀ Lân ở gần, thỉnh thoảng di chuyển tự do (mỗi 30 tick = 3 giây)
+                            else if (super.gameTick % 30 == 0 && !super.isMove && distance < 250) {
+                                if (Util.gI().nextInt(0, 100) < 50) { // 50% cơ hội di chuyển tự do
+                                    int randomX = o.cx + Util.gI().nextInt(-120, 120);
+                                    int targetY = super.zoneMap.mapTemplate.touchY(randomX, 125);
+                                    super.setMove(0, randomX, targetY, 50, 1, 200);
+                                }
+                            }
+                        } else if (o == null || Math.abs(o.cx - this.cx) > 600) { // Timeout khi xa quá 600 pixels
                             Session_ME player = Server.gI().getByPId(super.isPlayerId);
                             if (player != null) {
                                 player.myCharz().addInfo1(String.format(mResources.FALID_PET_DI_THEO, super.cName));
@@ -625,7 +660,7 @@ public class Player extends Char {
                         } else {
                             super.cx -= 50;
                         }
-                        if (Math.abs(super.cx - o .cx) <= 50) {
+                        if (Math.abs(super.cx - o.cx) <= 50) {
                             super.cx = Util.gI().nextInt(o.cx - 100, o.cx + 100);
                         }
                         super.cy = super.zoneMap.mapTemplate.touchY(super.cx, o.cy);
@@ -661,7 +696,7 @@ public class Player extends Char {
                         x += 150;
                     } else if (Math.abs(o.cx - super.cx) < 50) {
                         x = o.cx;
-                    } else  {
+                    } else {
                         x += 50;
                     }
                 } else {
@@ -679,9 +714,10 @@ public class Player extends Char {
         }
         //Nhin thay
         if (!super.isSee && super.cTypePk == 5) {
+            assert super.zoneMap != null; // Sử dụng zoneMap sau khi đã kiểm tra không null
             Char o = super.zoneMap.getPlayerClosest(this);
             if (!this.isNhinThay) {
-                if (o != null && Math.abs(o.cx - super.cx) < 200 && Math.abs(o. cy - super.cy) < 200) {
+                if (o != null && Math.abs(o.cx - super.cx) < 200 && Math.abs(o.cy - super.cy) < 200) {
                     this.isNhinThay = true;
                 }
             } else if (o == null) {
@@ -690,13 +726,14 @@ public class Player extends Char {
         }
         //Check xem con bao ve ko
         if (this.charTemplate.type == 12) {
+            assert super.zoneMap != null;
             this.isBaoVe = super.zoneMap.isBaoVe(this);
         }
         //De con
         if (super.timeSonCall > 0) {
             super.timeSonCall -= delay;
             if (super.timeSonCall <= 0) {
-                super.timeSonCall  = 0;
+                super.timeSonCall = 0;
                 if (!this.isDie) {
                     for (i = 0; i < super.sonCall; i++) {
                         bot = Player.addBoss(25, 5, -1, -1, true, super.cx, super.cy, null, -1, super.indexXH);
@@ -710,7 +747,7 @@ public class Player extends Char {
         }
         if (!super.isSonCall) {
             if (this.charTemplate.id == 23) {
-                if (100f / (float)super.cHPFull * (float)super.cHP <= 80 && !super.isDie) {
+                if (100f / (float) super.cHPFull * (float) super.cHP <= 80 && !super.isDie) {
                     super.sonCall(5, 7);
                 }
             }
@@ -742,7 +779,7 @@ public class Player extends Char {
                 player.NoiKore();
             }
         }
-        if (!super.isEx2 && (this.charTemplate.id == 68 || this.charTemplate.id == 67) && 100f / (float)super.cHPFull * (float)super.cHP <= 40) {
+        if (!super.isEx2 && (this.charTemplate.id == 68 || this.charTemplate.id == 67) && 100f / (float) super.cHPFull * (float) super.cHP <= 40) {
             super.isEx2 = true;
             Char bot67;
             assert super.zoneMap != null; // Sử dụng zoneMap sau khi đã kiểm tra không null
@@ -796,7 +833,7 @@ public class Player extends Char {
         this.isPlay = false;
         super.close();
     }
-    
+
     public static void petInfo(Char charz, int gender) {
         if (charz.myPet != null) {
             if (charz.myPetz().zoneMap != null) {
@@ -832,7 +869,7 @@ public class Player extends Char {
         charz.myPet = petz;
         charz.session.service.petInfo1();
     }
-    
+
     public static void mabuInfo(Char charz) {
         if (charz.myPet != null) {
             if (charz.myPetz().zoneMap != null) {
@@ -868,7 +905,7 @@ public class Player extends Char {
         charz.myPet = petz;
         charz.session.service.petInfo1();
     }
-    
+
     public Player(int charTemplateId) {
         super.isTemplate = true;
         super.me = true;
@@ -911,7 +948,7 @@ public class Player extends Char {
         super.strike = this.charTemplate.strike;
         super.autoMove = this.charTemplate.autoMove;
         super.chatGameBot = (ArrayList<ChatGameBot>) this.charTemplate.chatGameBot.clone();
-        
+
         if (this.charTemplate.type == 3) {
             this.cName = String.format(mResources.CNAME_ADD_STR, this.charTemplate.name, Objects.requireNonNull(Rank.getRank(1)).tops.getFirst().name);
             this.timeResetCloneTop = 10000;
@@ -942,7 +979,7 @@ public class Player extends Char {
         }
         super.updateAll();
     }
-    
+
     public static Player addBoss(int charTemplateId, int cTypePk, int hp, int dam, boolean isAtt, int x, int y, ZoneMap zone, int timeChangePk5, int index) {
         Player player = new Player(charTemplateId);
         if (player.belly != null) {
@@ -960,7 +997,7 @@ public class Player extends Char {
         player.pre_y = player.cy = y;
         player.isAtt = isAtt;
         player.indexXH = index;
-        
+
         player.timeClear = -1;
         if (zone != null) {
             zone.join(player, 0, -1, -1);
@@ -974,7 +1011,7 @@ public class Player extends Char {
         }
         return player;
     }
-    
+
     public static void addBOT(Player bot) {
         synchronized (BOTS) {
             if (bot.indexXH != -1) {
@@ -983,7 +1020,7 @@ public class Player extends Char {
             BOTS.add(bot);
         }
     }
-    
+
     public static void removeBOT(Player bot) {
         synchronized (BOTS) {
             if (bot.indexXH != -1) {
@@ -992,43 +1029,43 @@ public class Player extends Char {
             BOTS.remove(bot);
         }
     }
-    
+
     public static int sizeBot() {
         synchronized (BOTS) {
             return BOTS.size();
         }
     }
-    
+
     public static void clearBot() {
         int i;
         synchronized (BOTS) {
-           for (i = 0; i < BOTS.size(); i++) {
-               BOTS.get(i).isClear = true;
-           } 
+            for (i = 0; i < BOTS.size(); i++) {
+                BOTS.get(i).isClear = true;
+            }
         }
-        System.out.println("Clear All Bot "+ i);
+        System.out.println("Clear All Bot " + i);
     }
-    
+
     public static Player getBossPlayer(int playerId, int type) {
         Player o = null;
         int i;
         synchronized (BOTS) {
-           for (i = 0; i < BOTS.size(); i++) {
-               if (BOTS.get(i).isPlayerId == playerId && (type == -1 || (type != -1 && BOTS.get(i).charTemplate.type == type))) {
-                   o = BOTS.get(i);
-                   break;
-               }
-           } 
+            for (i = 0; i < BOTS.size(); i++) {
+                if (BOTS.get(i).isPlayerId == playerId && (type == -1 || (type != -1 && BOTS.get(i).charTemplate.type == type))) {
+                    o = BOTS.get(i);
+                    break;
+                }
+            }
         }
         return o;
     }
-    
+
     public static int getCountItem() {
         int count = 0;
-        
-        return  count;
+
+        return count;
     }
-    
+
     public static Player findRandomBoss(int id) {
         int i;
         ArrayList<Player> aBosss = new ArrayList<>();
@@ -1045,7 +1082,7 @@ public class Player extends Char {
         }
         return null;
     }
-    
+
     public void clear() {
         Player.removeBOT(this);
     }

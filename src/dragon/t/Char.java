@@ -11113,7 +11113,8 @@ public class Char {
             if (this.cTemplateId == 125 && this.gameTick % 300 == 0 && !this.isSendGift) {
                 this.addGift(1000, "Hô hô hô");
             }
-            if (this.cTemplateType == 38 && this.gameTick % 40 == 0 && !this.isMove && this.isPlayerId == -1) {
+            if (this.cTemplateType == 38 && this.gameTick % 150 == 0 && !this.isMove && this.isPlayerId == -1) {
+                // Con Lân tự do di chuyển mỗi 15 giây (150 tick) để không di chuyển quá nhiều
                 int x = Util.gI().nextInt(this.cx - 100, this.cy + 100);
                 if (x < 50) {
                     x = 50;
@@ -11157,7 +11158,7 @@ public class Char {
                     zoneNew.join(o, 0, this.cx, this.cy);
                 }
             } else if (o.charTemplate.type == 38) {
-                if (Math.abs(o.cx - x) < 300 && type == 0) {
+                if (Math.abs(o.cx - x) < 600 && type == 0) { // Tăng từ 300 lên 600 để dễ theo khi chuyển map
                     o.zoneMap.exit(o, 0);
                     zoneNew.join(o, 0, this.cx, this.cy);
                 }
@@ -11751,7 +11752,7 @@ public class Char {
         if (this.cTemplateId == 127) {
             if (this.isPlayerId != -1) {
                 this.petJoin += this.delay;
-                if (this.petJoin >= 300000) {
+                if (this.petJoin >= 900000) { // Tăng thời gian timeout từ 5 phút (300000ms) lên 15 phút (900000ms)
                     Session_ME player = Server.gI().getByPId(this.isPlayerId);
                     if (player != null) {
                         player.myCharz().addInfo1(String.format(mResources.FALID_PET_DI_THEO, this.cName));

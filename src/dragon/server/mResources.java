@@ -918,8 +918,8 @@ public class mResources {
     public static final String THIEU_DIEM_SU_KIEN = "Còn thiếu %s điểm sự kiện";
     public static final String NOT_DIEM_SU_KIEN = "Bạn không đủ điểm, còn thiếu %d điểm nữa";
     public static final String DANG_NAU = "Đã nấu bánh";
-    public static final String FRUIT_TRAY = "Bầy mâm\nngũ quả";
-    public static final String YOU_FRUIT_TRAY = "Bạn muốn bầy mâm ngũ quả ?";
+    public static final String FRUIT_TRAY = "Bày mâm\nngũ quả";
+    public static final String YOU_FRUIT_TRAY = "Bạn muốn bày mâm ngũ quả ?";
     public static final String QUANTITY_FRUIT_TRAY = "Số lượng mâm ngũ quả";
     public static final String QUANTITY_FRUIT_TRAY_KEY = "Nhập số lượng mâm ngũ quả";
     public static final String FALID_PET_DI_THEO = "Mất %s rồi!!!!!!!";
@@ -935,9 +935,11 @@ public class mResources {
     public static final String SAY_QUY_LAO_KAME_19 = "Con có chắc muốn đổi %d";
     public static final String TOP100_EVENT = "Top 100\nSự kiện";
     public static final String TUNG_TUNG_TUNG1 = "Lân tới cầu may cho một năm mới an khang thịnh vượng";
-    public static final String TUNG_TUNG_TUNG2 = "Tùng tùng tùng, lân tới chúc phúc mọi nhà";
-    public static final String TUNG_TUNG_TUNG3 = "Tùng tùng tùng, lân tới mang lộc tài đến cho mọi người";
+    public static final String TUNG_TUNG_TUNG2 = "Tùng tùng tùng, Lân tới chúc phúc mọi nhà";
+    public static final String TUNG_TUNG_TUNG3 = "Tùng tùng tùng, Lân tới mang lộc tài đến cho mọi người";
     public static final String TUNG_TUNG_TUNG4 = "Lân tới mang may mắn cho mọi người";
+    public static final String BAT_LAN = "batlan";
+
     public static final String EVENT_TETNGUYENDAN = "Sự Kiện\nTết 2026";
     //=========================================
     public static final String SAY_QUY_LAO_KAME_20 = "Sự Kiện Tết Nguyên Đán 2026 nhận quả khủng đang diễn ra\nChi tiết sự kiện tại Group và Page Dragon Rose";

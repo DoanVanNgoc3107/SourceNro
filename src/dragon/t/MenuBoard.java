@@ -414,7 +414,7 @@ public class MenuBoard {
                             this.arrMenu.add(new MenuInfo(mResources.BXH_EVENT, 0) {
                                 @Override
                                 public boolean execute() {
-                                    Rank.getRank(3).loadRank();
+                                    Objects.requireNonNull(Rank.getRank(3)).loadRank();
                                     MenuBoard.this.session.service.top(Rank.getRank(3));
                                     return false;
                                 }

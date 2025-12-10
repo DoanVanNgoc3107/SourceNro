@@ -887,7 +887,7 @@ public class ZoneMap {
             }
         }
         // Lan con
-        if (!charz.isPetThiTheo && (text.equals("tungtungtung") || text.equals("tung tung tung"))
+        if (!charz.isPetThiTheo && (text.equals(mResources.BAT_LAN) || text.equals("bat lan"))
                 && Player.getBossPlayer(charz.playerId, 38) == null) {
             Player o = this.getBossByType(charz.cx, 38);
             if (o != null && o.isPlayerId == -1 && !o.isMove) {
@@ -906,9 +906,9 @@ public class ZoneMap {
 
     public void playerLoadAll(Char player) {
         synchronized (this.players) {
-            for (int i = 0; i < this.players.size(); i++) {
-                if (this.players.get(i).charID != player.charID && this.players.get(i).session != null) {
-                    this.players.get(i).session.service.playerLoadAll(player);
+            for (Char aChar : this.players) {
+                if (aChar.charID != player.charID && aChar.session != null) {
+                    aChar.session.service.playerLoadAll(player);
                 }
             }
         }
