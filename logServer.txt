@@ -1,30 +1,9 @@
-Name=Whis zoneId=11 mapName=Hành tinh Bill 2: 18h04 10/12/2025
-Name=Beerus zoneId=11 mapName=Hành tinh Bill 2: 18h04 10/12/2025
-Name=Tiểu đội trưởng zoneId=6 mapName=Núi khỉ đỏ: 18h04 10/12/2025
-Name=Số 1 zoneId=6 mapName=Núi khỉ đỏ: 18h04 10/12/2025
-Name=Số 2 zoneId=6 mapName=Núi khỉ đỏ: 18h04 10/12/2025
-Name=Số 3 zoneId=6 mapName=Núi khỉ đỏ: 18h04 10/12/2025
-Name=Số 4 zoneId=6 mapName=Núi khỉ đỏ: 18h05 10/12/2025
-Name=Fide Đại Ca 1 zoneId=13 mapName=Núi khỉ vàng: 18h05 10/12/2025
-Name=Android 19 zoneId=8 mapName=Đảo Balê: 18h05 10/12/2025
-Name=Dr.Kôrê zoneId=8 mapName=Đảo Balê: 18h05 10/12/2025
-Name=Android 15 zoneId=13 mapName=Sân sau siêu thị: 18h05 10/12/2025
-Name=Android 14 zoneId=13 mapName=Sân sau siêu thị: 18h05 10/12/2025
-Name=Pic zoneId=17 mapName=Ngọn núi phía bắc: 18h05 10/12/2025
-Name=Poc zoneId=17 mapName=Ngọn núi phía bắc: 18h05 10/12/2025
-Name=King Kong zoneId=17 mapName=Ngọn núi phía bắc: 18h05 10/12/2025
-Name=Xên bọ hung zoneId=19 mapName=Thị trấn Ginder: 18h05 10/12/2025
-Name=Xên hoàn thiện zoneId=11 mapName=Võ đài Xên bọ hung: 18h06 10/12/2025
-Name=Black Goku zoneId=14 mapName=Thành phố phía đông: 18h06 10/12/2025
-Name=Cooler zoneId=0 mapName=Hang băng: 18h06 10/12/2025
-Name=Bojack zoneId=9 mapName=Rừng nấm: 18h06 10/12/2025
-Name=Bido zoneId=9 mapName=Rừng nấm: 18h06 10/12/2025
-Name=Zangya zoneId=9 mapName=Rừng nấm: 18h06 10/12/2025
-Name=Kogu zoneId=9 mapName=Rừng nấm: 18h06 10/12/2025
-Name=Bujin zoneId=9 mapName=Rừng nấm: 18h06 10/12/2025
-Name=Tiểu đội trưởng zoneId=1 mapName=Núi hoa tím: 18h06 10/12/2025
-Name=Số 1 zoneId=1 mapName=Núi hoa tím: 18h06 10/12/2025
-Name=Số 2 zoneId=1 mapName=Núi hoa tím: 18h06 10/12/2025
-Name=Số 3 zoneId=1 mapName=Núi hoa tím: 18h06 10/12/2025
-Name=Số 4 zoneId=1 mapName=Núi hoa tím: 18h06 10/12/2025
-Name=Chilld zoneId=6 mapName=Làng Plant nguyên thủy: 18h06 10/12/2025
+Name=Whis zoneId=5 mapName=Hành tinh Bill 2: 19h54 10/12/2025
+Name=Beerus zoneId=5 mapName=Hành tinh Bill 2: 19h54 10/12/2025
+Name=Tiểu đội trưởng zoneId=16 mapName=Núi khỉ đỏ: 19h54 10/12/2025
+Name=Số 1 zoneId=16 mapName=Núi khỉ đỏ: 19h54 10/12/2025
+Name=Số 2 zoneId=16 mapName=Núi khỉ đỏ: 19h54 10/12/2025
+Name=Số 3 zoneId=16 mapName=Núi khỉ đỏ: 19h54 10/12/2025
+Name=Số 4 zoneId=16 mapName=Núi khỉ đỏ: 19h54 10/12/2025
+Name=Fide Đại Ca 1 zoneId=3 mapName=Núi khỉ vàng: 19h55 10/12/2025
+Name=Android 19 zoneId=2 mapName=Cao nguyên: 19h55 10/12/2025

@@ -54,7 +54,7 @@ public class ZoneMap {
         this.map = map;
         this.zoneID = zoneID;
         if (mapTemplate.mapTemplateId == 128) {
-            this.arrCocoonPoint = new short[][]{
+            this.arrCocoonPoint = new short[][] {
                     {
                             198,
                             256
@@ -151,9 +151,9 @@ public class ZoneMap {
         synchronized (mobs) {
             for (Mob mob1 : mobs) {
                 if (mob1 != null) {
-//                    if (mob1.status != 0) {
-//                        Service.mobLive(mob1.mobId, mob1.sys, mob1.levelBoss, mob1.maxHp);
-//                    }
+                    // if (mob1.status != 0) {
+                    // Service.mobLive(mob1.mobId, mob1.sys, mob1.levelBoss, mob1.maxHp);
+                    // }
                     // Mu
                     if (mob1.blindEff) {
                         charz.session.service.holdMob(1, 40, mob1.mobId, -1);
@@ -290,13 +290,14 @@ public class ZoneMap {
         if (this.map.isMapCace23_2() && !charz.isTemplate) {
             flag = 0;
         } else if (this.map.isMapButcher() && !charz.isTemplate) {
-            flag = Objects.requireNonNull(Flag.get(new int[]{519, 519, 519, 520}[Util.gI().nextInt(4)])).id;
+            flag = Objects.requireNonNull(Flag.get(new int[] { 519, 519, 519, 520 }[Util.gI().nextInt(4)])).id;
         } else if (this.map.isMapBlackBall() && !charz.isTemplate) {
             Char p = this.getPlayerFirstClan(charz);
             if (p != null) {
                 flag = p.cFlag;
             } else {
-                flag = Objects.requireNonNull(Flag.get(new int[]{364, 365, 366, 367, 368, 369, 370}[Util.gI().nextInt(7)])).id;
+                flag = Objects.requireNonNull(
+                        Flag.get(new int[] { 364, 365, 366, 367, 368, 369, 370 }[Util.gI().nextInt(7)])).id;
             }
         } else {
             if (zoneOld != null) {
@@ -452,8 +453,8 @@ public class ZoneMap {
         // Nhiem vu
         if (charz.ctaskId == 3 && charz.ctaskIndex == 1
                 && ((charz.cgender == 0 && charz.mapTemplateId == 42)
-                || (charz.cgender == 1 && charz.mapTemplateId == 43)
-                || (charz.cgender == 2 && charz.mapTemplateId == 44))) {
+                        || (charz.cgender == 1 && charz.mapTemplateId == 43)
+                        || (charz.cgender == 2 && charz.mapTemplateId == 44))) {
             synchronized (this.itemMaps) {
                 if (charz.mapTemplateId == 42) {
                     charz.babyId = this.base_itemMapID++;
@@ -660,10 +661,10 @@ public class ZoneMap {
         }
         if ("rlg".equals(text) && charz.session != null && charz.session.isAdmin > 0) {
             charz.session.service.playerLoadLevel(
-                    new PlayerData[]{new PlayerData(1, "admin1", (short) 0, (short) 1, (short) 2, 1000000000),
+                    new PlayerData[] { new PlayerData(1, "admin1", (short) 0, (short) 1, (short) 2, 1000000000),
                             new PlayerData(3, "admin3", (short) 3, (short) 4, (short) 5, 10000000000L),
                             new PlayerData(4, "admin4", (short) 3, (short) 4, (short) 5, 10000000000L),
-                            new PlayerData(5, "admin5", (short) 3, (short) 4, (short) 5, 10000000000L)});
+                            new PlayerData(5, "admin5", (short) 3, (short) 4, (short) 5, 10000000000L) });
             return;
         }
         if ("dongb".equals(text) && charz.session != null && charz.session.isAdmin > 0) {
@@ -676,6 +677,13 @@ public class ZoneMap {
                     mResources.EMPTY, mResources.EMPTY), charz.cx, charz.cy, 0, -1));
             return;
         }
+        // Thêm vào ZoneMap.java, sau dòng 730
+        if ("gosanta".equals(text) && charz.session != null && charz.session.isAdmin > 0) {
+            charz.goSanTaCity();
+            charz.session.service.addInfo("✈️ Admin đã dịch chuyển đến Santa City!");
+            return;
+        }
+
         if ("vxmm".equals(text) && charz.session != null && charz.session.isAdmin > 0) {
             charz.vxmm = !charz.vxmm;
             if (charz.vxmm)
@@ -869,7 +877,7 @@ public class ZoneMap {
             // }
         }
         // Tuan loc
-        if (!charz.isPetThiTheo && (text.equals("ecec") || text.equals("ec ec"))
+        if (!charz.isPetDiTheo && (text.equals("ecec") || text.equals("ec ec"))
                 && Player.getBossPlayer(charz.playerId, 38) == null) {
             Player o = this.getBossByType(charz.cx, 38);
             if (o != null) {
@@ -877,27 +885,27 @@ public class ZoneMap {
                     Session_ME player = Server.gI().getByPId(o.isPlayerId);
                     if (player != null) {
                         player.myCharz().addInfo1(String.format(mResources.FALID_DUA_PET_2, o.cName));
-                        player.myCharz().isPetThiTheo = false;
+                        player.myCharz().isPetDiTheo = false;
                     }
                 }
                 o.isMove = false;
-                charz.isPetThiTheo = true;
+                charz.isPetDiTheo = true;
                 o.isPlayerId = charz.playerId;
                 this.chat(charz, String.format(mResources.DUA_PET_GO, o.cName));
             }
         }
         // Lan con
-        if (!charz.isPetThiTheo && (text.equals(mResources.BAT_LAN) || text.equals("bat lan"))
+        if (!charz.isPetDiTheo && (text.equals(mResources.BAT_LAN) || text.equals("bat lan"))
                 && Player.getBossPlayer(charz.playerId, 38) == null) {
             Player o = this.getBossByType(charz.cx, 38);
             if (o != null && o.isPlayerId == -1 && !o.isMove) {
                 Session_ME player = Server.gI().getByPId(o.isPlayerId);
                 if (player != null) {
                     player.myCharz().addInfo1(String.format(mResources.FALID_DUA_PET_2, o.cName));
-                    player.myCharz().isPetThiTheo = false;
+                    player.myCharz().isPetDiTheo = false;
                 }
                 o.isMove = false;
-                charz.isPetThiTheo = true;
+                charz.isPetDiTheo = true;
                 o.isPlayerId = charz.playerId;
                 this.chat(charz, String.format(mResources.DUA_PET_GO, o.cName));
             }
@@ -1110,8 +1118,7 @@ public class ZoneMap {
             itemMaps.add(itemMap);
         }
         // Kiem tra x,y item
-        kiemtra:
-        {
+        kiemtra: {
             int xOld = itemMap.x;
             int yOld = itemMap.y;
             // Cho chui len
@@ -1152,8 +1159,8 @@ public class ZoneMap {
             Item it = null;
             if (player.babyId == itemMapID && player.ctaskId == 3 && player.ctaskIndex == 1
                     && ((player.cgender == 0 && player.mapTemplateId == 42)
-                    || (player.cgender == 1 && player.mapTemplateId == 43)
-                    || (player.cgender == 2 && player.mapTemplateId == 44))) {
+                            || (player.cgender == 1 && player.mapTemplateId == 43)
+                            || (player.cgender == 2 && player.mapTemplateId == 44))) {
                 player.addInfo1(mResources.WOW_BABY);
                 player.updateTask(1);
                 player.updateAll();
@@ -1232,7 +1239,7 @@ public class ZoneMap {
                                                     }
                                                 }
                                             } else if (itemMap.item.template.id == 568) {
-                                                player.addDuaHau(50, new int[]{4664}, 0, 2592000, 4664);
+                                                player.addDuaHau(50, new int[] { 4664 }, 0, 2592000, 4664);
                                             } else if (itemMap.item.isItemBlackBall()) {
                                                 player.myCharz().itemBlackBall = itemMap.item;
                                             } else if (itemMap.item.isItemNameBall()) {
@@ -1249,9 +1256,9 @@ public class ZoneMap {
                                                 }
                                                 if (itemMap.item.isItemSLL()
                                                         ? player.myCharz().addQuantityItemBagByIndex(indexUI,
-                                                        itemMap.item.getParamOption(31)) == 0
+                                                                itemMap.item.getParamOption(31)) == 0
                                                         : player.myCharz().addQuantityItemBagByIndex(indexUI,
-                                                        itemMap.item.quantity) == 0) {
+                                                                itemMap.item.quantity) == 0) {
                                                     player.myCharz().addItemBag(itemMap.item, indexUI);
                                                 }
                                                 if (indexUI != -1 && player.myCharz().arrItemBag[indexUI] != null) {
@@ -1474,7 +1481,7 @@ public class ZoneMap {
     }
 
     public void playerAttackPlayer(int playerId, int skillId, ArrayList<Char> chars, int isContinue, int typeSkill,
-                                   int damHP, boolean isDie, boolean isCrit) {
+            int damHP, boolean isDie, boolean isCrit) {
         synchronized (this.players) {
             for (int i = 0; i < this.players.size(); i++) {
                 if (this.players.get(i).session != null) {
@@ -1510,7 +1517,7 @@ public class ZoneMap {
     }
 
     public void player_skill_not_focus(int skill_type, int playerId, int skillTemplateId, ArrayList<Mob> mobs,
-                                       ArrayList<Char> players, int seconds) {
+            ArrayList<Char> players, int seconds) {
         synchronized (this.players) {
             int i;
             for (i = 0; i < this.players.size(); i++) {
@@ -2348,7 +2355,7 @@ public class ZoneMap {
                         && (!player.isInvisible || charz.isAtt(player.charID))) {
                     if (playerClosest == null
                             || (Math.abs(charz.cx - player.cx) <= Math.abs(charz.cx - playerClosest.cx)
-                            && Math.abs(charz.cy - player.cy) <= Math.abs(charz.cy - playerClosest.cy))) {
+                                    && Math.abs(charz.cy - player.cy) <= Math.abs(charz.cy - playerClosest.cy))) {
                         playerClosest = player;
                     }
                 }
@@ -3132,7 +3139,7 @@ public class ZoneMap {
                     array[i1] = this.players.get(i1);
                 }
             }
-            for (int i2 = 0; i2 < array.length; ) {
+            for (int i2 = 0; i2 < array.length;) {
                 if (!array[i2].isTemplate && array[i2].cy < 300) {
                     if (array[i2].isDie) {
                         array[i2].liveFromDead(2);
@@ -3252,7 +3259,7 @@ public class ZoneMap {
     }
 
     public void SetSkillPaint_NEW(int playerId, short idskillPaint, int isFly, int typeFrame, int typePaint, int dir,
-                                  int timeGong, int typeItem) {
+            int timeGong, int typeItem) {
         synchronized (this.players) {
             for (int i = 0; i < this.players.size(); i++) {
                 Char player = this.players.get(i);
@@ -3265,7 +3272,7 @@ public class ZoneMap {
     }
 
     public void SetSkillPaint_STT(int playerId, short idskillPaint, Point targetDame, int timeDame, int rangeDame,
-                                  int typePaint, ArrayList<Mob> list1, ArrayList<Char> list2, int typeItem) {
+            int typePaint, ArrayList<Mob> list1, ArrayList<Char> list2, int typeItem) {
         synchronized (this.players) {
             for (int i = 0; i < this.players.size(); i++) {
                 Char player = this.players.get(i);

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class Map {
-    
+
     public ArrayList<ZoneMap> zones;
     public int templateId;
     public int mapId;
@@ -21,14 +21,14 @@ public class Map {
     public Instancing phoban;
     public Char owner;
     public MapTemplate template;
-    
+
     private final ArrayList<Mob> mobs = new ArrayList<>();
     private final ArrayList<Npc> npcs = new ArrayList<>();
     public ArrayList<ItemMap> itemMaps = new ArrayList<>();
     public ArrayList<dragon.t.PhaoHoa> phaohoas = new ArrayList<>();
-    
+
     public boolean isClear = false;
-    
+
     public Map(int mapTemplateId, int zoneCount, int maxPlayer, int status) {
         this.template = MapTemplate.arrMapTemplate[this.mapId = this.templateId = mapTemplateId];
         this.zones = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Map {
             ZoneMap zone = new ZoneMap(MapTemplate.arrMapTemplate[mapTemplateId], this, i);
             zone.maxPlayer = maxPlayer;
             if (status == 0) {
-                //Init Waypoint
+                // Init Waypoint
                 for (int i4 = 0; i4 < MapTemplate.arrMapTemplate[mapTemplateId].arrWaypoint_name.length; i4++) {
                     Waypoint waypoint = new Waypoint(i4,
                             MapTemplate.arrMapTemplate[mapTemplateId].arrWaypoint_name[i4],
@@ -52,79 +52,107 @@ public class Map {
                             MapTemplate.arrMapTemplate[mapTemplateId].arrWaypoint_goX[i4],
                             MapTemplate.arrMapTemplate[mapTemplateId].arrWaypoint_goY[i4]);
                     zone.waypoints.add(waypoint);
-                    //SET
+                    // SET
                 }
-                //Init Mob
+                // Init Mob
                 for (int i3 = 0; i3 < MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId.length; i3++) {
                     if (MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3] == 70) {
-                        BigBoss mob2 = new BigBoss(i3, MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
+                        BigBoss mob2 = new BigBoss(i3, MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
                         mob2.zone = zone;
                         zone.mobs.add(mob2);
                     } else if (MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3] == 71) {
-                        BachTuoc mob3 = new BachTuoc(i3, MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
+                        BachTuoc mob3 = new BachTuoc(i3,
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
                         mob3.zone = zone;
                         zone.mobs.add(mob3);
                     } else if (MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3] == 72) {
-                        BigBoss2 mob4 = new BigBoss2(i3, MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
+                        BigBoss2 mob4 = new BigBoss2(i3,
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
                         mob4.zone = zone;
                         zone.mobs.add(mob4);
-                    } else if (1 == 1) {
-                        Mob mob = new Mob(i3, MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3], MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
+                    } else {
+                        Mob mob = new Mob(i3, MapTemplate.arrMapTemplate[mapTemplateId].arrMob_templateId[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_level[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointx[i3],
+                                MapTemplate.arrMapTemplate[mapTemplateId].arrMob_pointy[i3]);
                         mob.zone = zone;
                         zone.mobs.add(mob);
                     }
                 }
-                //Init NPC
+                // Init NPC
                 for (int i2 = 0; i2 < MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_templateId.length; i2++) {
-                    Npc npc = new Npc(i2, MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_status[i2], MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_cx[i2], MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_cy[i2],  MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_templateId[i2], MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_avatar[i2]);
+                    Npc npc = new Npc(i2, MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_status[i2],
+                            MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_cx[i2],
+                            MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_cy[i2],
+                            MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_templateId[i2],
+                            MapTemplate.arrMapTemplate[mapTemplateId].arrNPC_avatar[i2]);
                     zone.npcs.add(npc);
                 }
-                //Init ItemMap
+                // Init ItemMap
                 Item it = null;
                 if (mapTemplateId == 85) {
-                    it = new Item(372, false, 1, ItemOption.getOption(372, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    it = new Item(372, false, 1, ItemOption.getOption(372, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                 }
                 if (mapTemplateId == 86) {
-                    it = new Item(373, false, 1, ItemOption.getOption(373, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    it = new Item(373, false, 1, ItemOption.getOption(373, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                 }
                 if (mapTemplateId == 87) {
-                    it = new Item(374, false, 1, ItemOption.getOption(374, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    it = new Item(374, false, 1, ItemOption.getOption(374, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                 }
                 if (mapTemplateId == 88) {
-                    it = new Item(375, false, 1, ItemOption.getOption(375, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    it = new Item(375, false, 1, ItemOption.getOption(375, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                 }
                 if (mapTemplateId == 89) {
-                    it = new Item(376, false, 1, ItemOption.getOption(376, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    it = new Item(376, false, 1, ItemOption.getOption(376, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                 }
                 if (mapTemplateId == 90) {
-                    it = new Item(377, false, 1, ItemOption.getOption(377, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    it = new Item(377, false, 1, ItemOption.getOption(377, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                 }
                 if (mapTemplateId == 91) {
-                    it = new Item(378, false, 1, ItemOption.getOption(378, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    it = new Item(378, false, 1, ItemOption.getOption(378, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                 }
                 if (it != null) {
                     ItemMap itm = zone.addItemMap(-1, it, 100, zone.mapTemplate.touchY(100, 100), -1, -1);
                     itm.milisecondRemove = System.currentTimeMillis() + 10000;
                 }
 
-                //Yardart
+                // Yardart
                 if (mapTemplateId == 131) {
                     for (j = 0; j < yardartBoss[0].length; j++) {
-                        Player boss1 = Player.addBoss(yardartBoss[0][j][0], 5, -1, -1, true, yardartBoss[0][j][1], yardartBoss[0][j][2], null, -1, -1);
+                        Player boss1 = Player.addBoss(yardartBoss[0][j][0], 5, -1, -1, true, yardartBoss[0][j][1],
+                                yardartBoss[0][j][2], null, -1, -1);
                         boss1.cName = String.format(mResources.ADD_NUMBER, boss1.cName, j);
                         zone.join(boss1, 0, -1, -1);
                     }
                 }
                 if (mapTemplateId == 132) {
                     for (j = 0; j < yardartBoss[1].length; j++) {
-                        Player boss1 = Player.addBoss(yardartBoss[1][j][0], 5, -1, -1, true, yardartBoss[1][j][1], yardartBoss[1][j][2], null, -1, -1);
+                        Player boss1 = Player.addBoss(yardartBoss[1][j][0], 5, -1, -1, true, yardartBoss[1][j][1],
+                                yardartBoss[1][j][2], null, -1, -1);
                         boss1.cName = String.format(mResources.ADD_NUMBER, boss1.cName, j);
                         zone.join(boss1, 0, -1, -1);
                     }
                 }
                 if (mapTemplateId == 133) {
                     for (j = 0; j < yardartBoss[2].length; j++) {
-                        Player boss1 = Player.addBoss(yardartBoss[2][j][0], 5, -1, -1, true, yardartBoss[2][j][1], yardartBoss[2][j][2], null, -1, -1);
+                        Player boss1 = Player.addBoss(yardartBoss[2][j][0], 5, -1, -1, true, yardartBoss[2][j][1],
+                                yardartBoss[2][j][2], null, -1, -1);
                         boss1.cName = String.format(mResources.ADD_NUMBER, boss1.cName, j);
                         zone.join(boss1, 0, -1, -1);
                     }
@@ -133,27 +161,28 @@ public class Map {
             this.zones.add(zone);
         }
     }
-    
+
     public ZoneMap getZone(Char charz) {
         if (this.isMapTraiDat() && charz.cgender != 0) {
-            
+
         } else if (this.isMapNamek() && charz.cgender != 1) {
-            
+
         } else if (this.isMapXayda() && charz.cgender != 2) {
-            
+
         } else {
             int i;
             int count = this.zones.size();
             for (i = 0; i < count; ++i) {
                 ZoneMap zone = this.zones.get(i);
-                if (zone != null && zone.getCountPLayerNotAI() < zone.maxPlayer && (!this.isMapButcher() || (this.isMapButcher() && zone.getCountPLayerNotAI() < 7))) {
+                if (zone != null && zone.getCountPLayerNotAI() < zone.maxPlayer
+                        && (!this.isMapButcher() || (this.isMapButcher() && zone.getCountPLayerNotAI() < 7))) {
                     return zone;
                 }
             }
         }
         return null;
     }
-    
+
     public void requestChangeZone(Char charz, int zoneId) {
         for (int i = this.zones.size() - 1; i >= 0; --i) {
             if (this.zones.get(i).zoneID == zoneId) {
@@ -172,7 +201,9 @@ public class Map {
                 } else if (this.isMapMabu()) {
                     charz.session.service.chatTHEGIOI(mResources.EMPTY, mResources.NOT_CHANGE_ZONE, null, 0);
                 } else if (charz.timeChangeZone > 0) {
-                    charz.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.DELAY_DOI_KHU, Util.gI().getStrTime(charz.timeChangeZone)), null, 0);
+                    charz.session.service.chatTHEGIOI(mResources.EMPTY,
+                            String.format(mResources.DELAY_DOI_KHU, Util.gI().getStrTime(charz.timeChangeZone)), null,
+                            0);
                 } else if (!this.zones.get(i).isHelp(charz)) {
                     charz.session.service.chatTHEGIOI(mResources.EMPTY, mResources.TASK_HOUR, null, 0);
                 } else if (charz.itemNamekBall != null && charz.timeNextMapNamek > System.currentTimeMillis()) {
@@ -188,308 +219,320 @@ public class Map {
             }
         }
     }
-    
+
     public static boolean isMapOffline(int mapId) {
-        return mapId == 21 || mapId == 22 || mapId == 23 || mapId == 39|| mapId == 40 || mapId == 41 || mapId == 45 || mapId == 46 || mapId == 47 || mapId == 48 || mapId == 50 || mapId == 101 || mapId == 111 || mapId == 154;
+        return mapId == 21 || mapId == 22 || mapId == 23 || mapId == 39 || mapId == 40 || mapId == 41 || mapId == 45
+                || mapId == 46 || mapId == 47 || mapId == 48 || mapId == 50 || mapId == 101 || mapId == 111
+                || mapId == 154;
     }
-    
+
     public boolean isMapTraiDat() {
         return this.mapId == 21;
     }
-    
+
     public boolean isMapNamek() {
         return this.mapId == 22;
     }
-    
+
     public boolean isMapXayda() {
         return this.mapId == 23;
     }
-    
+
     public boolean isNotChangeZone() {
-        return this.mapId == 21 || this.mapId == 22 || this.mapId == 23 || this.mapId == 51 || this.isMapDestronGas() || this.isMapDoanhTrai() || Map.isMapOffline(this.mapId) || this.isMapKhoBau() || this.mapId == 128 || this.isMapManorClan() || this.mapId == 165;
+        return this.mapId == 21 || this.mapId == 22 || this.mapId == 23 || this.mapId == 51 || this.isMapDestronGas()
+                || this.isMapDoanhTrai() || Map.isMapOffline(this.mapId) || this.isMapKhoBau() || this.mapId == 128
+                || this.isMapManorClan() || this.mapId == 165;
     }
-    
+
     public boolean isMapHome() {
         return this.mapId == 21 || this.mapId == 22 || this.mapId == 23;
     }
-    
+
     public void close() {
         Map.remove(this);
     }
-    
-    public static int[] mapId_server = new int[]{
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
-        34,
-        35,
-        36,
-        37,
-        38,
-        39,
-        40,
-        41,
-        42,
-        43,
-        44,
-        49,
-        51,
-        52,
-        63,
-        64,
-        65,
-        66,
-        67,
-        68,
-        69,
-        70,
-        71,
-        72,
-        73,
-        74,
-        75,
-        76,
-        77,
-        79,
-        80,
-        81,
-        82,
-        83,
-        84,
-        85,
-        86,
-        87,
-        88,
-        89,
-        90,
-        91,
-        92,
-        93,
-        94,
-        95,
-        96,
-        97,
-        98,
-        99,
-        100,
-        102,
-        103,
-        104,
-        105,
-        106,
-        107,
-        108,
-        109,
-        110,
-        113,
-        114,
-        115,
-        117,
-        118,
-        119,
-        120,
-        122,
-        123,
-        124,
-        126,
-        127,
-        129,
-        131,
-        132,
-        133,
-        139,
-        140,
-        155,
-        156,
-        157,
-        158,
-        159,
-        160,
-        161,
-        162,
-        163,
-        166,
-        167,
-        168
+
+    public static int[] mapId_server = new int[] {
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            49,
+            51,
+            52,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            113,
+            114,
+            115,
+            117,
+            118,
+            119,
+            120,
+            122,
+            123,
+            124,
+            126,
+            127,
+            129,
+            131,
+            132,
+            133,
+            139,
+            140,
+            155,
+            156,
+            157,
+            158,
+            159,
+            160,
+            161,
+            162,
+            163,
+            166,
+            167,
+            168
     };
-    
+
     public static int[][][] yardartBoss = new int[][][] {
-        {
-            {27, 144, 456},
-            {27, 360, 456},
-            {27, 805, 456},
-            {27, 1000, 456},
-            {28, 1250, 456}
-        },
-        {
-            {28, 144, 456},
-            {28, 360, 456},
-            {28, 641, 456},
-            {28, 800, 456},
-            {28, 1000, 456},
-            {29, 1220, 456}
-        },
-        {
-            {29, 300, 456},
-            {29, 400, 456},
-            {29, 600, 456},
-            {29, 805, 456},
-            {29, 1000, 456},
-            {30, 1250, 456}
-        }
+            {
+                    { 27, 144, 456 },
+                    { 27, 360, 456 },
+                    { 27, 805, 456 },
+                    { 27, 1000, 456 },
+                    { 28, 1250, 456 }
+            },
+            {
+                    { 28, 144, 456 },
+                    { 28, 360, 456 },
+                    { 28, 641, 456 },
+                    { 28, 800, 456 },
+                    { 28, 1000, 456 },
+                    { 29, 1220, 456 }
+            },
+            {
+                    { 29, 300, 456 },
+                    { 29, 400, 456 },
+                    { 29, 600, 456 },
+                    { 29, 805, 456 },
+                    { 29, 1000, 456 },
+                    { 30, 1250, 456 }
+            }
     };
-    
+
     public static short[][] pointDuaBe = new short[][] {
-        {
-            155,
-            288
-        },
-        {
-            136,
-            264
-        },
-        {
-            155,
-            288
-        }
+            {
+                    155,
+                    288
+            },
+            {
+                    136,
+                    264
+            },
+            {
+                    155,
+                    288
+            }
     };
-    
+
     public static final ArrayList<Map> MAPS = new ArrayList<>();
     public static final ArrayList<Map> MAPS_SERVER = new ArrayList<>();
     public static int maxPlayerInZone = 15;
-    
+
     public static void add(Map map) {
         synchronized (MAPS) {
             MAPS.add(map);
         }
     }
-    
+
     public static void remove(Map map) {
         synchronized (MAPS) {
             MAPS.remove(map);
         }
     }
-    
+
     public static int size() {
         synchronized (MAPS) {
             return MAPS.size();
         }
     }
-    
+
     public static void addServer(Map map) {
         synchronized (MAPS_SERVER) {
             MAPS_SERVER.add(map);
         }
     }
-    
+
     public static void removeServer(Map map) {
         synchronized (MAPS_SERVER) {
             MAPS_SERVER.remove(map);
         }
     }
-    
+
     public static int sizeServer() {
         synchronized (MAPS_SERVER) {
             return MAPS_SERVER.size();
         }
     }
-    
+
     public static boolean contains(Map map) {
         synchronized (MAPS) {
             return MAPS.contains(map);
         }
     }
-    
+
     public static boolean containsServer(Map map) {
         synchronized (MAPS_SERVER) {
             return MAPS_SERVER.contains(map);
         }
     }
-    
+
     public static void initMapServer() {
         System.out.println("Load Map Server");
         int i;
         int j;
         for (i = 0; i < mapId_server.length; ++i) {
             int countZone = 50;
-            //Ball black
+            // Ball black
             if (mapId_server[i] >= 85 && mapId_server[i] <= 91) {
                 countZone = 10;
             }
-            //BigBoss
+            // BigBoss
             if (mapId_server[i] == 126) {
                 countZone = 10;
             }
-            //Butcher
-            if (mapId_server[i] == 114 || mapId_server[i] == 115 || mapId_server[i] == 117 || mapId_server[i] == 118 || mapId_server[i] == 119 || mapId_server[i] == 120) {
+            // Butcher
+            if (mapId_server[i] == 114 || mapId_server[i] == 115 || mapId_server[i] == 117 || mapId_server[i] == 118
+                    || mapId_server[i] == 119 || mapId_server[i] == 120) {
                 countZone = 25;
             }
-            //Mabu
+            // Mabu
             if (mapId_server[i] == 127) {
                 countZone = 20;
             }
-            //tuong lai
-            if (mapId_server[i] == 92 || mapId_server[i] == 93 || mapId_server[i] == 94 ||mapId_server[i] == 96 || mapId_server[i] == 97 || mapId_server[i] == 98 || mapId_server[i] == 99 || mapId_server[i] == 100 || mapId_server[i] == 102) {
+            // tuong lai
+            if (mapId_server[i] == 92 || mapId_server[i] == 93 || mapId_server[i] == 94 || mapId_server[i] == 96
+                    || mapId_server[i] == 97 || mapId_server[i] == 98 || mapId_server[i] == 99 || mapId_server[i] == 100
+                    || mapId_server[i] == 102) {
                 countZone = 25;
             }
-            //Thuc vat
+            // Thuc vat
             if (mapId_server[i] == 160 || mapId_server[i] == 161 || mapId_server[i] == 162 || mapId_server[i] == 163) {
                 countZone = 25;
             }
-            //Map moi
+            // Map moi
             if (mapId_server[i] == 156 || mapId_server[i] == 157 || mapId_server[i] == 158 || mapId_server[i] == 159) {
                 countZone = 25;
             }
-            //Cold
+            // Cold
             if ((mapId_server[i] >= 105 && mapId_server[i] <= 110)) {
                 countZone = 50;
             }
-            //Yardart
+            // Yardart
             if ((mapId_server[i] >= 131 && mapId_server[i] <= 133)) {
                 countZone = 11;
             }
-            //Thanh dia
+            // Thanh dia
             if ((mapId_server[i] >= 156 && mapId_server[i] <= 159)) {
                 countZone = 10;
             }
-            
-            //Nappa
-            if (mapId_server[i] == 63 || mapId_server[i] == 64 || mapId_server[i] == 65 || mapId_server[i] == 66 || mapId_server[i] == 67 || mapId_server[i] == 68 || mapId_server[i] == 69 || mapId_server[i] == 70 || mapId_server[i] == 71 || mapId_server[i] == 72 || mapId_server[i] == 73 || mapId_server[i] == 74 || mapId_server[i] == 75 || mapId_server[i] == 76 || mapId_server[i] == 77 || mapId_server[i] == 79 || mapId_server[i] == 80 || mapId_server[i] == 81 || mapId_server[i] == 82 || mapId_server[i] == 83) {
+
+            // Nappa
+            if (mapId_server[i] == 63 || mapId_server[i] == 64 || mapId_server[i] == 65 || mapId_server[i] == 66
+                    || mapId_server[i] == 67 || mapId_server[i] == 68 || mapId_server[i] == 69 || mapId_server[i] == 70
+                    || mapId_server[i] == 71 || mapId_server[i] == 72 || mapId_server[i] == 73 || mapId_server[i] == 74
+                    || mapId_server[i] == 75 || mapId_server[i] == 76 || mapId_server[i] == 77 || mapId_server[i] == 79
+                    || mapId_server[i] == 80 || mapId_server[i] == 81 || mapId_server[i] == 82
+                    || mapId_server[i] == 83) {
                 countZone = 50;
             }
-            //DHVT 23
+            // DHVT 23
             if (mapId_server[i] == 129) {
                 countZone = 127;
             }
-            //Hanh tinh nguc tu
+            // Hanh tinh nguc tu
             if (mapId_server[i] == 155 || mapId_server[i] == 166) {
                 countZone = 20;
             }
@@ -502,7 +545,7 @@ public class Map {
             addServer(map);
         }
     }
-    
+
     public Map getMapKhoBau(int mapTemplateId) {
         int i;
         for (i = this.khobau.maps.size() - 1; i >= 0; --i) {
@@ -512,7 +555,7 @@ public class Map {
         }
         return null;
     }
-    
+
     public Map getMapDestronGas(int mapTemplateId) {
         int i;
         for (i = this.destronGas.maps.size() - 1; i >= 0; --i) {
@@ -522,7 +565,7 @@ public class Map {
         }
         return null;
     }
-    
+
     public Map getMapDoanhTrai(int mapTemplateId) {
         int i;
         for (i = this.doanhTrai.maps.size() - 1; i >= 0; --i) {
@@ -532,7 +575,7 @@ public class Map {
         }
         return null;
     }
-    
+
     public static Map getMapServer(int mapTemplateId) {
         synchronized (MAPS_SERVER) {
             for (int i = 0; i < MAPS_SERVER.size(); i++) {
@@ -543,97 +586,116 @@ public class Map {
         }
         return null;
     }
-    
+
     public boolean isMapTL() {
-        return this.templateId == 92 || this.templateId == 93 || this.templateId == 94 || this.templateId == 96 || this.templateId == 97 || this.templateId == 98 || this.templateId == 99 || this.templateId == 100 || this.templateId == 102 || this.templateId == 103;
+        return this.templateId == 92 || this.templateId == 93 || this.templateId == 94 || this.templateId == 96
+                || this.templateId == 97 || this.templateId == 98 || this.templateId == 99 || this.templateId == 100
+                || this.templateId == 102 || this.templateId == 103;
     }
-    
+
     public boolean isMapBlackBall() {
         return this.templateId >= 85 && this.templateId <= 91;
     }
-    
+
     public boolean isMapCold1() {
         return (this.templateId >= 105 && this.templateId <= 110);
     }
-    
+
     public boolean isMapCold2() {
-        return (this.templateId >= 105 && this.templateId <= 110) || this.templateId == 152 || this.templateId == 158 || this.templateId == 159;
+        return (this.templateId >= 105 && this.templateId <= 110) || this.templateId == 152 || this.templateId == 158
+                || this.templateId == 159;
     }
-    
+
     public boolean isMapDestronGas() {
-        return this.templateId == 149 || this.templateId == 147 || this.templateId == 152 || this.templateId == 151 || this.templateId == 148;
+        return this.templateId == 149 || this.templateId == 147 || this.templateId == 152 || this.templateId == 151
+                || this.templateId == 148;
     }
-    
+
     public boolean isMapDoanhTrai() {
         return this.templateId >= 53 && this.templateId <= 62;
     }
-    
+
     public boolean isMapBien() {
-        return this.templateId == 5 || this.templateId == 29 || this.templateId == 30 || this.templateId == 13 || this.templateId == 34 || this.templateId == 33;
+        return this.templateId == 5 || this.templateId == 29 || this.templateId == 30 || this.templateId == 13
+                || this.templateId == 34 || this.templateId == 33;
     }
-    
+
     public boolean isMapBigBoss() {
         return this.templateId == 126;
     }
-    
+
     public boolean isMapNguHanhSon() {
         return this.templateId == 122 || this.templateId == 123 || this.templateId == 124;
     }
-    
+
     public boolean isMapButcher() {
-        return this.templateId == 114 || this.templateId == 115 || this.templateId == 117 || this.templateId == 118 || this.templateId == 119 || this.templateId == 120;
+        return this.templateId == 114 || this.templateId == 115 || this.templateId == 117 || this.templateId == 118
+                || this.templateId == 119 || this.templateId == 120;
     }
-    
+
     public boolean isMapThuong() {
-        return this.mapId == 0 || this.mapId == 1 || this.mapId == 2 || this.mapId == 3 || this.mapId == 4 || this.mapId == 5 || this.mapId == 6 || this.mapId == 7 || this.mapId == 8 || this.mapId == 9 || this.mapId == 10 || this.mapId == 11 || this.mapId == 12 || this.mapId == 13 || this.mapId == 14 || this.mapId == 15 || this.mapId == 16 || this.mapId == 17 || this.mapId == 18 || this.mapId == 19 || this.mapId == 20 || this.mapId == 24 || this.mapId == 25 || this.mapId == 26 || this.mapId == 27 || this.mapId == 28 || this.mapId == 29 || this.mapId == 30 || this.mapId == 31 || this.mapId == 32 || this.mapId == 33 || this.mapId == 34 || this.mapId == 35 || this.mapId == 36 || this.mapId == 37 || this.mapId == 38 || this.mapId == 39 || this.mapId == 40 || this.mapId == 41 || this.mapId == 42 || this.mapId == 43 || this.mapId == 44;
+        return this.mapId == 0 || this.mapId == 1 || this.mapId == 2 || this.mapId == 3 || this.mapId == 4
+                || this.mapId == 5 || this.mapId == 6 || this.mapId == 7 || this.mapId == 8 || this.mapId == 9
+                || this.mapId == 10 || this.mapId == 11 || this.mapId == 12 || this.mapId == 13 || this.mapId == 14
+                || this.mapId == 15 || this.mapId == 16 || this.mapId == 17 || this.mapId == 18 || this.mapId == 19
+                || this.mapId == 20 || this.mapId == 24 || this.mapId == 25 || this.mapId == 26 || this.mapId == 27
+                || this.mapId == 28 || this.mapId == 29 || this.mapId == 30 || this.mapId == 31 || this.mapId == 32
+                || this.mapId == 33 || this.mapId == 34 || this.mapId == 35 || this.mapId == 36 || this.mapId == 37
+                || this.mapId == 38 || this.mapId == 39 || this.mapId == 40 || this.mapId == 41 || this.mapId == 42
+                || this.mapId == 43 || this.mapId == 44;
     }
-    
+
     public boolean isMapNappa() {
-        return this.mapId == 63 || this.mapId == 64 || this.mapId == 65 || this.mapId == 66 || this.mapId == 67 || this.mapId == 68 || this.mapId == 69 || this.mapId == 70 || this.mapId == 71 || this.mapId == 72 || this.mapId == 73 || this.mapId == 74 || this.mapId == 75 || this.mapId == 76 || this.mapId == 77 || this.mapId == 79 || this.mapId == 80 || this.mapId == 81 || this.mapId == 82 || this.mapId == 83;
+        return this.mapId == 63 || this.mapId == 64 || this.mapId == 65 || this.mapId == 66 || this.mapId == 67
+                || this.mapId == 68 || this.mapId == 69 || this.mapId == 70 || this.mapId == 71 || this.mapId == 72
+                || this.mapId == 73 || this.mapId == 74 || this.mapId == 75 || this.mapId == 76 || this.mapId == 77
+                || this.mapId == 79 || this.mapId == 80 || this.mapId == 81 || this.mapId == 82 || this.mapId == 83;
     }
-    
+
     public boolean isMapThucVat() {
         return this.mapId == 160 || this.mapId == 161 || this.mapId == 162 || this.mapId == 163;
     }
-    
+
     public boolean isMapMabu() {
         return this.templateId == 127;
     }
-    
+
     public boolean isMapKhoBau() {
         return this.templateId == 135 || this.templateId == 136 || this.templateId == 137 || this.templateId == 138;
     }
-    
+
     public boolean isMapManorClan() {
         return this.templateId == 153;
     }
-    
+
     public boolean isMapYardart() {
         return this.templateId == 131 || this.templateId == 132 || this.templateId == 133;
     }
-    
+
     public boolean isMapManor() {
         return this.templateId == 156 || this.templateId == 157 || this.templateId == 158 || this.templateId == 159;
     }
-    
+
     public boolean isMapHell() {
-        return this.templateId == 155 ||this.templateId == 166;
+        return this.templateId == 155 || this.templateId == 166;
     }
-    
+
     public boolean isMapCace23() {
         return this.templateId == 129;
     }
-    
+
     public boolean isMapCace23_2() {
         return this.templateId == 52 || this.templateId == 129;
     }
-    
+
     public boolean isMapNamekBall() {
-        return this.templateId == 7 || this.templateId == 8 || this.templateId == 9 || this.templateId == 10 || this.templateId == 11 || this.templateId == 12 || this.templateId == 13 || this.templateId == 31 || this.templateId == 32 || this.templateId == 33 || this.templateId == 34 || this.templateId == 43;
+        return this.templateId == 7 || this.templateId == 8 || this.templateId == 9 || this.templateId == 10
+                || this.templateId == 11 || this.templateId == 12 || this.templateId == 13 || this.templateId == 31
+                || this.templateId == 32 || this.templateId == 33 || this.templateId == 34 || this.templateId == 43;
     }
-    
+
     public void update() {
-        //Var
+        // Var
         int i;
         int j;
         Mob mob;
@@ -641,11 +703,11 @@ public class Map {
         ItemMap itemMap;
         Char player;
 
-        //----UPDATE ZONE----\\
+        // ----UPDATE ZONE----\\
         for (i = zones.size() - 1; i >= 0; --i) {
             zone = zones.get(i);
             if (zone != null) {
-                //==UPDATE MOB==\\
+                // ==UPDATE MOB==\\
                 mobs.clear();
                 synchronized (zone.mobs) {
                     for (j = zone.mobs.size() - 1; j >= 0; --j) {
@@ -660,15 +722,20 @@ public class Map {
                     mob.update();
                 }
 
-                //===UPDATE ITEMMAP==\\
+                // ===UPDATE ITEMMAP==\\
                 itemMaps.clear();
                 synchronized (zone.itemMaps) {
                     for (j = zone.itemMaps.size() - 1; j >= 0; --j) {
                         itemMap = zone.itemMaps.get(j);
                         if (itemMap != null) {
-                            if (itemMap.milisecondRemove <= System.currentTimeMillis() || (itemMap.item.template.id == 362 && !NamekBall.gI().isFossil) || (itemMap.item.isItemNameBall() && NamekBall.gI().isFossil)) {
+                            if (itemMap.milisecondRemove <= System.currentTimeMillis()
+                                    || (itemMap.item.template.id == 362 && !NamekBall.gI().isFossil)
+                                    || (itemMap.item.isItemNameBall() && NamekBall.gI().isFossil)) {
                                 itemMaps.add(itemMap);
-                            } else if (itemMap.charId != -1 && itemMap.milisecondRemove - System.currentTimeMillis() <= ItemMap.MILISECONDALLOW && !itemMap.item.isItemSKH() && !itemMap.item.isItemKGPA() && !itemMap.isPickItemNotMe) {
+                            } else if (itemMap.charId != -1
+                                    && itemMap.milisecondRemove - System.currentTimeMillis() <= ItemMap.MILISECONDALLOW
+                                    && !itemMap.item.isItemSKH() && !itemMap.item.isItemKGPA()
+                                    && !itemMap.isPickItemNotMe) {
                                 itemMap.charId = -1;
                             }
                         }
@@ -710,7 +777,7 @@ public class Map {
                     }
                 }
 
-                //===UPDATE NPC===\\
+                // ===UPDATE NPC===\\
                 this.npcs.clear();
                 synchronized (zone.npcs) {
                     for (j = zone.npcs.size() - 1; j >= 0; --j) {
@@ -721,7 +788,7 @@ public class Map {
                     npcs.get(j).update(zone);
                 }
 
-                //Qua trung
+                // Qua trung
                 if (zone.isEgg) {
                     if (!zone.isHaveBoss(80)) {
                         zone.timeHatch += delays;
@@ -731,12 +798,12 @@ public class Map {
                             zone.tMabu = 3000;
                         }
                         if (zone.timeHatch % 2 == 0) {
-                            zone.tMabu((int) (100f / (float)zone.setTimehatch * (float)zone.timeHatch));
+                            zone.tMabu((int) (100f / (float) zone.setTimehatch * (float) zone.timeHatch));
                         }
                     }
 
                 }
-                //Mabu no
+                // Mabu no
                 if (zone.tMabu > 0) {
                     zone.tMabu -= delays;
                     if (zone.tMabu <= 0) {
@@ -754,7 +821,7 @@ public class Map {
                     }
                 }
 
-                //===UPDATE PHAOHOA==\\
+                // ===UPDATE PHAO HOA ==
                 this.phaohoas.clear();
                 synchronized (zone.phaohoas) {
                     for (j = 0; j < zone.phaohoas.size(); j++) {
@@ -767,29 +834,29 @@ public class Map {
             }
         }
     }
-    
-//    @Override
-//    public void run() {
-//        while (isRun) {
-//            final long l = System.currentTimeMillis();
-//            this.update();
-//            try {
-//                TimeUnit.MILLISECONDS.sleep(Server.SERVER_DELAY_MILISECOND);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            delays = (int) (System.currentTimeMillis() - l);
-//        }
-//        Map.remove(this);
-//        if (Map.containsServer(this)) {
-//            Map.removeServer(this);
-//        }
-//    }
-    
+
+    // @Override
+    // public void run() {
+    // while (isRun) {
+    // final long l = System.currentTimeMillis();
+    // this.update();
+    // try {
+    // TimeUnit.MILLISECONDS.sleep(Server.SERVER_DELAY_MILISECOND);
+    // } catch (InterruptedException e) {
+    // e.printStackTrace();
+    // }
+    // delays = (int) (System.currentTimeMillis() - l);
+    // }
+    // Map.remove(this);
+    // if (Map.containsServer(this)) {
+    // Map.removeServer(this);
+    // }
+    // }
+
     public boolean isMapRoadSnake() {
         return this.templateId == 141 || this.templateId == 142 || this.templateId == 143 || this.templateId == 144;
     }
-    
+
     public boolean isMapDiaNguc() {
         return this.templateId == 168 || this.templateId == 167;
     }

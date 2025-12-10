@@ -32,7 +32,7 @@ public class Dragon {
     protected static byte vSkill = 14;
     protected static byte vItem = 37;
 
-    public static boolean isEvent_Noel = false;
+    public static boolean isEvent_Noel = true;
     public static boolean isEvent_Mabu = false;
     public static boolean isEvent_NHS = false;
     public static boolean isEvent_NgayHe = false;

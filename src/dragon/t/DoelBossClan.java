@@ -1,7 +1,5 @@
 package dragon.t;
 
-import dragon.server.mResources;
-
 /**
  *
  * @author Admin

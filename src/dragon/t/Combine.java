@@ -555,7 +555,6 @@ public class Combine {
    }
     
     public static void NhapDa(Char charz) {
-        int i;
         if (charz.arrItem != null && charz.arrItem.length == 2 && charz.arrItem[0] != null && charz.arrItem[1] != null && ((charz.arrItem[0].quantity >= 10 && charz.arrItem[0].template.type == 15 && charz.arrItem[1].template.type == 16) || (charz.arrItem[1].quantity >= 10 && charz.arrItem[1].template.type == 15 && charz.arrItem[0].template.type == 16)) && charz.arrItemBag[charz.arrItem[0].indexUI] == charz.arrItem[0] && charz.arrItemBag[charz.arrItem[1].indexUI] == charz.arrItem[1]) {
             int indexUI = charz.getEmptyBagIndex();
             if (indexUI == -1) {

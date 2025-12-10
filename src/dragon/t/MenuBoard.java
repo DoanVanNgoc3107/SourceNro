@@ -10,9 +10,8 @@ import java.util.Objects;
 
 import dragon.t.CallDragon.MenuR;
 
-
 /**
- *
+ * MenuBoard class handles the menu interactions between the player and NPCs.
  * @author TGDD
  */
 public class MenuBoard {
@@ -53,21 +52,6 @@ public class MenuBoard {
         }
     }
 
-
-//                case 99:
-//                {
-//                    if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 84) {
-//                        this.session.myCharz().resetMenu();
-//                        this.chat = "Xin chào bạn! Tôi là NPC test để kiểm tra tính năng mới.";
-//                        this.arrMenu.add(new MenuInfo("OK", 0));
-//                        this.openUIConfirm(npcId, null, null, -1);
-//                    }
-//                    break;
-//                }
-//            }
-//        }
-//    }
-
     public void menu(int npcId, int menuId, int optionId) {
         if (npcId == 4) {
             this.openUIConfirm(npcId, menuId);
@@ -75,50 +59,59 @@ public class MenuBoard {
     }
 
     public void openMenuUI(int npcId) {
-        //Kiem tra nv
+        // Kiem tra nv
         if (!NpcTask.updateTask(this.session.myCharz(), npcId)) {
             this.typeInfo = -1;
             return;
         }
 
-        //Vong xoay may man
+        // Vong xoay may man
         if (npcId == 54) {
             this.session.myCharz().openTabGold();
             this.session.myCharz().openGacha();
             return;
         }
-        //Find npc and open
+        // Find npc and open
         if (this.session.myCharz().zoneMap.isHaveNpc(npcId)) {
             Npc npc = this.session.myCharz().zoneMap.findNPCInMap(npcId);
-            if (npc.isHide) return;
+            if (npc.isHide)
+                return;
             switch (npc.template.npcTemplateId) {
-                //Ong noi
-                case 0:
-                case 1:
+                // Ong noi
+                case 0: // TraiDat
+                case 1: // Namek
                 case 2: {
-                    this.session.myCharz().resetMenu();
-                    this.chat = mResources.SAY_MIAN;
+                    this.session.myCharz().resetMenu(); // Dùng để xóa menu cũ
+                    this.chat = String.format(mResources.SAY_MIAN, 
+                        this.session.myCharz().totalGold,     // Vàng thỏi (tích lũy)
+                        this.session.myCharz().luong,         // Ngọc xanh (miễn phí)
+                        this.session.myCharz().luongKhoa);    // Ngọc đỏ (có khóa)
+
+                    // Nơi nhập giftcode
                     this.arrMenu.add(new MenuInfo(mResources.GIFT_CODE, 208));
 
                     this.arrMenu.add(new MenuInfo(mResources.MONEY_TO_GOLD, 212));
                     if (this.session.myCharz().totalGold > 0) {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.NHAN_THOI_VANG2, Util.gI().getFormatNumber(this.session.myCharz().totalGold + 100000)), 216));
+                        this.arrMenu.add(new MenuInfo(String.format(mResources.NHAN_THOI_VANG2,
+                                Util.gI().getFormatNumber(this.session.myCharz().totalGold + 1000)), 216));
                     }
 
                     this.arrMenu.add(new MenuInfo(mResources.NAP_TIEN, 209));
 
                     if (!this.session.myCharz().isCan()) {
-                        this.arrMenu.add(new MenuInfo(mResources.OPEN_MEMBER_1, 214));
+                        this.arrMenu.add(new MenuInfo(mResources.OPEN_MEMBER_2, 214));
                     }
-                    this.arrMenu.add(new MenuInfo(mResources.DANH_HIEU, 198));
+                    // this.arrMenu.add(new MenuInfo(mResources.DANH_HIEU, 198));
+
                     if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().isHopThe != 0) {
                         this.arrMenu.add(new MenuInfo(mResources.ON_FUSION, 319));
                     }
                     this.arrMenu.add(new MenuInfo(mResources.MAILBOX1, 331));
-                    this.arrMenu.add(new MenuInfo(mResources.NAP_THE, 204));
+                    // this.arrMenu.add(new MenuInfo(mResources.NAP_THE, 204));
                     if (Dragon.isEvent_VIP) {
                         this.arrMenu.add(new MenuInfo(mResources.EVENT_VIP, 357));
                     }
+
                     this.arrMenu.add(new MenuInfo(mResources.NHAN_NGOC_FREE, 397));
                     if (this.session.myCharz().ctaskId < 34) {
                         this.arrMenu.add(new MenuInfo(mResources.NEXT_TASK, 399));
@@ -129,41 +122,53 @@ public class MenuBoard {
                     if (Dragon.isEvent_Noel) {
                         this.arrMenu.add(new MenuInfo("Lễ Giáng Sinh", 502));
                     }
-                    this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO1, 405));
+                    // this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO1, 405));
 
-//                    this.arrMenu.add(new MenuInfo("⭐ Test Feature", 999));
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
-//                //Ruong do
+                //Ruong do
                 case 3: {
-                    if (this.session.myCharz().mapTemplateId == 21 || this.session.myCharz().mapTemplateId == 22 || this.session.myCharz().mapTemplateId == 23) {
+                    if (this.session.myCharz().mapTemplateId == 21 || this.session.myCharz().mapTemplateId == 22
+                            || this.session.myCharz().mapTemplateId == 23) {
                         this.session.service.openBox();
                     }
                     break;
                 }
-//                //Cay dau than
+                //Cay dau than
                 case 4: {
                     this.session.myCharz().resetMenu();
                     if (this.session.myCharz().magicTree_isUpdate) {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.UP_NEXT, MagicTree.up_nhanh[this.session.myCharz().magicTree_level - 1]), 313));
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.UP_CANCEL, Util.gI().numberTostring(MagicTree.up_coin[this.session.myCharz().magicTree_level - 1] / 2)), 314));
+                        this.arrMenu.add(new MenuInfo(String.format(mResources.UP_NEXT,
+                                MagicTree.up_nhanh[this.session.myCharz().magicTree_level - 1]), 313));
+                        this.arrMenu.add(new MenuInfo(
+                                String.format(mResources.UP_CANCEL,
+                                        Util.gI().numberTostring(
+                                                MagicTree.up_coin[this.session.myCharz().magicTree_level - 1] / 2)),
+                                314));
                     } else {
                         this.arrMenu.add(new MenuInfo(mResources.BEAN_HARVEST, 312));
                         if (this.session.myCharz().ctaskId >= 1) {
                             if (this.session.myCharz().magicTree_level < MagicTree.maxLevel) {
-                                this.arrMenu.add(new MenuInfo(String.format(mResources.MAGIC_TREE_UP, Util.gI().getFormatTime3(MagicTree.up_time[this.session.myCharz().magicTree_level - 1]), Util.gI().numberTostring(MagicTree.up_coin[this.session.myCharz().magicTree_level - 1])), 315));
+                                this.arrMenu.add(new MenuInfo(String.format(mResources.MAGIC_TREE_UP,
+                                        Util.gI().getFormatTime3(
+                                                MagicTree.up_time[this.session.myCharz().magicTree_level - 1]),
+                                        Util.gI().numberTostring(
+                                                MagicTree.up_coin[this.session.myCharz().magicTree_level - 1])),
+                                        315));
                             }
-                            if (this.session.myCharz().magicTree_currPeas < MagicTree.maxPeas[this.session.myCharz().magicTree_level - 1]) {
-                                this.arrMenu.add(new MenuInfo(String.format(mResources.PEAS_NEXT, MagicTree.ketnhanh[this.session.myCharz().magicTree_level - 1]), 316));
+                            if (this.session.myCharz().magicTree_currPeas < MagicTree.maxPeas[this.session
+                                    .myCharz().magicTree_level - 1]) {
+                                this.arrMenu.add(new MenuInfo(String.format(mResources.PEAS_NEXT,
+                                        MagicTree.ketnhanh[this.session.myCharz().magicTree_level - 1]), 316));
                             }
                         }
                     }
                     this.openUIConfirm(npcId, null);
                     break;
                 }
-//                //Bunma
+                // //Bunma
                 case 7: {
                     if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 84) {
                         if (this.session.myCharz().cgender != 0) {
@@ -188,7 +193,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Dende
+                // Dende
                 case 8: {
                     if (this.session.myCharz().mapTemplateId == 7 || this.session.myCharz().mapTemplateId == 84) {
                         if (this.session.myCharz().itemNamekBall != null) {
@@ -217,7 +222,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Appule
+                // Appule
                 case 9: {
                     if (this.session.myCharz().mapTemplateId == 14 || this.session.myCharz().mapTemplateId == 84) {
                         if (this.session.myCharz().cgender != 2) {
@@ -237,7 +242,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Dr Brief
+                // Dr Brief
                 case 10: {
                     if (this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
@@ -260,7 +265,10 @@ public class MenuBoard {
                         if (this.session.myCharz().clanMember != null && this.session.myCharz().clanMember.role == 0) {
                             this.arrMenu.add(new MenuInfo(mResources.FUNCTION_CLAN, 387));
                         }
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.TASK_CLAN, this.session.myCharz().myObj().nTaskClanEveryday, this.session.myCharz().myObj().maxTaskClanEveryday), 390));
+                        this.arrMenu.add(new MenuInfo(
+                                String.format(mResources.TASK_CLAN, this.session.myCharz().myObj().nTaskClanEveryday,
+                                        this.session.myCharz().myObj().maxTaskClanEveryday),
+                                390));
                         this.arrMenu.add(new MenuInfo(mResources.GO_KAME, 78));
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
@@ -282,7 +290,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-//                //Cargo
+                // //Cargo
                 case 11: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_CARGO;
@@ -292,7 +300,7 @@ public class MenuBoard {
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
-//                //Cui
+                // //Cui
                 case 12: {
                     if (this.session.myCharz().mapTemplateId == 19) {
                         if (this.session.myCharz().ctaskId == 23 && this.session.myCharz().ctaskIndex != 3) {
@@ -373,9 +381,12 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Quy lao kame
+                // Quy lao kame
                 case 13: {
-                    if (this.session.myCharz().isPetThiTheo && this.session.myCharz().zoneMap.getBossPlayer(this.session.myCharz().playerId) != null && Math.abs(npc.cx - this.session.myCharz().zoneMap.getBossPlayer(this.session.myCharz().playerId).cx) <= 50) {
+                    if (this.session.myCharz().isPetDiTheo
+                            && this.session.myCharz().zoneMap.getBossPlayer(this.session.myCharz().playerId) != null
+                            && Math.abs(npc.cx - this.session.myCharz().zoneMap
+                                    .getBossPlayer(this.session.myCharz().playerId).cx) <= 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.DUA_PET_SAY_1;
                         this.arrMenu.add(new MenuInfo(mResources.AGREE, 30));
@@ -392,7 +403,9 @@ public class MenuBoard {
                         }
                         this.arrMenu.add(new MenuInfo(mResources.TALK, 43));
                         this.arrMenu.add(new MenuInfo(mResources.IDOL_DUOIBIEN, 44));
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.DOI_TICH_LUY, Memory.get(this.session.userId).pointEvent2, 50), 50));
+                        this.arrMenu.add(new MenuInfo(
+                                String.format(mResources.DOI_TICH_LUY, Memory.get(this.session.userId).pointEvent2, 50),
+                                50));
                         if (Dragon.isEvent_TetNguyenDan) {
                             this.arrMenu.add(new MenuInfo(mResources.EVENT_TETNGUYENDAN, 54));
                         }
@@ -424,9 +437,10 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Truong lao guru
+                // Truong lao guru
                 case 14: {
-                    if (this.session.myCharz().isPetThiTheo && Math.abs(npc.cx - this.session.myCharz().cx) <= 50 && Math.abs(npc.cy - this.session.myCharz().cy) <= 50) {
+                    if (this.session.myCharz().isPetDiTheo && Math.abs(npc.cx - this.session.myCharz().cx) <= 50
+                            && Math.abs(npc.cy - this.session.myCharz().cy) <= 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.DUA_PET_SAY_1;
                         this.arrMenu.add(new MenuInfo(mResources.AGREE, 30));
@@ -437,9 +451,10 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Vua vegeta
+                // Vua vegeta
                 case 15: {
-                    if (this.session.myCharz().isPetThiTheo && Math.abs(npc.cx - this.session.myCharz().cx) <= 50 && Math.abs(npc.cy - this.session.myCharz().cy) <= 50) {
+                    if (this.session.myCharz().isPetDiTheo && Math.abs(npc.cx - this.session.myCharz().cx) <= 50
+                            && Math.abs(npc.cy - this.session.myCharz().cy) <= 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.DUA_PET_SAY_1;
                         this.arrMenu.add(new MenuInfo(mResources.AGREE, 30));
@@ -448,21 +463,21 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Uron
+                // Uron
                 case 16: {
                     if (this.session.myCharz().cgender == 0) {
-                        //TraiDat
+                        // TraiDat
                         this.session.myCharz().openShop(7);
-                    }   //Namek
+                    } // Namek
                     if (this.session.myCharz().cgender == 1) {
                         this.session.myCharz().openShop(8);
-                    }   //Xayda
+                    } // Xayda
                     if (this.session.myCharz().cgender == 2) {
                         this.session.myCharz().openShop(9);
                     }
                     break;
                 }
-                //Bo mong
+                // Bo mong
                 case 17: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_BO_MONG_1;
@@ -473,7 +488,7 @@ public class MenuBoard {
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
-                //Than meo karin
+                // Than meo karin
                 case 18: {
                     if (this.session.myCharz().isNhanDauThan) {
                         this.session.myCharz().resetMenu();
@@ -488,7 +503,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Thuong de
+                // Thuong de
                 case 19: {
                     if (this.session.myCharz().mapTemplateId == 45) {
                         this.session.myCharz().resetMenu();
@@ -497,7 +512,8 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.QUAY_NGOC_LUCKY, 111));
                         this.openUIConfirm(npcId, null, null, -1);
                     }
-                    if (this.session.myCharz().mapTemplateId == 141 && this.session.myCharz().zoneMap.map.phoban.getMap(144).isOpen) {
+                    if (this.session.myCharz().mapTemplateId == 141
+                            && this.session.myCharz().zoneMap.map.phoban.getMap(144).isOpen) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_THUONG_DE2;
                         this.arrMenu.add(new MenuInfo(mResources.VE_THAN_DIEN, 328));
@@ -505,7 +521,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Than vu tru
+                // Than vu tru
                 case 20: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_THAN_VU_TRU;
@@ -513,7 +529,7 @@ public class MenuBoard {
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
-                //Ba hat mit
+                // Ba hat mit
                 case 21: {
                     if (this.session.myCharz().mapTemplateId == 5) {
                         this.session.myCharz().resetMenu();
@@ -525,13 +541,16 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.PHALEHOA_TRANGBI, 2));
                         this.openUIConfirm(npcId, null, null, -1);
                     }
-                    if (this.session.myCharz().mapTemplateId == 42 || this.session.myCharz().mapTemplateId == 43 || this.session.myCharz().mapTemplateId == 44 | this.session.myCharz().mapTemplateId == 84) {
+                    if (this.session.myCharz().mapTemplateId == 42 || this.session.myCharz().mapTemplateId == 43
+                            || this.session.myCharz().mapTemplateId == 44
+                                    | this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BA_HAT_MIT;
                         this.arrMenu.add(new MenuInfo(mResources.SACH_TUYET_KY1, 411));
                         this.arrMenu.add(new MenuInfo(mResources.SHOP_BUA, 3));
                         this.arrMenu.add(new MenuInfo(mResources.UPGRADE_ITEM, 4));
-                        if (this.session.myCharz().getBongTai() != null && this.session.myCharz().getBongTai().template.id == 921) {
+                        if (this.session.myCharz().getBongTai() != null
+                                && this.session.myCharz().getBongTai().template.id == 921) {
                             this.arrMenu.add(new MenuInfo(mResources.UPDATE_BT2_2, 5));
                         } else {
                             this.arrMenu.add(new MenuInfo(mResources.UPDATE_BT2, 6));
@@ -549,7 +568,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Trong tai
+                // Trong tai
                 case 22: {
                     if (this.session.myCharz().mapTemplateId == 113) {
                         this.session.myCharz().resetMenu();
@@ -557,7 +576,9 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.TOP_100CT, 154));
                         this.arrMenu.add(new MenuInfo(mResources.HDT, 155));
                         if (this.session.myCharz().myObj().nFreeTicket > 0) {
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.FREE_TICKET, this.session.myCharz().myObj().nFreeTicket), 156));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.FREE_TICKET, this.session.myCharz().myObj().nFreeTicket),
+                                    156));
                         } else {
                             this.arrMenu.add(new MenuInfo(mResources.PRI_FIGHT, 157));
                         }
@@ -566,11 +587,12 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Ghi danh
+                // Ghi danh
                 case 23: {
                     if (this.session.myCharz().mapTemplateId == 52) {
                         if (this.session.myCharz().isWaitWar && DaiHoi.isWar) {
-                            this.session.service.openUISay(npcId, String.format(mResources.BAN_VAO_VONG, DaiHoi.nTurn), -1);
+                            this.session.service.openUISay(npcId, String.format(mResources.BAN_VAO_VONG, DaiHoi.nTurn),
+                                    -1);
                         } else {
                             this.session.myCharz().resetMenu();
                             if (DaiHoi.isRegister) {
@@ -599,36 +621,49 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.HDT, 136));
                         if (this.session.myCharz().myObj().nWinHD23 < 11) {
                             int giangoc = 1 * (this.session.myCharz().myObj().nJoinDH23 + 1);
-                            //this.arrMenu.add(new MenuInfo(String.format(mResources.THI_DAU_1, giangoc), 132, giangoc));
-                            int giavang = 500000 * (this.session.myCharz().myObj().nJoinDH23 > 11 ? 11 : this.session.myCharz().myObj().nJoinDH23 + 1);
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.THI_DAU_2, Util.gI().numberTostring(giavang)), 133, giavang));
+                            // this.arrMenu.add(new MenuInfo(String.format(mResources.THI_DAU_1, giangoc),
+                            // 132, giangoc));
+                            int giavang = 500000 * (this.session.myCharz().myObj().nJoinDH23 > 11 ? 11
+                                    : this.session.myCharz().myObj().nJoinDH23 + 1);
+                            this.arrMenu.add(
+                                    new MenuInfo(String.format(mResources.THI_DAU_2, Util.gI().numberTostring(giavang)),
+                                            133, giavang));
                         }
                         if (this.session.myCharz().myObj().nWinHD23 > 0) {
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.NHAN_RUONG, this.session.myCharz().myObj().nWinHD23), 134));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.NHAN_RUONG, this.session.myCharz().myObj().nWinHD23),
+                                    134));
                         }
                         this.arrMenu.add(new MenuInfo(mResources.GO_DHVT, 131));
                         this.openUIConfirm(npcId, null, null, -1);
                     }
                     break;
                 }
-                //Linh canh
+                // Linh canh
                 case 25: {
                     if (this.session.myCharz().clan != null) {
-                        if ((this.session.myCharz().zoneMap.getCountPlayerInClan(this.session.myCharz()) < 1 || this.session.myCharz().clan.getSizeMember() < 5) && this.session.myCharz().clan.doanhTrai == null) {
+                        if ((this.session.myCharz().zoneMap.getCountPlayerInClan(this.session.myCharz()) < 1
+                                || this.session.myCharz().clan.getSizeMember() < 5)
+                                && this.session.myCharz().clan.doanhTrai == null) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_LINH_CANH_8;
                             this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                             this.arrMenu.add(new MenuInfo(mResources.HDT, 233));
                             this.openUIConfirm(npcId, null, null, -1);
-                        } else if ((this.session.myCharz().zoneMap.getCountPlayerInClan(this.session.myCharz()) < 1 || this.session.myCharz().clan.getSizeMember() < 3) && this.session.myCharz().clan.doanhTrai == null) {
+                        } else if ((this.session.myCharz().zoneMap.getCountPlayerInClan(this.session.myCharz()) < 1
+                                || this.session.myCharz().clan.getSizeMember() < 3)
+                                && this.session.myCharz().clan.doanhTrai == null) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_LINH_CANH_5;
                             this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                             this.arrMenu.add(new MenuInfo(mResources.HDT, 233));
                             this.openUIConfirm(npcId, null, null, -1);
-                        } else if (this.session.myCharz().clan.doanhTrai == null && this.session.myCharz().clan.countbarrack >= Clan.MAX_JOIN_BARRACK) {
+                        } else if (this.session.myCharz().clan.doanhTrai == null
+                                && this.session.myCharz().clan.countbarrack >= Clan.MAX_JOIN_BARRACK) {
                             this.session.myCharz().resetMenu();
-                            this.chat = String.format(mResources.SAY_LINH_CANH_6, this.session.myCharz().clan.countbarrack, this.session.myCharz().clan.playerBarrack, this.session.myCharz().clan.timeBarrack);
+                            this.chat = String.format(mResources.SAY_LINH_CANH_6,
+                                    this.session.myCharz().clan.countbarrack, this.session.myCharz().clan.playerBarrack,
+                                    this.session.myCharz().clan.timeBarrack);
                             this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                             this.arrMenu.add(new MenuInfo(mResources.HDT, 233));
                             this.openUIConfirm(npcId, null, null, -1);
@@ -641,7 +676,8 @@ public class MenuBoard {
                             this.openUIConfirm(npcId, null, null, -1);
                         } else if (this.session.myCharz().clan.doanhTrai != null) {
                             this.session.myCharz().resetMenu();
-                            this.chat = String.format(mResources.SAY_LINH_CANH_2, Util.gI().getStrTime(this.session.myCharz().clan.doanhTrai.miliTime));
+                            this.chat = String.format(mResources.SAY_LINH_CANH_2,
+                                    Util.gI().getStrTime(this.session.myCharz().clan.doanhTrai.miliTime));
                             this.arrMenu.add(new MenuInfo(mResources.JOIN, 235));
                             this.arrMenu.add(new MenuInfo(mResources.NO, 0));
                             this.arrMenu.add(new MenuInfo(mResources.HDT, 233));
@@ -652,7 +688,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Doc Nhan
+                // Doc Nhan
                 case 26: {
                     if (this.session.myCharz().zoneMap.map.doanhTrai != null) {
                         DoanhTrai dt = this.session.myCharz().zoneMap.map.doanhTrai;
@@ -666,7 +702,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Cua hang ky gui
+                // Cua hang ky gui
                 case 28: {
                     if (this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
@@ -679,7 +715,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Rong Omega
+                // Rong Omega
                 case 29: {
                     if (BlackBall.gI().isBlackBall) {
                         this.session.myCharz().resetMenu();
@@ -700,7 +736,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Rong sao
+                // Rong sao
                 case 30:
                 case 31:
                 case 32:
@@ -711,18 +747,18 @@ public class MenuBoard {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_RONG_SAO;
                     if (this.session.myCharz().itemBlackBall != null && this.session.myCharz().phuHoBlackBall == 0) {
-//                        this.arrMenu.add(new MenuInfo(mResources.X3HP, 243));
-//                        this.arrMenu.add(new MenuInfo(mResources.X5HP, 244));
-//                        this.arrMenu.add(new MenuInfo(mResources.X7HP, 245));
-                        this.arrMenu.add(new MenuInfo(mResources.X3HP2, 376, new int[]{100000000, 3}));
-                        this.arrMenu.add(new MenuInfo(mResources.X5HP2, 376, new int[]{300000000, 5}));
-                        this.arrMenu.add(new MenuInfo(mResources.X7HP2, 376, new int[]{500000000, 7}));
+                        // this.arrMenu.add(new MenuInfo(mResources.X3HP, 243));
+                        // this.arrMenu.add(new MenuInfo(mResources.X5HP, 244));
+                        // this.arrMenu.add(new MenuInfo(mResources.X7HP, 245));
+                        this.arrMenu.add(new MenuInfo(mResources.X3HP2, 376, new int[] { 100000000, 3 }));
+                        this.arrMenu.add(new MenuInfo(mResources.X5HP2, 376, new int[] { 300000000, 5 }));
+                        this.arrMenu.add(new MenuInfo(mResources.X7HP2, 376, new int[] { 500000000, 7 }));
                     }
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
-                //Bunma TL
+                // Bunma TL
                 case 37: {
                     if (this.session.myCharz().mapTemplateId == 102) {
                         this.session.myCharz().resetMenu();
@@ -742,7 +778,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Ca lich
+                // Ca lich
                 case 38: {
                     if (this.session.myCharz().mapTemplateId == 102) {
                         this.session.myCharz().resetMenu();
@@ -769,31 +805,37 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Santa
+                // Santa
                 case 39: {
                     Player o = null;
                     if (Dragon.isEvent_Mabu) {
                         o = Player.getBossPlayer(this.session.myCharz().playerId, 9);
                     }
-                    if (o != null && o.zoneMap == this.session.myCharz().zoneMap && Math.abs(o.cx - this.session.myCharz().cx) < 50 && Math.abs(o.cy - this.session.myCharz().cy) < 30 && o.timeClear == -1) {
+                    if (o != null && o.zoneMap == this.session.myCharz().zoneMap
+                            && Math.abs(o.cx - this.session.myCharz().cx) < 50
+                            && Math.abs(o.cy - this.session.myCharz().cy) < 30 && o.timeClear == -1) {
                         o.timeClear = 1;
                         this.session.service.openUISay(39, mResources.THANK_SANTA, -1);
                         Item it = null;
                         if (Util.gI().nextInt(100) < 50) {
                             int idT = Util.gI().nextInt(441, 447);
-                            it = new Item(idT, false, 1, ItemOption.getOption(idT, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            it = new Item(idT, false, 1, ItemOption.getOption(idT, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 5) {
                             this.session.myCharz().updateLuongKhoa(Util.gI().nextInt(1, 5), 2);
                         } else if (Util.gI().nextInt(100) < 5) {
                             this.session.myCharz().updateXu(Util.gI().nextInt(1, 10) * 1000000, 1);
                         } else if (Util.gI().nextInt(100) < 10) {
-                            it = new Item(20, false, 1, ItemOption.getOption(20, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            it = new Item(20, false, 1, ItemOption.getOption(20, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else {
-                            it = new Item(757, false, 1, ItemOption.getOption(757, 30, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            it = new Item(757, false, 1, ItemOption.getOption(757, 30, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         }
                         if (it != null) {
                             if (it.isHaveOption(93)) {
-                                it.setExpires(System.currentTimeMillis() + (long) (1000l * 60l * 60l * 24l * (long) (it.getParamOption(93) + 1)));
+                                it.setExpires(System.currentTimeMillis()
+                                        + (long) (1000l * 60l * 60l * 24l * (long) (it.getParamOption(93) + 1)));
                             }
                             this.session.myCharz().addItemBag(0, it);
                         }
@@ -812,14 +854,15 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Mabu map
+                // Mabu map
                 case 40: {
-                    if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 7 || this.session.myCharz().mapTemplateId == 14) {
+                    if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 7
+                            || this.session.myCharz().mapTemplateId == 14) {
                         this.session.myCharz().openGacha();
                     }
                     break;
                 }
-                //Trung thu
+                // Trung thu
                 case 41: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_TRUNG_THU;
@@ -829,7 +872,7 @@ public class MenuBoard {
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
-//                //Quoc vuong
+                // //Quoc vuong
                 case 42: {
                     if (this.session.myCharz().mapTemplateId == 43) {
                         this.session.myCharz().resetMenu();
@@ -845,7 +888,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-//                //To su kaio
+                // //To su kaio
                 case 43: {
                     if (this.session.myCharz().mapTemplateId == 50) {
                         this.session.myCharz().resetMenu();
@@ -855,7 +898,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Osin
+                // Osin
                 case 44: {
                     if (this.session.myCharz().mapTemplateId == 50) {
                         this.session.myCharz().resetMenu();
@@ -882,7 +925,11 @@ public class MenuBoard {
                             this.openUIConfirm(npcId, null, null, -1);
                         }
                     }
-                    if (this.session.myCharz().mapTemplateId == 114 || this.session.myCharz().mapTemplateId == 115 || this.session.myCharz().mapTemplateId == 117 || this.session.myCharz().mapTemplateId == 118 || this.session.myCharz().mapTemplateId == 119 || this.session.myCharz().mapTemplateId == 120) {
+                    if (this.session.myCharz().mapTemplateId == 114 || this.session.myCharz().mapTemplateId == 115
+                            || this.session.myCharz().mapTemplateId == 117
+                            || this.session.myCharz().mapTemplateId == 118
+                            || this.session.myCharz().mapTemplateId == 119
+                            || this.session.myCharz().mapTemplateId == 120) {
                         if (Flag.FLAGS.get(this.session.myCharz().cFlag).itemFlag.template.id == 519) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_OSIN_2;
@@ -923,7 +970,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Kibit
+                // Kibit
                 case 45: {
                     if (this.session.myCharz().mapTemplateId == 50) {
                         this.session.myCharz().resetMenu();
@@ -934,9 +981,13 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Babiday
+                // Babiday
                 case 46: {
-                    if (this.session.myCharz().mapTemplateId == 114 || this.session.myCharz().mapTemplateId == 115 || this.session.myCharz().mapTemplateId == 117 || this.session.myCharz().mapTemplateId == 118 || this.session.myCharz().mapTemplateId == 119 || this.session.myCharz().mapTemplateId == 120) {
+                    if (this.session.myCharz().mapTemplateId == 114 || this.session.myCharz().mapTemplateId == 115
+                            || this.session.myCharz().mapTemplateId == 117
+                            || this.session.myCharz().mapTemplateId == 118
+                            || this.session.myCharz().mapTemplateId == 119
+                            || this.session.myCharz().mapTemplateId == 120) {
                         if (Flag.FLAGS.get(this.session.myCharz().cFlag).itemFlag.template.id == 520) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_BABIDAY_2;
@@ -953,7 +1004,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Giu-ma Dau BO
+                // Giu-ma Dau BO
                 case 47: {
                     if (this.session.myCharz().mapTemplateId == 153) {
                         this.session.myCharz().resetMenu();
@@ -962,7 +1013,8 @@ public class MenuBoard {
                             this.arrMenu.add(new MenuInfo(mResources.DOEL_BOSS_CLAN, 394));
                         }
                         this.arrMenu.add(new MenuInfo(mResources.OK, 85));
-                        if (this.session.myCharz().clan != null && Util.gI().getDayGap(this.session.myCharz().clan.lastReport) > 0) {
+                        if (this.session.myCharz().clan != null
+                                && Util.gI().getDayGap(this.session.myCharz().clan.lastReport) > 0) {
                             this.arrMenu.add(new MenuInfo(mResources.REPORT_CLAN, 86));
                         }
                         this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
@@ -970,7 +1022,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Ngo khong
+                // Ngo khong
                 case 48: {
                     if (this.session.myCharz().mapTemplateId == 124) {
                         this.session.myCharz().resetMenu();
@@ -981,7 +1033,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Duong tang
+                // Duong tang
                 case 49: {
                     if (this.session.myCharz().mapTemplateId == 0) {
                         if (this.session.myCharz().isMonkeyCheat) {
@@ -1017,13 +1069,15 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Trung Mabu
+                // Trung Mabu
                 case 50: {
                     if (this.session.myCharz().mapTemplateId == this.session.myCharz().mainHome()) {
                         if (this.session.myCharz().isHaveDuaHau(50, 4664)) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_QUA_TRUNG1;
-                            if (this.session.myCharz().getDuaHau(50, 4664).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
+                            if (this.session.myCharz().getDuaHau(50, 4664).second
+                                    - ((System.currentTimeMillis() / 1000L)
+                                            - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
                                 this.arrMenu.add(new MenuInfo(mResources.HATCH, 61));
                             } else {
                                 this.arrMenu.add(new MenuInfo(mResources.NO_TRUNG_NHANH, 65));
@@ -1037,7 +1091,9 @@ public class MenuBoard {
                         if (this.session.myCharz().isHaveDuaHau(50, 6546)) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_QUA_TRUNG5;
-                            if (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
+                            if (this.session.myCharz().getDuaHau(50, 6546).second
+                                    - ((System.currentTimeMillis() / 1000L)
+                                            - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
                                 this.arrMenu.add(new MenuInfo(mResources.HATCH, 67));
                             } else {
                                 this.arrMenu.add(new MenuInfo(mResources.ADD_LINHLUC, 71));
@@ -1049,7 +1105,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //dua hau
+                // dua hau
                 case 51: {
                     if (this.session.myCharz().mapTemplateId == this.session.myCharz().mainHome()) {
                         if (this.session.myCharz().isHaveDuaHau(51, -1)) {
@@ -1070,7 +1126,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Hung Vuong
+                // Hung Vuong
                 case 52: {
                     if (this.session.myCharz().mapTemplateId == 0) {
                         this.session.myCharz().resetMenu();
@@ -1083,7 +1139,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Tapion
+                // Tapion
                 case 53: {
                     if (this.session.myCharz().mapTemplateId == 19) {
                         this.session.myCharz().resetMenu();
@@ -1116,7 +1172,7 @@ public class MenuBoard {
                     } else {
                         this.session.myCharz().addInfo1("Tài khoản cần phải mở thành viên để sử dụng tính năng này.");
                     }
-                    //Bill
+                    // Bill
                 case 55: {
                     if (this.session.myCharz().mapTemplateId == 48) {
                         this.session.myCharz().resetMenu();
@@ -1135,7 +1191,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Wish
+                // Wish
                 case 56: {
                     if (this.session.myCharz().mapTemplateId == 48) {
                         this.session.myCharz().resetMenu();
@@ -1144,7 +1200,9 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.HOC_TUYET_KY, 170));
                         this.arrMenu.add(new MenuInfo(mResources.TOP_100, 168));
                         if (Memory.get(this.session.userId).nFreeWish > 0) {
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.LEVEL_2, LuyenTap.getLevel(this.session.myCharz().cName)), 169));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.LEVEL_2, LuyenTap.getLevel(this.session.myCharz().cName)),
+                                    169));
                         } else {
                             this.chat = mResources.SAY_WISH2;
                             this.arrMenu.add(new MenuInfo(mResources.DONATE_FODS, 320));
@@ -1158,7 +1216,9 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.HOC_TUYET_KY, 170));
                         this.arrMenu.add(new MenuInfo(mResources.TOP_100, 168));
                         if (Memory.get(this.session.userId).nFreeWish > 0) {
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.LEVEL_2, LuyenTap.getLevel(this.session.myCharz().cName)), 169));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.LEVEL_2, LuyenTap.getLevel(this.session.myCharz().cName)),
+                                    169));
                         } else {
                             this.chat = mResources.SAY_WISH2;
                             this.arrMenu.add(new MenuInfo(mResources.DONATE_FODS, 320));
@@ -1168,7 +1228,7 @@ public class MenuBoard {
                     break;
                 }
 
-                //Vados
+                // Vados
                 case 58: {
                     if (this.session.myCharz().mapTemplateId == 5) {
                         this.session.myCharz().resetMenu();
@@ -1180,7 +1240,7 @@ public class MenuBoard {
                     break;
                 }
 
-                //Goku SSJ
+                // Goku SSJ
                 case 60: {
                     if (this.session.myCharz().mapTemplateId == 80) {
                         this.session.myCharz().resetMenu();
@@ -1197,7 +1257,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Goku SSJ
+                // Goku SSJ
                 case 61: {
                     if (this.session.myCharz().mapTemplateId == 133) {
                         this.session.myCharz().resetMenu();
@@ -1208,7 +1268,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Potage
+                // Potage
                 case 62: {
                     if (this.session.myCharz().mapTemplateId == 140) {
                         this.session.myCharz().resetMenu();
@@ -1220,7 +1280,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Jaco
+                // Jaco
                 case 63: {
                     if (this.session.myCharz().mapTemplateId == 24) {
                         this.session.myCharz().resetMenu();
@@ -1240,14 +1300,16 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Dai Thien Su
+                // Dai Thien Su
                 case 64: {
-                    if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 7 || this.session.myCharz().mapTemplateId == 14) {
+                    if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 7
+                            || this.session.myCharz().mapTemplateId == 14) {
                         if (RongVoCuc.gI().isCallRongVoCuc) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_DAD_1;
                             for (int i = 0; i < RongVoCuc.gI().arrStrWish.length; i++) {
-                                this.arrMenu.add(new MenuInfo(String.format(mResources.WISH_PERCENT, RongVoCuc.gI().arrStrWish[i], RongVoCuc.gI().getPercent(i)), 281, i));
+                                this.arrMenu.add(new MenuInfo(String.format(mResources.WISH_PERCENT,
+                                        RongVoCuc.gI().arrStrWish[i], RongVoCuc.gI().getPercent(i)), 281, i));
                             }
                             this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                             this.openUIConfirm(npcId, null, null, -1);
@@ -1255,37 +1317,45 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Noi Banh
+                // Noi Banh
                 case 66: {
                     if (Dragon.isEvent_TetNguyenDan) {
                         if (this.session.myCharz().isNauBanhOK()) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_NOI_BANH_5;
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent), 31));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent),
+                                    31));
                             this.arrMenu.add(new MenuInfo(this.session.myCharz().strNauBanhOK(), 33));
                             this.openUIConfirm(npcId, null, null, -1);
                         } else {
                             this.session.myCharz().resetMenu();
                             this.chat = String.format(mResources.SAY_NOI_BANH_1, this.session.myCharz().cName);
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent), 31));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent),
+                                    31));
                             this.arrMenu.add(new MenuInfo(mResources.TU_NAU_BANH, 32));
                             this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                             this.openUIConfirm(npcId, null, null, -1);
                         }
                     }
 
-                    //Lech Teamobi
+                    // Lech Teamobi
                     if (Dragon.isEvent_HE2023) {
                         if (this.session.myCharz().isNauBanhOK()) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_NOI_BANH_6;
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent), 192));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent),
+                                    192));
                             this.arrMenu.add(new MenuInfo(this.session.myCharz().strNauBanhOK(), 33));
                             this.openUIConfirm(npcId, null, null, -1);
                         } else {
                             this.session.myCharz().resetMenu();
                             this.chat = String.format(mResources.SAY_NOI_BANH_7, this.session.myCharz().cName);
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent), 192));
+                            this.arrMenu.add(new MenuInfo(
+                                    String.format(mResources.CHANGE_POINT, this.session.myCharz().myObj().pointEvent),
+                                    192));
                             this.arrMenu.add(new MenuInfo(mResources.TU_NAU_BANH2, 187));
                             this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                             this.openUIConfirm(npcId, null, null, -1);
@@ -1293,7 +1363,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //MR PoPo
+                // MR PoPo
                 case 67: {
                     if (this.session.myCharz().mapTemplateId == 0) {
                         if (this.session.myCharz().clan == null || this.session.myCharz().clan.destronGas == null) {
@@ -1309,7 +1379,10 @@ public class MenuBoard {
                             this.openUIConfirm(npcId, null, null, -1);
                         } else {
                             this.session.myCharz().resetMenu();
-                            this.chat = String.format(mResources.SAY_MR_POPO_2, this.session.myCharz().clan.destronGas.level, Util.gI().getStrTime(System.currentTimeMillis() - this.session.myCharz().clan.destronGas.lastOpen));
+                            this.chat = String.format(mResources.SAY_MR_POPO_2,
+                                    this.session.myCharz().clan.destronGas.level,
+                                    Util.gI().getStrTime(System.currentTimeMillis()
+                                            - this.session.myCharz().clan.destronGas.lastOpen));
                             this.arrMenu.add(new MenuInfo(mResources.OK, 91));
                             this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                             this.openUIConfirm(npcId, null, null, -1);
@@ -1317,7 +1390,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Tho Dai Ca
+                // Tho Dai Ca
                 case 69: {
                     if (this.session.myCharz().mapTemplateId == 5) {
                         this.session.myCharz().resetMenu();
@@ -1333,23 +1406,26 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Burdock
+                // Burdock
                 case 70: {
-                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 2 && this.session.myCharz().mapTemplateId == 160) {
+                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 2
+                            && this.session.myCharz().mapTemplateId == 160) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BARDOCK_1;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 290));
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     }
-                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 4 && this.session.myCharz().mapTemplateId == 160) {
+                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 4
+                            && this.session.myCharz().mapTemplateId == 160) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BARDOCK_2;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 291));
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     }
-                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 6 && this.session.myCharz().mapTemplateId == 160) {
+                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 6
+                            && this.session.myCharz().mapTemplateId == 160) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BARDOCK_3;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 292));
@@ -1358,9 +1434,10 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Berry
+                // Berry
                 case 71: {
-                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 5 && this.session.myCharz().mapTemplateId == 161) {
+                    if (this.session.myCharz().ctaskId == 34 && this.session.myCharz().ctaskIndex == 5
+                            && this.session.myCharz().mapTemplateId == 161) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BERRY_1;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 293));
@@ -1369,7 +1446,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Tori - Bot
+                // Tori - Bot
                 case 74: {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_TORI_BOT_1;
@@ -1377,7 +1454,7 @@ public class MenuBoard {
                     this.openUIConfirm(npcId, null, null, -1);
                     break;
                 }
-                //King Furry
+                // King Furry
                 case 75: {
                     if (this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
@@ -1389,7 +1466,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Mai
+                // Mai
                 case 76: {
                     if (this.session.myCharz().mapTemplateId == 166) {
                         this.session.myCharz().resetMenu();
@@ -1403,7 +1480,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Fu
+                // Fu
                 case 77: {
                     if (this.session.myCharz().mapTemplateId == 166) {
                         if (this.session.myCharz().isCallCumber == 2) {
@@ -1421,7 +1498,7 @@ public class MenuBoard {
                     }
                     break;
                 }
-                //Test NPC
+                // Test NPC
                 case 99: {
                     if (this.session.myCharz().mapTemplateId == 0 || this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
@@ -1446,7 +1523,8 @@ public class MenuBoard {
             info = this.arrMenu.get(select);
             this.typeInfo = this.arrMenu.get(select).type;
             this.select = select;
-            if (!info.execute()) return;
+            if (!info.execute())
+                return;
         } catch (Exception e) {
             return;
         }
@@ -1516,8 +1594,7 @@ public class MenuBoard {
                 if ((int) info.p == -1) {
                     Combine.DucLo(this.session.myCharz());
                 } else {
-                    batdaunangcap:
-                    {
+                    batdaunangcap: {
                         for (int i = 0; i < (int) info.p; i++) {
                             int status = Combine.DucLo(this.session.myCharz());
                             if (status == 1) {
@@ -1536,9 +1613,9 @@ public class MenuBoard {
                         this.session.myCharz().addInfo1(5000, String.format(mResources.STR_NANGCAP4, (int) info.p));
                     }
                 }
-//                if (this.session.myCharz().arrItem != null) {
-//                    this.session.service.setCombineEff(this.session.myCharz().arrItem);
-//                }
+                // if (this.session.myCharz().arrItem != null) {
+                // this.session.service.setCombineEff(this.session.myCharz().arrItem);
+                // }
                 this.typeInfo = 12;
                 break;
             }
@@ -1589,8 +1666,11 @@ public class MenuBoard {
                 break;
             }
             case 29: {
-                if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.YOU_FRUIT_TRAY, new int[]{1177, 1178, 1179, 1180, 1181, 1183}, new int[]{20, 20, 20, 20, 20, 3}, 0, 5000000, -1, false, -1)) {
-                    this.session.myCharz().clientInput.openClientInput(14, mResources.QUANTITY_FRUIT_TRAY, new String[]{mResources.QUANTITY_FRUIT_TRAY_KEY}, new int[]{0});
+                if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.YOU_FRUIT_TRAY,
+                        new int[] { 1177, 1178, 1179, 1180, 1181, 1183 }, new int[] { 20, 20, 20, 20, 20, 3 }, 0,
+                        5000000, -1, false, -1)) {
+                    this.session.myCharz().clientInput.openClientInput(14, mResources.QUANTITY_FRUIT_TRAY,
+                            new String[] { mResources.QUANTITY_FRUIT_TRAY_KEY }, new int[] { 0 });
                 }
                 break;
             }
@@ -1626,7 +1706,8 @@ public class MenuBoard {
                 break;
             }
             case 34: {
-                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_TET_1, new int[]{748, 749, 750, 751}, new int[]{10, 10, 10, 10}, 0, 5000000, -1, false, -1)) {
+                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_TET_1,
+                        new int[] { 748, 749, 750, 751 }, new int[] { 10, 10, 10, 10 }, 0, 5000000, -1, false, -1)) {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_NOI_BANH_3;
                     this.arrMenu.add(new MenuInfo(mResources.AGREE, 35));
@@ -1636,13 +1717,16 @@ public class MenuBoard {
                 break;
             }
             case 35: {
-                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_TET_1, new int[]{748, 749, 750, 751}, new int[]{10, 10, 10, 10}, 0, 5000000, -1, true, -1)) {
+                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_TET_1,
+                        new int[] { 748, 749, 750, 751 }, new int[] { 10, 10, 10, 10 }, 0, 5000000, -1, true, -1)) {
                     this.session.myCharz().addNauBanh(npcId, 180, 752);
                 }
                 break;
             }
             case 36: {
-                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_CHUNG_1, new int[]{748, 749, 750, 751, 886}, new int[]{10, 10, 10, 10, 1}, 0, 5000000, -1, false, -1)) {
+                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_CHUNG_1,
+                        new int[] { 748, 749, 750, 751, 886 }, new int[] { 10, 10, 10, 10, 1 }, 0, 5000000, -1, false,
+                        -1)) {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_NOI_BANH_4;
                     this.arrMenu.add(new MenuInfo(mResources.AGREE, 37));
@@ -1652,14 +1736,18 @@ public class MenuBoard {
                 break;
             }
             case 37: {
-                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_CHUNG_1, new int[]{748, 749, 750, 751, 886}, new int[]{10, 10, 10, 10, 1}, 0, 5000000, -1, true, -1)) {
+                if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_CHUNG_1,
+                        new int[] { 748, 749, 750, 751, 886 }, new int[] { 10, 10, 10, 10, 1 }, 0, 5000000, -1, true,
+                        -1)) {
                     this.session.myCharz().addNauBanh(npcId, 300, 753);
                 }
                 break;
             }
             case 38: {
-                if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.YOU_GIFT_TET, new int[]{1182, 1184}, new int[]{1, 1}, 0, -1, -1, false, -1)) {
-                    this.session.myCharz().clientInput.openClientInput(15, mResources.QUANTITY_GIFT_TET, new String[]{mResources.QUANTITY_GIFT_TET_KEY}, new int[]{0});
+                if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.YOU_GIFT_TET,
+                        new int[] { 1182, 1184 }, new int[] { 1, 1 }, 0, -1, -1, false, -1)) {
+                    this.session.myCharz().clientInput.openClientInput(15, mResources.QUANTITY_GIFT_TET,
+                            new String[] { mResources.QUANTITY_GIFT_TET_KEY }, new int[] { 0 });
                 }
                 break;
             }
@@ -1714,7 +1802,8 @@ public class MenuBoard {
                 if (this.session.myCharz().clan != null) {
                     this.arrMenu.add(new MenuInfo(mResources.THANH_TICH_BANG, 46));
                     if (this.session.myCharz().clan.khobau != null) {
-                        this.chat = String.format(mResources.SAY_QUY_LAO_KAME_9, this.session.myCharz().clan.khobau.level);
+                        this.chat = String.format(mResources.SAY_QUY_LAO_KAME_9,
+                                this.session.myCharz().clan.khobau.level);
                         this.arrMenu.add(new MenuInfo(mResources.AGREE, 49));
                     } else {
                         this.arrMenu.add(new MenuInfo(mResources.SELECT_LEVEL_3, 47));
@@ -1731,35 +1820,43 @@ public class MenuBoard {
             }
             case 47: {
                 if (this.session.myCharz().cPower < 200000000) {
-                    this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)), null, 0);
+                    this.session.service.chatTHEGIOI(mResources.EMPTY,
+                            String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)), null, 0);
                 } else if (this.session.myCharz().clan == null || this.session.myCharz().clanMember.role != 0) {
                     this.session.service.openUISay(npcId, mResources.INVATE_BANG_CHU, -1);
                 } else {
-                    this.session.myCharz().clientInput.openClientInput(7, mResources.SELECT_LEVEL_2, new String[]{mResources.LEVEL}, new int[]{0});
+                    this.session.myCharz().clientInput.openClientInput(7, mResources.SELECT_LEVEL_2,
+                            new String[] { mResources.LEVEL }, new int[] { 0 });
                 }
                 break;
             }
             case 48: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clanMember.role == 0) {
-                    if (this.session.myCharz().clan.khobau == null && Memory.get(this.session.userId).nBanDoKhoBau <= 0) {
+                    if (this.session.myCharz().clan.khobau == null
+                            && Memory.get(this.session.userId).nBanDoKhoBau <= 0) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_QUY_LAO_KAME_10;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else if (this.session.myCharz().cPower < 200000000) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)), null, 0);
-                    } else if ((System.currentTimeMillis() / 1000) - this.session.myCharz().clanMember.joinTime < 3600) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
+                        this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)), null,
+                                0);
+                    } else if ((System.currentTimeMillis() / 1000)
+                            - this.session.myCharz().clanMember.joinTime < 3600) {
+                        this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
                     } else {
-                        //Check ban do kho bau
+                        // Check ban do kho bau
                         Item it = this.session.myCharz().getItemBagById(611);
                         if (it == null) {
-                            this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.NEED_ITEM, ItemTemplate.get((short) 611).name), null, 0);
+                            this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                    String.format(mResources.NEED_ITEM, ItemTemplate.get((short) 611).name), null, 0);
                             break;
                         }
                         this.session.myCharz().useItemBag(it.indexUI, 1);
 
-                        //Init
+                        // Init
                         KhoBau kb = new KhoBau();
                         kb.initKhoBau(this.session.myCharz().clan, this.session.myCharz().clan.selectLevel);
                         Server.gI().add(kb);
@@ -1781,24 +1878,31 @@ public class MenuBoard {
             case 49: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clan.khobau != null) {
                     KhoBau kb = this.session.myCharz().clan.khobau;
-                    if (!kb.isJoin(this.session.myCharz().playerId) && Memory.get(this.session.userId).nBanDoKhoBau <= 0) {
+                    if (!kb.isJoin(this.session.myCharz().playerId)
+                            && Memory.get(this.session.userId).nBanDoKhoBau <= 0) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_QUY_LAO_KAME_10;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else if (this.session.myCharz().cPower < 200000000) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)), null, 0);
-                    } else if ((System.currentTimeMillis() / 1000) - this.session.myCharz().clanMember.joinTime < 3600) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
+                        this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)), null,
+                                0);
+                    } else if ((System.currentTimeMillis() / 1000)
+                            - this.session.myCharz().clanMember.joinTime < 3600) {
+                        this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
                     } else {
                         if (!kb.isJoin(this.session.myCharz().playerId)) {
-                            //Check ban do kho bau
-//                                    Item it = this.session.myCharz().getItemBag(611);
-//                                    if (it == null) {
-//                                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.NEED_ITEM, GameData.itemTemplates[611].name), null, 0);
-//                                        return;
-//                                    }
-//                                    this.session.myCharz().useItemBag(it.indexUI, 1);
+                            // Check ban do kho bau
+                            // Item it = this.session.myCharz().getItemBag(611);
+                            // if (it == null) {
+                            // this.session.service.chatTHEGIOI(mResources.EMPTY,
+                            // String.format(mResources.NEED_ITEM, GameData.itemTemplates[611].name), null,
+                            // 0);
+                            // return;
+                            // }
+                            // this.session.myCharz().useItemBag(it.indexUI, 1);
                             kb.join(this.session.myCharz().playerId);
                             Memory.get(this.session.userId).nBanDoKhoBau--;
                         }
@@ -1862,18 +1966,20 @@ public class MenuBoard {
                 if (this.session.myCharz().myPet3 != null) {
                 } else if (this.session.myCharz().zoneMap.isHaveBoss(129)) {
                     this.session.myCharz().resetMenu();
-                    this.chat = String.format(mResources.SAY_POTAGE2, this.session.myCharz().findBossInMapById(129).cName);
+                    this.chat = String.format(mResources.SAY_POTAGE2,
+                            this.session.myCharz().findBossInMapById(129).cName);
                     this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                     this.openUIConfirm(npcId, null, null, -1);
                 } else if (this.session.myCharz().myObj().isPotage) {
                     this.session.myCharz().addInfo1(mResources.WAIT_DAY);
                 } else if (this.session.myCharz().myObj().lastNB > System.currentTimeMillis()) {
-                    this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE, Util.gI().getStrTime(this.session.myCharz().myObj().lastNB - System.currentTimeMillis())));
+                    this.session.myCharz().addInfo1(String.format(mResources.TIME_WITE,
+                            Util.gI().getStrTime(this.session.myCharz().myObj().lastNB - System.currentTimeMillis())));
                 } else {
                     this.session.myCharz().myObj().lastNB = System.currentTimeMillis() + 300000;
-//                    this.session.myCharz().myObj().isPotage = true;
+                    // this.session.myCharz().myObj().isPotage = true;
                     Char bot = Player.addBoss(129, 5, -1, -1, true, 400, 336, null, -1, -1);
-                    //set clone
+                    // set clone
                     bot.setClone(this.session.myCharz());
                     this.session.myCharz().setItem(5222, (this.session.myCharz().timePkMyPet = 300000) / 1000, 0, 0);
                     this.session.myCharz().zoneMap.join(bot, 0, -1, -1);
@@ -1890,7 +1996,8 @@ public class MenuBoard {
             }
             case 62: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 4664)) {
-                    if (this.session.myCharz().getDuaHau(50, 4664).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
+                    if (this.session.myCharz().getDuaHau(50, 4664).second - ((System.currentTimeMillis() / 1000L)
+                            - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
                         this.session.myCharz().tMabu(4664);
                         this.session.myCharz().zoneMap.removeNpc(50);
                         Player.mabuInfo(this.session.myCharz());
@@ -1925,7 +2032,8 @@ public class MenuBoard {
 
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 4664)) {
                     if (this.session.myCharz().xu < 20000000000L) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.CONTHIEU_VANG, Util.gI().getStrNumber(20000000000L - this.session.myCharz().xu)), null, 0);
+                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.CONTHIEU_VANG,
+                                Util.gI().getStrNumber(20000000000L - this.session.myCharz().xu)), null, 0);
                     } else {
                         this.session.myCharz().updateXu(-20000000000L, 2);
                         this.session.myCharz().tMabu(4664);
@@ -1948,24 +2056,27 @@ public class MenuBoard {
                 if (this.session.myCharz().getEmptyBagCount() == 0) {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
-                    if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.SAY_QUA_TRUNG12, new int[]{2006, 2008, 457}, new int[]{200, 5, 15}, 0, -1, -1, true, 1)) {
-                        if (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
+                    if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.SAY_QUA_TRUNG12,
+                            new int[] { 2006, 2008, 457 }, new int[] { 200, 5, 15 }, 0, -1, -1, true, 1)) {
+                        if (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L)
+                                - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
                             this.session.myCharz().duahaus.remove(this.session.myCharz().getDuaHau(50, 6546));
                             this.session.myCharz().zoneMap.removeNpc(50);
-                            //Eff
+                            // Eff
                             this.session.myCharz().eggEffHide(115, 312);
-                            //Add Item
+                            // Add Item
                             int templateId = Util.gI().nextInt(2010, 2015);
-                            Item item = new Item(templateId, false, 1, ItemOption.getOption(templateId, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            //option 1
-                            int option1 = new int[]{0, 6, 7}[Util.gI().nextInt(3)];
+                            Item item = new Item(templateId, false, 1, ItemOption.getOption(templateId, 0, 0),
+                                    mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            // option 1
+                            int option1 = new int[] { 0, 6, 7 }[Util.gI().nextInt(3)];
                             if (option1 == 0) {
                                 item.options.add(new ItemOption(0, Util.gI().nextInt(150, 300)));
                             } else {
                                 item.options.add(new ItemOption(option1, Util.gI().nextInt(1500, 3000)));
                             }
-                            //option 2
-                            int option2 = new int[]{103, 94, 77, 50, 108}[Util.gI().nextInt(5)];
+                            // option 2
+                            int option2 = new int[] { 103, 94, 77, 50, 108 }[Util.gI().nextInt(5)];
                             item.options.add(new ItemOption(option2, 1));
                             this.session.myCharz().addItemBag(0, item);
                         }
@@ -1986,7 +2097,7 @@ public class MenuBoard {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
                     this.session.myCharz().duahaus.remove(this.session.myCharz().getDuaHau(50, 6546));
                     this.session.myCharz().zoneMap.removeNpc(50);
-                    //Eff
+                    // Eff
                     this.session.myCharz().eggEffHide(115, 312);
                 }
                 break;
@@ -1999,7 +2110,9 @@ public class MenuBoard {
                 this.arrMenu.add(new MenuInfo(mResources.ADD_LINHLUC_3, 76));
                 this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
-//                this.session.service.addEffectServer(5, 3, 19, this.session.myCharz().zoneMap.findNPCInMap(50).cx, this.session.myCharz().zoneMap.findNPCInMap(50).cy, 1);
+                // this.session.service.addEffectServer(5, 3, 19,
+                // this.session.myCharz().zoneMap.findNPCInMap(50).cx,
+                // this.session.myCharz().zoneMap.findNPCInMap(50).cy, 1);
                 break;
             }
             case 72: {
@@ -2013,9 +2126,15 @@ public class MenuBoard {
             case 73: {
 
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
-                    if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.SAY_QUA_TRUNG12, new int[]{2006}, new int[]{2}, 0, 50000000, -1, true, 1)) {
+                    if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId,
+                            mResources.SAY_QUA_TRUNG12, new int[] { 2006 }, new int[] { 2 }, 0, 50000000, -1, true,
+                            1)) {
                         this.session.myCharz().getDuaHau(50, 6546).second -= 3600;
-                        this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau, this.session.myCharz().getDuaHau(50, 6546).duaHauIndex, (int) (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 6546).last)));
+                        this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau,
+                                this.session.myCharz().getDuaHau(50, 6546).duaHauIndex,
+                                (int) (this.session.myCharz().getDuaHau(50, 6546).second
+                                        - ((System.currentTimeMillis() / 1000L)
+                                                - this.session.myCharz().getDuaHau(50, 6546).last)));
                     }
                 }
                 break;
@@ -2031,9 +2150,15 @@ public class MenuBoard {
             case 75: {
 
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
-                    if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.SAY_QUA_TRUNG12, new int[]{2006}, new int[]{15}, 0, 1000000000, -1, true, 1)) {
+                    if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId,
+                            mResources.SAY_QUA_TRUNG12, new int[] { 2006 }, new int[] { 15 }, 0, 1000000000, -1, true,
+                            1)) {
                         this.session.myCharz().getDuaHau(50, 6546).second -= 36000;
-                        this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau, this.session.myCharz().getDuaHau(50, 6546).duaHauIndex, (int) (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 6546).last)));
+                        this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau,
+                                this.session.myCharz().getDuaHau(50, 6546).duaHauIndex,
+                                (int) (this.session.myCharz().getDuaHau(50, 6546).second
+                                        - ((System.currentTimeMillis() / 1000L)
+                                                - this.session.myCharz().getDuaHau(50, 6546).last)));
                     }
                 }
                 break;
@@ -2049,9 +2174,15 @@ public class MenuBoard {
             case 77: {
 
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
-                    if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId, mResources.SAY_QUA_TRUNG12, new int[]{2006, 457}, new int[]{30, 4}, 0, -1, -1, true, 1)) {
+                    if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId,
+                            mResources.SAY_QUA_TRUNG12, new int[] { 2006, 457 }, new int[] { 30, 4 }, 0, -1, -1, true,
+                            1)) {
                         this.session.myCharz().getDuaHau(50, 6546).second -= 86400;
-                        this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau, this.session.myCharz().getDuaHau(50, 6546).duaHauIndex, (int) (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L) - this.session.myCharz().getDuaHau(50, 6546).last)));
+                        this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau,
+                                this.session.myCharz().getDuaHau(50, 6546).duaHauIndex,
+                                (int) (this.session.myCharz().getDuaHau(50, 6546).second
+                                        - ((System.currentTimeMillis() / 1000L)
+                                                - this.session.myCharz().getDuaHau(50, 6546).last)));
                     }
                 }
                 break;
@@ -2064,9 +2195,11 @@ public class MenuBoard {
                 if (this.session.myCharz().clan == null || this.session.myCharz().clanMember.role != 0) {
                     this.session.myCharz().addInfo1(mResources.INVATE_BANG_CHU);
                 } else if (this.session.myCharz().clan.lastChangeShortName > System.currentTimeMillis()) {
-                    this.session.myCharz().addInfo1(String.format(mResources.TIME_WAIT_RONG, Util.gI().getStrTime(this.session.myCharz().clan.lastChangeShortName - System.currentTimeMillis())));
+                    this.session.myCharz().addInfo1(String.format(mResources.TIME_WAIT_RONG, Util.gI()
+                            .getStrTime(this.session.myCharz().clan.lastChangeShortName - System.currentTimeMillis())));
                 } else {
-                    this.session.myCharz().clan.setShortName(this.session.myCharz(), Util.gI().nextString("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", Util.gI().nextInt(2, 4)));
+                    this.session.myCharz().clan.setShortName(this.session.myCharz(),
+                            Util.gI().nextString("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", Util.gI().nextInt(2, 4)));
                 }
                 break;
             }
@@ -2074,9 +2207,11 @@ public class MenuBoard {
                 if (this.session.myCharz().clan == null || this.session.myCharz().clanMember.role != 0) {
                     this.session.myCharz().addInfo1(mResources.INVATE_BANG_CHU);
                 } else if (this.session.myCharz().clan.lastChangeShortName > System.currentTimeMillis()) {
-                    this.session.myCharz().addInfo1(String.format(mResources.TIME_WAIT_RONG, Util.gI().getStrTime(this.session.myCharz().clan.lastChangeShortName - System.currentTimeMillis())));
+                    this.session.myCharz().addInfo1(String.format(mResources.TIME_WAIT_RONG, Util.gI()
+                            .getStrTime(this.session.myCharz().clan.lastChangeShortName - System.currentTimeMillis())));
                 } else {
-                    this.session.myCharz().clientInput.openClientInput(13, mResources.NHAP_SHORT_NAME, new String[]{mResources.KEY_SHORT_NAME}, new int[]{1});
+                    this.session.myCharz().clientInput.openClientInput(13, mResources.NHAP_SHORT_NAME,
+                            new String[] { mResources.KEY_SHORT_NAME }, new int[] { 1 });
                 }
                 break;
             }
@@ -2089,11 +2224,18 @@ public class MenuBoard {
                 if (this.session.myCharz().usePetFollowz == null) {
                     this.session.myCharz().addInfo1(mResources.YOU_USE_PETZ);
                 } else if (this.session.myCharz().usePetFollowz.getParamOption(72) >= 9) {
-                    this.session.myCharz().addInfo1(String.format(mResources.USE_PETZ_LEVEL, this.session.myCharz().usePetFollowz.getParamOption(72)));
+                    this.session.myCharz().addInfo1(String.format(mResources.USE_PETZ_LEVEL,
+                            this.session.myCharz().usePetFollowz.getParamOption(72)));
                 } else if (this.session.myCharz().canProceed()) {
-                    int[] arr_percent = new int[]{100, 50, 30, 20, 10, 5, 4, 3, 2, 1};
+                    int[] arr_percent = new int[] { 100, 50, 30, 20, 10, 5, 4, 3, 2, 1 };
                     this.session.myCharz().resetMenu();
-                    this.chat = String.format(mResources.SAY_DR_BRIEF_4, this.session.myCharz().usePetFollowz.template.name, this.session.myCharz().usePetFollowz.getParamOption(72) + 1, this.session.myCharz().usePetFollowz.template.description, this.session.myCharz().usePetFollowz.getParamOption(72) + 1, this.session.myCharz().usePetFollowz.getParamOption(72) + 1, arr_percent[this.session.myCharz().usePetFollowz.getParamOption(72) + 1]);
+                    this.chat = String.format(mResources.SAY_DR_BRIEF_4,
+                            this.session.myCharz().usePetFollowz.template.name,
+                            this.session.myCharz().usePetFollowz.getParamOption(72) + 1,
+                            this.session.myCharz().usePetFollowz.template.description,
+                            this.session.myCharz().usePetFollowz.getParamOption(72) + 1,
+                            this.session.myCharz().usePetFollowz.getParamOption(72) + 1,
+                            arr_percent[this.session.myCharz().usePetFollowz.getParamOption(72) + 1]);
                     this.arrMenu.add(new MenuInfo(mResources.UP_PETZ, 83));
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
@@ -2105,43 +2247,61 @@ public class MenuBoard {
                 if (this.session.myCharz().usePetFollowz == null) {
                     this.session.myCharz().addInfo1(mResources.YOU_USE_PETZ);
                 } else if (this.session.myCharz().usePetFollowz.getParamOption(72) >= 9) {
-                    this.session.myCharz().addInfo1(String.format(mResources.USE_PETZ_LEVEL, this.session.myCharz().usePetFollowz.getParamOption(72)));
+                    this.session.myCharz().addInfo1(String.format(mResources.USE_PETZ_LEVEL,
+                            this.session.myCharz().usePetFollowz.getParamOption(72)));
                 } else if (this.session.myCharz().canProceed()) {
-                    if (this.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.SAY_DR_BRIEF_5, this.session.myCharz().usePetFollowz.template.name, this.session.myCharz().usePetFollowz.getParamOption(72) + 1), new int[]{2007, 2009}, new int[]{this.session.myCharz().usePetFollowz.getParamOption(72) + 1, this.session.myCharz().usePetFollowz.getParamOption(72) + 1}, 0, -1, -1, true, -1)) {
-                        boolean flag = Util.gI().nextInt(100) <= new int[]{100, 50, 30, 20, 10, 5, 4, 3, 2, 1}[this.session.myCharz().usePetFollowz.getParamOption(72) + 1];
+                    if (this.session.myCharz().requestOpenUIItem(npcId,
+                            String.format(mResources.SAY_DR_BRIEF_5, this.session.myCharz().usePetFollowz.template.name,
+                                    this.session.myCharz().usePetFollowz.getParamOption(72) + 1),
+                            new int[] { 2007, 2009 },
+                            new int[] { this.session.myCharz().usePetFollowz.getParamOption(72) + 1,
+                                    this.session.myCharz().usePetFollowz.getParamOption(72) + 1 },
+                            0, -1, -1, true, -1)) {
+                        boolean flag = Util.gI().nextInt(100) <= new int[] { 100, 50, 30, 20, 10, 5, 4, 3, 2,
+                                1 }[this.session.myCharz().usePetFollowz.getParamOption(72) + 1];
                         if (!flag) {
                             this.session.myCharz().addInfo1(mResources.FAILD);
                         } else {
-                            //add ko co tao moi
+                            // add ko co tao moi
                             if (this.session.myCharz().usePetFollowz.isHaveOption(72)) {
                                 this.session.myCharz().usePetFollowz.getOption(72).param++;
                             } else {
                                 this.session.myCharz().usePetFollowz.options.add(new ItemOption(72, 1));
                             }
-                            //add
+                            // add
                             if (!this.session.myCharz().usePetFollowz.options.isEmpty()) {
                                 int numPetz = 0;
                                 while (numPetz < this.session.myCharz().usePetFollowz.options.size()) {
                                     ItemOption optionPetz = this.session.myCharz().usePetFollowz.options.get(numPetz);
-                                    if (optionPetz.optionTemplate.id == 0 || optionPetz.optionTemplate.id == 6 || optionPetz.optionTemplate.id == 7) {
+                                    if (optionPetz.optionTemplate.id == 0 || optionPetz.optionTemplate.id == 6
+                                            || optionPetz.optionTemplate.id == 7) {
                                         optionPetz.param = (int) (optionPetz.param + (optionPetz.param * 0.2F));
                                     }
-                                    if (optionPetz.optionTemplate.id == 50 || optionPetz.optionTemplate.id == 77 || optionPetz.optionTemplate.id == 94 || optionPetz.optionTemplate.id == 103 || optionPetz.optionTemplate.id == 108) {
+                                    if (optionPetz.optionTemplate.id == 50 || optionPetz.optionTemplate.id == 77
+                                            || optionPetz.optionTemplate.id == 94 || optionPetz.optionTemplate.id == 103
+                                            || optionPetz.optionTemplate.id == 108) {
                                         optionPetz.param = optionPetz.param + 1;
                                     }
                                     numPetz++;
                                 }
                             }
-                            this.session.myCharz().addInfo1(String.format(mResources.COMPLATE_UP_PETZ, this.session.myCharz().usePetFollowz.template.name, this.session.myCharz().usePetFollowz.getParamOption(72)));
+                            this.session.myCharz()
+                                    .addInfo1(String.format(mResources.COMPLATE_UP_PETZ,
+                                            this.session.myCharz().usePetFollowz.template.name,
+                                            this.session.myCharz().usePetFollowz.getParamOption(72)));
                             this.session.service.Bag(this.session.myCharz().arrItemBag);
                         }
                     }
                 }
             }
             case 84: {
-                if (this.session.myCharz().canProceed() && this.session.myCharz().arrItem != null && this.session.myCharz().arrItem.length == 1 && this.session.myCharz().arrItemBag[this.session.myCharz().arrItem[0].indexUI] == this.session.myCharz().arrItem[0] && this.session.myCharz().arrItem[0].template.id == 2005) {
+                if (this.session.myCharz().canProceed() && this.session.myCharz().arrItem != null
+                        && this.session.myCharz().arrItem.length == 1
+                        && this.session.myCharz().arrItemBag[this.session.myCharz().arrItem[0].indexUI] == this.session
+                                .myCharz().arrItem[0]
+                        && this.session.myCharz().arrItem[0].template.id == 2005) {
                     this.session.myCharz().useItemBag(this.session.myCharz().arrItem[0].indexUI, 1);
-                    this.session.myCharz().addDuaHau(50, new int[]{6546}, 0, 2592000, 6546);
+                    this.session.myCharz().addDuaHau(50, new int[] { 6546 }, 0, 2592000, 6546);
                 }
                 this.session.myCharz().resetMenu();
                 break;
@@ -2151,7 +2311,8 @@ public class MenuBoard {
                 break;
             }
             case 86: {
-                if (this.session.myCharz().clan != null && Util.gI().getDayGap(this.session.myCharz().clan.lastReport) > 0) {
+                if (this.session.myCharz().clan != null
+                        && Util.gI().getDayGap(this.session.myCharz().clan.lastReport) > 0) {
                     this.session.myCharz().clan.lastReport = System.currentTimeMillis();
                     this.session.myCharz().addClanPoint(1);
                 }
@@ -2170,25 +2331,30 @@ public class MenuBoard {
                 if (this.session.myCharz().clan == null || this.session.myCharz().clanMember.role != 0) {
                     this.session.service.openUISay(npcId, mResources.INVATE_BANG_CHU, -1);
                 } else {
-                    this.session.myCharz().clientInput.openClientInput(3, mResources.SELECT_LEVEL, new String[]{mResources.LEVEL}, new int[]{0});
+                    this.session.myCharz().clientInput.openClientInput(3, mResources.SELECT_LEVEL,
+                            new String[] { mResources.LEVEL }, new int[] { 0 });
                 }
             }
             case 91: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clan.destronGas != null) {
                     KhiHuyDiet khiga = this.session.myCharz().clan.destronGas;
-                    if (!khiga.isJoin(this.session.myCharz().playerId) && Memory.get(this.session.userId).nKhiHuyDiet <= 0) {
+                    if (!khiga.isJoin(this.session.myCharz().playerId)
+                            && Memory.get(this.session.userId).nKhiHuyDiet <= 0) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_MR_POPO_4;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
-                    } else if ((System.currentTimeMillis() / 1000) - this.session.myCharz().clanMember.joinTime < 3600) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
+                    } else if ((System.currentTimeMillis() / 1000)
+                            - this.session.myCharz().clanMember.joinTime < 3600) {
+                        this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
                     } else {
                         if (!khiga.isJoin(this.session.myCharz().playerId)) {
                             Memory.get(this.session.userId).nKhiHuyDiet--;
                             khiga.join(this.session.myCharz().playerId);
                         }
-                        ZoneMap zone = this.session.myCharz().clan.destronGas.maps.get(0).getZone(this.session.myCharz());
+                        ZoneMap zone = this.session.myCharz().clan.destronGas.maps.get(0)
+                                .getZone(this.session.myCharz());
                         if (zone != null) {
                             this.session.myCharz().transPort(-1, 1, zone, 0, 0, 75, 366);
                         } else {
@@ -2200,13 +2366,16 @@ public class MenuBoard {
             }
             case 92: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clanMember.role == 0) {
-                    if (this.session.myCharz().clan.destronGas == null && Memory.get(this.session.userId).nKhiHuyDiet <= 0) {
+                    if (this.session.myCharz().clan.destronGas == null
+                            && Memory.get(this.session.userId).nKhiHuyDiet <= 0) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_MR_POPO_4;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
-                    } else if ((System.currentTimeMillis() / 1000) - this.session.myCharz().clanMember.joinTime < 3600) {
-                        this.session.service.chatTHEGIOI(mResources.EMPTY, String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
+                    } else if ((System.currentTimeMillis() / 1000)
+                            - this.session.myCharz().clanMember.joinTime < 3600) {
+                        this.session.service.chatTHEGIOI(mResources.EMPTY,
+                                String.format(mResources.GIA_NHAP, Util.gI().getStrTime(3600000L)), null, 0);
                     } else {
                         KhiHuyDiet gas = new KhiHuyDiet();
                         gas.initDestronGas(this.session.myCharz().clan, this.session.myCharz().clan.selectLevel);
@@ -2233,9 +2402,11 @@ public class MenuBoard {
                 break;
             }
             case 96: {
-                if (this.session.myCharz().arrItem != null && this.session.myCharz().arrItem.length == 1 && this.session.myCharz().arrItem[0].isItemPetFollowz()) {
+                if (this.session.myCharz().arrItem != null && this.session.myCharz().arrItem.length == 1
+                        && this.session.myCharz().arrItem[0].isItemPetFollowz()) {
                     if (this.session.myCharz().timeUsePet > 0) {
-                        this.session.myCharz().addInfo1(String.format(mResources.DELAY_THAO_TAC, Util.gI().getStrTime(this.session.myCharz().timeUsePet)));
+                        this.session.myCharz().addInfo1(String.format(mResources.DELAY_THAO_TAC,
+                                Util.gI().getStrTime(this.session.myCharz().timeUsePet)));
                     } else {
                         if (this.session.myCharz().checkPetFollowz(this.session.myCharz().arrItem[0])) {
                             this.session.myCharz().checkClearPetFollowz(this.session.myCharz().arrItem[0]);
@@ -2248,9 +2419,11 @@ public class MenuBoard {
                 break;
             }
             case 97: {
-                if (this.session.myCharz().arrItem != null && this.session.myCharz().arrItem.length == 1 && this.session.myCharz().arrItem[0].isItemPetFollowz()) {
+                if (this.session.myCharz().arrItem != null && this.session.myCharz().arrItem.length == 1
+                        && this.session.myCharz().arrItem[0].isItemPetFollowz()) {
                     if (this.session.myCharz().timeUsePet > 0) {
-                        this.session.myCharz().addInfo1(String.format(mResources.DELAY_THAO_TAC, Util.gI().getStrTime(this.session.myCharz().timeUsePet)));
+                        this.session.myCharz().addInfo1(String.format(mResources.DELAY_THAO_TAC,
+                                Util.gI().getStrTime(this.session.myCharz().timeUsePet)));
                     } else {
                         if (this.session.myCharz().checkPetFollowz(this.session.myCharz().arrItem[0])) {
                             this.session.myCharz().checkClearPetFollowz(this.session.myCharz().arrItem[0]);
@@ -2263,20 +2436,25 @@ public class MenuBoard {
                 break;
             }
             case 98: {
-                if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(npcId, mResources.YEU_CAU, new int[]{457}, new int[]{52}, 0, -1, -1, true, 1)) {
-                    this.session.myCharz().addItemBag(0, new Item(2006, false, 99, ItemOption.getOption(2006, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(npcId,
+                        mResources.YEU_CAU, new int[] { 457 }, new int[] { 52 }, 0, -1, -1, true, 1)) {
+                    this.session.myCharz().addItemBag(0, new Item(2006, false, 99, ItemOption.getOption(2006, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 }
                 break;
             }
             case 99: {
-                if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(npcId, mResources.YEU_CAU, new int[]{457}, new int[]{42}, 0, -1, -1, true, 1)) {
-                    this.session.myCharz().addItemBag(0, new Item(2009, false, 99, ItemOption.getOption(2009, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(npcId,
+                        mResources.YEU_CAU, new int[] { 457 }, new int[] { 42 }, 0, -1, -1, true, 1)) {
+                    this.session.myCharz().addItemBag(0, new Item(2009, false, 99, ItemOption.getOption(2009, 0, 0),
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 }
                 break;
             }
             case 100: {
                 if (this.session.myCharz().getLuong() < 10) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 10 - this.session.myCharz().getLuong()));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.CONTHIEU_NGOC, 10 - this.session.myCharz().getLuong()));
                 } else if (this.session.myCharz().canProceed()) {
                     this.session.myCharz().updateLuong(-10, 2);
                     if (this.session.myCharz().itemNamekBall != null) {
@@ -2313,7 +2491,8 @@ public class MenuBoard {
             }
             case 101: {
                 if (this.session.myCharz().xu < 100000) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().getStrNumber(100000 - this.session.myCharz().xu)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                            Util.gI().getStrNumber(100000 - this.session.myCharz().xu)));
                 } else if (this.session.myCharz().canProceed()) {
                     this.session.myCharz().updateXu(-100000, 1);
                     if (this.session.myCharz().itemNamekBall != null) {
@@ -2366,18 +2545,23 @@ public class MenuBoard {
                         if (this.session.myCharz().checkFullNamekBall()) {
                             if (BallRada.timeCleanBall == -1) {
                                 BallRada.timeCleanBall = System.currentTimeMillis() + 599999L;
-//                                BallRada.timeCleanBall = System.currentTimeMillis() + 10000L;
-                                this.session.service.openUISay(npcId, String.format(mResources.CLEAN_BALL, Util.gI().getStrTime(BallRada.timeCleanBall - System.currentTimeMillis())), -1);
+                                // BallRada.timeCleanBall = System.currentTimeMillis() + 10000L;
+                                this.session.service.openUISay(npcId, String.format(mResources.CLEAN_BALL,
+                                        Util.gI().getStrTime(BallRada.timeCleanBall - System.currentTimeMillis())), -1);
                             } else {
                                 if (BallRada.timeCleanBall > System.currentTimeMillis()) {
-                                    this.session.service.openUISay(npcId, String.format(mResources.CLEAN_BALL, Util.gI().getStrTime(BallRada.timeCleanBall - System.currentTimeMillis())), -1);
+                                    this.session.service.openUISay(npcId,
+                                            String.format(mResources.CLEAN_BALL, Util.gI()
+                                                    .getStrTime(BallRada.timeCleanBall - System.currentTimeMillis())),
+                                            -1);
                                 } else {
                                     if (CallDragon.gI().isRongThanXuatHien) {
                                         this.session.service.openUISay(npcId, mResources.HAVE_CALL_RONG, -1);
                                     } else {
                                         NamekBall.gI().thungoc();
                                         this.session.service.openUISay(npcId, mResources.CALL_NAMEK_BALL, -1);
-                                        CallDragon.gI().setup(this.session.myCharz(), this.session.myCharz().zoneMap, 1, 2);
+                                        CallDragon.gI().setup(this.session.myCharz(), this.session.myCharz().zoneMap, 1,
+                                                2);
                                     }
                                 }
                             }
@@ -2397,10 +2581,12 @@ public class MenuBoard {
                     }
                     CallDragon.gI().openmenuRong(this.session.myCharz());
                 } else if (select >= 0 && select < CallDragon.gI().menuR.size()) {
-                    if (CallDragon.gI().isRongThanXuatHien && CallDragon.gI().playerId == this.session.myCharz().playerId) {
+                    if (CallDragon.gI().isRongThanXuatHien
+                            && CallDragon.gI().playerId == this.session.myCharz().playerId) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_RONG_THAN_3;
-                        this.arrMenu.add(new MenuInfo(CallDragon.gI().menuR.get(CallDragon.gI().select = select).strMenu, 106));
+                        this.arrMenu.add(
+                                new MenuInfo(CallDragon.gI().menuR.get(CallDragon.gI().select = select).strMenu, 106));
                         this.arrMenu.add(new MenuInfo(mResources.REFUSE, 107));
                         this.openUIConfirm(npcId, null, null, this.avatar);
                     }
@@ -2426,11 +2612,12 @@ public class MenuBoard {
             case 111: {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_THUONG_DE_2;
-                //this.arrMenu.add(new MenuInfo(mResources.TOP_100, 112));
+                // this.arrMenu.add(new MenuInfo(mResources.TOP_100, 112));
                 this.arrMenu.add(new MenuInfo(mResources.VQ_GOLD, 113));
-                //this.arrMenu.add(new MenuInfo(mResources.VQ_NGOC, 114));
+                // this.arrMenu.add(new MenuInfo(mResources.VQ_NGOC, 114));
                 if (!this.session.myCharz().arrItemMore.isEmpty()) {
-                    this.arrMenu.add(new MenuInfo(String.format(mResources.RUONG_PHU, this.session.myCharz().arrItemMore.size()), 115));
+                    this.arrMenu.add(new MenuInfo(
+                            String.format(mResources.RUONG_PHU, this.session.myCharz().arrItemMore.size()), 115));
                 }
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
@@ -2443,15 +2630,18 @@ public class MenuBoard {
             }
             case 113: {
                 this.session.myCharz().typeLucky = 0;
-                this.session.service.sendLuckyRound(this.session.myCharz().typeLucky, LuckyRound.gI().price[this.session.myCharz().typeLucky], 821);
+                this.session.service.sendLuckyRound(this.session.myCharz().typeLucky,
+                        LuckyRound.gI().price[this.session.myCharz().typeLucky], 821);
                 break;
             }
             case 114: {
                 if (this.session.myCharz().cPower < 150000000L) {
-                    this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(150000000L - this.session.myCharz().cPower)));
+                    this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH,
+                            Util.gI().numberTostring(150000000L - this.session.myCharz().cPower)));
                 } else {
                     this.session.myCharz().typeLucky = 1;
-                    this.session.service.sendLuckyRound(this.session.myCharz().typeLucky, LuckyRound.gI().price[this.session.myCharz().typeLucky], 821);
+                    this.session.service.sendLuckyRound(this.session.myCharz().typeLucky,
+                            LuckyRound.gI().price[this.session.myCharz().typeLucky], 821);
                 }
                 break;
             }
@@ -2479,7 +2669,8 @@ public class MenuBoard {
                 break;
             }
             case 118: {
-                this.session.myCharz().clientInput.openClientInput(16, mResources.QUANTITY_FLOWER_BLUE, new String[]{mResources.QUANTITY_FLOWER_BLUE_KEY}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(16, mResources.QUANTITY_FLOWER_BLUE,
+                        new String[] { mResources.QUANTITY_FLOWER_BLUE_KEY }, new int[] { 0 });
                 break;
             }
             case 119: {
@@ -2491,7 +2682,8 @@ public class MenuBoard {
                 break;
             }
             case 120: {
-                this.session.myCharz().clientInput.openClientInput(17, mResources.QUANTITY_FLOWER_POT_BLUE, new String[]{mResources.QUANTITY_FLOWER_POT_BLUE_KEY}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(17, mResources.QUANTITY_FLOWER_POT_BLUE,
+                        new String[] { mResources.QUANTITY_FLOWER_POT_BLUE_KEY }, new int[] { 0 });
                 break;
             }
             case 121: {
@@ -2508,7 +2700,8 @@ public class MenuBoard {
             }
             case 124: {
                 this.session.myCharz().resetMenu();
-                this.chat = String.format(mResources.REQUEST_TANG_HOA1, Server.gI().nSendFl1, this.session.myCharz().myObj().nPointTang1, Server.gI().timeTangGift1 / 60000);
+                this.chat = String.format(mResources.REQUEST_TANG_HOA1, Server.gI().nSendFl1,
+                        this.session.myCharz().myObj().nPointTang1, Server.gI().timeTangGift1 / 60000);
                 this.arrMenu.add(new MenuInfo(mResources.TANG_FL1, 125));
                 this.arrMenu.add(new MenuInfo(mResources.TANG_FL10, 126));
                 this.arrMenu.add(new MenuInfo(mResources.TANG_FL20, 127));
@@ -2535,7 +2728,9 @@ public class MenuBoard {
                 break;
             }
             case 128: {
-                if (this.session.myCharz().canProceed() && this.session.myCharz().arrItem != null && this.session.myCharz().arrItem.length == 1 && this.session.myCharz().arrItem[0].template.id == 401) {
+                if (this.session.myCharz().canProceed() && this.session.myCharz().arrItem != null
+                        && this.session.myCharz().arrItem.length == 1
+                        && this.session.myCharz().arrItem[0].template.id == 401) {
                     if (this.session.myCharz().myPetz().petStatus == 4) {
                         this.session.myCharz().addInfo1(mResources.NO_FINNISH);
                     } else {
@@ -2571,7 +2766,8 @@ public class MenuBoard {
                 if (this.session.myCharz().isHaveItem(570)) {
                     this.session.myCharz().addInfo1(mResources.OPEN_BOX);
                 } else if (this.session.myCharz().getLuong() < giangoc) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, giangoc - this.session.myCharz().getLuong()));
+                    this.session.myCharz().addInfo1(
+                            String.format(mResources.CONTHIEU_NGOC, giangoc - this.session.myCharz().getLuong()));
                 } else if (this.session.myCharz().cy >= 360 && this.session.myCharz().myObj().nWinHD23 < 11) {
                     this.session.myCharz().updateLuong(-giangoc, 2);
                     this.session.myCharz().resetYard(1);
@@ -2583,7 +2779,8 @@ public class MenuBoard {
                 if (this.session.myCharz().isHaveItem(570)) {
                     this.session.myCharz().addInfo1(mResources.OPEN_BOX);
                 } else if (this.session.myCharz().xu < giavang) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(giavang - this.session.myCharz().xu)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                            Util.gI().numberTostring(giavang - this.session.myCharz().xu)));
                 } else if (this.session.myCharz().cy >= 360 && this.session.myCharz().myObj().nWinHD23 < 11) {
                     this.session.myCharz().updateXu(-giavang, 2);
                     this.session.myCharz().resetYard(1);
@@ -2606,7 +2803,8 @@ public class MenuBoard {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().myObj().nWinHD23 > 0 && this.session.myCharz().cy >= 360) {
                     Memory.get(this.session.userId).isRuongDaiHoi = true;
-                    Item box = new Item(570, false, 1, ItemOption.getOption(570, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    Item box = new Item(570, false, 1, ItemOption.getOption(570, 0, 0), mResources.EMPTY,
+                            mResources.EMPTY, mResources.EMPTY);
                     box.options.add(new ItemOption(72, this.session.myCharz().myObj().nWinHD23));
                     this.session.myCharz().addItemBag(0, box);
                     this.session.myCharz().myObj().nWinHD23 = 0;
@@ -2625,9 +2823,11 @@ public class MenuBoard {
                     this.session.myCharz().resetMenu();
                     this.chat = String.format(mResources.SAY_GHI_DANH_6, DaiHoi.name);
                     if (DaiHoi.priceNgoc > 0) {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.REGISTER_PRICE1, DaiHoi.name, Util.gI().numberTostring(DaiHoi.priceNgoc)), 139));
+                        this.arrMenu.add(new MenuInfo(String.format(mResources.REGISTER_PRICE1, DaiHoi.name,
+                                Util.gI().numberTostring(DaiHoi.priceNgoc)), 139));
                     } else {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.REGISTER_PRICE2, DaiHoi.name, Util.gI().numberTostring(DaiHoi.priceVang)), 139));
+                        this.arrMenu.add(new MenuInfo(String.format(mResources.REGISTER_PRICE2, DaiHoi.name,
+                                Util.gI().numberTostring(DaiHoi.priceVang)), 139));
                     }
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
@@ -2636,18 +2836,30 @@ public class MenuBoard {
             }
             case 139: {
                 if (DaiHoi.isRegister) {
-                    if ((DaiHoi.minPower != -1 && this.session.myCharz().cPower < DaiHoi.minPower) || (DaiHoi.maxPower != -1 && this.session.myCharz().cPower > DaiHoi.maxPower)) {
-                        this.session.myCharz().addInfo1(String.format(mResources.LIMIT_POWER_PRIZE, Util.gI().numberTostring(DaiHoi.minPower < 0 ? 0 : DaiHoi.minPower), Util.gI().numberTostring(DaiHoi.maxPower < 0 ? 0 : DaiHoi.maxPower)));
+                    if ((DaiHoi.minPower != -1 && this.session.myCharz().cPower < DaiHoi.minPower)
+                            || (DaiHoi.maxPower != -1 && this.session.myCharz().cPower > DaiHoi.maxPower)) {
+                        this.session.myCharz()
+                                .addInfo1(String.format(mResources.LIMIT_POWER_PRIZE,
+                                        Util.gI().numberTostring(DaiHoi.minPower < 0 ? 0 : DaiHoi.minPower),
+                                        Util.gI().numberTostring(DaiHoi.maxPower < 0 ? 0 : DaiHoi.maxPower)));
                     } else {
-                        long totalTN = Char.getPotentialAdded(this.session.myCharz().cgender, this.session.myCharz().cHPGoc, this.session.myCharz().cMPGoc, this.session.myCharz().cDamGoc, this.session.myCharz().cDefGoc, this.session.myCharz().cCriticalGoc);
-                        if ((DaiHoi.minTN != -1 && totalTN < DaiHoi.minTN) || (DaiHoi.maxTN != -1 && totalTN > DaiHoi.maxTN)) {
-                            this.session.myCharz().addInfo1(String.format(mResources.LIMIT_TN_PRIZE, Util.gI().numberTostring(DaiHoi.minTN < 0 ? 0 : DaiHoi.minTN), Util.gI().numberTostring(DaiHoi.maxTN < 0 ? 0 : DaiHoi.maxTN)));
+                        long totalTN = Char.getPotentialAdded(this.session.myCharz().cgender,
+                                this.session.myCharz().cHPGoc, this.session.myCharz().cMPGoc,
+                                this.session.myCharz().cDamGoc, this.session.myCharz().cDefGoc,
+                                this.session.myCharz().cCriticalGoc);
+                        if ((DaiHoi.minTN != -1 && totalTN < DaiHoi.minTN)
+                                || (DaiHoi.maxTN != -1 && totalTN > DaiHoi.maxTN)) {
+                            this.session.myCharz()
+                                    .addInfo1(String.format(mResources.LIMIT_TN_PRIZE,
+                                            Util.gI().numberTostring(DaiHoi.minTN < 0 ? 0 : DaiHoi.minTN),
+                                            Util.gI().numberTostring(DaiHoi.maxTN < 0 ? 0 : DaiHoi.maxTN)));
                         } else if (DaiHoi.sizeFighter() >= 100) {
                             this.session.myCharz().addInfo1(mResources.MAX_REGISTER);
                         } else if (DaiHoi.isHaveFighter(this.session.myCharz().playerId)) {
 
                         } else if (DaiHoi.priceVang > this.session.myCharz().xu) {
-                            this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(DaiHoi.priceVang)));
+                            this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                                    Util.gI().numberTostring(DaiHoi.priceVang)));
                         } else if (DaiHoi.priceNgoc > this.session.myCharz().getLuong()) {
                             this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, DaiHoi.priceNgoc));
                         } else {
@@ -2658,7 +2870,11 @@ public class MenuBoard {
                                 this.session.myCharz().updateXu(-DaiHoi.priceVang, 2);
                             }
                             DaiHoi.addFighter(this.session.myCharz().playerId);
-                            this.session.service.openUISay(npcId, String.format(mResources.FINISH_REGISTER_PRIZE, Util.gI().convertTime(DaiHoi.timeRegister), Util.gI().convertTime(System.currentTimeMillis())), -1);
+                            this.session.service.openUISay(npcId,
+                                    String.format(mResources.FINISH_REGISTER_PRIZE,
+                                            Util.gI().convertTime(DaiHoi.timeRegister),
+                                            Util.gI().convertTime(System.currentTimeMillis())),
+                                    -1);
                         }
                     }
                 }
@@ -2674,7 +2890,8 @@ public class MenuBoard {
             }
             case 141: {
                 this.session.myCharz().resetMenu();
-                this.chat = String.format(mResources.SAY_QUOC_VUONG_2, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit + 1) + 1));
+                this.chat = String.format(mResources.SAY_QUOC_VUONG_2,
+                        Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit + 1) + 1));
                 this.arrMenu.add(new MenuInfo(mResources.UP_LIMIT_POWER_NOW, 143));
                 this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
@@ -2683,7 +2900,8 @@ public class MenuBoard {
             case 142: {
                 if (this.session.myCharz().myPet != null) {
                     this.session.myCharz().resetMenu();
-                    this.chat = String.format(mResources.SAY_QUOC_VUONG_6, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit + 1) + 1));
+                    this.chat = String.format(mResources.SAY_QUOC_VUONG_6, Util.gI()
+                            .numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit + 1) + 1));
                     this.arrMenu.add(new MenuInfo(mResources.UP_LIMIT_POWER_DETU_NOW, 144));
                     this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                     this.openUIConfirm(npcId, null, null, -1);
@@ -2698,28 +2916,33 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else if (this.session.myCharz().getLuong() < 100) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 100 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 100 - this.session.myCharz().getLuong()));
                     } else if (this.session.myCharz().canProceed()) {
                         this.session.myCharz().cPowerLimit++;
                         this.session.myCharz().updateLuong(-100, 2);
-                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit) + 1)));
+                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS,
+                                Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit) + 1)));
                     }
                 }
                 break;
             }
             case 144: {
                 if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().cPowerLimit < 5) {
-                    if (this.session.myCharz().myPetz().cPowerLimit > 3 && !this.session.myCharz().myPetz().isEquipThan()) {
+                    if (this.session.myCharz().myPetz().cPowerLimit > 3
+                            && !this.session.myCharz().myPetz().isEquipThan()) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_QUOC_VUONG_3;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else if (this.session.myCharz().getLuong() < 100) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 100 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 100 - this.session.myCharz().getLuong()));
                     } else if (this.session.myCharz().canProceed()) {
                         this.session.myCharz().myPetz().cPowerLimit++;
                         this.session.myCharz().updateLuong(-100, 2);
-                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS2, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit) + 1)));
+                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS2, Util.gI()
+                                .numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit) + 1)));
                     }
                 }
                 break;
@@ -2727,10 +2950,12 @@ public class MenuBoard {
             case 146: {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_TO_SU_KAIO_2;
-                if (this.session.myCharz().cPowerLimit >= 5 && this.session.myCharz().cPowerLimit < this.session.myCharz().maxLimitKaio) {
+                if (this.session.myCharz().cPowerLimit >= 5
+                        && this.session.myCharz().cPowerLimit < this.session.myCharz().maxLimitKaio) {
                     this.arrMenu.add(new MenuInfo(mResources.USER, 147));
                 }
-                if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().cPowerLimit >= 5 && this.session.myCharz().myPetz().cPowerLimit < this.session.myCharz().myPetz().maxLimitKaio) {
+                if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().cPowerLimit >= 5
+                        && this.session.myCharz().myPetz().cPowerLimit < this.session.myCharz().myPetz().maxLimitKaio) {
                     this.arrMenu.add(new MenuInfo(mResources.DE_TU, 149));
                 }
                 this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
@@ -2739,33 +2964,39 @@ public class MenuBoard {
             }
             case 147: {
                 this.session.myCharz().resetMenu();
-                this.chat = String.format(mResources.SAY_TO_SU_KAIO_3, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit + 1) + 1));
+                this.chat = String.format(mResources.SAY_TO_SU_KAIO_3,
+                        Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit + 1) + 1));
                 this.arrMenu.add(new MenuInfo(mResources.UP_LIMIT_POWER_NOW2, 148));
                 this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
             }
             case 148: {
-                if (this.session.myCharz().cPowerLimit >= 5 && this.session.myCharz().cPowerLimit < this.session.myCharz().maxLimitKaio) {
+                if (this.session.myCharz().cPowerLimit >= 5
+                        && this.session.myCharz().cPowerLimit < this.session.myCharz().maxLimitKaio) {
                     if (this.session.myCharz().cPowerLimit > 3 && !this.session.myCharz().isEquipThan()) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_QUOC_VUONG_4;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else if (this.session.myCharz().getLuong() < 199) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 199 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 199 - this.session.myCharz().getLuong()));
                     } else if (this.session.myCharz().canProceed()) {
                         this.session.myCharz().cPowerLimit++;
                         this.session.myCharz().updateLuong(-199, 2);
-                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit) + 1)));
+                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS,
+                                Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().cPowerLimit) + 1)));
                     }
                 }
                 break;
             }
             case 149: {
-                if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().cPowerLimit >= 5 && this.session.myCharz().myPetz().cPowerLimit < this.session.myCharz().myPetz().maxLimitKaio) {
+                if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().cPowerLimit >= 5
+                        && this.session.myCharz().myPetz().cPowerLimit < this.session.myCharz().myPetz().maxLimitKaio) {
                     this.session.myCharz().resetMenu();
-                    this.chat = String.format(mResources.SAY_QUOC_VUONG_6, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit + 1) + 1));
+                    this.chat = String.format(mResources.SAY_QUOC_VUONG_6, Util.gI()
+                            .numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit + 1) + 1));
                     this.arrMenu.add(new MenuInfo(mResources.UP_LIMIT_POWER_DETU_NOW, 150));
                     this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                     this.openUIConfirm(npcId, null, null, -1);
@@ -2773,18 +3004,22 @@ public class MenuBoard {
                 break;
             }
             case 150: {
-                if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().cPowerLimit >= 5 && this.session.myCharz().myPetz().cPowerLimit < this.session.myCharz().myPetz().maxLimitKaio) {
-                    if (this.session.myCharz().myPetz().cPowerLimit > 3 && !this.session.myCharz().myPetz().isEquipThan()) {
+                if (this.session.myCharz().myPet != null && this.session.myCharz().myPetz().cPowerLimit >= 5
+                        && this.session.myCharz().myPetz().cPowerLimit < this.session.myCharz().myPetz().maxLimitKaio) {
+                    if (this.session.myCharz().myPetz().cPowerLimit > 3
+                            && !this.session.myCharz().myPetz().isEquipThan()) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_QUOC_VUONG_3;
                         this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else if (this.session.myCharz().getLuong() < 199) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 199 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 199 - this.session.myCharz().getLuong()));
                     } else if (this.session.myCharz().canProceed()) {
                         this.session.myCharz().myPetz().cPowerLimit++;
                         this.session.myCharz().updateLuong(-199, 2);
-                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS2, Util.gI().numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit) + 1)));
+                        this.session.myCharz().addInfo1(String.format(mResources.UP_POWER_LIMIT_SUCCESS2, Util.gI()
+                                .numberTostring(Char.getPowerLimit(this.session.myCharz().myPetz().cPowerLimit) + 1)));
                     }
                 }
                 break;
@@ -2799,44 +3034,60 @@ public class MenuBoard {
             }
             case 152: {
                 if (this.session.myCharz().myObj().nRuaCon > 2) {
-                    this.session.myCharz().addInfo1(String.format(mResources.MAX_GIAO_RUA_CON, this.session.myCharz().myObj().nRuaCon));
+                    this.session.myCharz().addInfo1(
+                            String.format(mResources.MAX_GIAO_RUA_CON, this.session.myCharz().myObj().nRuaCon));
                 } else if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveItemBag(874)) {
                     this.session.myCharz().myObj().nRuaCon++;
                     if (this.session.myCharz().getEmptyBagIndex() < 1) {
                         this.session.myCharz().addInfo1(1, String.format(mResources.BAG_FULL_2, 1));
                     } else {
                         this.session.myCharz().useItemBagById(874, 1);
-                        //cho qua tai day
+                        // cho qua tai day
                         Item item2;
                         if (Util.gI().nextInt(100) < 25) {
-                            item2 = new Item(190, false, Util.gI().nextInt(10000000, 100000000), ItemOption.getOption(190, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(190, false, Util.gI().nextInt(10000000, 100000000),
+                                    ItemOption.getOption(190, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 20) {
-                            item2 = new Item(861, false, Util.gI().nextInt(10, 100), ItemOption.getOption(861, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(861, false, Util.gI().nextInt(10, 100), ItemOption.getOption(861, 0, 0),
+                                    mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 30) {
                             int id = Util.gI().nextInt(213, 219);
-                            item2 = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 20) {
-                            item2 = new Item(1229, false, 1, ItemOption.getOption(1229, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(1229, false, 1, ItemOption.getOption(1229, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 15) {
                             int id = Util.gI().nextInt(828, 836);
-                            item2 = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 10) {
-                            item2 = new Item(1151, false, 1, ItemOption.getOption(1151, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(1151, false, 1, ItemOption.getOption(1151, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 5) {
-                            item2 = new Item(1150, false, 1, ItemOption.getOption(1150, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(1150, false, 1, ItemOption.getOption(1150, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 5) {
                             int id = Util.gI().nextInt(1152, 1153);
-                            item2 = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 10) {
-                            item2 = new Item(17, false, 1, ItemOption.getOption(17, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-//                        } else if (Util.gI().nextInt(100) < 10) {                           
-//                            item2 = new Item(872, false, 1, ItemOption.getOption(872, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-//                        } else if (Util.gI().nextInt(100) < 10) {                           
-//                            item2 = new Item(873, false, 1, ItemOption.getOption(873, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-//                        } else if (Util.gI().nextInt(100) < 5) {                           
-//                            item2 = new Item(865, false, 1, ItemOption.getOption(865, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);    
+                            item2 = new Item(17, false, 1, ItemOption.getOption(17, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
+                            // } else if (Util.gI().nextInt(100) < 10) {
+                            // item2 = new Item(872, false, 1, ItemOption.getOption(872, 0, 0),
+                            // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            // } else if (Util.gI().nextInt(100) < 10) {
+                            // item2 = new Item(873, false, 1, ItemOption.getOption(873, 0, 0),
+                            // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            // } else if (Util.gI().nextInt(100) < 5) {
+                            // item2 = new Item(865, false, 1, ItemOption.getOption(865, 0, 0),
+                            // mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                         } else {
-                            item2 = new Item(190, false, Util.gI().nextInt(10000000, 100000000), ItemOption.getOption(190, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            item2 = new Item(190, false, Util.gI().nextInt(10000000, 100000000),
+                                    ItemOption.getOption(190, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
                         }
                         this.session.myCharz().addItemBag(0, item2);
                     }
@@ -2863,7 +3114,9 @@ public class MenuBoard {
                             this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                         } else {
                             this.session.myCharz().clearDuaHau();
-                            this.session.myCharz().addItemBag(0, new Item(569, false, 1, ItemOption.getOption(569, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                            this.session.myCharz().addItemBag(0,
+                                    new Item(569, false, 1, ItemOption.getOption(569, 0, 0), mResources.EMPTY,
+                                            mResources.EMPTY, mResources.EMPTY));
                         }
                     }
                 }
@@ -2888,7 +3141,8 @@ public class MenuBoard {
                 break;
             }
             case 161: {
-                this.session.myCharz().clientInput.openClientInput(18, mResources.INPUT_QUANTITY, new String[]{mResources.QUANTITY_KEY}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(18, mResources.INPUT_QUANTITY,
+                        new String[] { mResources.QUANTITY_KEY }, new int[] { 0 });
                 break;
             }
             case 162: {
@@ -2900,7 +3154,8 @@ public class MenuBoard {
                 break;
             }
             case 163: {
-                this.session.myCharz().clientInput.openClientInput(19, mResources.INPUT_QUANTITY, new String[]{mResources.QUANTITY_KEY}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(19, mResources.INPUT_QUANTITY,
+                        new String[] { mResources.QUANTITY_KEY }, new int[] { 0 });
                 break;
             }
             case 164: {
@@ -2948,7 +3203,8 @@ public class MenuBoard {
             }
             case 170: {
                 if (this.session.myCharz().cPower < 40000000000L) {
-                    this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(40000000000L)));
+                    this.session.myCharz().addInfo1(
+                            String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(40000000000L)));
                 } else {
                     Skill skill = null;
                     if (this.session.myCharz().cgender == 0) {
@@ -2961,14 +3217,20 @@ public class MenuBoard {
                         skill = this.session.myCharz().getSkillByTemplateId(25);
                     }
                     if (skill == null) {
-                        this.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.LEARN_SKILL1, Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].name));
-//                        this.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.SAY_WISH3, , new int[]{1229}, new int[]{9999}, 174, mResources.AGREE, 0, mResources.REFUSE, 10000000, 99, 0, true, "");
+                        this.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.LEARN_SKILL1,
+                                Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].name));
+                        // this.session.myCharz().requestOpenUIItem(npcId,
+                        // String.format(mResources.SAY_WISH3, , new int[]{1229}, new int[]{9999}, 174,
+                        // mResources.AGREE, 0, mResources.REFUSE, 10000000, 99, 0, true, "");
                     } else if (skill.point < skill.template.maxPoint) {
                         if (skill.curExp < 1000) {
                             this.session.myCharz().addInfo1(mResources.NOT_THANH_THAO);
                         } else {
-                            this.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.LEARN_SKILL2, skill.template.name, skill.point + 1));
-//                            this.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.SAY_WISH4, ), new int[]{1229}, new int[]{999}, 174, mResources.AGREE, 0, mResources.REFUSE, 10000000, -1, 0, true, "");
+                            this.session.myCharz().requestOpenUIItem(npcId,
+                                    String.format(mResources.LEARN_SKILL2, skill.template.name, skill.point + 1));
+                            // this.session.myCharz().requestOpenUIItem(npcId,
+                            // String.format(mResources.SAY_WISH4, ), new int[]{1229}, new int[]{999}, 174,
+                            // mResources.AGREE, 0, mResources.REFUSE, 10000000, -1, 0, true, "");
                         }
                     }
                 }
@@ -2986,18 +3248,20 @@ public class MenuBoard {
                 }
                 break;
             }
-            //su dung de quy
+            // su dung de quy
             case 173: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().requestItem != null) {
                     RequestItem request = this.session.myCharz().requestItem;
                     this.session.myCharz().requestItem = null;
-                    if (this.session.myCharz().requestOpenUIItem(request.npcId, request.tile, request.templateId, request.quantity, request.typeBoeard, request.xu, request.luong, true, request.quntityEmptyBag)) {
+                    if (this.session.myCharz().requestOpenUIItem(request.npcId, request.tile, request.templateId,
+                            request.quantity, request.typeBoeard, request.xu, request.luong, true,
+                            request.quntityEmptyBag)) {
                         if (!request.execute()) {
-                            //de quy
+                            // de quy
                             this.session.myCharz().resetMenu();
                             this.arrMenu.add(new MenuInfo(request.strOK, request.typeBoeardOK));
                             this.openUIConfirm(request.npcId, 0);
-                            //set lai
+                            // set lai
                             this.typeInfo = 173;
                         }
                     }
@@ -3007,7 +3271,9 @@ public class MenuBoard {
             case 174: {
                 this.session.service.getFlag();
                 this.session.service.npcChat(this.npcId, mResources.CHAT_WISH2);
-                this.session.service.setCombineEff(7, Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].iconId, -1, this.npcId);
+                this.session.service.setCombineEff(7,
+                        Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].iconId, -1,
+                        this.npcId);
                 Skill skill = null;
                 if (this.session.myCharz().cgender == 0) {
                     skill = this.session.myCharz().getSkillByTemplateId(24);
@@ -3019,12 +3285,17 @@ public class MenuBoard {
                     skill = this.session.myCharz().getSkillByTemplateId(25);
                 }
                 if (skill == null) {
-                    this.session.myCharz().addInfo1(3000, String.format(mResources.HOC_DUOC_SKILL, Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].name));
-                    if (this.session.myCharz().getSkillByTemplateId(Char.ARRHOCSKILL[this.session.myCharz().cgender]) == null) {
-                        this.session.myCharz().skills.add(Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].skills[0].clone());
+                    this.session.myCharz().addInfo1(3000, String.format(mResources.HOC_DUOC_SKILL,
+                            Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].name));
+                    if (this.session.myCharz()
+                            .getSkillByTemplateId(Char.ARRHOCSKILL[this.session.myCharz().cgender]) == null) {
+                        this.session.myCharz().skills
+                                .add(Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].skills[0]
+                                        .clone());
                     }
                 } else if (skill.point < skill.template.maxPoint) {
-                    this.session.myCharz().skills.set(this.session.myCharz().skills.indexOf(skill), skill.template.skills[skill.point].clone());
+                    this.session.myCharz().skills.set(this.session.myCharz().skills.indexOf(skill),
+                            skill.template.skills[skill.point].clone());
                 }
                 this.session.service.meLoadSkill(this.session.myCharz().skills);
                 this.session.myCharz().resetMenu();
@@ -3067,30 +3338,30 @@ public class MenuBoard {
                 break;
             }
             case 182: {
-                //TraiDat
+                // TraiDat
                 if (this.session.myCharz().cgender == 0) {
                     this.session.myCharz().openShop(1);
                 }
-                //Namek
+                // Namek
                 if (this.session.myCharz().cgender == 1) {
                     this.session.myCharz().openShop(2);
                 }
-                //Xayda
+                // Xayda
                 if (this.session.myCharz().cgender == 2) {
                     this.session.myCharz().openShop(3);
                 }
                 break;
             }
             case 183: {
-                //TraiDat
+                // TraiDat
                 if (this.session.myCharz().cgender == 0) {
                     this.session.myCharz().openShop(4);
                 }
-                //Namek
+                // Namek
                 if (this.session.myCharz().cgender == 1) {
                     this.session.myCharz().openShop(5);
                 }
-                //Xayda
+                // Xayda
                 if (this.session.myCharz().cgender == 2) {
                     this.session.myCharz().openShop(6);
                 }
@@ -3108,7 +3379,7 @@ public class MenuBoard {
                 this.session.myCharz().openShop(18);
                 break;
             }
-            //Lech Teamobi
+            // Lech Teamobi
             case 187: {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_NOI_BANH_8;
@@ -3122,7 +3393,9 @@ public class MenuBoard {
             }
             case 188: {
                 this.session.myCharz().requestOpenUIItem(npcId, mResources.COOK_CAKE1);
-//                this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_SUP_1, new int[]{1991, 1992, 1993}, new int[]{3, 3, 3}, 189, mResources.AGREE, 0, mResources.REFUSE, -1, -1, 0, false, "");
+                // this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_SUP_1,
+                // new int[]{1991, 1992, 1993}, new int[]{3, 3, 3}, 189, mResources.AGREE, 0,
+                // mResources.REFUSE, -1, -1, 0, false, "");
                 break;
             }
             case 189: {
@@ -3132,7 +3405,9 @@ public class MenuBoard {
             }
             case 190: {
                 this.session.myCharz().requestOpenUIItem(npcId, mResources.COOK_CAKE2);
-//                this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_SUP_2, new int[]{1991, 1992, 1993}, new int[]{5, 5, 5}, 191, mResources.AGREE, 0, mResources.REFUSE, -1, -1, 0, false, "");
+                // this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_SUP_2,
+                // new int[]{1991, 1992, 1993}, new int[]{5, 5, 5}, 191, mResources.AGREE, 0,
+                // mResources.REFUSE, -1, -1, 0, false, "");
                 break;
             }
             case 191: {
@@ -3155,26 +3430,31 @@ public class MenuBoard {
                 break;
             }
             case 194: {
-                this.session.myCharz().clientInput.openClientInput(20, mResources.INPUT_NUMBER, new String[]{mResources.INPUT_NUMBER2}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(20, mResources.INPUT_NUMBER,
+                        new String[] { mResources.INPUT_NUMBER2 }, new int[] { 0 });
                 break;
             }
             case 196: {
-                this.session.myCharz().clientInput.openClientInput(21, mResources.INPUT_NUMBER, new String[]{mResources.INPUT_NUMBER2}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(21, mResources.INPUT_NUMBER,
+                        new String[] { mResources.INPUT_NUMBER2 }, new int[] { 0 });
                 break;
             }
             case 198: {
-                //Tao chat
+                // Tao chat
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_DANH_HIEU;
                 for (int i = 0; i < this.session.myCharz().aEffChar.size(); i++) {
                     if (this.session.myCharz().aEffChar.get(i).typeEff == 1) {
-                        this.chat += (i + 1) + ". " + this.session.myCharz().aEffChar.get(i).getName() + ": " + this.session.myCharz().aEffChar.get(i).item.strOption() + "\n";
+                        this.chat += (i + 1) + ". " + this.session.myCharz().aEffChar.get(i).getName() + ": "
+                                + this.session.myCharz().aEffChar.get(i).item.strOption() + "\n";
                     }
                 }
-                //Tao danh sach menu
+                // Tao danh sach menu
                 for (int i = 0; i < this.session.myCharz().aEffChar.size(); i++) {
                     if (this.session.myCharz().aEffChar.get(i).typeEff == 1) {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.DANH_HIEU2, i + 1, this.session.myCharz().aEffChar.get(i).status(), this.session.myCharz().aEffChar.get(i).hsd()), 199, i));
+                        this.arrMenu.add(new MenuInfo(String.format(mResources.DANH_HIEU2, i + 1,
+                                this.session.myCharz().aEffChar.get(i).status(),
+                                this.session.myCharz().aEffChar.get(i).hsd()), 199, i));
                     }
                 }
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
@@ -3182,12 +3462,20 @@ public class MenuBoard {
                 break;
             }
             case 199: {
-                if ((int) info.p >= 0 && (int) info.p < this.session.myCharz().aEffChar.size() && this.session.myCharz().aEffChar.get((int) info.p).typeEff == 1) {
-                    this.session.myCharz().aEffChar.get((int) info.p).isPaint = !this.session.myCharz().aEffChar.get((int) info.p).isPaint;
+                if ((int) info.p >= 0 && (int) info.p < this.session.myCharz().aEffChar.size()
+                        && this.session.myCharz().aEffChar.get((int) info.p).typeEff == 1) {
+                    this.session.myCharz().aEffChar
+                            .get((int) info.p).isPaint = !this.session.myCharz().aEffChar.get((int) info.p).isPaint;
                     if (!this.session.myCharz().aEffChar.get((int) info.p).isPaint) {
-                        this.session.myCharz().zoneMap.removeEffChar(this.session.myCharz().charID, this.session.myCharz().aEffChar.get((int) info.p).effId);
+                        this.session.myCharz().zoneMap.removeEffChar(this.session.myCharz().charID,
+                                this.session.myCharz().aEffChar.get((int) info.p).effId);
                     } else {
-                        this.session.myCharz().zoneMap.addEffectChar(this.session.myCharz().charID, this.session.myCharz().aEffChar.get((int) info.p).effId, this.session.myCharz().aEffChar.get((int) info.p).layer, this.session.myCharz().aEffChar.get((int) info.p).loop, this.session.myCharz().aEffChar.get((int) info.p).tLoop, this.session.myCharz().aEffChar.get((int) info.p).isStand);
+                        this.session.myCharz().zoneMap.addEffectChar(this.session.myCharz().charID,
+                                this.session.myCharz().aEffChar.get((int) info.p).effId,
+                                this.session.myCharz().aEffChar.get((int) info.p).layer,
+                                this.session.myCharz().aEffChar.get((int) info.p).loop,
+                                this.session.myCharz().aEffChar.get((int) info.p).tLoop,
+                                this.session.myCharz().aEffChar.get((int) info.p).isStand);
                     }
                     this.session.myCharz().updateAll();
                     this.session.service.meLoadPoint();
@@ -3263,7 +3551,8 @@ public class MenuBoard {
                 break;
             }
             case 204: {
-                if (this.session.myCharz().cardLoad == null) this.session.myCharz().cardLoad = new NapThe(this.session);
+                if (this.session.myCharz().cardLoad == null)
+                    this.session.myCharz().cardLoad = new NapThe(this.session);
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_NAPTHE1;
                 for (int i = 0; i < NapThe.NETWORK.length; i++) {
@@ -3274,12 +3563,14 @@ public class MenuBoard {
                 break;
             }
             case 205: {
-                if (this.session.myCharz().cardLoad != null && (int) info.p >= 0 && (int) info.p < NapThe.NETWORK.length) {
+                if (this.session.myCharz().cardLoad != null && (int) info.p >= 0
+                        && (int) info.p < NapThe.NETWORK.length) {
                     this.session.myCharz().resetMenu();
                     this.session.myCharz().cardLoad.netWork = NapThe.NETWORK[(int) info.p];
                     this.chat = mResources.SAY_NAPTHE2;
                     for (int i = 0; i < NapThe.PRICE.length; i++) {
-                        this.arrMenu.add(new MenuInfo(String.format("%sVNĐ", Util.gI().getFormatNumber(NapThe.PRICE[i])), 206, i));
+                        this.arrMenu.add(new MenuInfo(
+                                String.format("%sVNĐ", Util.gI().getFormatNumber(NapThe.PRICE[i])), 206, i));
                     }
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
@@ -3287,26 +3578,33 @@ public class MenuBoard {
                 break;
             }
             case 206: {
-                if (this.session.myCharz().cardLoad != null && (int) info.p >= 0 && (int) info.p < NapThe.PRICE.length) {
+                if (this.session.myCharz().cardLoad != null && (int) info.p >= 0
+                        && (int) info.p < NapThe.PRICE.length) {
                     this.session.myCharz().cardLoad.price = NapThe.PRICE[(int) info.p];
-                    this.session.myCharz().clientInput.openClientInput(22, mResources.NAP_THE1, new String[]{mResources.NAP_THE2, mResources.NAP_THE3}, new int[]{1, 1});
+                    this.session.myCharz().clientInput.openClientInput(22, mResources.NAP_THE1,
+                            new String[] { mResources.NAP_THE2, mResources.NAP_THE3 }, new int[] { 1, 1 });
                 }
                 break;
             }
             case 207: {
-                if (this.session.myCharz().cardLoad != null && this.session.myCharz().cardLoad.netWork != null && this.session.myCharz().cardLoad.price != 0 && this.session.myCharz().cardLoad.code != null && this.session.myCharz().cardLoad.serial != null) {
+                if (this.session.myCharz().cardLoad != null && this.session.myCharz().cardLoad.netWork != null
+                        && this.session.myCharz().cardLoad.price != 0 && this.session.myCharz().cardLoad.code != null
+                        && this.session.myCharz().cardLoad.serial != null) {
                     this.session.myCharz().cardLoad.okNapThe();
                 }
                 break;
             }
             case 208: {
-                this.session.myCharz().clientInput.openClientInput(2, mResources.GIFT_CODE, new String[]{mResources.GIFT_CODE}, new int[]{1});
+                this.session.myCharz().clientInput.openClientInput(2, mResources.GIFT_CODE,
+                        new String[] { mResources.GIFT_CODE }, new int[] { 1 });
                 break;
             }
             case 209: {
                 this.session.myCharz().resetMenu();
-                this.chat = String.format(mResources.SAY_NAP_1, Util.gI().getFormatNumber(Money.gI().getMoney(this.session.myCharz())), Util.gI().getFormatNumber(this.session.myCharz().totalGold));
-//                this.arrMenu.add(new MenuInfo(mResources.MONEY_TO_NGOC, 210));
+                this.chat = String.format(mResources.SAY_NAP_1,
+                        Util.gI().getFormatNumber(Money.gI().getMoney(this.session.myCharz())),
+                        Util.gI().getFormatNumber(this.session.myCharz().totalGold));
+                // this.arrMenu.add(new MenuInfo(mResources.MONEY_TO_NGOC, 210));
                 this.arrMenu.add(new MenuInfo(mResources.MONEY_TO_GOLD, 212));
                 if (this.session.myCharz().totalGold > 0) {
                     this.arrMenu.add(new MenuInfo(mResources.NHAN_THOI_VANG, 216));
@@ -3322,7 +3620,11 @@ public class MenuBoard {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_NAP_2;
                     for (int i = 0; i < Money.gI().arrMoneyNgoc.length; i++) {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.MONEY_TO_NGOC2, Util.gI().getFormatNumber(Money.gI().arrMoneyNgoc[i][0]), Util.gI().getFormatNumber(Money.gI().arrMoneyNgoc[i][1] * Money.gI().xNgoc)), 211, i) {
+                        this.arrMenu.add(new MenuInfo(
+                                String.format(mResources.MONEY_TO_NGOC2,
+                                        Util.gI().getFormatNumber(Money.gI().arrMoneyNgoc[i][0]),
+                                        Util.gI().getFormatNumber(Money.gI().arrMoneyNgoc[i][1] * Money.gI().xNgoc)),
+                                211, i) {
                             @Override
                             public boolean execute() {
                                 Money.gI().changeMoney(MenuBoard.this.session.myCharz(), 0, (int) super.p);
@@ -3342,7 +3644,11 @@ public class MenuBoard {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_NAP_3;
                     for (int i = 0; i < Money.gI().arrMoneyGold.length; i++) {
-                        this.arrMenu.add(new MenuInfo(String.format(mResources.MONEY_TO_GOLD2, Util.gI().getFormatNumber(Money.gI().arrMoneyGold[i][0]), Util.gI().getFormatNumber(Money.gI().arrMoneyGold[i][1] * Money.gI().xVang)), 213, i) {
+                        this.arrMenu.add(new MenuInfo(
+                                String.format(mResources.MONEY_TO_GOLD2,
+                                        Util.gI().getFormatNumber(Money.gI().arrMoneyGold[i][0]),
+                                        Util.gI().getFormatNumber(Money.gI().arrMoneyGold[i][1] * Money.gI().xVang)),
+                                213, i) {
                             @Override
                             public boolean execute() {
                                 Money.gI().changeMoney(MenuBoard.this.session.myCharz(), 1, (int) super.p);
@@ -3366,7 +3672,7 @@ public class MenuBoard {
             case 215: {
                 if (Money.gI().getMoney(this.session.myCharz()) >= Server.gI().MoneyOpen) {
                     Money.gI().updateMoeny(this.session.myCharz(), -Server.gI().MoneyOpen);
-//                    this.session.myCharz().updateLuong(10000, 2);
+                    // this.session.myCharz().updateLuong(10000, 2);
                     this.session.myCharz().updateXu(5000000000L, 2);
                     this.session.myCharz().isCan = true;
                     this.session.myCharz().addInfo1(mResources.OPEN_SUCCESS);
@@ -3374,7 +3680,8 @@ public class MenuBoard {
                 break;
             }
             case 216: {
-                this.session.myCharz().clientInput.openClientInput(6, mResources.INPUT_THOI_VANG, new String[]{mResources.INPUT_THOI_VANG}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(6, mResources.INPUT_THOI_VANG,
+                        new String[] { mResources.INPUT_THOI_VANG }, new int[] { 0 });
                 break;
             }
             case 217: {
@@ -3382,7 +3689,7 @@ public class MenuBoard {
                 break;
             }
             case 218: {
-                //Den cold
+                // Den cold
                 if (this.session.myCharz().ctaskId >= 31 && this.session.myCharz().ctaskIndex >= 0) {
                     this.session.myCharz().goCold();
                 } else {
@@ -3391,7 +3698,7 @@ public class MenuBoard {
                 break;
             }
             case 219: {
-                //Den Nappa
+                // Den Nappa
                 if (this.session.myCharz().ctaskId >= 22 && this.session.myCharz().ctaskIndex >= 0) {
                     this.session.myCharz().goNappa();
                 } else {
@@ -3400,13 +3707,14 @@ public class MenuBoard {
                 break;
             }
             case 220: {
-                //Den tp vegeta
+                // Den tp vegeta
                 this.session.myCharz().goVegetaCity();
                 break;
             }
             case 221: {
                 if (this.session.myCharz().getLuong() < 5) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 5 - this.session.myCharz().getLuong()));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.CONTHIEU_NGOC, 5 - this.session.myCharz().getLuong()));
                 } else {
                     Char player = Player.findRandomBoss(55);
                     if (player != null) {
@@ -3421,7 +3729,8 @@ public class MenuBoard {
             }
             case 222: {
                 if (this.session.myCharz().getLuong() < 5) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 5 - this.session.myCharz().getLuong()));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.CONTHIEU_NGOC, 5 - this.session.myCharz().getLuong()));
                 } else {
                     Char player = Player.findRandomBoss(57);
                     if (player != null) {
@@ -3436,7 +3745,8 @@ public class MenuBoard {
             }
             case 223: {
                 if (this.session.myCharz().getLuong() < 5) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 5 - this.session.myCharz().getLuong()));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.CONTHIEU_NGOC, 5 - this.session.myCharz().getLuong()));
                 } else {
                     Char player = Player.findRandomBoss(56);
                     if (player != null) {
@@ -3453,7 +3763,7 @@ public class MenuBoard {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_BO_MONG_2;
                 this.arrMenu.add(new MenuInfo(mResources.TOP_CT, 225));
-                //this.arrMenu.add(new MenuInfo(mResources.TOP_DG, 226));
+                // this.arrMenu.add(new MenuInfo(mResources.TOP_DG, 226));
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -3479,13 +3789,15 @@ public class MenuBoard {
                     this.openUIConfirm(npcId, null, null, -1);
                 } else if (this.session.myCharz().myObj().taskEveryday.isFinish) {
                     this.session.myCharz().resetMenu();
-                    this.chat = String.format(mResources.SAY_BO_MONG_5, this.session.myCharz().myObj().taskEveryday.getName());
+                    this.chat = String.format(mResources.SAY_BO_MONG_5,
+                            this.session.myCharz().myObj().taskEveryday.getName());
                     this.arrMenu.add(new MenuInfo(mResources.TAKE_GIFT, 381));
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
                 } else {
                     this.session.myCharz().resetMenu();
-                    this.chat = String.format(mResources.SAY_BO_MONG_4, this.session.myCharz().myObj().taskEveryday.getName());
+                    this.chat = String.format(mResources.SAY_BO_MONG_4,
+                            this.session.myCharz().myObj().taskEveryday.getName());
                     this.arrMenu.add(new MenuInfo(mResources.INFO_TASK, 378));
                     this.arrMenu.add(new MenuInfo(mResources.CANCEL_TASK, 379));
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
@@ -3530,13 +3842,18 @@ public class MenuBoard {
                 break;
             }
             case 234: {
-                if (this.session.myCharz().clan != null && this.session.myCharz().clan.doanhTrai == null && this.session.myCharz().clan.countbarrack < Clan.MAX_JOIN_BARRACK && this.session.myCharz().clan.getSizeMember() >= 3) {
+                if (this.session.myCharz().clan != null && this.session.myCharz().clan.doanhTrai == null
+                        && this.session.myCharz().clan.countbarrack < Clan.MAX_JOIN_BARRACK
+                        && this.session.myCharz().clan.getSizeMember() >= 3) {
                     int secondJoin = 60 * 60 * 24 * 1;
                     int limidDam = 1000;
                     if (limidDam > this.session.myCharz().cDamGoc) {
-                        this.session.service.openUISay(npcId, String.format(mResources.SAY_LINH_CANH_7, Util.gI().getFormatNumber(limidDam)), -1);
-                    } else if ((System.currentTimeMillis() / 1000) - this.session.myCharz().clanMember.joinTime < secondJoin) {
-                        this.session.service.openUISay(npcId, String.format(mResources.SAY_LINH_CANH_3, Util.gI().getStrTime(secondJoin * 1000)), -1);
+                        this.session.service.openUISay(npcId,
+                                String.format(mResources.SAY_LINH_CANH_7, Util.gI().getFormatNumber(limidDam)), -1);
+                    } else if ((System.currentTimeMillis() / 1000)
+                            - this.session.myCharz().clanMember.joinTime < secondJoin) {
+                        this.session.service.openUISay(npcId,
+                                String.format(mResources.SAY_LINH_CANH_3, Util.gI().getStrTime(secondJoin * 1000)), -1);
                     } else {
                         DoanhTrai dt = new DoanhTrai();
                         dt.initDoanhTrai(this.session.myCharz().clan);
@@ -3561,11 +3878,15 @@ public class MenuBoard {
                     int secondJoin = 60 * 60 * 24 * 1;
                     int limidDam = 1000;
                     if (limidDam > this.session.myCharz().cDamGoc) {
-                        this.session.service.openUISay(npcId, String.format(mResources.SAY_LINH_CANH_7, Util.gI().getFormatNumber(limidDam)), -1);
-                    } else if ((System.currentTimeMillis() / 1000) - this.session.myCharz().clanMember.joinTime < secondJoin) {
-                        this.session.service.openUISay(npcId, String.format(mResources.SAY_LINH_CANH_3, Util.gI().getStrTime(secondJoin * 1000)), -1);
+                        this.session.service.openUISay(npcId,
+                                String.format(mResources.SAY_LINH_CANH_7, Util.gI().getFormatNumber(limidDam)), -1);
+                    } else if ((System.currentTimeMillis() / 1000)
+                            - this.session.myCharz().clanMember.joinTime < secondJoin) {
+                        this.session.service.openUISay(npcId,
+                                String.format(mResources.SAY_LINH_CANH_3, Util.gI().getStrTime(secondJoin * 1000)), -1);
                     } else {
-                        ZoneMap zone = this.session.myCharz().clan.doanhTrai.maps.get(0).getZone(this.session.myCharz());
+                        ZoneMap zone = this.session.myCharz().clan.doanhTrai.maps.get(0)
+                                .getZone(this.session.myCharz());
                         if (zone != null) {
                             this.session.myCharz().zoneMap.exit(this.session.myCharz(), 0);
                             zone.join(this.session.myCharz(), 0, 90, 432);
@@ -3577,7 +3898,12 @@ public class MenuBoard {
                 break;
             }
             case 236: {
-                this.session.service.openUISay(npcId, String.format(mResources.SAY_SHOP_KY_GUI_2, Util.gI().numberTostring(ItemKyGui.NGOC_SALE), ItemKyGui.FEE, Util.gI().numberTostring(ItemKyGui.MINXU), Util.gI().numberTostring(ItemKyGui.MAXXU), Util.gI().numberTostring(ItemKyGui.MINLUONG), Util.gI().numberTostring(ItemKyGui.MAXLUONG)), -1);
+                this.session.service.openUISay(npcId,
+                        String.format(mResources.SAY_SHOP_KY_GUI_2, Util.gI().numberTostring(ItemKyGui.NGOC_SALE),
+                                ItemKyGui.FEE, Util.gI().numberTostring(ItemKyGui.MINXU),
+                                Util.gI().numberTostring(ItemKyGui.MAXXU), Util.gI().numberTostring(ItemKyGui.MINLUONG),
+                                Util.gI().numberTostring(ItemKyGui.MAXLUONG)),
+                        -1);
                 break;
             }
             case 237: {
@@ -3596,7 +3922,8 @@ public class MenuBoard {
             }
             case 240: {
                 if (this.session.myCharz().cPower < 1000000000L) {
-                    this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(1000000000L)));
+                    this.session.myCharz().addInfo1(
+                            String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(1000000000L)));
                 } else {
                     this.session.myCharz().openTransport(1);
                 }
@@ -3606,7 +3933,8 @@ public class MenuBoard {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_OMEGA3;
                 for (int i = 0; i < this.session.myCharz().myObj().blackBalls.size(); i++) {
-                    this.arrMenu.add(new MenuInfo(this.session.myCharz().myObj().blackBalls.get(i).template.name, 242, i));
+                    this.arrMenu
+                            .add(new MenuInfo(this.session.myCharz().myObj().blackBalls.get(i).template.name, 242, i));
                 }
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -3632,7 +3960,8 @@ public class MenuBoard {
             case 243: {
                 if (this.session.myCharz().itemBlackBall != null && this.session.myCharz().phuHoBlackBall == 0) {
                     if (this.session.myCharz().getLuong() < 10) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 10 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 10 - this.session.myCharz().getLuong()));
                     } else {
                         this.session.myCharz().updateLuong(-10, 2);
                         this.session.myCharz().phuHoBlackBall = 3;
@@ -3650,7 +3979,8 @@ public class MenuBoard {
             case 244: {
                 if (this.session.myCharz().itemBlackBall != null && this.session.myCharz().phuHoBlackBall == 0) {
                     if (this.session.myCharz().getLuong() < 20) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 20 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 20 - this.session.myCharz().getLuong()));
                     } else {
                         this.session.myCharz().updateLuong(-20, 2);
                         this.session.myCharz().phuHoBlackBall = 5;
@@ -3668,7 +3998,8 @@ public class MenuBoard {
             case 245: {
                 if (this.session.myCharz().itemBlackBall != null && this.session.myCharz().phuHoBlackBall == 0) {
                     if (this.session.myCharz().getLuong() < 30) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 30 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 30 - this.session.myCharz().getLuong()));
                     } else {
                         this.session.myCharz().updateLuong(-30, 2);
                         this.session.myCharz().phuHoBlackBall = 7;
@@ -3700,7 +4031,8 @@ public class MenuBoard {
             }
             case 248: {
                 if (this.session.myCharz().ctaskId >= 25 && this.session.myCharz().ctaskIndex >= 0) {
-                    this.session.myCharz().transPort(60, 0, null, this.session.myCharz().typeTeleport, this.session.myCharz().typeTeleport, 200, 5);
+                    this.session.myCharz().transPort(60, 0, null, this.session.myCharz().typeTeleport,
+                            this.session.myCharz().typeTeleport, 200, 5);
                 } else {
                     this.session.myCharz().addInfo1(mResources.YOUR_NOT_TO);
                 }
@@ -3723,10 +4055,12 @@ public class MenuBoard {
                 if (this.session.myCharz().getEmptyBagCount() == 0) {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().getItemBagQuantityById(1045) < 99) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM, 99 - this.session.myCharz().getItemBagQuantityById(1045), "đuôi khỉ"));
+                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM,
+                            99 - this.session.myCharz().getItemBagQuantityById(1045), "đuôi khỉ"));
                 } else if (this.session.myCharz().canProceed()) {
                     this.session.myCharz().useItemBagById(1045, 99);
-                    this.session.myCharz().addItemBag(0, new Item(1046, false, 1, ItemOption.getOption(1046, 7, 0), "", "", ""));
+                    this.session.myCharz().addItemBag(0,
+                            new Item(1046, false, 1, ItemOption.getOption(1046, 7, 0), "", "", ""));
                 }
                 break;
             }
@@ -3734,17 +4068,21 @@ public class MenuBoard {
                 if (this.session.myCharz().getEmptyBagCount() == 0) {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().getItemBagQuantityById(1045) < 99) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM, 99 - this.session.myCharz().getItemBagQuantityById(1045), "đuôi khỉ"));
+                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM,
+                            99 - this.session.myCharz().getItemBagQuantityById(1045), "đuôi khỉ"));
                 } else if (this.session.myCharz().canProceed()) {
                     if (this.session.myCharz().xu < 2000000000L) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(2000000000L - this.session.myCharz().xu)));
+                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                                Util.gI().numberTostring(2000000000L - this.session.myCharz().xu)));
                     } else if (this.session.myCharz().getLuong() < 50) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 50 - this.session.myCharz().getLuong()));
+                        this.session.myCharz().addInfo1(
+                                String.format(mResources.CONTHIEU_NGOC, 50 - this.session.myCharz().getLuong()));
                     } else {
                         this.session.myCharz().updateLuong(-50, 2);
                         this.session.myCharz().updateXu(-2000000000L, 2);
                         this.session.myCharz().useItemBagById(1045, 99);
-                        this.session.myCharz().addItemBag(0, new Item(1046, false, 1, ItemOption.getOption(1046, 30, 0), "", "", ""));
+                        this.session.myCharz().addItemBag(0,
+                                new Item(1046, false, 1, ItemOption.getOption(1046, 30, 0), "", "", ""));
                     }
                 }
                 break;
@@ -3823,7 +4161,8 @@ public class MenuBoard {
             case 266: {
                 Item item = this.session.myCharz().getItemBagById(541);
                 if (item == null) {
-                    this.session.myCharz().addInfo1(String.format(mResources.THIEU, 1, ItemTemplate.get((short) 541).name));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.THIEU, 1, ItemTemplate.get((short) 541).name));
                 } else {
                     Npc npc = this.session.myCharz().zoneMap.findNPCInMap(48);
                     if (npc != null) {
@@ -3831,10 +4170,16 @@ public class MenuBoard {
                         int toX = Util.gI().nextInt(npc.cx - 70, npc.cx + 70);
                         int toY = this.session.myCharz().zoneMap.mapTemplate.touchY(toX, npc.cy - 10);
                         int templateId = Util.gI().nextInt(537, 540);
-                        ItemMap itemMap = this.session.myCharz().zoneMap.addItemMap(this.session.myCharz().charID, new Item(templateId, false, 1, ItemOption.getOption(templateId, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY), toX, toY, 0, -1);
+                        ItemMap itemMap = this.session.myCharz().zoneMap.addItemMap(this.session.myCharz().charID,
+                                new Item(templateId, false, 1, ItemOption.getOption(templateId, 0, 0), mResources.EMPTY,
+                                        mResources.EMPTY, mResources.EMPTY),
+                                toX, toY, 0, -1);
                         this.session.myCharz().zoneMap.itemMapAdd(itemMap);
                         this.session.myCharz().zoneMap.npcChat(npcId, mResources.NGO_KHONG_CHAT_1);
-                        Rank.getRank(4).addTop(this.session.myCharz().cName, this.session.myCharz().head, this.session.myCharz().headICON, this.session.myCharz().body, this.session.myCharz().leg, this.session.myCharz().charID, ++this.session.myCharz().pointEvent, -1);
+                        Rank.getRank(4).addTop(this.session.myCharz().cName, this.session.myCharz().head,
+                                this.session.myCharz().headICON, this.session.myCharz().body,
+                                this.session.myCharz().leg, this.session.myCharz().charID,
+                                ++this.session.myCharz().pointEvent, -1);
                     }
                 }
                 break;
@@ -3842,7 +4187,8 @@ public class MenuBoard {
             case 267: {
                 Item item = this.session.myCharz().getItemBagById(542);
                 if (item == null) {
-                    this.session.myCharz().addInfo1(String.format(mResources.THIEU, 1, ItemTemplate.get((short) 542).name));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.THIEU, 1, ItemTemplate.get((short) 542).name));
                 } else {
                     Npc npc = this.session.myCharz().zoneMap.findNPCInMap(48);
                     if (npc != null) {
@@ -3850,10 +4196,16 @@ public class MenuBoard {
                         int toX = Util.gI().nextInt(npc.cx - 70, npc.cx + 70);
                         int toY = this.session.myCharz().zoneMap.mapTemplate.touchY(toX, npc.cy - 10);
                         int templateId = Util.gI().nextInt(539, 540);
-                        ItemMap itemMap = this.session.myCharz().zoneMap.addItemMap(this.session.myCharz().charID, new Item(templateId, false, 1, ItemOption.getOption(templateId, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY), toX, toY, 0, -1);
+                        ItemMap itemMap = this.session.myCharz().zoneMap.addItemMap(this.session.myCharz().charID,
+                                new Item(templateId, false, 1, ItemOption.getOption(templateId, 0, 0), mResources.EMPTY,
+                                        mResources.EMPTY, mResources.EMPTY),
+                                toX, toY, 0, -1);
                         this.session.myCharz().zoneMap.itemMapAdd(itemMap);
                         this.session.myCharz().zoneMap.npcChat(npcId, mResources.NGO_KHONG_CHAT_1);
-                        Rank.getRank(4).addTop(this.session.myCharz().cName, this.session.myCharz().head, this.session.myCharz().headICON, this.session.myCharz().body, this.session.myCharz().leg, this.session.myCharz().charID, ++this.session.myCharz().pointEvent, -1);
+                        Rank.getRank(4).addTop(this.session.myCharz().cName, this.session.myCharz().head,
+                                this.session.myCharz().headICON, this.session.myCharz().body,
+                                this.session.myCharz().leg, this.session.myCharz().charID,
+                                ++this.session.myCharz().pointEvent, -1);
                     }
                 }
                 break;
@@ -3928,13 +4280,16 @@ public class MenuBoard {
                         this.session.myCharz().addQuantityItemBagByIndex(item.indexUI, -9999);
                         Item itemNew = null;
                         if (this.session.myCharz().cgender == 0) {
-                            itemNew = new Item(592, false, 1, ItemOption.getOption(592, 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemNew = new Item(592, false, 1, ItemOption.getOption(592, 0, -1), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         }
                         if (this.session.myCharz().cgender == 1) {
-                            itemNew = new Item(593, false, 1, ItemOption.getOption(593, 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemNew = new Item(593, false, 1, ItemOption.getOption(593, 0, -1), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         }
                         if (this.session.myCharz().cgender == 2) {
-                            itemNew = new Item(594, false, 1, ItemOption.getOption(594, 0, -1), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemNew = new Item(594, false, 1, ItemOption.getOption(594, 0, -1), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         }
                         if (itemNew != null) {
                             this.session.myCharz().addItemBag(0, itemNew);
@@ -3949,7 +4304,8 @@ public class MenuBoard {
             }
             case 281: {
                 if (this.session.myCharz().cPower < 200000000) {
-                    this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(200000000)));
                 } else {
                     RongVoCuc.gI().addWish(this.session.myCharz().playerId, (int) info.p);
                 }
@@ -3989,7 +4345,8 @@ public class MenuBoard {
                 if (this.session.myCharz().getEmptyBagCount() == 0) {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().getLuong() < 50) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 50 - this.session.myCharz().getLuong()));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.CONTHIEU_NGOC, 50 - this.session.myCharz().getLuong()));
                 } else if (this.session.myCharz().canProceed()) {
                     this.session.myCharz().updateLuong(-50, 2);
                     this.session.myCharz().wish();
@@ -4013,7 +4370,8 @@ public class MenuBoard {
                 if (this.session.myCharz().getEmptyBagCount() == 0) {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().getItemBagQuantityById(462) < 99) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM, 99 - this.session.myCharz().getItemBagQuantityById(462), "củ cà rốt"));
+                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM,
+                            99 - this.session.myCharz().getItemBagQuantityById(462), "củ cà rốt"));
                 } else if (this.session.myCharz().canProceed()) {
                     this.session.myCharz().useItemBagById(462, 99);
                     this.session.myCharz().wish();
@@ -4037,7 +4395,8 @@ public class MenuBoard {
                 if (this.session.myCharz().getEmptyBagCount() == 0) {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().getItemBagQuantityById(457) < 1) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM, 1 - this.session.myCharz().getItemBagQuantityById(457), "thỏi vàng"));
+                    this.session.myCharz().addInfo1(String.format(mResources.CAN_ITEM,
+                            1 - this.session.myCharz().getItemBagQuantityById(457), "thỏi vàng"));
                 } else if (this.session.myCharz().canProceed()) {
                     this.session.myCharz().useItemBagById(457, 1);
                     this.session.myCharz().wish();
@@ -4103,7 +4462,8 @@ public class MenuBoard {
                     if (nShooot > this.session.myCharz().phaohoa.quantity) {
                         nShooot = this.session.myCharz().phaohoa.quantity;
                     }
-                    this.session.myCharz().shootHoaDangLoiChuc(nShooot, this.session.myCharz().phaohoa, dragon.t.PhaoHoa.ARRAY_LOI_CHUC[(int) info.p]);
+                    this.session.myCharz().shootHoaDangLoiChuc(nShooot, this.session.myCharz().phaohoa,
+                            dragon.t.PhaoHoa.ARRAY_LOI_CHUC[(int) info.p]);
                 }
                 break;
             }
@@ -4112,18 +4472,21 @@ public class MenuBoard {
                 break;
             }
             case 300: {
-                //Thach dau
+                // Thach dau
                 int gia = (int) info.p;
                 if (this.session.myCharz().zoneMap.map.isMapCace23_2()) {
                     this.session.myCharz().addInfo1(mResources.NOT_THACH_DAU);
                 } else if (this.session.myCharz().xu < gia) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(gia - this.session.myCharz().xu)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                            Util.gI().numberTostring(gia - this.session.myCharz().xu)));
                 } else if (this.session.myCharz().canProceed() && this.session.myCharz().challengeCharId != -9999) {
                     Char player = this.session.myCharz().zoneMap.findCharInMap(this.session.myCharz().challengeCharId);
                     if (player != null && player.me && !player.isTemplate && !player.isDie && !player.isChallenge) {
                         this.session.myCharz().xu_player_vs_player = gia;
                         player.xu_player_vs_player = gia;
-                        player.get_player_vs_player(0, 3, this.session.myCharz().charID, gia, String.format(mResources.CHALLENGE_PLAYERS, this.session.myCharz().cName, Util.gI().numberTostring(this.session.myCharz().cPower), gia));
+                        player.get_player_vs_player(0, 3, this.session.myCharz().charID, gia,
+                                String.format(mResources.CHALLENGE_PLAYERS, this.session.myCharz().cName,
+                                        Util.gI().numberTostring(this.session.myCharz().cPower), gia));
                     }
                 }
                 break;
@@ -4142,7 +4505,8 @@ public class MenuBoard {
             }
             case 303: {
                 this.session.myCharz().resetMenu();
-                this.chat = String.format(mResources.SAY_NOI_TAI2, Util.gI().numberTostring(this.session.myCharz().getCoinNT()));
+                this.chat = String.format(mResources.SAY_NOI_TAI2,
+                        Util.gI().numberTostring(this.session.myCharz().getCoinNT()));
                 this.arrMenu.add(new MenuInfo(mResources.OPEN_NOITAI, 304));
                 this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                 this.openUIConfirm(5, null, null, -1);
@@ -4150,19 +4514,38 @@ public class MenuBoard {
             }
             case 304: {
                 if (this.session.myCharz().cPower < 100000) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CAN_SUC_MANH, Util.gI().numberTostring(100000 - this.session.myCharz().cPower)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CAN_SUC_MANH,
+                            Util.gI().numberTostring(100000 - this.session.myCharz().cPower)));
                 } else if (this.session.myCharz().xu < this.session.myCharz().getCoinNT()) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(this.session.myCharz().getCoinNT() - this.session.myCharz().xu)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                            Util.gI().numberTostring(this.session.myCharz().getCoinNT() - this.session.myCharz().xu)));
                 } else if (this.session.myCharz().canProceed()) {
-                    this.session.myCharz().cspeacialSkill = Util.gI().nextInt(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender].length);
-                    this.session.myCharz().paramSpeacialSkill = Util.gI().nextInt(Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill][0], Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill][1]);
+                    this.session.myCharz().cspeacialSkill = Util.gI()
+                            .nextInt(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender].length);
+                    this.session.myCharz().paramSpeacialSkill = Util.gI().nextInt(
+                            Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session
+                                    .myCharz().cspeacialSkill][0],
+                            Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session
+                                    .myCharz().cspeacialSkill][1]);
                     this.session.myCharz().updateXu(-this.session.myCharz().getCoinNT(), 2);
                     this.session.myCharz().ncoinSpeacialSkill++;
-                    this.session.service.speacialSkill(this.session.myCharz().cgender, this.session.myCharz().cspeacialSkill, this.session.myCharz().paramSpeacialSkill);
+                    this.session.service.speacialSkill(this.session.myCharz().cgender,
+                            this.session.myCharz().cspeacialSkill, this.session.myCharz().paramSpeacialSkill);
                     if (this.session.myCharz().cgender == 0 && this.session.myCharz().cspeacialSkill == 2) {
-                        this.session.myCharz().addInfo1(String.format(mResources.ND_NT, String.format(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill], String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill), String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill), mResources.EMPTY)));
+                        this.session.myCharz()
+                                .addInfo1(String.format(mResources.ND_NT, String.format(
+                                        Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session
+                                                .myCharz().cspeacialSkill],
+                                        String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill),
+                                        String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill),
+                                        mResources.EMPTY)));
                     } else {
-                        this.session.myCharz().addInfo1(String.format(mResources.ND_NT, String.format(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill], String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill), mResources.EMPTY)));
+                        this.session.myCharz()
+                                .addInfo1(String.format(mResources.ND_NT, String.format(
+                                        Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session
+                                                .myCharz().cspeacialSkill],
+                                        String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill),
+                                        mResources.EMPTY)));
                     }
                 }
                 break;
@@ -4177,58 +4560,87 @@ public class MenuBoard {
             }
             case 306: {
                 if (this.session.myCharz().cPower < 100000) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CAN_SUC_MANH, Util.gI().numberTostring(100000 - this.session.myCharz().cPower)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CAN_SUC_MANH,
+                            Util.gI().numberTostring(100000 - this.session.myCharz().cPower)));
                 } else if (this.session.myCharz().getLuong() < 100) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_NGOC, 100 - this.session.myCharz().getLuong()));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.CONTHIEU_NGOC, 100 - this.session.myCharz().getLuong()));
                 } else if (this.session.myCharz().canProceed()) {
-                    this.session.myCharz().cspeacialSkill = Util.gI().nextInt(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender].length);
-                    this.session.myCharz().paramSpeacialSkill = Util.gI().nextInt(Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill][0], Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill][1]);
+                    this.session.myCharz().cspeacialSkill = Util.gI()
+                            .nextInt(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender].length);
+                    this.session.myCharz().paramSpeacialSkill = Util.gI().nextInt(
+                            Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session
+                                    .myCharz().cspeacialSkill][0],
+                            Panel.gI().nextSpeacialSkill[this.session.myCharz().cgender][this.session
+                                    .myCharz().cspeacialSkill][1]);
                     this.session.myCharz().updateLuong(-100, 2);
                     this.session.myCharz().ncoinSpeacialSkill = 0;
-                    this.session.service.speacialSkill(this.session.myCharz().cgender, this.session.myCharz().cspeacialSkill, this.session.myCharz().paramSpeacialSkill);
+                    this.session.service.speacialSkill(this.session.myCharz().cgender,
+                            this.session.myCharz().cspeacialSkill, this.session.myCharz().paramSpeacialSkill);
                     if (this.session.myCharz().cgender == 0 && this.session.myCharz().cspeacialSkill == 2) {
-                        this.session.myCharz().addInfo1(String.format(mResources.ND_NT, String.format(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill], String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill), String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill), mResources.EMPTY)));
+                        this.session.myCharz()
+                                .addInfo1(String.format(mResources.ND_NT, String.format(
+                                        Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session
+                                                .myCharz().cspeacialSkill],
+                                        String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill),
+                                        String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill),
+                                        mResources.EMPTY)));
                     } else {
-                        this.session.myCharz().addInfo1(String.format(mResources.ND_NT, String.format(Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session.myCharz().cspeacialSkill], String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill), mResources.EMPTY)));
+                        this.session.myCharz()
+                                .addInfo1(String.format(mResources.ND_NT, String.format(
+                                        Panel.gI().infoSpeacialSkill[this.session.myCharz().cgender][this.session
+                                                .myCharz().cspeacialSkill],
+                                        String.format(Panel.gI().numP, this.session.myCharz().paramSpeacialSkill),
+                                        mResources.EMPTY)));
                     }
                 }
                 break;
             }
             case 307: {
                 this.session.myCharz().nLuckyIndex = (int) info.p;
-                this.session.myCharz().clientInput.openClientInput(5, String.format(mResources.INPUT_TILE_LUCKY_NUMBER, LuckyNumber.gI().arrNumber[this.session.myCharz().nLuckyIndex][0], LuckyNumber.gI().arrNumber[this.session.myCharz().nLuckyIndex][1]), new String[]{mResources.INPUT_SELECT_LUCKY_NUMBER}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(5,
+                        String.format(mResources.INPUT_TILE_LUCKY_NUMBER,
+                                LuckyNumber.gI().arrNumber[this.session.myCharz().nLuckyIndex][0],
+                                LuckyNumber.gI().arrNumber[this.session.myCharz().nLuckyIndex][1]),
+                        new String[] { mResources.INPUT_SELECT_LUCKY_NUMBER }, new int[] { 0 });
                 break;
             }
             case 308: {
                 int gia = (int) info.p;
                 if (this.session.myCharz().securityCode == -1) {
                     if (this.session.myCharz().xu < gia) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(gia - this.session.myCharz().xu)));
+                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                                Util.gI().numberTostring(gia - this.session.myCharz().xu)));
                     } else {
                         this.session.myCharz().updateXu(-gia, 2);
                         this.session.myCharz().securityCode = this.session.myCharz().securityCode2;
-                        this.session.myCharz().timeSecurity = System.currentTimeMillis() + 604800000L;//seven day
-                        this.session.myCharz().addInfo1(String.format(mResources.CODE_OK, this.session.myCharz().securityCode2));
+                        this.session.myCharz().timeSecurity = System.currentTimeMillis() + 604800000L;// seven day
+                        this.session.myCharz()
+                                .addInfo1(String.format(mResources.CODE_OK, this.session.myCharz().securityCode2));
                         this.session.myCharz().setLockInventory(this.session.myCharz().securityCode2);
                     }
                 }
                 break;
             }
             case 309: {
-                if (this.session.myCharz().securityCode != -1 && this.session.myCharz().securityCode == this.session.myCharz().securityCode2) {
+                if (this.session.myCharz().securityCode != -1
+                        && this.session.myCharz().securityCode == this.session.myCharz().securityCode2) {
                     this.session.myCharz().isSecurity = !this.session.myCharz().isSecurity;
                     this.session.myCharz().setLockInventory(this.session.myCharz().securityCode2);
                 }
                 break;
             }
             case 310: {
-                if (this.session.myCharz().securityCode != -1 && this.session.myCharz().securityCode == this.session.myCharz().securityCode2) {
-                    this.session.myCharz().clientInput.openClientInput(1, mResources.CODE_NEW, new String[]{mResources.CODE_INFO}, new int[]{0});
+                if (this.session.myCharz().securityCode != -1
+                        && this.session.myCharz().securityCode == this.session.myCharz().securityCode2) {
+                    this.session.myCharz().clientInput.openClientInput(1, mResources.CODE_NEW,
+                            new String[] { mResources.CODE_INFO }, new int[] { 0 });
                 }
                 break;
             }
             case 311: {
-                if (this.session.myCharz().securityCode != -1 && this.session.myCharz().securityCode == this.session.myCharz().securityCode2) {
+                if (this.session.myCharz().securityCode != -1
+                        && this.session.myCharz().securityCode == this.session.myCharz().securityCode2) {
                     this.session.myCharz().securityCode = -1;
                     this.session.myCharz().securityCode2 = 0;
                     this.session.myCharz().isSecurity = false;
@@ -4242,13 +4654,16 @@ public class MenuBoard {
             }
             case 313: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().magicTree_isUpdate) {
-                    if (MagicTree.up_nhanh[this.session.myCharz().magicTree_level - 1] > this.session.myCharz().getLuong()) {
+                    if (MagicTree.up_nhanh[this.session.myCharz().magicTree_level - 1] > this.session.myCharz()
+                            .getLuong()) {
 
                     } else {
-                        this.session.myCharz().updateLuong(-MagicTree.up_nhanh[this.session.myCharz().magicTree_level - 1], 2);
+                        this.session.myCharz()
+                                .updateLuong(-MagicTree.up_nhanh[this.session.myCharz().magicTree_level - 1], 2);
                         this.session.myCharz().magicTree_level++;
                         this.session.myCharz().magicTree_isUpdate = false;
-                        this.session.myCharz().magicTree_miliseconds = System.currentTimeMillis() + (MagicTree.timePeas[this.session.myCharz().magicTree_level - 1]);
+                        this.session.myCharz().magicTree_miliseconds = System.currentTimeMillis()
+                                + (MagicTree.timePeas[this.session.myCharz().magicTree_level - 1]);
                         this.session.myCharz().session.service.magicTree();
                     }
                 }
@@ -4257,8 +4672,10 @@ public class MenuBoard {
             case 314: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().magicTree_isUpdate) {
                     this.session.myCharz().magicTree_isUpdate = false;
-                    this.session.myCharz().magicTree_miliseconds = System.currentTimeMillis() + (MagicTree.timePeas[this.session.myCharz().magicTree_level - 1]);
-                    this.session.myCharz().updateXu(MagicTree.up_coin[this.session.myCharz().magicTree_level - 1] / 2, 2);
+                    this.session.myCharz().magicTree_miliseconds = System.currentTimeMillis()
+                            + (MagicTree.timePeas[this.session.myCharz().magicTree_level - 1]);
+                    this.session.myCharz().updateXu(MagicTree.up_coin[this.session.myCharz().magicTree_level - 1] / 2,
+                            2);
                     this.session.myCharz().session.service.magicTree();
                 }
                 break;
@@ -4278,10 +4695,15 @@ public class MenuBoard {
             case 317: {
                 this.session.service.getFlag();
                 this.session.service.npcChat(this.npcId, mResources.CHAT_WISH2);
-                this.session.service.setCombineEff(7, Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].iconId, -1, this.npcId);
-                this.session.myCharz().addInfo1(3000, String.format(mResources.HOC_DUOC_SKILL, Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].name));
-                if (this.session.myCharz().getSkillByTemplateId(Char.ARRHOCSKILL[this.session.myCharz().cgender]) == null) {
-                    this.session.myCharz().skills.add(Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].skills[0].clone());
+                this.session.service.setCombineEff(7,
+                        Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].iconId, -1,
+                        this.npcId);
+                this.session.myCharz().addInfo1(3000, String.format(mResources.HOC_DUOC_SKILL,
+                        Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].name));
+                if (this.session.myCharz()
+                        .getSkillByTemplateId(Char.ARRHOCSKILL[this.session.myCharz().cgender]) == null) {
+                    this.session.myCharz().skills.add(
+                            Skill.arrSkillTemplate[Char.ARRHOCSKILL[this.session.myCharz().cgender]].skills[0].clone());
                 }
                 this.session.service.meLoadSkill(this.session.myCharz().skills);
                 this.session.myCharz().resetMenu();
@@ -4298,8 +4720,11 @@ public class MenuBoard {
                     this.session.myCharz().myObj().isHideFusion = !this.session.myCharz().myObj().isHideFusion;
                     this.session.myCharz().updateAll();
                     this.session.myCharz().zoneMap.playerLoadAll(this.session.myCharz());
-                    this.session.myCharz().session.service.updateBody(1, this.session.myCharz().charID, this.session.myCharz().head, this.session.myCharz().body, this.session.myCharz().leg, this.session.myCharz().isMonkey);
-                    this.session.myCharz().zoneMap.addEffectServer(5, 3, 21, this.session.myCharz().cx, this.session.myCharz().cy, 1);
+                    this.session.myCharz().session.service.updateBody(1, this.session.myCharz().charID,
+                            this.session.myCharz().head, this.session.myCharz().body, this.session.myCharz().leg,
+                            this.session.myCharz().isMonkey);
+                    this.session.myCharz().zoneMap.addEffectServer(5, 3, 21, this.session.myCharz().cx,
+                            this.session.myCharz().cy, 1);
                     if (this.session.myCharz().myObj().isHideFusion) {
                         this.session.myCharz().addInfo1(mResources.ON_FUSION2);
                     } else {
@@ -4315,8 +4740,10 @@ public class MenuBoard {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_WISH2;
                     for (int i = 0; i < this.session.myCharz().arrItemBag.length; i++) {
-                        if (this.session.myCharz().arrItemBag[i] != null && this.session.myCharz().arrItemBag[i].isItemPractice()) {
-                            this.arrMenu.add(new MenuInfo(String.format(mResources.DONATE_FODS2, this.session.myCharz().arrItemBag[i].template.name), 321, i));
+                        if (this.session.myCharz().arrItemBag[i] != null
+                                && this.session.myCharz().arrItemBag[i].isItemPractice()) {
+                            this.arrMenu.add(new MenuInfo(String.format(mResources.DONATE_FODS2,
+                                    this.session.myCharz().arrItemBag[i].template.name), 321, i));
                         }
                     }
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
@@ -4325,7 +4752,10 @@ public class MenuBoard {
                 break;
             }
             case 321: {
-                if (this.session.myCharz().canProceed() && (int) info.p >= 0 && (int) info.p < this.session.myCharz().arrItemBag.length && this.session.myCharz().arrItemBag[(int) info.p] != null && this.session.myCharz().arrItemBag[(int) info.p].isItemPractice()) {
+                if (this.session.myCharz().canProceed() && (int) info.p >= 0
+                        && (int) info.p < this.session.myCharz().arrItemBag.length
+                        && this.session.myCharz().arrItemBag[(int) info.p] != null
+                        && this.session.myCharz().arrItemBag[(int) info.p].isItemPractice()) {
                     this.session.myCharz().useItemBag((int) info.p, 1);
                     Memory.get(this.session.userId).nFreeWish++;
                     this.session.myCharz().resetMenu();
@@ -4339,7 +4769,9 @@ public class MenuBoard {
             case 322: {
                 this.session.myCharz().resetMenu();
                 if (this.session.myCharz().clan != null && this.session.myCharz().clan.roadSnake != null) {
-                    this.chat = String.format(mResources.SAY_THAN_VU_TRU3, this.session.myCharz().clan.roadSnake.level, Util.gI().getStrTime(System.currentTimeMillis() - this.session.myCharz().clan.roadSnake.lastOpen));
+                    this.chat = String.format(mResources.SAY_THAN_VU_TRU3, this.session.myCharz().clan.roadSnake.level,
+                            Util.gI().getStrTime(
+                                    System.currentTimeMillis() - this.session.myCharz().clan.roadSnake.lastOpen));
                 } else {
                     this.chat = mResources.SAY_THAN_VU_TRU1;
                 }
@@ -4362,15 +4794,18 @@ public class MenuBoard {
                 break;
             }
             case 325: {
-                this.session.myCharz().clientInput.openClientInput(23, mResources.SELECT_LEVEL, new String[]{mResources.LEVEL}, new int[]{0});
+                this.session.myCharz().clientInput.openClientInput(23, mResources.SELECT_LEVEL,
+                        new String[] { mResources.LEVEL }, new int[] { 0 });
                 break;
             }
             case 326: {
-                if (this.session.myCharz().clan != null && this.session.myCharz().clan.roadSnake == null && (int) info.p > 0 && (int) info.p <= 110) {
+                if (this.session.myCharz().clan != null && this.session.myCharz().clan.roadSnake == null
+                        && (int) info.p > 0 && (int) info.p <= 110) {
                     if (Memory.get(this.session.userId).timeWaitRoadSnake > System.currentTimeMillis()) {
-                        this.session.myCharz().addInfo1(String.format(mResources.WAIT_PHOBAN, Util.gI().getStrTime(Memory.get(this.session.userId).timeWaitRoadSnake - System.currentTimeMillis())));
+                        this.session.myCharz().addInfo1(String.format(mResources.WAIT_PHOBAN, Util.gI().getStrTime(
+                                Memory.get(this.session.userId).timeWaitRoadSnake - System.currentTimeMillis())));
                     } else {
-                        //Init
+                        // Init
                         RoadSnake randoc = new RoadSnake();
                         randoc.init(this.session.myCharz().clan, (int) info.p);
                         Server.gI().add(randoc);
@@ -4392,8 +4827,10 @@ public class MenuBoard {
             case 327: {
                 if (this.session.myCharz().clan != null && this.session.myCharz().clan.roadSnake != null) {
                     RoadSnake randoc = this.session.myCharz().clan.roadSnake;
-                    if (Memory.get(this.session.userId).timeWaitRoadSnake > System.currentTimeMillis() && !randoc.isJoin(this.session.myCharz().playerId)) {
-                        this.session.myCharz().addInfo1(String.format(mResources.WAIT_PHOBAN, Util.gI().getStrTime(Memory.get(this.session.userId).timeWaitRoadSnake - System.currentTimeMillis())));
+                    if (Memory.get(this.session.userId).timeWaitRoadSnake > System.currentTimeMillis()
+                            && !randoc.isJoin(this.session.myCharz().playerId)) {
+                        this.session.myCharz().addInfo1(String.format(mResources.WAIT_PHOBAN, Util.gI().getStrTime(
+                                Memory.get(this.session.userId).timeWaitRoadSnake - System.currentTimeMillis())));
                     } else {
                         ZoneMap zone = randoc.maps.get(0).getZone(this.session.myCharz());
                         if (zone != null) {
@@ -4411,7 +4848,8 @@ public class MenuBoard {
                 break;
             }
             case 328: {
-                if (this.session.myCharz().mapTemplateId == 141 && this.session.myCharz().zoneMap.map.phoban.getMap(144).isOpen) {
+                if (this.session.myCharz().mapTemplateId == 141
+                        && this.session.myCharz().zoneMap.map.phoban.getMap(144).isOpen) {
                     this.session.myCharz().goThanDien2();
                     this.session.myCharz().isNhanDauThan = true;
                     this.session.myCharz().addInfo1(mResources.GAP_MEO_KARIN);
@@ -4422,30 +4860,38 @@ public class MenuBoard {
                 if (this.session.myCharz().isNhanDauThan) {
                     this.session.myCharz().isNhanDauThan = false;
                     this.session.myCharz().addInfo1(mResources.FLY_LEG_KARIN);
-                    this.session.myCharz().addItemBag(1, new Item(MagicTree.templateId[this.session.myCharz().magicTree_level - 1], false, 2, ItemOption.getOption(MagicTree.templateId[this.session.myCharz().magicTree_level - 1], 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                    this.session.myCharz().addItemBag(1,
+                            new Item(MagicTree.templateId[this.session.myCharz().magicTree_level - 1], false, 2,
+                                    ItemOption.getOption(
+                                            MagicTree.templateId[this.session.myCharz().magicTree_level - 1], 0, 0),
+                                    mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 }
                 break;
             }
             case 330: {
                 if (this.session.myCharz().isCallCumber == 2) {
-                    if (this.session.myCharz().zoneMap.isHaveBoss(158) || this.session.myCharz().zoneMap.isHaveBoss(159)) {
+                    if (this.session.myCharz().zoneMap.isHaveBoss(158)
+                            || this.session.myCharz().zoneMap.isHaveBoss(159)) {
                         this.session.myCharz().isCallCumber = 0;
                         this.session.myCharz().addChat(1000, mResources.CHAT_ME_ARR.split("\\|")[4]);
                     } else if (System.currentTimeMillis() - this.session.myCharz().zoneMap.lastCumber < 14400000L) {
-                        this.session.myCharz().addInfo1(String.format(mResources.WAIT_CUMBER1, Util.gI().getFormatTime4(14400000L - (System.currentTimeMillis() - this.session.myCharz().zoneMap.lastCumber))));
+                        this.session.myCharz().addInfo1(String.format(mResources.WAIT_CUMBER1, Util.gI().getFormatTime4(
+                                14400000L - (System.currentTimeMillis() - this.session.myCharz().zoneMap.lastCumber))));
                     } else {
                         this.session.myCharz().zoneMap.lastCumber = System.currentTimeMillis();
                         this.session.myCharz().isCallCumber = 0;
                         this.session.myCharz().addChat(1000, mResources.CHAT_ME_ARR.split("\\|")[4]);
                         this.session.myCharz().addChat(4000, mResources.CHAT_ME_ARR.split("\\|")[5]);
                         this.session.myCharz().zoneMap.npcChat(this.npcId, mResources.CHAT_FU_ARR.split("\\|")[6]);
-                        Player cumber = Player.addBoss(158, 5, -1, -1, true, 670, 300, this.session.myCharz().zoneMap, -1, -1);
+                        Player cumber = Player.addBoss(158, 5, -1, -1, true, 670, 300, this.session.myCharz().zoneMap,
+                                -1, -1);
                         cumber.gong(3000);
                         cumber.addChat(3000, mResources.CHAT_CUMBER1);
                         cumber.timeLoadSkill = 5000;
                         cumber.isSendHPData = true;
                         cumber.maxTimeEff = 4000;
-                        Server.gI().chatVip(String.format(mResources.BOSS_HAVE, cumber.cName, this.session.myCharz().zoneMap.mapTemplate.mapName));
+                        Server.gI().chatVip(String.format(mResources.BOSS_HAVE, cumber.cName,
+                                this.session.myCharz().zoneMap.mapTemplate.mapName));
                     }
                 }
                 break;
@@ -4465,27 +4911,35 @@ public class MenuBoard {
             }
             case 333: {
                 this.session.myCharz().requestOpenUIItem(npcId, mResources.MAKE_BATHTUB3);
-//                this.session.myCharz().requestOpenUIItem(this.npcId, mResources.MAKE_BATHTUB1, new int[]{1237,1238, 1239, 1240}, new int[]{50, 20, 20, 2}, 334, mResources.AGREE, 0, mResources.REFUSE, 5000000, -1, 1, true, "");
+                // this.session.myCharz().requestOpenUIItem(this.npcId,
+                // mResources.MAKE_BATHTUB1, new int[]{1237,1238, 1239, 1240}, new int[]{50, 20,
+                // 20, 2}, 334, mResources.AGREE, 0, mResources.REFUSE, 5000000, -1, 1, true,
+                // "");
                 break;
             }
             case 334: {
                 this.session.service.getFlag();
                 this.session.service.npcChat(this.npcId, mResources.CHAT_MAKE);
                 this.session.service.setCombineEff(7, 11250, -1, this.npcId);
-                this.session.myCharz().addItemBag(0, new Item(1241, false, 1, ItemOption.getOption(1241, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                this.session.myCharz().addItemBag(0, new Item(1241, false, 1, ItemOption.getOption(1241, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 this.session.myCharz().resetMenu();
                 break;
             }
             case 335: {
                 this.session.myCharz().requestOpenUIItem(npcId, mResources.MAKE_BATHTUB4);
-//                this.session.myCharz().requestOpenUIItem(this.npcId, mResources.MAKE_BATHTUB2, new int[]{1237,1238, 1239, 1240}, new int[]{50, 20, 20, 2}, 336, mResources.AGREE, 0, mResources.REFUSE, 10000000, 5, 1, true, "");
+                // this.session.myCharz().requestOpenUIItem(this.npcId,
+                // mResources.MAKE_BATHTUB2, new int[]{1237,1238, 1239, 1240}, new int[]{50, 20,
+                // 20, 2}, 336, mResources.AGREE, 0, mResources.REFUSE, 10000000, 5, 1, true,
+                // "");
                 break;
             }
             case 336: {
                 this.session.service.getFlag();
                 this.session.service.npcChat(this.npcId, mResources.CHAT_MAKE);
                 this.session.service.setCombineEff(7, 11251, -1, this.npcId);
-                this.session.myCharz().addItemBag(0, new Item(1242, false, 1, ItemOption.getOption(1242, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                this.session.myCharz().addItemBag(0, new Item(1242, false, 1, ItemOption.getOption(1242, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 this.session.myCharz().resetMenu();
                 break;
             }
@@ -4519,54 +4973,69 @@ public class MenuBoard {
                     } else if (this.session.myCharz().canProceed()) {
                         this.session.myCharz().useItemBag(item.indexUI, 1);
                         Item itemnew;
-                        //Qua bo canh cung
+                        // Qua bo canh cung
                         if (Util.gI().nextInt(100) < 20) {
-                            itemnew = new Item(883, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(883, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
                             itemnew.options.add(new ItemOption(50, Util.gI().nextInt(25, Util.gI().nextInt(28, 33))));
                             itemnew.options.add(new ItemOption(77, Util.gI().nextInt(25, Util.gI().nextInt(28, 33))));
                             itemnew.options.add(new ItemOption(103, Util.gI().nextInt(25, Util.gI().nextInt(28, 33))));
                             itemnew.options.add(new ItemOption(94, Util.gI().nextInt(5, 15)));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         } else if (Util.gI().nextInt(100) < 30) {
-                            itemnew = new Item(884, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            itemnew.options.add(new ItemOption(5, Util.gI().nextInt(30, Util.gI().nextInt(40, Util.gI().nextInt(50, Util.gI().nextInt(50, Util.gI().nextInt(55, 90)))))));
+                            itemnew = new Item(884, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
+                            itemnew.options.add(new ItemOption(5, Util.gI().nextInt(30, Util.gI().nextInt(40,
+                                    Util.gI().nextInt(50, Util.gI().nextInt(50, Util.gI().nextInt(55, 90)))))));
                             itemnew.options.add(new ItemOption(50, Util.gI().nextInt(1, 10)));
                             itemnew.options.add(new ItemOption(14, Util.gI().nextInt(1, 10)));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 2)));
                         } else if (Util.gI().nextInt(100) < 10) {
-                            itemnew = new Item(701, false, Util.gI().nextInt(1, 2), ItemOption.getOption(701, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(701, false, Util.gI().nextInt(1, 2), ItemOption.getOption(701, 0, 0),
+                                    mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 5) {
-                            itemnew = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 5) {
                             int id = Util.gI().nextInt(712, 716);
-                            itemnew = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 10) {
-                            itemnew = new Item(740, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(740, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
                             itemnew.options.add(new ItemOption(50, Util.gI().nextInt(3, Util.gI().nextInt(8, 12))));
                             itemnew.options.add(new ItemOption(77, Util.gI().nextInt(3, Util.gI().nextInt(8, 12))));
                             itemnew.options.add(new ItemOption(103, Util.gI().nextInt(3, Util.gI().nextInt(8, 12))));
                             itemnew.options.add(new ItemOption(30, 1));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 2)));
                         } else if (Util.gI().nextInt(100) < 1) {
-                            itemnew = new Item(883, false, 1, ItemOption.getOption(883, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(883, false, 1, ItemOption.getOption(883, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(150) < 1) {
-                            itemnew = new Item(884, false, 1, ItemOption.getOption(884, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(884, false, 1, ItemOption.getOption(884, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 2) {
-                            itemnew = new Item(740, false, 1, ItemOption.getOption(740, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(740, false, 1, ItemOption.getOption(740, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else {
-                            itemnew = new Item(883, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(883, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
                             itemnew.options.add(new ItemOption(50, Util.gI().nextInt(20, Util.gI().nextInt(25, 30))));
                             itemnew.options.add(new ItemOption(77, Util.gI().nextInt(20, Util.gI().nextInt(25, 30))));
                             itemnew.options.add(new ItemOption(103, Util.gI().nextInt(20, Util.gI().nextInt(25, 30))));
                             itemnew.options.add(new ItemOption(94, Util.gI().nextInt(5, 10)));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         }
-                        Rank.getRank(3).addTop(this.session.myCharz().cName, this.session.myCharz().head, this.session.myCharz().headICON, this.session.myCharz().body, this.session.myCharz().leg, this.session.myCharz().charID, this.session.myCharz().pointEvent += 1, -1);
+                        Rank.getRank(3).addTop(this.session.myCharz().cName, this.session.myCharz().head,
+                                this.session.myCharz().headICON, this.session.myCharz().body,
+                                this.session.myCharz().leg, this.session.myCharz().charID,
+                                this.session.myCharz().pointEvent += 1, -1);
                         this.session.myCharz().addItemBag(0, itemnew);
-//                        this.session.service.setCombineEff(new Item[]{item});
-//                        this.session.service.getFlag();
+                        // this.session.service.setCombineEff(new Item[]{item});
+                        // this.session.service.getFlag();
                         this.session.service.npcChat(this.npcId, mResources.CHAT_QUYLAO_KAME);
-//                        this.session.service.setCombineEff(7, itemnew.template.iconID, -1, this.npcId);
+                        // this.session.service.setCombineEff(7, itemnew.template.iconID, -1,
+                        // this.npcId);
                     }
                 } else {
 
@@ -4581,81 +5050,109 @@ public class MenuBoard {
                     } else if (this.session.myCharz().canProceed()) {
                         this.session.myCharz().useItemBag(item.indexUI, 1);
                         Item itemnew;
-                        //Qua ngai dem
+                        // Qua ngai dem
                         if (Util.gI().nextInt(100) < 15) {
                             int id = Util.gI().nextInt(1066, 1070);
-                            itemnew = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0),
+                                    mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 25) {
-                            itemnew = new Item(1243, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            itemnew.options.add(new ItemOption(103, Util.gI().nextInt(7, Util.gI().nextInt(12, Util.gI().nextInt(15, 18)))));
+                            itemnew = new Item(1243, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
+                            itemnew.options.add(new ItemOption(103,
+                                    Util.gI().nextInt(7, Util.gI().nextInt(12, Util.gI().nextInt(15, 18)))));
                             itemnew.options.add(new ItemOption(203, Util.gI().nextInt(1, 5)));
                             itemnew.options.add(new ItemOption(30, 1));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         } else if (Util.gI().nextInt(100) < 25) {
-                            itemnew = new Item(1244, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            itemnew.options.add(new ItemOption(77, Util.gI().nextInt(7, Util.gI().nextInt(12, Util.gI().nextInt(15, 18)))));
+                            itemnew = new Item(1244, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
+                            itemnew.options.add(new ItemOption(77,
+                                    Util.gI().nextInt(7, Util.gI().nextInt(12, Util.gI().nextInt(15, 18)))));
                             itemnew.options.add(new ItemOption(94, Util.gI().nextInt(1, 10)));
                             itemnew.options.add(new ItemOption(30, 1));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         } else if (Util.gI().nextInt(100) < 25) {
-                            itemnew = new Item(919, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            itemnew.options.add(new ItemOption(50, Util.gI().nextInt(7, Util.gI().nextInt(12, Util.gI().nextInt(15, 18)))));
+                            itemnew = new Item(919, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
+                            itemnew.options.add(new ItemOption(50,
+                                    Util.gI().nextInt(7, Util.gI().nextInt(12, Util.gI().nextInt(15, 18)))));
                             itemnew.options.add(new ItemOption(95, Util.gI().nextInt(1, 10)));
                             itemnew.options.add(new ItemOption(30, 1));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         } else if (Util.gI().nextInt(100) < 5) {
-                            itemnew = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(16, false, 1, ItemOption.getOption(16, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 10) {
-                            itemnew = new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(987, false, 1, ItemOption.getOption(987, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 5) {
-                            itemnew = new Item(1158, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            itemnew.options.add(new ItemOption(103, Util.gI().nextInt(5, Util.gI().nextInt(8, Util.gI().nextInt(10, 17)))));
+                            itemnew = new Item(1158, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
+                            itemnew.options.add(new ItemOption(103,
+                                    Util.gI().nextInt(5, Util.gI().nextInt(8, Util.gI().nextInt(10, 17)))));
                             itemnew.options.add(new ItemOption(94, Util.gI().nextInt(1, 10)));
                             itemnew.options.add(new ItemOption(30, 1));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         } else if (Util.gI().nextInt(100) < 5) {
-                            itemnew = new Item(1159, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            itemnew.options.add(new ItemOption(77, Util.gI().nextInt(5, Util.gI().nextInt(8, Util.gI().nextInt(10, 17)))));
+                            itemnew = new Item(1159, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
+                            itemnew.options.add(new ItemOption(77,
+                                    Util.gI().nextInt(5, Util.gI().nextInt(8, Util.gI().nextInt(10, 17)))));
                             itemnew.options.add(new ItemOption(95, Util.gI().nextInt(1, 10)));
                             itemnew.options.add(new ItemOption(30, 1));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         } else if (Util.gI().nextInt(100) < 5) {
-                            itemnew = new Item(1160, false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
-                            itemnew.options.add(new ItemOption(50, Util.gI().nextInt(5, Util.gI().nextInt(8, Util.gI().nextInt(10, 17)))));
+                            itemnew = new Item(1160, false, 1, null, mResources.EMPTY, mResources.EMPTY,
+                                    mResources.EMPTY);
+                            itemnew.options.add(new ItemOption(50,
+                                    Util.gI().nextInt(5, Util.gI().nextInt(8, Util.gI().nextInt(10, 17)))));
                             itemnew.options.add(new ItemOption(14, Util.gI().nextInt(1, 10)));
                             itemnew.options.add(new ItemOption(30, 1));
                             itemnew.options.add(new ItemOption(93, Util.gI().nextInt(1, 3)));
                         } else if (Util.gI().nextInt(100) < 5) {
                             int id = Util.gI().nextInt(712, 716);
-                            itemnew = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 1) {
-                            itemnew = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(1204, false, 1, ItemOption.getOption(1204, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
 
                         } else if (Util.gI().nextInt(100) < 3) {
-                            itemnew = new Item(1158, false, 1, ItemOption.getOption(1158, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(1158, false, 1, ItemOption.getOption(1158, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 2) {
-                            itemnew = new Item(1159, false, 1, ItemOption.getOption(1159, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(1159, false, 1, ItemOption.getOption(1159, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(100) < 1) {
-                            itemnew = new Item(1160, false, 1, ItemOption.getOption(1160, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(1160, false, 1, ItemOption.getOption(1160, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
 
                         } else if (Util.gI().nextInt(100) < 1) {
-                            itemnew = new Item(1243, false, 1, ItemOption.getOption(1243, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(1243, false, 1, ItemOption.getOption(1243, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(120) < 1) {
-                            itemnew = new Item(1244, false, 1, ItemOption.getOption(1244, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(1244, false, 1, ItemOption.getOption(1244, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
                         } else if (Util.gI().nextInt(130) < 1) {
-                            itemnew = new Item(919, false, 1, ItemOption.getOption(919, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(919, false, 1, ItemOption.getOption(919, 0, 0), mResources.EMPTY,
+                                    mResources.EMPTY, mResources.EMPTY);
 
                         } else {
                             int id = Util.gI().nextInt(1066, 1070);
-                            itemnew = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                            itemnew = new Item(id, false, Util.gI().nextInt(1, 10), ItemOption.getOption(id, 0, 0),
+                                    mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
 
                         }
-                        Rank.getRank(3).addTop(this.session.myCharz().cName, this.session.myCharz().head, this.session.myCharz().headICON, this.session.myCharz().body, this.session.myCharz().leg, this.session.myCharz().charID, this.session.myCharz().pointEvent += 3, -1);
+                        Rank.getRank(3).addTop(this.session.myCharz().cName, this.session.myCharz().head,
+                                this.session.myCharz().headICON, this.session.myCharz().body,
+                                this.session.myCharz().leg, this.session.myCharz().charID,
+                                this.session.myCharz().pointEvent += 3, -1);
                         this.session.myCharz().addItemBag(0, itemnew);
-//                        this.session.service.setCombineEff(new Item[]{item});
-//                        this.session.service.getFlag();
+                        // this.session.service.setCombineEff(new Item[]{item});
+                        // this.session.service.getFlag();
                         this.session.service.npcChat(this.npcId, mResources.CHAT_QUYLAO_KAME);
-//                        this.session.service.setCombineEff(7, itemnew.template.iconID, -1, this.npcId);
+                        // this.session.service.setCombineEff(7, itemnew.template.iconID, -1,
+                        // this.npcId);
 
                     }
                 } else {
@@ -4692,21 +5189,25 @@ public class MenuBoard {
                 break;
             }
             case 343: {
-                this.session.myCharz().addItemBag(0, new Item(970, false, 1, ItemOption.getOption(970, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                this.session.myCharz().addItemBag(0, new Item(970, false, 1, ItemOption.getOption(970, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 break;
             }
             case 344: {
-                int id = new int[]{1144, 897}[Util.gI().nextInt(2)];
-                this.session.myCharz().addItemBag(0, new Item(id, false, 1, ItemOption.getOption(id, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                int id = new int[] { 1144, 897 }[Util.gI().nextInt(2)];
+                this.session.myCharz().addItemBag(0, new Item(id, false, 1, ItemOption.getOption(id, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 break;
             }
             case 345: {
                 Item item;
                 if (Util.gI().nextInt(100) < 50) {
-                    item = new Item(1039, false, 1, ItemOption.getOption(1039, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1039, false, 1, ItemOption.getOption(1039, 0, 0), mResources.EMPTY,
+                            mResources.EMPTY, mResources.EMPTY);
                     item.options.add(new ItemOption(93, 3));
                 } else {
-                    item = new Item(1040, false, 1, ItemOption.getOption(1040, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(1040, false, 1, ItemOption.getOption(1040, 0, 0), mResources.EMPTY,
+                            mResources.EMPTY, mResources.EMPTY);
                     item.options.add(new ItemOption(93, 3));
                 }
                 this.session.myCharz().addItemBag(0, item);
@@ -4715,10 +5216,12 @@ public class MenuBoard {
             case 346: {
                 Item item;
                 if (Util.gI().nextInt(100) < 20) {
-                    item = new Item(591, false, 1, ItemOption.getOption(591, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(591, false, 1, ItemOption.getOption(591, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                     item.options.add(new ItemOption(93, 3));
                 } else {
-                    item = new Item(591, false, 1, ItemOption.getOption(591, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    item = new Item(591, false, 1, ItemOption.getOption(591, 0, 0), mResources.EMPTY, mResources.EMPTY,
+                            mResources.EMPTY);
                     item.options.add(new ItemOption(93, 3));
                 }
                 this.session.myCharz().addItemBag(0, item);
@@ -4734,7 +5237,8 @@ public class MenuBoard {
             }
             case 349: {
                 if (this.session.myCharz().xu < 5000000000L) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(5000000000L - this.session.myCharz().xu)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                            Util.gI().numberTostring(5000000000L - this.session.myCharz().xu)));
                 } else if (this.session.myCharz().getItemBagQuantityById(1987) < 9) {
                 } else {
                     this.session.myCharz().useItemBagById(1987, 9);
@@ -4751,7 +5255,8 @@ public class MenuBoard {
             }
             case 350: {
                 if (this.session.myCharz().xu < 9000000000L) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(9000000000L - this.session.myCharz().xu)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                            Util.gI().numberTostring(9000000000L - this.session.myCharz().xu)));
                 } else if (this.session.myCharz().getItemBagQuantityById(1987) < 99) {
                 } else {
                     this.session.myCharz().useItemBagById(1987, 99);
@@ -4770,8 +5275,9 @@ public class MenuBoard {
                 break;
             }
             case 352: {
-                //Lay item tu index
-                this.session.myCharz().nangKiemZ(1, this.session.myCharz().arrItemBag[Integer.parseInt(info.arrayStr0[1])]);
+                // Lay item tu index
+                this.session.myCharz().nangKiemZ(1,
+                        this.session.myCharz().arrItemBag[Integer.parseInt(info.arrayStr0[1])]);
                 break;
             }
             case 353: {
@@ -4784,7 +5290,8 @@ public class MenuBoard {
             }
             case 354: {
                 if (this.session.myCharz().xu < 500000000) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(500000000 - this.session.myCharz().xu)));
+                    this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                            Util.gI().numberTostring(500000000 - this.session.myCharz().xu)));
                 } else if (this.session.myCharz().canProceed()) {
                     this.session.myCharz().updateXu(-500000000, 2);
                     this.session.myCharz().removeEffChar(0, 1008);
@@ -4800,8 +5307,7 @@ public class MenuBoard {
                 if (this.session.myCharz().canProceed()) {
                     int num = Integer.parseInt(info.strMenu.split("\nX")[1]);
                     int indexUI = Integer.parseInt(info.arrayStr0[1]);
-                    nangcap:
-                    {
+                    nangcap: {
                         int i = 1;
                         for (; i <= num; i++) {
                             Object array[] = this.session.myCharz().checkString(info.stm, 0);
@@ -4810,7 +5316,7 @@ public class MenuBoard {
                                 break nangcap;
                             }
                             this.session.myCharz().checkString(info.stm, 1);
-                            //Lay item tu index
+                            // Lay item tu index
                             if (this.session.myCharz().nangKiemZ(0, this.session.myCharz().arrItemBag[indexUI]) == 1) {
                                 this.session.myCharz().addInfo1(String.format(mResources.STR_NANGCAP6, i));
                                 break nangcap;
@@ -4838,7 +5344,9 @@ public class MenuBoard {
             case 358: {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_SUKIEN3;
-                this.arrMenu.add(new MenuInfo(String.format(mResources.POINT_SEASON, 2000, this.session.myCharz().myObj().pointEventVIP), 361, new int[]{0, 1, 0}));
+                this.arrMenu.add(new MenuInfo(
+                        String.format(mResources.POINT_SEASON, 2000, this.session.myCharz().myObj().pointEventVIP), 361,
+                        new int[] { 0, 1, 0 }));
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -4846,7 +5354,9 @@ public class MenuBoard {
             case 359: {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_SUKIEN4;
-                this.arrMenu.add(new MenuInfo(String.format(mResources.POINT_SEASON, 500, this.session.myCharz().myObj().pointEventVIP), 361, new int[]{0, 2, 0}));
+                this.arrMenu.add(new MenuInfo(
+                        String.format(mResources.POINT_SEASON, 500, this.session.myCharz().myObj().pointEventVIP), 361,
+                        new int[] { 0, 2, 0 }));
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -4854,7 +5364,9 @@ public class MenuBoard {
             case 360: {
                 this.session.myCharz().resetMenu();
                 this.chat = mResources.SAY_SUKIEN5;
-                this.arrMenu.add(new MenuInfo(String.format(mResources.POINT_SEASON, 200, this.session.myCharz().myObj().pointEventVIP), 361, new int[]{0, 3, 0}));
+                this.arrMenu.add(new MenuInfo(
+                        String.format(mResources.POINT_SEASON, 200, this.session.myCharz().myObj().pointEventVIP), 361,
+                        new int[] { 0, 3, 0 }));
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -4864,8 +5376,8 @@ public class MenuBoard {
                 if (array[0] == 0 && this.session.myCharz().myPet != null) {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_SUKIEN6;
-                    this.arrMenu.add(new MenuInfo(mResources.AGREE, 361, new int[]{1, array[1], 0}));
-                    this.arrMenu.add(new MenuInfo(mResources.NOT_RECEIVED_PET, 361, new int[]{1, array[1], 1}));
+                    this.arrMenu.add(new MenuInfo(mResources.AGREE, 361, new int[] { 1, array[1], 0 }));
+                    this.arrMenu.add(new MenuInfo(mResources.NOT_RECEIVED_PET, 361, new int[] { 1, array[1], 1 }));
                     this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
                 } else {
@@ -4895,7 +5407,8 @@ public class MenuBoard {
             }
             case 364: {
                 if (this.session.myCharz().cPower < 20000000) {
-                    this.session.myCharz().addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(20000000)));
+                    this.session.myCharz()
+                            .addInfo1(String.format(mResources.YEU_CAU_SUC_MANH, Util.gI().numberTostring(20000000)));
                 } else {
                     this.session.myCharz().goDiaNguc();
                 }
@@ -4924,7 +5437,8 @@ public class MenuBoard {
                 this.session.service.setCombineEff(7, 11475, -1, this.npcId);
                 this.session.myCharz().resetMenu();
 
-                this.session.myCharz().addItemBag(0, new Item(1262, false, 1, ItemOption.getOption(1262, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                this.session.myCharz().addItemBag(0, new Item(1262, false, 1, ItemOption.getOption(1262, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 break;
             }
             case 369: {
@@ -4933,7 +5447,8 @@ public class MenuBoard {
                 this.session.service.setCombineEff(7, 11476, -1, this.npcId);
                 this.session.myCharz().resetMenu();
 
-                this.session.myCharz().addItemBag(0, new Item(1263, false, 1, ItemOption.getOption(1263, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                this.session.myCharz().addItemBag(0, new Item(1263, false, 1, ItemOption.getOption(1263, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 break;
             }
             case 370: {
@@ -4961,7 +5476,8 @@ public class MenuBoard {
                 this.session.service.setCombineEff(7, 9850, -1, this.npcId);
                 this.session.myCharz().resetMenu();
 
-                this.session.myCharz().addItemBag(0, new Item(1037, false, 1, ItemOption.getOption(1037, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                this.session.myCharz().addItemBag(0, new Item(1037, false, 1, ItemOption.getOption(1037, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 break;
             }
             case 374: {
@@ -4971,7 +5487,8 @@ public class MenuBoard {
                 this.session.service.setCombineEff(7, 9851, -1, this.npcId);
                 this.session.myCharz().resetMenu();
 
-                this.session.myCharz().addItemBag(0, new Item(1038, false, 1, ItemOption.getOption(1038, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                this.session.myCharz().addItemBag(0, new Item(1038, false, 1, ItemOption.getOption(1038, 0, 0),
+                        mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 break;
             }
             case 375: {
@@ -4982,7 +5499,8 @@ public class MenuBoard {
                 int array[] = (int[]) (info.p);
                 if (this.session.myCharz().itemBlackBall != null && this.session.myCharz().phuHoBlackBall == 0) {
                     if (this.session.myCharz().xu < array[0]) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(array[0] - this.session.myCharz().xu)));
+                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                                Util.gI().numberTostring(array[0] - this.session.myCharz().xu)));
                     } else {
                         this.session.myCharz().updateXu(-array[0], 2);
                         this.session.myCharz().phuHoBlackBall = array[1];
@@ -5000,13 +5518,15 @@ public class MenuBoard {
             case 377: {
                 if (this.session.myCharz().myObj().taskEveryday == null) {
                     if (this.session.myCharz().myObj().nTaskEveryday > 0) {
-                        this.session.myCharz().myObj().taskEveryday = TaskEveryDay.Task.get(this.session.myCharz().cPower, (byte) info.p);
+                        this.session.myCharz().myObj().taskEveryday = TaskEveryDay.Task
+                                .get(this.session.myCharz().cPower, (byte) info.p);
                         this.session.myCharz().myObj().nTaskEveryday--;
                     }
                     if (this.session.myCharz().myObj().taskEveryday == null) {
                         this.session.myCharz().addInfo1(mResources.NOT_TASK);
                     } else {
-                        this.session.service.openUISay(npcId, this.session.myCharz().myObj().taskEveryday.getInfo().replace("\n", "\b"), 1142);
+                        this.session.service.openUISay(npcId,
+                                this.session.myCharz().myObj().taskEveryday.getInfo().replace("\n", "\b"), 1142);
                     }
 
                 }
@@ -5015,14 +5535,16 @@ public class MenuBoard {
             }
             case 378: {
                 if (this.session.myCharz().myObj().taskEveryday != null) {
-                    this.session.service.openUISay(npcId, this.session.myCharz().myObj().taskEveryday.getInfo().replace("\n", "\b"), 1142);
+                    this.session.service.openUISay(npcId,
+                            this.session.myCharz().myObj().taskEveryday.getInfo().replace("\n", "\b"), 1142);
                 }
                 this.session.myCharz().resetMenu();
                 break;
             }
             case 379: {
                 if (this.session.myCharz().myObj().taskEveryday != null) {
-                    this.session.myCharz().addInfo1(String.format(mResources.CANCEL_TASK2, this.session.myCharz().myObj().taskEveryday.getName()));
+                    this.session.myCharz().addInfo1(String.format(mResources.CANCEL_TASK2,
+                            this.session.myCharz().myObj().taskEveryday.getName()));
                     this.session.myCharz().myObj().taskEveryday = null;
                 }
                 break;
@@ -5035,19 +5557,20 @@ public class MenuBoard {
                 break;
             }
             case 381: {
-                if (this.session.myCharz().myObj().taskEveryday != null && this.session.myCharz().myObj().taskEveryday.isFinish) {
-                    //Qua muc de
+                if (this.session.myCharz().myObj().taskEveryday != null
+                        && this.session.myCharz().myObj().taskEveryday.isFinish) {
+                    // Qua muc de
                     if (this.session.myCharz().myObj().taskEveryday.level == 0) {
                         this.session.myCharz().updateXu(Util.gI().nextInt(10000000, 30000000), 1);
                         this.session.myCharz().updateLuongKhoa(5, 2);
                     }
-                    //Qua muc kho
+                    // Qua muc kho
                     if (this.session.myCharz().myObj().taskEveryday.level == 1) {
                         this.session.myCharz().updateXu(Util.gI().nextInt(40000000, 80000000), 1);
                         this.session.myCharz().updateLuongKhoa(10, 2);
 
                     }
-                    //Qua muc sieu kho
+                    // Qua muc sieu kho
                     if (this.session.myCharz().myObj().taskEveryday.level == 2) {
                         this.session.myCharz().updateXu(Util.gI().nextInt(80000000, 100000000), 1);
                         this.session.myCharz().updateLuongKhoa(20, 2);
@@ -5055,11 +5578,14 @@ public class MenuBoard {
 
                     }
                     if (this.session.myCharz().isFullTBHD) {
-                        this.session.myCharz().addItemBag(0, new Item(1067, false, 2, ItemOption.getOption(1067, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                        this.session.myCharz().addItemBag(0, new Item(1067, false, 2, ItemOption.getOption(1067, 0, 0),
+                                mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                     }
-                    this.session.myCharz().addInfo1(String.format(mResources.TAKE_GIFT2, this.session.myCharz().myObj().taskEveryday.getName()));
+                    this.session.myCharz().addInfo1(String.format(mResources.TAKE_GIFT2,
+                            this.session.myCharz().myObj().taskEveryday.getName()));
                     this.session.myCharz().myObj().taskEveryday = null;
-                    if (this.session.myCharz().myObj().taskClanEveryday != null && this.session.myCharz().myObj().taskClanEveryday.template.type == 1) {
+                    if (this.session.myCharz().myObj().taskClanEveryday != null
+                            && this.session.myCharz().myObj().taskClanEveryday.template.type == 1) {
                         if (this.session.myCharz().myObj().taskClanEveryday.addCount(1)) {
                             this.session.myCharz().addInfo1(3000, mResources.TAKE_GIFT4);
                         }
@@ -5068,7 +5594,13 @@ public class MenuBoard {
                 break;
             }
             case 382: {
-//                this.session.service.openUISay(npcId, String.format(mResources.CHAT_KING_FURRY1, Util.gI().numberTostring(ItemKyGui.NGOC_SALE), ItemKyGui.FEE, Util.gI().numberTostring(ItemKyGui.MINXU), Util.gI().numberTostring(ItemKyGui.MAXXU), Util.gI().numberTostring(ItemKyGui.MINLUONG), Util.gI().numberTostring(ItemKyGui.MAXLUONG)), -1);
+                // this.session.service.openUISay(npcId,
+                // String.format(mResources.CHAT_KING_FURRY1,
+                // Util.gI().numberTostring(ItemKyGui.NGOC_SALE), ItemKyGui.FEE,
+                // Util.gI().numberTostring(ItemKyGui.MINXU),
+                // Util.gI().numberTostring(ItemKyGui.MAXXU),
+                // Util.gI().numberTostring(ItemKyGui.MINLUONG),
+                // Util.gI().numberTostring(ItemKyGui.MAXLUONG)), -1);
                 this.session.service.openUISay(npcId, mResources.CHAT_KING_FURRY2, -1);
                 break;
             }
@@ -5086,45 +5618,64 @@ public class MenuBoard {
 
                     @Override
                     public void execute() {
-                        if (super.myItem.size() == 2 && super.checkBagOK() && super.myItem.get(0).template.type == super.myItem.get(1).template.type && (
-                                //Trai dat
-                                (super.isHaveItem(555) && super.isHaveItem(1048)) ||//ao
-                                        (super.isHaveItem(556) && super.isHaveItem(1051)) ||//quan
-                                        (super.isHaveItem(562) && super.isHaveItem(1054)) ||//gang
-                                        (super.isHaveItem(563) && super.isHaveItem(1057)) ||//giay
-                                        //Namek
-                                        (super.isHaveItem(557) && super.isHaveItem(1049)) ||//ao
-                                        (super.isHaveItem(558) && super.isHaveItem(1052)) ||//quan
-                                        (super.isHaveItem(564) && super.isHaveItem(1055)) ||//gang
-                                        (super.isHaveItem(565) && super.isHaveItem(1058)) ||//giay
-                                        //Xayda
-                                        (super.isHaveItem(559) && super.isHaveItem(1050)) ||//ao
-                                        (super.isHaveItem(560) && super.isHaveItem(1053)) ||//quan
-                                        (super.isHaveItem(566) && super.isHaveItem(1056)) ||//gang
-                                        (super.isHaveItem(567) && super.isHaveItem(1059)) ||//giay
+                        if (super.myItem.size() == 2 && super.checkBagOK()
+                                && super.myItem.get(0).template.type == super.myItem.get(1).template.type && (
+                        // Trai dat
+                        (super.isHaveItem(555) && super.isHaveItem(1048)) || // ao
+                                (super.isHaveItem(556) && super.isHaveItem(1051)) || // quan
+                                (super.isHaveItem(562) && super.isHaveItem(1054)) || // gang
+                                (super.isHaveItem(563) && super.isHaveItem(1057)) || // giay
+                        // Namek
+                                (super.isHaveItem(557) && super.isHaveItem(1049)) || // ao
+                                (super.isHaveItem(558) && super.isHaveItem(1052)) || // quan
+                                (super.isHaveItem(564) && super.isHaveItem(1055)) || // gang
+                                (super.isHaveItem(565) && super.isHaveItem(1058)) || // giay
+                        // Xayda
+                                (super.isHaveItem(559) && super.isHaveItem(1050)) || // ao
+                                (super.isHaveItem(560) && super.isHaveItem(1053)) || // quan
+                                (super.isHaveItem(566) && super.isHaveItem(1056)) || // gang
+                                (super.isHaveItem(567) && super.isHaveItem(1059)) || // giay
 
-                                        (super.isHaveItem(561) && (super.isHaveItem(1060) || super.isHaveItem(1061) || super.isHaveItem(1062))) // nhan
+                                (super.isHaveItem(561)
+                                        && (super.isHaveItem(1060) || super.isHaveItem(1061) || super.isHaveItem(1062))) // nhan
                         )) {
                             short templateId = (short) (
-                                    //Trai dat
-                                    super.isHaveItem(555) ? 0 : super.isHaveItem(556) ? 6 : super.isHaveItem(562) ? 21 : super.isHaveItem(563) ? 27 :
-                                            //namek
-                                            super.isHaveItem(557) ? 1 : super.isHaveItem(558) ? 7 : super.isHaveItem(564) ? 22 : super.isHaveItem(565) ? 28 :
-                                                    //Xayda
-                                                    super.isHaveItem(559) ? 2 : super.isHaveItem(560) ? 8 : super.isHaveItem(566) ? 23 : super.isHaveItem(567) ? 29 :
+                            // Trai dat
+                            super.isHaveItem(555) ? 0
+                                    : super.isHaveItem(556) ? 6
+                                            : super.isHaveItem(562) ? 21 : super.isHaveItem(563) ? 27 :
+                            // namek
+                                                    super.isHaveItem(557) ? 1
+                                                            : super.isHaveItem(558) ? 7
+                                                                    : super.isHaveItem(564) ? 22
+                                                                            : super.isHaveItem(565) ? 28 :
+                            // Xayda
+                                                                                    super.isHaveItem(559) ? 2
+                                                                                            : super.isHaveItem(560) ? 8
+                                                                                                    : super.isHaveItem(
+                                                                                                            566) ? 23
+                                                                                                                    : super.isHaveItem(
+                                                                                                                            567) ? 29
+                                                                                                                                    :
 
-                                                            super.isHaveItem(561) ? 12 : -1);
+                                                                                                                                    super.isHaveItem(
+                                                                                                                                            561) ? 12
+                                                                                                                                                    : -1);
                             if (super.type == 0) {
-                                super.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.MAKE_SKH, ItemTemplate.get(templateId).name));
+                                super.session.myCharz().requestOpenUIItem(npcId,
+                                        String.format(mResources.MAKE_SKH, ItemTemplate.get(templateId).name));
                             } else {
-                                //Giam sl vat pham
+                                // Giam sl vat pham
                                 for (int i = 0; i < super.myItem.size(); i++) {
                                     super.session.myCharz().useItemBag(super.myItem.get(i).indexUI, 1);
                                 }
                                 //
                                 this.session.service.setCombineEff(7, ItemTemplate.get(templateId).iconID, -1, npcId);
 
-                                this.session.myCharz().addItemBag(3, new Item(templateId, false, 1, ItemOption.getOption(templateId, 1, Util.gI().nextInt(3)), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                                this.session.myCharz().addItemBag(3,
+                                        new Item(templateId, false, 1,
+                                                ItemOption.getOption(templateId, 1, Util.gI().nextInt(3)),
+                                                mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                             }
                         } else {
                             this.session.service.startOKDlg(mResources.TRANG_BI_KHONG_PHU_HOP);
@@ -5150,7 +5701,8 @@ public class MenuBoard {
                 this.chat = mResources.SAY_DR_BRIEF_2;
                 this.arrMenu.add(new MenuInfo(mResources.CHANGE_SHORT_TEXT, 80));
                 this.arrMenu.add(new MenuInfo(mResources.CHANGE_SHORT_TEXT_RANDOM, 79));
-                if (this.session.myCharz().clan != null && Clan.UPGRADE_CLAN.length >= this.session.myCharz().clan.level) {
+                if (this.session.myCharz().clan != null
+                        && Clan.UPGRADE_CLAN.length >= this.session.myCharz().clan.level) {
                     this.arrMenu.add(new MenuInfo(mResources.UPGRADE_CLAN, 388));
                 }
                 this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
@@ -5160,8 +5712,11 @@ public class MenuBoard {
             case 388: {
                 if (this.session.myCharz().clan != null) {
                     this.session.myCharz().resetMenu();
-                    this.chat = String.format(mResources.SAY_DR_BRIEF3, Clan.UPGRADE_CLAN[this.session.myCharz().clan.level - 1], this.session.myCharz().clan.clanPoint, this.session.myCharz().clan.level + 1, 1);
-                    if (Clan.UPGRADE_CLAN[this.session.myCharz().clan.level - 1] <= this.session.myCharz().clan.clanPoint) {
+                    this.chat = String.format(mResources.SAY_DR_BRIEF3,
+                            Clan.UPGRADE_CLAN[this.session.myCharz().clan.level - 1],
+                            this.session.myCharz().clan.clanPoint, this.session.myCharz().clan.level + 1, 1);
+                    if (Clan.UPGRADE_CLAN[this.session.myCharz().clan.level
+                            - 1] <= this.session.myCharz().clan.clanPoint) {
                         this.arrMenu.add(new MenuInfo(mResources.AGREE, 389));
                     }
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
@@ -5170,17 +5725,21 @@ public class MenuBoard {
                 break;
             }
             case 389: {
-                if (this.session.myCharz().clan != null && Clan.UPGRADE_CLAN.length >= this.session.myCharz().clan.level && Clan.UPGRADE_CLAN[this.session.myCharz().clan.level - 1] <= this.session.myCharz().clan.clanPoint) {
+                if (this.session.myCharz().clan != null && Clan.UPGRADE_CLAN.length >= this.session.myCharz().clan.level
+                        && Clan.UPGRADE_CLAN[this.session.myCharz().clan.level
+                                - 1] <= this.session.myCharz().clan.clanPoint) {
                     this.session.myCharz().clan.level++;
                     this.session.myCharz().clan.maxMember++;
-                    this.session.myCharz().addInfo1(String.format(mResources.UPGRADE_CLAN_SUCCESS, this.session.myCharz().clan.level));
+                    this.session.myCharz().addInfo1(
+                            String.format(mResources.UPGRADE_CLAN_SUCCESS, this.session.myCharz().clan.level));
                     this.session.myCharz().addClanPoint(-Clan.UPGRADE_CLAN[this.session.myCharz().clan.level - 2]);
                 }
                 break;
             }
             case 390: {
                 if (this.session.myCharz().clan != null) {
-                    if (this.session.myCharz().myObj().taskClanEveryday != null && this.session.myCharz().myObj().taskClanEveryday.isFinish) {
+                    if (this.session.myCharz().myObj().taskClanEveryday != null
+                            && this.session.myCharz().myObj().taskClanEveryday.isFinish) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_DR_BRIEF6;
                         this.arrMenu.add(new MenuInfo(mResources.RECEIVE_GIFT, 393));
@@ -5188,7 +5747,8 @@ public class MenuBoard {
                         this.openUIConfirm(npcId, null, null, -1);
                     } else {
                         if (this.session.myCharz().myObj().taskClanEveryday == null) {
-                            if (this.session.myCharz().myObj().nTaskClanEveryday >= this.session.myCharz().myObj().maxTaskClanEveryday) {
+                            if (this.session.myCharz().myObj().nTaskClanEveryday >= this.session.myCharz()
+                                    .myObj().maxTaskClanEveryday) {
                                 this.session.myCharz().resetMenu();
                                 this.chat = mResources.SAY_DR_BRIEF7;
                                 this.arrMenu.add(new MenuInfo(mResources.OK, 0));
@@ -5196,12 +5756,14 @@ public class MenuBoard {
                                 this.openUIConfirm(npcId, null, null, -1);
                             } else {
                                 this.session.myCharz().myObj().nTaskClanEveryday++;
-                                this.session.myCharz().myObj().taskClanEveryday = TaskEveryDay.Task.getForClan(this.session.myCharz().cPower, (byte) 0);
+                                this.session.myCharz().myObj().taskClanEveryday = TaskEveryDay.Task
+                                        .getForClan(this.session.myCharz().cPower, (byte) 0);
                             }
                         }
                         if (this.session.myCharz().myObj().taskClanEveryday != null) {
                             this.session.myCharz().resetMenu();
-                            this.chat = String.format(mResources.SAY_DR_BRIEF4, this.session.myCharz().myObj().taskClanEveryday.getName());
+                            this.chat = String.format(mResources.SAY_DR_BRIEF4,
+                                    this.session.myCharz().myObj().taskClanEveryday.getName());
                             this.arrMenu.add(new MenuInfo(mResources.OK, 0));
                             this.arrMenu.add(new MenuInfo(mResources.CANCEL_TASK3, 391));
                             this.openUIConfirm(npcId, null, null, -1);
@@ -5228,7 +5790,8 @@ public class MenuBoard {
                 break;
             }
             case 393: {
-                if (this.session.myCharz().clan != null && this.session.myCharz().myObj().taskClanEveryday != null && this.session.myCharz().myObj().taskClanEveryday.isFinish) {
+                if (this.session.myCharz().clan != null && this.session.myCharz().myObj().taskClanEveryday != null
+                        && this.session.myCharz().myObj().taskClanEveryday.isFinish) {
                     this.session.myCharz().addClanPoint(5);
                     this.session.myCharz().myObj().taskClanEveryday = null;
                 }
@@ -5243,13 +5806,15 @@ public class MenuBoard {
                             if (this.session.myCharz().clan.doelBossClanLevel == 0) {
                                 this.arrMenu.add(new MenuInfo(mResources.FREE, 395));
                             }
-                            //Lay 20 tv
+                            // Lay 20 tv
                             if (this.session.myCharz().clan.doelBossClanLevel == 1) {
                                 this.arrMenu.add(new MenuInfo(String.format(mResources.NUMBER_GOLD, 20), 395) {
                                     @Override
                                     public boolean execute() {
                                         if (MenuBoard.this.session.myCharz().getItemBagQuantityById(457) < 20) {
-                                            MenuBoard.this.session.myCharz().addInfo1(String.format(mResources.THIEU_THOI_VANG, 20 - MenuBoard.this.session.myCharz().getItemBagQuantityById(457)));
+                                            MenuBoard.this.session.myCharz().addInfo1(String.format(
+                                                    mResources.THIEU_THOI_VANG,
+                                                    20 - MenuBoard.this.session.myCharz().getItemBagQuantityById(457)));
                                             return false;
                                         }
                                         MenuBoard.this.session.myCharz().useItemBagById(457, 20);
@@ -5257,13 +5822,15 @@ public class MenuBoard {
                                     }
                                 });
                             }
-                            //Lay 50 tv
+                            // Lay 50 tv
                             if (this.session.myCharz().clan.doelBossClanLevel == 2) {
                                 this.arrMenu.add(new MenuInfo(String.format(mResources.NUMBER_GOLD, 50), 395) {
                                     @Override
                                     public boolean execute() {
                                         if (MenuBoard.this.session.myCharz().getItemBagQuantityById(457) < 50) {
-                                            MenuBoard.this.session.myCharz().addInfo1(String.format(mResources.THIEU_THOI_VANG, 50 - MenuBoard.this.session.myCharz().getItemBagQuantityById(457)));
+                                            MenuBoard.this.session.myCharz().addInfo1(String.format(
+                                                    mResources.THIEU_THOI_VANG,
+                                                    50 - MenuBoard.this.session.myCharz().getItemBagQuantityById(457)));
                                             return false;
                                         }
                                         MenuBoard.this.session.myCharz().useItemBagById(457, 50);
@@ -5271,13 +5838,16 @@ public class MenuBoard {
                                     }
                                 });
                             }
-                            //Lay 200 tv
+                            // Lay 200 tv
                             if (this.session.myCharz().clan.doelBossClanLevel == 3) {
                                 this.arrMenu.add(new MenuInfo(String.format(mResources.NUMBER_GOLD, 200), 395) {
                                     @Override
                                     public boolean execute() {
                                         if (MenuBoard.this.session.myCharz().getItemBagQuantityById(457) < 200) {
-                                            MenuBoard.this.session.myCharz().addInfo1(String.format(mResources.THIEU_THOI_VANG, 200 - MenuBoard.this.session.myCharz().getItemBagQuantityById(457)));
+                                            MenuBoard.this.session.myCharz()
+                                                    .addInfo1(String.format(mResources.THIEU_THOI_VANG,
+                                                            200 - MenuBoard.this.session.myCharz()
+                                                                    .getItemBagQuantityById(457)));
                                             return false;
                                         }
                                         MenuBoard.this.session.myCharz().useItemBagById(457, 200);
@@ -5289,11 +5859,15 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                         this.openUIConfirm(npcId, null, null, -1);
                     } else {
-                        ZoneMap zone = this.session.myCharz().clan.doelBossClan.maps.get(0).getZone(this.session.myCharz());
+                        ZoneMap zone = this.session.myCharz().clan.doelBossClan.maps.get(0)
+                                .getZone(this.session.myCharz());
                         if (zone != null) {
                             this.session.myCharz().zoneMap.exit(this.session.myCharz(), 0);
                             zone.join(this.session.myCharz(), 0, 150, 150);
-                            this.session.myCharz().setText(0, String.format(mResources.DOELBOSSCLAN, this.session.myCharz().clan.doelBossClanLevel + 1), this.session.myCharz().clan.doelBossClan.miliTime / 1000, 0, 0);
+                            this.session.myCharz().setText(0,
+                                    String.format(mResources.DOELBOSSCLAN,
+                                            this.session.myCharz().clan.doelBossClanLevel + 1),
+                                    this.session.myCharz().clan.doelBossClan.miliTime / 1000, 0, 0);
                         } else {
                             this.session.service.startOKDlg(mResources.MAP_OVERLOAD);
                         }
@@ -5302,8 +5876,9 @@ public class MenuBoard {
                 break;
             }
             case 395: {
-                if (this.session.myCharz().clan != null && this.session.myCharz().clan.doelBossClanLevel < 4 && this.session.myCharz().clan.doelBossClan == null) {
-                    //Init
+                if (this.session.myCharz().clan != null && this.session.myCharz().clan.doelBossClanLevel < 4
+                        && this.session.myCharz().clan.doelBossClan == null) {
+                    // Init
                     DoelBossClan bossclan = new DoelBossClan();
                     bossclan.init(this.session.myCharz().clan, this.session.myCharz().clan.doelBossClanLevel);
                     Server.gI().add(bossclan);
@@ -5311,7 +5886,10 @@ public class MenuBoard {
                     if (zone != null) {
                         this.session.myCharz().zoneMap.exit(this.session.myCharz(), 0);
                         zone.join(this.session.myCharz(), 0, 150, 150);
-                        this.session.myCharz().setText(0, String.format(mResources.DOELBOSSCLAN, this.session.myCharz().clan.doelBossClanLevel + 1), bossclan.miliTime / 1000, 0, 0);
+                        this.session.myCharz().setText(0,
+                                String.format(mResources.DOELBOSSCLAN,
+                                        this.session.myCharz().clan.doelBossClanLevel + 1),
+                                bossclan.miliTime / 1000, 0, 0);
                     } else {
                         this.session.service.startOKDlg(mResources.MAP_OVERLOAD);
                     }
@@ -5323,15 +5901,15 @@ public class MenuBoard {
             }
             case 396: {
                 if (this.session.myCharz().myPet != null) {
-                    //De Trai Dat
+                    // De Trai Dat
                     if (this.session.myCharz().myPetz().cgender == 0) {
                         this.session.myCharz().openShop(10);
                     }
-                    //De Namek
+                    // De Namek
                     if (this.session.myCharz().myPetz().cgender == 1) {
                         this.session.myCharz().openShop(11);
                     }
-                    //De Xayda
+                    // De Xayda
                     if (this.session.myCharz().myPetz().cgender == 2) {
                         this.session.myCharz().openShop(12);
                     }
@@ -5420,9 +5998,9 @@ public class MenuBoard {
                 int cuoc = (int) info.p;
                 this.session.myCharz().resetMenu();
                 this.chat = String.format(mResources.SAY_KEO_BUA_BAO2, Util.gI().getFormatNumber(cuoc));
-                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[]{cuoc, 0}));
-                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[]{cuoc, 1}));
-                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[]{cuoc, 2}));
+                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[] { cuoc, 0 }));
+                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[] { cuoc, 1 }));
+                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[] { cuoc, 2 }));
                 this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO34, 405));
                 this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO35, 0));
                 this.openUIConfirm(npcId, null, null, -1);
@@ -5433,22 +6011,27 @@ public class MenuBoard {
                     int array[] = (int[]) info.p;
                     int status = Util.gI().nextInt(3);
                     if (array[0] > this.session.myCharz().xu) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(array[0] - this.session.myCharz().xu)));
+                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                                Util.gI().numberTostring(array[0] - this.session.myCharz().xu)));
                     } else {
                         this.session.myCharz().resetMenu();
-                        String array2[] = new String[]{mResources.KEO_BUA_BAO31, mResources.KEO_BUA_BAO32, mResources.KEO_BUA_BAO33};
-                        if ((array[1] == 0 && status == 1) || (array[1] == 1 && status == 2) || (array[1] == 2 && status == 0)) {
+                        String array2[] = new String[] { mResources.KEO_BUA_BAO31, mResources.KEO_BUA_BAO32,
+                                mResources.KEO_BUA_BAO33 };
+                        if ((array[1] == 0 && status == 1) || (array[1] == 1 && status == 2)
+                                || (array[1] == 2 && status == 0)) {
                             this.session.myCharz().updateXu(-array[0], 1);
-                            this.chat = String.format(mResources.SAY_KEO_BUA_BAO31, array2[array[1]], array2[status], Util.gI().getFormatNumber(array[0]));
+                            this.chat = String.format(mResources.SAY_KEO_BUA_BAO31, array2[array[1]], array2[status],
+                                    Util.gI().getFormatNumber(array[0]));
                         } else if (array[1] == status) {
                             this.chat = String.format(mResources.SAY_KEO_BUA_BAO32, array2[array[1]], array2[status]);
                         } else {
                             this.session.myCharz().updateXu(array[0], 1);
-                            this.chat = String.format(mResources.SAY_KEO_BUA_BAO33, array2[array[1]], array2[status], Util.gI().getFormatNumber(array[0]));
+                            this.chat = String.format(mResources.SAY_KEO_BUA_BAO33, array2[array[1]], array2[status],
+                                    Util.gI().getFormatNumber(array[0]));
                         }
-                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[]{array[0], 0}));
-                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[]{array[0], 1}));
-                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[]{array[0], 2}));
+                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[] { array[0], 0 }));
+                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[] { array[0], 1 }));
+                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[] { array[0], 2 }));
                         this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO34, 405));
                         this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO35, 0));
                         this.openUIConfirm(npcId, null, null, -1);
@@ -5464,14 +6047,16 @@ public class MenuBoard {
                     if (this.session.myCharz().miliSecondRPS > 0) {
                         this.session.myCharz().addInfo1(mResources.PLEASE_WAIT);
                     } else if (xu > this.session.myCharz().xu) {
-                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG, Util.gI().numberTostring(xu - this.session.myCharz().xu)));
+                        this.session.myCharz().addInfo1(String.format(mResources.CONTHIEU_VANG,
+                                Util.gI().numberTostring(xu - this.session.myCharz().xu)));
                     } else if (this.session.myCharz().zoneMap != null) {
                         Char player = this.session.myCharz().zoneMap.findCharInMap(charID);
                         if (player == null) {
                         } else if (player.rPSCharId != -9999 || player.isRPS) {
                             this.session.myCharz().addInfo1(mResources.NOT_PRS1);
                         } else {
-                            player.get_player_vs_player(1, 3, this.session.myCharz().charID, xu, String.format(mResources.OAN_TU_TI3, this.session.myCharz().cName, xu));
+                            player.get_player_vs_player(1, 3, this.session.myCharz().charID, xu,
+                                    String.format(mResources.OAN_TU_TI3, this.session.myCharz().cName, xu));
                             this.session.myCharz().addInfo1(mResources.OAN_TU_TI2);
                             this.session.myCharz().miliSecondRPS = 30000;
                             this.session.myCharz().rPSCharId = player.charID;
@@ -5536,7 +6121,8 @@ public class MenuBoard {
                 this.session.service.npcChat(this.npcId, mResources.UM_BALA);
                 boolean flag = Util.gI().nextInt(100) < 20;
                 if (flag) {
-                    Item item = new Item(new int[]{1044, 1211, 1212}[Util.gI().nextInt(3)], false, 1, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
+                    Item item = new Item(new int[] { 1044, 1211, 1212 }[Util.gI().nextInt(3)], false, 1, null,
+                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     for (int i = Util.gI().nextInt(3); i >= 0; i--) {
                         item.options.add(new ItemOption(217, 0));
                     }
@@ -5556,13 +6142,14 @@ public class MenuBoard {
                 }
                 break;
             }
-            //Test Feature
+            // Test Feature
             case 999: {
                 this.session.myCharz().addInfo1("✅ Test Feature Đang Hoạt Động!");
-                this.session.service.openUISay(this.npcId, "⭐ Xin chào! Đây là tính năng test của hệ thống.\n\nHệ thống hoạt động bình thường!", -1);
+                this.session.service.openUISay(this.npcId,
+                        "⭐ Xin chào! Đây là tính năng test của hệ thống.\n\nHệ thống hoạt động bình thường!", -1);
                 break;
             }
-            //Event Tết Nguyên Đán
+            // Event Tết Nguyên Đán
             case 501: {
                 this.session.myCharz().resetMenu();
                 this.chat = "🎆 Chúc mừng năm mới! Hãy tham gia các hoạt động Tết để nhận phần thưởng!";
@@ -5572,7 +6159,7 @@ public class MenuBoard {
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
             }
-            case 503:  // Nhận lì xì Tết
+            case 503: // Nhận lì xì Tết
             {
                 if (this.session.myCharz().xu < 1000000) {
                     this.session.myCharz().addInfo1("Không đủ tiền để mở lì xì!");
@@ -5584,7 +6171,7 @@ public class MenuBoard {
                 }
                 break;
             }
-            case 504:  // Mua trang phục Tết
+            case 504: // Mua trang phục Tết
             {
                 if (this.session.myCharz().xu < 5000000) {
                     this.session.myCharz().addInfo1("Không đủ tiền mua trang phục!");
@@ -5596,7 +6183,7 @@ public class MenuBoard {
                 }
                 break;
             }
-            //Event Noel
+            // Event Noel
             case 502: {
                 this.session.myCharz().resetMenu();
                 this.chat = "🎄 Giáng Sinh vui vẻ! Nhận quà từ Ông Già Noel!";
@@ -5606,7 +6193,7 @@ public class MenuBoard {
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
             }
-            case 505:  // Nhận quà Noel
+            case 505: // Nhận quà Noel
             {
                 if (this.session.myCharz().luong < 50) {
                     this.session.myCharz().addInfo1("Không đủ ngọc để nhận quà!");
@@ -5618,7 +6205,7 @@ public class MenuBoard {
                 }
                 break;
             }
-            case 506:  // Mua trang phục Noel
+            case 506: // Mua trang phục Noel
             {
                 if (this.session.myCharz().xu < 3000000) {
                     this.session.myCharz().addInfo1("Không đủ tiền mua trang phục!");
@@ -5639,13 +6226,15 @@ public class MenuBoard {
 
                     @Override
                     public void execute() {
-                        if (super.myItem.size() == 2 && super.checkBagOK() && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280) && super.isHaveItem(1284)) {
+                        if (super.myItem.size() == 2 && super.checkBagOK()
+                                && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280) && super.isHaveItem(1284)) {
                             Item book = super.getItemById(1044, 1211, 1212, 1278, 1279, 1280);
                             Item amu = super.getItemById(1284);
                             if (!book.isHaveOption(217)) {
                                 super.session.myCharz().addInfo1(mResources.FAILD_GIAM_DINH1);
                             } else if (super.type == 0) {
-                                super.session.myCharz().requestOpenUIItem(npcId, String.format(mResources.MAKE_BOOK3, book.template.name));
+                                super.session.myCharz().requestOpenUIItem(npcId,
+                                        String.format(mResources.MAKE_BOOK3, book.template.name));
                             } else {
                                 ArrayList<Integer> myList = new ArrayList<>();
                                 myList.add(50);
@@ -5665,12 +6254,15 @@ public class MenuBoard {
                                         int optionId = myList.remove(Util.gI().nextInt(myList.size()));
                                         if (optionId == 5) {
                                             book.options.set(i, new ItemOption(optionId, Util.gI().nextInt(1, 5)));
-                                        } else if (optionId == 50 || optionId == 77 || optionId == 103 || optionId == 108 || optionId == 97 || optionId == 94 || optionId == 14 || optionId == 214 || optionId == 80 || optionId == 81 || optionId == 175) {
+                                        } else if (optionId == 50 || optionId == 77 || optionId == 103
+                                                || optionId == 108 || optionId == 97 || optionId == 94 || optionId == 14
+                                                || optionId == 214 || optionId == 80 || optionId == 81
+                                                || optionId == 175) {
                                             book.options.set(i, new ItemOption(optionId, Util.gI().nextInt(1, 10)));
                                         }
                                     }
                                 }
-                                //Eff
+                                // Eff
                                 this.session.service.setCombineEff(2, -1, -1, npcId);
                                 super.session.service.Bag(super.session.myCharz().arrItemBag);
                                 super.session.service.setCombineEff(super.myItem, npcId);
@@ -5691,7 +6283,8 @@ public class MenuBoard {
 
                     @Override
                     public void execute() {
-                        if (super.myItem.size() == 1 && super.checkBagOK() && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280)) {
+                        if (super.myItem.size() == 1 && super.checkBagOK()
+                                && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280)) {
                             Item book = super.getItemById(1044, 1211, 1212, 1278, 1279, 1280);
                             if (book.isHaveOption(217) || book.getParamOption(219) == 0) {
                                 super.session.myCharz().addInfo1(mResources.FAILD_GIAM_DINH2);
@@ -5700,12 +6293,14 @@ public class MenuBoard {
                             } else {
                                 for (int i = 0; i < book.options.size(); i++) {
                                     int optionId = book.options.get(i).optionTemplate.id;
-                                    if (optionId == 50 || optionId == 77 || optionId == 103 || optionId == 108 || optionId == 97 || optionId == 94 || optionId == 14 || optionId == 214 || optionId == 80 || optionId == 81 || optionId == 175 || optionId == 5) {
+                                    if (optionId == 50 || optionId == 77 || optionId == 103 || optionId == 108
+                                            || optionId == 97 || optionId == 94 || optionId == 14 || optionId == 214
+                                            || optionId == 80 || optionId == 81 || optionId == 175 || optionId == 5) {
                                         book.options.set(i, new ItemOption(217, 0));
                                     }
                                 }
                                 book.getOption(219).param--;
-                                //Eff
+                                // Eff
                                 this.session.service.setCombineEff(2, -1, -1, npcId);
                                 super.session.service.Bag(super.session.myCharz().arrItemBag);
                                 super.session.service.setCombineEff(super.myItem, npcId);
@@ -5726,14 +6321,15 @@ public class MenuBoard {
 
                     @Override
                     public void execute() {
-                        if (super.myItem.size() == 2 && super.checkBagOK() && super.isHaveItem(1044, 1211, 1212) && super.isHaveItem(1285)) {
+                        if (super.myItem.size() == 2 && super.checkBagOK() && super.isHaveItem(1044, 1211, 1212)
+                                && super.isHaveItem(1285)) {
                             Item book = super.getItemById(1044, 1211, 1212);
                             Item pliers = super.getItemById(1285);
                             if (super.type == 0) {
                                 super.session.myCharz().requestOpenUIItem(npcId, mResources.MAKE_BOOK5);
                             } else {
                                 boolean flag = Util.gI().nextInt(100) < 10;
-                                //Eff
+                                // Eff
                                 if (flag) {
                                     if (book.template.id == 1044) {
                                         book.setTemplate(1278);
@@ -5767,7 +6363,8 @@ public class MenuBoard {
 
                     @Override
                     public void execute() {
-                        if (super.myItem.size() == 1 && super.checkBagOK() && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280)) {
+                        if (super.myItem.size() == 1 && super.checkBagOK()
+                                && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280)) {
                             Item book = super.getItemById(1044, 1211, 1212, 1278, 1279, 1280);
                             if (super.type == 0) {
                                 super.session.myCharz().requestOpenUIItem(npcId, mResources.MAKE_BOOK6);
@@ -5799,7 +6396,8 @@ public class MenuBoard {
 
                     @Override
                     public void execute() {
-                        if (super.myItem.size() == 1 && super.checkBagOK() && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280)) {
+                        if (super.myItem.size() == 1 && super.checkBagOK()
+                                && super.isHaveItem(1044, 1211, 1212, 1278, 1279, 1280)) {
                             Item book = super.getItemById(1044, 1211, 1212, 1278, 1279, 1280);
                             if (super.type == 0) {
                                 super.session.myCharz().requestOpenUIItem(npcId, mResources.MAKE_BOOK7);
@@ -5811,7 +6409,8 @@ public class MenuBoard {
                                     this.session.service.setCombineEff(2, -1, -1, npcId);
                                     super.session.service.Bag(super.session.myCharz().arrItemBag);
                                     super.session.service.setCombineEff(super.myItem, npcId);
-                                    super.session.myCharz().addItemBag(1, new Item(1283, false, 5, null, mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
+                                    super.session.myCharz().addItemBag(1, new Item(1283, false, 5, null,
+                                            mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                 }
                             }
                         } else {

@@ -540,7 +540,7 @@ public class Char {
     public ClientInput clientInput;
     public int isPlayerId = -1;
     public int isCharId = -1;
-    public boolean isPetThiTheo;
+    public boolean isPetDiTheo;
     private ArrayList<int[]> moveAutos = null;
     public boolean isMove;
     private int nSendGift;
@@ -11246,7 +11246,7 @@ public class Char {
         if (this.getEmptyBagCount() != 0) {
             // Xoa pet
             this.isGiaoCho = false;
-            this.isPetThiTheo = false;
+            this.isPetDiTheo = false;
             Player o = this.zoneMap.getBossPlayer(this.playerId);
             if (o != null) {
                 o.timeClear = 1;
@@ -11756,7 +11756,7 @@ public class Char {
                     Session_ME player = Server.gI().getByPId(this.isPlayerId);
                     if (player != null) {
                         player.myCharz().addInfo1(String.format(mResources.FALID_PET_DI_THEO, this.cName));
-                        player.myCharz().isPetThiTheo = false;
+                        player.myCharz().isPetDiTheo = false;
                     }
                     this.isPlayerId = -1;
                     this.setMove(0, Util.gI().nextInt(50, this.zoneMap.mapTemplate.pxw - 50), 150, 50, 1, 200);

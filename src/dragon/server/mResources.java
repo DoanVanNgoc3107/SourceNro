@@ -9,6 +9,7 @@ public class mResources {
     public static final String EMPTY = "";
 
     public static final String PATH_IMG = "res/x%d/%s.png";
+    public static final String EVENT_OPENNING = "Các sự kiện đang diễn ra: ";
     public static final String LOGIN_USER_PASS = "Thông tin tài khoản hoặc mật khẩu không chính xác";
     public static final String QUERY_SELECT_USER_FORMAT = "SELECT * FROM `users` WHERE (LOWER(`username`) LIKE LOWER('%s') AND `password` LIKE '%s') LIMIT 1;";
     public static final String QUERY_SELECT_CHARS_FORMAT = "SELECT * FROM `options` WHERE `playerId` = '%d' LIMIT 1;";
@@ -185,7 +186,7 @@ public class mResources {
     public static final String SAY_TO_SU_KAIO_2 = "Con muốn nâng giới hạn sức mạnh cho bản thân hay cho đệ tử?";
     public static final String SAY_TO_SU_KAIO_3 = "Ta sẽ truyền năng lượng giúp con mở giới hạn sức mạnh\ncủa bản thân lên %s\nLưu ý: từ 40 tỉ trở lên sức mạnh của con sẽ tăng chậm đáng kể";
     public static final String SAY_OSIN = "Ta có thể giúp gì cho ngươi ?";
-    public static final String SAY_MIAN = "What's up bro, con muốn ta giúp gì nào ? Có vấn đề gì liên hệ với quản trị viên Đoàn Văn Ngọc nhé!";
+    public static final String SAY_MIAN = "Con cần ta giúp gì ?\n Vàng thỏi %d, Ngọc xanh %d, Ngọc đỏ %d";
     public static final String NHAN_VANG = "Nhận 500m vàng";
     public static final String NHAN_NGOC = "Nhận 50k ngọc";
     public static final String SAY_CA_LICH = "Chào chú, cháu có thể giúp gì?";
@@ -1293,7 +1294,7 @@ public class mResources {
     public static final String WAIT_CUMBER1 = "Vui lòng đợi %s nữa";
     public static final String BAN_NHAN_DUOC_9 = "Bạn nhận được %d %s, tại hòm thư";
     public static final String BAN_NHAN_DUOC_10 = "Bạn nhận được %s, tại hòm thư";
-    public static final String MAILBOX1 = "Quà";
+    public static final String MAILBOX1 = "Quà tích nạp";
     public static final String EVENT_HE_2026 = "Sự kiện\nHè 2026";
     public static final String SAY_SUKIEN1 = "Ta có thể giúp gì cho ngươi?";
     public static final String CHAT_MAKE = "Bư cô lô, ba cô la, bư ra bư zô...";
