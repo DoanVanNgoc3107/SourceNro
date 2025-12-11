@@ -437,7 +437,7 @@ public class MenuBoard {
                         if (Dragon.isEvent_HungVuong) {
                             this.arrMenu.add(new MenuInfo(mResources.EVENT_KING, 159));
                         }
-                        if (Dragon.isEvent_HE2023) {
+                        if (Dragon.isEvent_HE2026) {
                             this.arrMenu.add(new MenuInfo(mResources.EVENT_NGAYHE, 193));
                             this.arrMenu.add(new MenuInfo(mResources.CHANGE_DANHHIEU, 200));
                         }
@@ -1362,7 +1362,7 @@ public class MenuBoard {
                     }
 
                     // Lech Teamobi
-                    if (Dragon.isEvent_HE2023) {
+                    if (Dragon.isEvent_HE2026) {
                         if (this.session.myCharz().isNauBanhOK()) {
                             this.session.myCharz().resetMenu();
                             this.chat = mResources.SAY_NOI_BANH_6;

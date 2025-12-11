@@ -33,19 +33,19 @@ public class Dragon {
     protected static byte vItem = 37;
 
     public static boolean isEvent_Noel = true;
-    public static boolean isEvent_Mabu = false;
-    public static boolean isEvent_NHS = false;
-    public static boolean isEvent_NgayHe = false;
-    public static boolean isEvent_TrungThu = false;
-    public static boolean isEvent_Halloween = false;
-    public static boolean isEvent_WorldCup2022 = false;
-    public static boolean isEvent_TetNguyenDan = false;
-    public static boolean isEvent_Girl = false;
+    public static boolean isEvent_Mabu = true;
+    public static boolean isEvent_NHS = true;
+    public static boolean isEvent_NgayHe = true;
+    public static boolean isEvent_TrungThu = true;
+    public static boolean isEvent_Halloween = true;
+    public static boolean isEvent_WorldCup2026 = true;
+    public static boolean isEvent_TetNguyenDan = true;
+    public static boolean isEvent_Girl = true;
     public static boolean isEvent_HungVuong = true;
-    public static boolean isEvent_HE2023 = false;
-    public static boolean isEvent_DIET_SAU_BO_2023 = false;
-    public static boolean isEvent_VIP = false;
-    public static boolean isEvent_VULAN2023 = false;
+    public static boolean isEvent_HE2026 = true;
+    public static boolean isEvent_DIET_SAU_BO_2023 = true;
+    public static boolean isEvent_VIP = true;
+    public static boolean isEvent_VULAN2023 = true;
 
     public static void main(String[] args) {
         Util.gI().setDebug(false);

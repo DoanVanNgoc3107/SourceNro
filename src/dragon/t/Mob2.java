@@ -176,7 +176,7 @@ public class Mob2 {
                 }
             }
             // Su kien World Cup 2022
-            if (Dragon.isEvent_WorldCup2022 && Util.gI().nextInt(100) < 5) {
+            if (Dragon.isEvent_WorldCup2026 && Util.gI().nextInt(100) < 5) {
                 for (i = 0; i < 1; i++) {
                     int toX = Util.gI().nextInt(mob.pointx - 24, mob.pointx + 24);
                     int toY = zone.mapTemplate.touchY(toX, mob.pointy);

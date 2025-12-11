@@ -131,7 +131,7 @@ public class Money {
                                         charz.addItemBag(0, new Item(569, false, soluong, ItemOption.getOption(569, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                     }
                                     //Su kien he 2023
-                                    if (Dragon.isEvent_HE2023 && max >= 1000) {
+                                    if (Dragon.isEvent_HE2026 && max >= 1000) {
                                         int diem = max / 1000;
                                         charz.myObj().pointEvent += diem;
                                     }
@@ -220,7 +220,7 @@ public class Money {
                                         charz.addItemBag(0, new Item(569, false, soluong, ItemOption.getOption(569, 0, 0), mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                                     }
                                     //Su kien he 2023
-                                    if (Dragon.isEvent_HE2023 && max2 >= 1000) {
+                                    if (Dragon.isEvent_HE2026 && max2 >= 1000) {
                                         int diem2 = max2 / 1000;
                                         charz.myObj().pointEvent += diem2;
                                     }

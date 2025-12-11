@@ -1443,7 +1443,7 @@ public class Server extends Thread {
             // Boss
             initBossHalloween();
         }
-        if (Dragon.isEvent_WorldCup2022) {
+        if (Dragon.isEvent_WorldCup2026) {
             // Boss
             initBossWorldCup2022();
         }
@@ -1456,7 +1456,7 @@ public class Server extends Thread {
         if (Dragon.isEvent_HungVuong) {
             this.initHungVuong();
         }
-        if (Dragon.isEvent_HE2023) {
+        if (Dragon.isEvent_HE2026) {
             this.initSuKienHe2026();
         }
         if (Dragon.isEvent_NHS) {

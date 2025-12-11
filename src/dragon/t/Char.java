@@ -14097,7 +14097,7 @@ public class Char {
     public void CanCau(int indexCanCau) {
         if (this.mapTemplateId != 5) {
             this.addInfo1(mResources.CAU_CA_FAILD2);
-        } else if (!Dragon.isEvent_HE2023) {
+        } else if (!Dragon.isEvent_HE2026) {
             this.addInfo1(mResources.CAU_CA_FAILD1);
         } else {
             Item item = this.getItemBagById(1990);
