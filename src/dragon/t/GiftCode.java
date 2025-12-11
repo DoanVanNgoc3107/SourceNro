@@ -59,7 +59,7 @@ public class GiftCode {
                                 users.add(charz.session.userName);
                                 mySQL.getConnection().prepareStatement(String.format(mResources.UPDATE_GIFTCODE, Util.gI().stringSQL(users.toJSONString()), Util.gI().stringSQL_LIKE(code))).executeUpdate();
                                 //add item to the bag
-                                StringBuilder giftStr = new StringBuilder(new String());
+                                StringBuilder giftStr = new StringBuilder();
                                 for (Object o : items) {
                                     JSONArray item = (JSONArray) o;
                                     if ("item".equals(item.get(0).toString())) {
@@ -80,8 +80,8 @@ public class GiftCode {
                                     }
                                 }
                                 if (charz.cgender == 1) {
-                                    for (int i = 0; i < items1.size(); i++) {
-                                        JSONArray item1 = (JSONArray) items1.get(i);
+                                    for (Object o : items1) {
+                                        JSONArray item1 = (JSONArray) o;
                                         if ("item".equals(item1.get(0).toString())) {
                                             Item gift = Item.parseItem(item1.get(1).toString());
                                             charz.addItemBag(0, gift);
@@ -90,8 +90,8 @@ public class GiftCode {
                                     }
                                 }
                                 if (charz.cgender == 2) {
-                                    for (int i = 0; i < items2.size(); i++) {
-                                        JSONArray item2 = (JSONArray) items2.get(i);
+                                    for (Object o : items2) {
+                                        JSONArray item2 = (JSONArray) o;
                                         if ("item".equals(item2.get(0).toString())) {
                                             Item gift = Item.parseItem(item2.get(1).toString());
                                             charz.addItemBag(0, gift);

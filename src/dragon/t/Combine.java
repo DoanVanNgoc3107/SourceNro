@@ -27,7 +27,7 @@ public class Combine {
     public static int[] downparam_percent = new int[] {0, 0, 1, 0, 1, 0, 1, 1};
     public static int max_Up = 8;
     
-    //Nahp ngoc rong
+    //Nhập ngọc rồng
     
     public static int[][] nhap_nr = new int[][] {
         {20, 19},

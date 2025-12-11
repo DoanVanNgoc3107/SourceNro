@@ -6,8 +6,10 @@ package io;
  */
 public interface ISession {
 
-    public abstract boolean isConnected();
-    public abstract void sendMessage(Message message);
-    public abstract void close();
+    boolean isConnected();
+
+    void sendMessage(Message message);
+
+    void close();
 
 }

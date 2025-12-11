@@ -688,9 +688,9 @@ public class GameData {
                 System.out.println("Load archivement");
                 res = mySQL.getConnection().prepareStatement("SELECT * FROM `archivement`;").executeQuery();
                 n = 0;
-                Archivement.arrArchivement.clear();
+                Achievement.arrArchivement.clear();
                 while(res.next()) {
-                    Archivement.arrArchivement.add(new Archivement(res));
+                    Achievement.arrArchivement.add(new Achievement(res));
                     n++;
                 }
                 res.close();

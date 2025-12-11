@@ -39,7 +39,7 @@ public class BigBoss extends Mob {
                             for (i = 0; i < super.zone.players.size(); i++) {
                                 if (super.isMobAttack(super.zone.players.get(i))) {
                                     this.aCharFocus.add(super.zone.players.get(i).charID);
-                                    this.aCharDam.add((int) ((long) super.zone.players.get(i).cHPFull * 30l / 100l));
+                                    this.aCharDam.add((int) ((long) super.zone.players.get(i).cHPFull * 30L / 100L));
                                 }
                             }
                         }
@@ -58,7 +58,7 @@ public class BigBoss extends Mob {
                                 this.aCharFocus.clear();
                                 this.aCharDam.clear();
                                 this.aCharFocus.add(player_atk.charID);
-                                this.aCharDam.add((int) ((long) player_atk.cHPFull * 20l / 100l));
+                                this.aCharDam.add((int) ((long) player_atk.cHPFull * 20L / 100L));
                                 int i;
                                 for (i = 0; i < this.aCharFocus.size(); i++) {
                                     this.aCharDam.set(i, super.atkPlayer(this.aCharDam.get(i), super.zone.findCharInMap(this.aCharFocus.get(i))));
@@ -77,7 +77,7 @@ public class BigBoss extends Mob {
                                 for (i = 0; i < super.zone.players.size(); i++) {
                                     if (super.isMobAttack(super.zone.players.get(i))) {
                                         this.aCharFocus.add(super.zone.players.get(i).charID);
-                                        this.aCharDam.add((int) ((long) super.zone.players.get(i).cHPFull * 20l / 100l));
+                                        this.aCharDam.add((int) ((long) super.zone.players.get(i).cHPFull * 20L / 100L));
                                     }
                                 }
                             }

@@ -1,7 +1,7 @@
 package dragon.t;
 
 /**
- *
+ * Class dùng để set phần thời trang cho item
  * @author Admin
  */
 public class CaiTrang {
@@ -2099,6 +2099,48 @@ public class CaiTrang {
                 item.headTemp = 1242;
                 item.bodyTemp = 1243;
                 item.legTemp = 1244;
+                item.bagTemp = -1;
+                break;
+            case 1270: // Avatar Gohan Blue sẹo (part 1)
+                item.headTemp = 1270;
+                item.bodyTemp = -1;
+                item.legTemp = -1;
+                item.bagTemp = -1;
+                break;
+            case 1271: // Avatar Gohan Blue sẹo (animated body)
+                item.headTemp = -1;
+                item.bodyTemp = 1271;
+                item.legTemp = -1;
+                item.bagTemp = -1;
+                break;
+            case 1274: // Cải trang Cumber
+                item.headTemp = 1274;
+                item.bodyTemp = -1;
+                item.legTemp = -1;
+                item.bagTemp = -1;
+                break;
+            case 1275: // Cải trang Cumber SSJ
+                item.headTemp = 1275;
+                item.bodyTemp = -1;
+                item.legTemp = -1;
+                item.bagTemp = -1;
+                break;
+            case 1276: // Cải trang Nguyệt thần (no parts - placeholder)
+                item.headTemp = -1;
+                item.bodyTemp = -1;
+                item.legTemp = -1;
+                item.bagTemp = -1;
+                break;
+            case 1277: // Cải trang Nhật thần (animated body)
+                item.headTemp = -1;
+                item.bodyTemp = 1277;
+                item.legTemp = -1;
+                item.bagTemp = -1;
+                break;
+            case 1302: // Cải trang Sa tăng (cho đệ tử)
+                item.headTemp = 1302;
+                item.bodyTemp = -1;
+                item.legTemp = -1;
                 item.bagTemp = -1;
                 break;
             case 894:

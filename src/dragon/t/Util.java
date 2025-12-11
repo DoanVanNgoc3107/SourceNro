@@ -12,12 +12,13 @@ import java.util.regex.Pattern;
 
 /**
  * Class chứa các hàm tiện ích chung
+ * 
  * @author Văn Tú
  */
 public class Util {
-    
+
     private static Util instance;
-    
+
     public static Util gI() {
         if (instance == null) {
             instance = new Util();
@@ -26,10 +27,10 @@ public class Util {
     }
 
     public boolean debug = false;
-    private final Locale locale = new Locale("vi");
+    Locale locale = new Locale("vi", "VN");
     private final NumberFormat en = NumberFormat.getInstance(locale);
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    
+
     private final String alpha = "abcdefghijklmnopqrstuvwxyz"; // a-z
     private final String alphaUpperCase = alpha.toUpperCase(); // A-Z
     private final String digits = "0123456789"; // 0-9
@@ -37,7 +38,7 @@ public class Util {
     private final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
     private final String ALL = alpha + alphaUpperCase + digits + specials;
     public static int UTC = +7;
- 
+
     protected String randomAlphaNumeric(int numberOfCharactor) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < numberOfCharactor; i++) {
@@ -47,9 +48,9 @@ public class Util {
         }
         return sb.toString();
     }
-    
+
     protected Date getDate(String dateString) {
-        synchronized(dateFormat) {
+        synchronized (dateFormat) {
             try {
                 return dateFormat.parse(dateString);
             } catch (ParseException e) {
@@ -86,7 +87,7 @@ public class Util {
     }
 
     protected String toDateString(Date date) {
-        synchronized(dateFormat) {
+        synchronized (dateFormat) {
             try {
                 return dateFormat.format(date);
             } catch (Exception e) {
@@ -133,7 +134,7 @@ public class Util {
     public String stringSQL(String str) {
         return str.replaceAll("['\"\\\\]", "\\\\$0");
     }
-    
+
     public String stringSQL_LIKE(String str) {
         return str.replaceAll("[%]", "\\\\$0");
     }
@@ -150,52 +151,52 @@ public class Util {
     public int nextInt(int max) {
         return ThreadLocalRandom.current().nextInt(max);
     }
-    
+
     public boolean trueOrFalse() {
         return Util.gI().nextInt(2) == 0;
     }
-    
+
     public String getStrTime(long time) {
         if (time >= 86400000) {
-            return (time/86400000)+" ngày";
+            return (time / 86400000) + " ngày";
         } else if (time >= 3600000) {
-            return (time/3600000)+" giờ";
+            return (time / 3600000) + " giờ";
         } else if (time >= 60000) {
-            return (time/60000)+" phút";
+            return (time / 60000) + " phút";
         } else if (time >= 1000) {
-            return (time/1000)+" giây";
+            return (time / 1000) + " giây";
         } else {
             return "1 giây";
         }
     }
-    
+
     public String getFormatTime2(long time) {
         if (time >= 86400000) {
-            return (time/86400000)+" n";
+            return (time / 86400000) + " n";
         } else if (time >= 3600000) {
-            return (time/3600000)+" g";
+            return (time / 3600000) + " g";
         } else if (time >= 60000) {
-            return (time/60000)+" p";
+            return (time / 60000) + " p";
         } else if (time >= 1000) {
-            return (time/1000)+" s";
+            return (time / 1000) + " s";
         } else {
             return "1 s";
         }
     }
-    
+
     public String getStrNumber(long l) {
         if (l >= 1000000000) {
-            return l/1000000000 +" Tỉ";
+            return l / 1000000000 + " Tỉ";
         }
         if (l >= 1000000) {
-            return l/1000000 +" Tr";
+            return l / 1000000 + " Tr";
         }
         if (l >= 1000) {
-            return l/1000 +" k";
+            return l / 1000 + " k";
         }
-        return ""+l;
+        return "" + l;
     }
-    
+
     public String getFormatTime3(long l) {
         String str = "";
         int day = (int) (l / (1000 * 60 * 60 * 24));
@@ -204,23 +205,23 @@ public class Util {
         int second = (int) ((l / 1000) - ((l / (1000 * 60)) * 60));
         int d = 0;
         if (day > 0) {
-            str += day+"d";
+            str += day + "d";
         }
         if (hour > 0) {
-            str += hour+"h";
+            str += hour + "h";
         }
         if (day == 0 && muilte > 0) {
-            str += muilte+"m";
+            str += muilte + "m";
         }
         if (day == 0 && hour == 0) {
             if (second < 1) {
                 second = 1;
             }
-            str += second+"s";
+            str += second + "s";
         }
         return str;
     }
-    
+
     public String getFormatTime4(long l) {
         String str = "";
         int day = (int) (l / (1000 * 60 * 60 * 24));
@@ -232,51 +233,51 @@ public class Util {
             if (!str.isEmpty()) {
                 str += " ";
             }
-            str += day+" ngày";
+            str += day + " ngày";
         }
         if (hour > 0) {
             if (!str.isEmpty()) {
                 str += " ";
             }
-            str += hour+" giờ";
+            str += hour + " giờ";
         }
         if (day == 0 && muilte > 0) {
             if (!str.isEmpty()) {
                 str += " ";
             }
-            str += muilte+" phút";
+            str += muilte + " phút";
         }
         if (day == 0 && hour == 0) {
             if (!str.isEmpty()) {
                 str += " ";
             }
-            str += second+" giây";
+            str += second + " giây";
         }
         return str;
     }
-    
+
     protected synchronized Calendar Calendar(long time) {
         Calendar rightNow = Calendar.getInstance();
         rightNow.setTimeInMillis(time);
         return rightNow;
     }
-    
+
     public void setDebug(boolean v) {
         this.debug = v;
     }
-    
+
     public void log(String v) {
         if (this.debug) {
             System.out.print(v);
         }
     }
-    
+
     public void logln(String v) {
         if (this.debug) {
             System.out.println(v);
         }
     }
-    
+
     public String strHoursNow() {
         Calendar cal = Calendar.getInstance();
         if (cal.get(Calendar.MINUTE) < 10) {
@@ -285,15 +286,17 @@ public class Util {
             return String.format(mResources.HOURS, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
         }
     }
-    
+
     public int getWeekGap(long v) {
-        return (int) (Math.abs(((System.currentTimeMillis() + (3600000L * UTC) + 259200000) / 604800000) - ((v + (3600000L * UTC) + 259200000) / 604800000)));
+        return (int) (Math.abs(((System.currentTimeMillis() + (3600000L * UTC) + 259200000) / 604800000)
+                - ((v + (3600000L * UTC) + 259200000) / 604800000)));
     }
-    
+
     public int getDayGap(long v) {
-        return (int) (Math.abs(((System.currentTimeMillis() + (3600000L * UTC))/ 86400000) - ((v + (3600000L * UTC)) / 86400000)));
+        return (int) (Math.abs(
+                ((System.currentTimeMillis() + (3600000L * UTC)) / 86400000) - ((v + (3600000L * UTC)) / 86400000)));
     }
-    
+
     public String numberTostring(long number) {
         String text = "" + number;
         boolean flag = false;
@@ -339,7 +342,7 @@ public class Util {
         }
         return text;
     }
-    
+
     public String nextString(String text, int num) {
         String str = "";
         for (int i = 0; i < num; i++) {
@@ -348,25 +351,25 @@ public class Util {
         }
         return str;
     }
-    
+
     public long getTimeUCT() {
         return System.currentTimeMillis() + (3600000L * UTC);
     }
-    
+
     public String convertTime(long time) {
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat("HH'h'mm");
         String timeString = sdf.format(date);
         return timeString;
     }
-    
+
     public String convertTime(long time, String format) {
         Date date = new Date(time);
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         String timeString = sdf.format(date);
         return timeString;
     }
-    
+
     public String timeToSecondstring(long time) {
         String text = "" + time;
         try {

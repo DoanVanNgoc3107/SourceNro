@@ -20,19 +20,19 @@ public class Admin {
         return instance;
     }
 
-    public void openAdmin(Char charz) {
-        charz.clientInput.typeInput = -1;
-        charz.resetMenu();
-        charz.menuBoard.chat = "Chức năng dành cho Admin Đoàn Văn Ngọc";
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Hệ thống", 1, charz));
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Chat vip", 2, charz));
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Người chơi", 3, charz));
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Vật phẩm", 4, charz));
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Boss", 5, charz));
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Log", 6, charz));
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("OpenSay", 7, charz));
-        charz.menuBoard.arrMenu.add(new MenuInfoAdmin("OpenSay2", 19, charz));
-        charz.menuBoard.openUIConfirm(5, null, null, -1);
+    public void openAdmin(Char chart) {
+        chart.clientInput.typeInput = -1;
+        chart.resetMenu();
+        chart.menuBoard.chat = "Chức năng dành cho Admin Đoàn Văn Ngọc";
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Hệ thống", 1, chart));
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Chat vip", 2, chart));
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Người chơi", 3, chart));
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Vật phẩm", 4, chart));
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Boss", 5, chart));
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Log", 6, chart));
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("OpenSay", 7, chart));
+        chart.menuBoard.arrMenu.add(new MenuInfoAdmin("OpenSay2", 19, chart));
+        chart.menuBoard.openUIConfirm(5, null, null, -1);
     }
 
     public static class MenuInfoAdmin extends MenuInfo {
@@ -52,65 +52,65 @@ public class Admin {
 
     }
 
-    public void select(Char charz, MenuInfo info) {
-        System.out.println("AD_Player=" + charz.cName + " AD_User=" + charz.session.userName);
+    public void select(Char chart, MenuInfo info) {
+        System.out.println("AD_Player=" + chart.cName + " AD_User=" + chart.session.userName);
         switch (info.type) {
             case 1: {
-                charz.resetMenu();
-                charz.menuBoard.chat = "Một số chức năng hệ thống";
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Thống kê", 8, charz));
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Bảo trì", 9, charz));
-                charz.menuBoard.openUIConfirm(5, null, null, -1);
+                chart.resetMenu();
+                chart.menuBoard.chat = "Một số chức năng hệ thống";
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Thống kê", 8, chart));
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Bảo trì", 9, chart));
+                chart.menuBoard.openUIConfirm(5, null, null, -1);
                 break;
             }
             case 2: {
-                charz.session.service.openClientInput("Nhập chat vip", new String[] { "" }, new int[] { 1 });
+                chart.session.service.openClientInput("Nhập chat vip", new String[] { "" }, new int[] { 1 });
                 break;
             }
             case 3: {
-                charz.resetMenu();
-                charz.menuBoard.chat = "Bạn có thể thực hiên một số chức năng với người chơi tại đây";
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Khóa vĩnh viễn", 10, charz));
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Khóa Chat", 11, charz));
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Tìm kiếm", 12, charz));
-                charz.menuBoard.openUIConfirm(5, null, null, -1);
+                chart.resetMenu();
+                chart.menuBoard.chat = "Bạn có thể thực hiên một số chức năng với người chơi tại đây";
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Khóa vĩnh viễn", 10, chart));
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Khóa Chat", 11, chart));
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Tìm kiếm", 12, chart));
+                chart.menuBoard.openUIConfirm(5, null, null, -1);
                 break;
             }
             case 4: {
-                charz.resetMenu();
-                charz.menuBoard.chat = "Hãy lựa chọn kiểu gọi vật phẩm";
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Id vật phẩm\nsố lượng 1", 13, charz));
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Id vật phẩm\nNhập số lượng", 14, charz));
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Id vật phẩm\nkhác", 15, charz));
-                charz.menuBoard.openUIConfirm(5, null, null, -1);
+                chart.resetMenu();
+                chart.menuBoard.chat = "Hãy lựa chọn kiểu gọi vật phẩm";
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Id vật phẩm\nsố lượng 1", 13, chart));
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Id vật phẩm\nNhập số lượng", 14, chart));
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Id vật phẩm\nkhác", 15, chart));
+                chart.menuBoard.openUIConfirm(5, null, null, -1);
                 break;
             }
             case 5: {
-                charz.resetMenu();
-                charz.menuBoard.chat = "Boss có thể xuất hiện như nào";
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Gọi BotId", 16, charz));
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Gọi Đầy Đủ", 17, charz));
-                charz.menuBoard.arrMenu.add(new MenuInfoAdmin("Gọi Boss Tùy Ý", 18, charz));
-                charz.menuBoard.openUIConfirm(5, null, null, -1);
+                chart.resetMenu();
+                chart.menuBoard.chat = "Boss có thể xuất hiện như nào";
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Gọi BotId", 16, chart));
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Gọi Đầy Đủ", 17, chart));
+                chart.menuBoard.arrMenu.add(new MenuInfoAdmin("Gọi Boss Tùy Ý", 18, chart));
+                chart.menuBoard.openUIConfirm(5, null, null, -1);
                 break;
             }
             case 6: {
-                charz.session.service.openClientInput("Nhập log", new String[] { "" }, new int[] { 1 });
+                chart.session.service.openClientInput("Nhập log", new String[] { "" }, new int[] { 1 });
                 break;
             }
             case 7: {
-                charz.session.service.openClientInput("Thông báo",
+                chart.session.service.openClientInput("Thông báo",
                         new String[] { "NpcId (Có thể là 4)", "Nhập thông báo", "Avatar (Tùy ý)" },
                         new int[] { 0, 1, 0 });
                 break;
             }
             case 8: {
-                charz.session.service.openUISay(5,
-                        "LEVEL " + charz.clevel + " Tổng số kết nối:" + Server.gI().sizeConn() + " tổng online:"
-                                + Server.gI().sizeByUId() + " MapId=" + charz.zoneMap.mapTemplate.mapTemplateId + " cx="
-                                + charz.cx + " cy=" + charz.cy + " sizeMob=" + charz.zoneMap.mobs.size() + " indexTile="
-                                + (charz.cy / 24 * charz.zoneMap.mapTemplate.tmw + charz.cx / 24) + " sizeType="
-                                + charz.zoneMap.mapTemplate.types.length,
+                chart.session.service.openUISay(5,
+                        "LEVEL " + chart.clevel + " Tổng số kết nối:" + Server.gI().sizeConn() + " tổng online:"
+                                + Server.gI().sizeByUId() + " MapId=" + chart.zoneMap.mapTemplate.mapTemplateId + " cx="
+                                + chart.cx + " cy=" + chart.cy + " sizeMob=" + chart.zoneMap.mobs.size() + " indexTile="
+                                + (chart.cy / 24 * chart.zoneMap.mapTemplate.tmw + chart.cx / 24) + " sizeType="
+                                + chart.zoneMap.mapTemplate.types.length,
                         1363);
                 break;
             }
@@ -119,55 +119,55 @@ public class Admin {
                 break;
             }
             case 10: {
-                charz.session.service.openClientInput("Tên nhân vật", new String[] { "Khóa vĩnh viễn" },
+                chart.session.service.openClientInput("Tên nhân vật", new String[] { "Khóa vĩnh viễn" },
                         new int[] { 1 });
                 break;
             }
             case 11: {
-                charz.session.service.openClientInput("Tên nhân vật", new String[] { "Khóa chat thế giới" },
+                chart.session.service.openClientInput("Tên nhân vật", new String[] { "Khóa chat thế giới" },
                         new int[] { 1 });
                 break;
             }
             case 12: {
-                charz.session.service.openClientInput("Tên nhân vật", new String[] { "Sẽ đưa bạn tới nhân vật này" },
+                chart.session.service.openClientInput("Tên nhân vật", new String[] { "Sẽ đưa bạn tới nhân vật này" },
                         new int[] { 1 });
                 break;
             }
             case 13: {
-                charz.session.service.openClientInput("Nhập thông tin vật phẩm",
+                chart.session.service.openClientInput("Nhập thông tin vật phẩm",
                         new String[] { "Id vật phẩm có số lượng là 1" }, new int[] { 0 });
                 break;
             }
             case 14: {
-                charz.session.service.openClientInput("Nhập thông tin vật phẩm",
+                chart.session.service.openClientInput("Nhập thông tin vật phẩm",
                         new String[] { "Id vật phẩm", "Số lượng" }, new int[] { 0, 0 });
                 break;
             }
             case 15: {
-                charz.session.service.openClientInput("Nhập thông tin vật phẩm",
+                chart.session.service.openClientInput("Nhập thông tin vật phẩm",
                         new String[] { "Id vật phẩm", "Số lượng", "trạng thái", "hành tinh" },
                         new int[] { 0, 0, 0, 0 });
                 break;
             }
             case 16: {
-                charz.session.service.openClientInput("Nhập Thông Tin Boss", new String[] { "botId", "Có báo KTG = 1" },
+                chart.session.service.openClientInput("Nhập Thông Tin Boss", new String[] { "botId", "Có báo KTG = 1" },
                         new int[] { 0, 0 });
                 break;
             }
             case 17: {
-                charz.session.service.openClientInput("Nhập Thông Tin Boss",
+                chart.session.service.openClientInput("Nhập Thông Tin Boss",
                         new String[] { "botId", "Trạng thái PK", "HP", "Sát thương", "Tấn công = 1", "Có báo KTG = 1" },
                         new int[] { 0, 0, 0, 0, 0, 0 });
                 break;
             }
             case 18: {
-                charz.session.service.openClientInput("Nhập Thông Tin Boss",
+                chart.session.service.openClientInput("Nhập Thông Tin Boss",
                         new String[] { "BotId", "Trạng thái PK", "Name HP ST", "Báo KTG = 1", "Head Body Leg" },
                         new int[] { 0, 0, 1, 0, 1 });
                 break;
             }
             case 19: {
-                charz.session.service.openClientInput("Thông báo",
+                chart.session.service.openClientInput("Thông báo",
                         new String[] { "NpcId (Có thể là 4)", "Nhập thông báo", "Avatar (Tùy ý)", "P", "Caption" },
                         new int[] { 0, 1, 0, 1, 1 });
                 break;
@@ -229,19 +229,22 @@ public class Admin {
                 try {
                     num = Integer.parseInt(texts[1]);
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
                 try {
                     status = Byte.parseByte(texts[2]);
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
                 try {
                     gender = Byte.parseByte(texts[3]);
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
                 String[] numbers = texts[0].trim().split(" ");
-                for (int i = 0; i < numbers.length; i++) {
-                    Item it = new Item(Integer.parseInt(numbers[i]), false, num,
-                            ItemOption.getOption(Integer.parseInt(numbers[i]), status, gender), "", "", "");
+                for (String number : numbers) {
+                    Item it = new Item(Integer.parseInt(number), false, num,
+                            ItemOption.getOption(Integer.parseInt(number), status, gender), "", "", "");
                     if (it.isItemSLL()) {
                         it.quantity = 1;
                         it.getOption(31).param = num;

@@ -1,8 +1,8 @@
 package dragon.server;
 
 import dragon.t.Amu;
-import dragon.t.Archivement;
-import dragon.t.ArchivementTask;
+import dragon.t.Achievement;
+import dragon.t.AchievementTask;
 import dragon.t.Arrow;
 import dragon.t.BgItem;
 import dragon.t.Char;
@@ -4797,31 +4797,31 @@ public class Service {
         }
     }
 
-    public void setArchive(ArrayList<ArchivementTask> myList) {
+    public void setArchive(ArrayList<AchievementTask> myList) {
         Message msg = null;
         try {
             msg = new Message(-76);
             msg.writer().writeByte(0);
             msg.writer().writeByte(myList.size());
             for (int i = 0; i < myList.size(); i++) {
-                if (Archivement.get(myList.get(i).id).gold > 0 && !myList.get(i).isRecieve) {
+                if (Achievement.get(myList.get(i).id).gold > 0 && !myList.get(i).isReceive) {
                     msg.writer()
-                            .writeUTF(String.format(mResources.TASK_AND_GOLD, Archivement.get(myList.get(i).id).info1,
-                                    Util.gI().numberTostring(Archivement.get(myList.get(i).id).gold)));
+                            .writeUTF(String.format(mResources.TASK_AND_GOLD, Achievement.get(myList.get(i).id).info1,
+                                    Util.gI().numberTostring(Achievement.get(myList.get(i).id).gold)));
                 } else {
-                    msg.writer().writeUTF(Archivement.get(myList.get(i).id).info1);
+                    msg.writer().writeUTF(Achievement.get(myList.get(i).id).info1);
                 }
-                if (Archivement.get(myList.get(i).id).max == -1) {
-                    msg.writer().writeUTF(Archivement.get(myList.get(i).id).info2);
+                if (Achievement.get(myList.get(i).id).max == -1) {
+                    msg.writer().writeUTF(Achievement.get(myList.get(i).id).info2);
                 } else {
                     msg.writer()
-                            .writeUTF(String.format(mResources.TASK_AND_COUNT, Archivement.get(myList.get(i).id).info2,
+                            .writeUTF(String.format(mResources.TASK_AND_COUNT, Achievement.get(myList.get(i).id).info2,
                                     Util.gI().numberTostring(myList.get(i).count),
-                                    Util.gI().numberTostring(Archivement.get(myList.get(i).id).max)));
+                                    Util.gI().numberTostring(Achievement.get(myList.get(i).id).max)));
                 }
-                msg.writer().writeShort(Archivement.get(myList.get(i).id).money);
+                msg.writer().writeShort(Achievement.get(myList.get(i).id).money);
                 msg.writer().writeBoolean(myList.get(i).isFinish);
-                msg.writer().writeBoolean(myList.get(i).isRecieve);
+                msg.writer().writeBoolean(myList.get(i).isReceive);
             }
             this.session.sendMessage(msg);
         } catch (Exception e) {

@@ -20,7 +20,14 @@ public class PhaoHoa {
         "Anh em Fa máu thoát ế",
         "Anh yêu em nhiều lắm, ahihi",
         "Quẩy lên đi anh em",
-        "Mình iu các bạn nhiều lắm"
+        "Mình iu các bạn nhiều lắm",
+        // Lời chúc Tết 2026
+        "Chúc mừng năm mới 2026 - Bính Ngọ",
+        "Vạn sự như ý - An khang thịnh vượng",
+        "Tết đến xuân về - Phát tài phát lộc",
+        "Sức khỏe dồi dào - Tiền vào như nước",
+        "Gia đình hạnh phúc - Công việc thuận lợi",
+        "Năm mới đại cát - Vạn sự hanh thông"
     };
     
     public PhaoHoa(ZoneMap zone, int num, short x, short y, byte type) {

@@ -62,13 +62,7 @@ public class Message {
     }
 
     public void cleanup() {
-//        try {
-//            if (dis != null)
-//                dis.close();
-//            if (dos != null)
-//                dos.close();
-//        } catch (IOException e) {
-//        }
+
     }
     
 }

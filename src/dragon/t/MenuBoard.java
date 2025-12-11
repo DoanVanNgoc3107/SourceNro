@@ -12,6 +12,7 @@ import dragon.t.CallDragon.MenuR;
 
 /**
  * MenuBoard class handles the menu interactions between the player and NPCs.
+ *
  * @author TGDD
  */
 public class MenuBoard {
@@ -52,6 +53,7 @@ public class MenuBoard {
         }
     }
 
+
     public void menu(int npcId, int menuId, int optionId) {
         if (npcId == 4) {
             this.openUIConfirm(npcId, menuId);
@@ -65,7 +67,7 @@ public class MenuBoard {
             return;
         }
 
-        // Vong xoay may man
+        // Special NPCs vòng xoay may mắn
         if (npcId == 54) {
             this.session.myCharz().openTabGold();
             this.session.myCharz().openGacha();
@@ -82,21 +84,30 @@ public class MenuBoard {
                 case 1: // Namek
                 case 2: {
                     this.session.myCharz().resetMenu(); // Dùng để xóa menu cũ
-                    this.chat = String.format(mResources.SAY_MIAN, 
-                        this.session.myCharz().totalGold,     // Vàng thỏi (tích lũy)
-                        this.session.myCharz().luong,         // Ngọc xanh (miễn phí)
-                        this.session.myCharz().luongKhoa);    // Ngọc đỏ (có khóa)
+                    this.chat = String.format(mResources.SAY_MIAN,
+                            Util.gI().getFormatNumber(Money.gI().getMoney(this.session.myCharz())),
+                            this.session.myCharz().totalGold,     // Vàng thỏi (tích lũy)
+                            this.session.myCharz().luong,         // Ngọc xanh (miễn phí)
+                            this.session.myCharz().luongKhoa);    // Ngọc đỏ (có khóa)
 
-                    // Nơi nhập giftcode
+                    // Luôn hiện - Essential features always shown
                     this.arrMenu.add(new MenuInfo(mResources.GIFT_CODE, 208));
 
-                    this.arrMenu.add(new MenuInfo(mResources.MONEY_TO_GOLD, 212));
+                    // Chỉ hiện nếu tính năng đổi tiền được bật - Only if money exchange enabled
+                    if (Money.gI().isNapVang) {
+                        this.arrMenu.add(new MenuInfo(mResources.MONEY_TO_GOLD, 212));
+                    }
+
+                    // Chỉ hiện nếu có thỏi vàng chờ nhận - Only if has gold bars to claim
                     if (this.session.myCharz().totalGold > 0) {
                         this.arrMenu.add(new MenuInfo(String.format(mResources.NHAN_THOI_VANG2,
                                 Util.gI().getFormatNumber(this.session.myCharz().totalGold + 1000)), 216));
                     }
 
-                    this.arrMenu.add(new MenuInfo(mResources.NAP_TIEN, 209));
+                    // Chỉ hiện nếu hệ thống nạp tiền được mở - Only if recharge enabled
+                    if (Money.gI().isNapVang || Money.gI().isNapNgoc) {
+                        this.arrMenu.add(new MenuInfo(mResources.NAP_TIEN, 209));
+                    }
 
                     if (!this.session.myCharz().isCan()) {
                         this.arrMenu.add(new MenuInfo(mResources.OPEN_MEMBER_2, 214));
@@ -119,8 +130,19 @@ public class MenuBoard {
                     if (Dragon.isEvent_TetNguyenDan) {
                         this.arrMenu.add(new MenuInfo("Tết Nguyên Đán", 501));
                     }
+
                     if (Dragon.isEvent_Noel) {
                         this.arrMenu.add(new MenuInfo("Lễ Giáng Sinh", 502));
+                    }
+
+                    if (Dragon.isEvent_Halloween) {
+                        this.arrMenu.add(new MenuInfo("Lễ Hội Halloween", 503));
+                    }
+                    if (Dragon.isEvent_VULAN2023) {
+                        this.arrMenu.add(new MenuInfo("Lễ Hội Vu Lan", 504));
+                    }
+                    if (Dragon.isEvent_TrungThu) {
+                        this.arrMenu.add(new MenuInfo("Tết Trung Thu", 505));
                     }
                     // this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO1, 405));
 
@@ -386,7 +408,7 @@ public class MenuBoard {
                     if (this.session.myCharz().isPetDiTheo
                             && this.session.myCharz().zoneMap.getBossPlayer(this.session.myCharz().playerId) != null
                             && Math.abs(npc.cx - this.session.myCharz().zoneMap
-                                    .getBossPlayer(this.session.myCharz().playerId).cx) <= 50) {
+                            .getBossPlayer(this.session.myCharz().playerId).cx) <= 50) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.DUA_PET_SAY_1;
                         this.arrMenu.add(new MenuInfo(mResources.AGREE, 30));
@@ -543,7 +565,7 @@ public class MenuBoard {
                     }
                     if (this.session.myCharz().mapTemplateId == 42 || this.session.myCharz().mapTemplateId == 43
                             || this.session.myCharz().mapTemplateId == 44
-                                    | this.session.myCharz().mapTemplateId == 84) {
+                            | this.session.myCharz().mapTemplateId == 84) {
                         this.session.myCharz().resetMenu();
                         this.chat = mResources.SAY_BA_HAT_MIT;
                         this.arrMenu.add(new MenuInfo(mResources.SACH_TUYET_KY1, 411));
@@ -621,8 +643,7 @@ public class MenuBoard {
                         this.arrMenu.add(new MenuInfo(mResources.HDT, 136));
                         if (this.session.myCharz().myObj().nWinHD23 < 11) {
                             int giangoc = 1 * (this.session.myCharz().myObj().nJoinDH23 + 1);
-                            // this.arrMenu.add(new MenuInfo(String.format(mResources.THI_DAU_1, giangoc),
-                            // 132, giangoc));
+                            this.arrMenu.add(new MenuInfo(String.format(mResources.THI_DAU_1, giangoc), 132, giangoc));
                             int giavang = 500000 * (this.session.myCharz().myObj().nJoinDH23 > 11 ? 11
                                     : this.session.myCharz().myObj().nJoinDH23 + 1);
                             this.arrMenu.add(
@@ -750,9 +771,9 @@ public class MenuBoard {
                         // this.arrMenu.add(new MenuInfo(mResources.X3HP, 243));
                         // this.arrMenu.add(new MenuInfo(mResources.X5HP, 244));
                         // this.arrMenu.add(new MenuInfo(mResources.X7HP, 245));
-                        this.arrMenu.add(new MenuInfo(mResources.X3HP2, 376, new int[] { 100000000, 3 }));
-                        this.arrMenu.add(new MenuInfo(mResources.X5HP2, 376, new int[] { 300000000, 5 }));
-                        this.arrMenu.add(new MenuInfo(mResources.X7HP2, 376, new int[] { 500000000, 7 }));
+                        this.arrMenu.add(new MenuInfo(mResources.X3HP2, 376, new int[]{100000000, 3}));
+                        this.arrMenu.add(new MenuInfo(mResources.X5HP2, 376, new int[]{300000000, 5}));
+                        this.arrMenu.add(new MenuInfo(mResources.X7HP2, 376, new int[]{500000000, 7}));
                     }
                     this.arrMenu.add(new MenuInfo(mResources.REFUSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
@@ -1077,7 +1098,7 @@ public class MenuBoard {
                             this.chat = mResources.SAY_QUA_TRUNG1;
                             if (this.session.myCharz().getDuaHau(50, 4664).second
                                     - ((System.currentTimeMillis() / 1000L)
-                                            - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
+                                    - this.session.myCharz().getDuaHau(50, 4664).last) <= 0) {
                                 this.arrMenu.add(new MenuInfo(mResources.HATCH, 61));
                             } else {
                                 this.arrMenu.add(new MenuInfo(mResources.NO_TRUNG_NHANH, 65));
@@ -1093,7 +1114,7 @@ public class MenuBoard {
                             this.chat = mResources.SAY_QUA_TRUNG5;
                             if (this.session.myCharz().getDuaHau(50, 6546).second
                                     - ((System.currentTimeMillis() / 1000L)
-                                            - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
+                                    - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
                                 this.arrMenu.add(new MenuInfo(mResources.HATCH, 67));
                             } else {
                                 this.arrMenu.add(new MenuInfo(mResources.ADD_LINHLUC, 71));
@@ -1594,7 +1615,8 @@ public class MenuBoard {
                 if ((int) info.p == -1) {
                     Combine.DucLo(this.session.myCharz());
                 } else {
-                    batdaunangcap: {
+                    batdaunangcap:
+                    {
                         for (int i = 0; i < (int) info.p; i++) {
                             int status = Combine.DucLo(this.session.myCharz());
                             if (status == 1) {
@@ -1667,10 +1689,10 @@ public class MenuBoard {
             }
             case 29: {
                 if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.YOU_FRUIT_TRAY,
-                        new int[] { 1177, 1178, 1179, 1180, 1181, 1183 }, new int[] { 20, 20, 20, 20, 20, 3 }, 0,
+                        new int[]{1177, 1178, 1179, 1180, 1181, 1183}, new int[]{20, 20, 20, 20, 20, 3}, 0,
                         5000000, -1, false, -1)) {
                     this.session.myCharz().clientInput.openClientInput(14, mResources.QUANTITY_FRUIT_TRAY,
-                            new String[] { mResources.QUANTITY_FRUIT_TRAY_KEY }, new int[] { 0 });
+                            new String[]{mResources.QUANTITY_FRUIT_TRAY_KEY}, new int[]{0});
                 }
                 break;
             }
@@ -1707,7 +1729,7 @@ public class MenuBoard {
             }
             case 34: {
                 if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_TET_1,
-                        new int[] { 748, 749, 750, 751 }, new int[] { 10, 10, 10, 10 }, 0, 5000000, -1, false, -1)) {
+                        new int[]{748, 749, 750, 751}, new int[]{10, 10, 10, 10}, 0, 5000000, -1, false, -1)) {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_NOI_BANH_3;
                     this.arrMenu.add(new MenuInfo(mResources.AGREE, 35));
@@ -1718,14 +1740,14 @@ public class MenuBoard {
             }
             case 35: {
                 if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_TET_1,
-                        new int[] { 748, 749, 750, 751 }, new int[] { 10, 10, 10, 10 }, 0, 5000000, -1, true, -1)) {
+                        new int[]{748, 749, 750, 751}, new int[]{10, 10, 10, 10}, 0, 5000000, -1, true, -1)) {
                     this.session.myCharz().addNauBanh(npcId, 180, 752);
                 }
                 break;
             }
             case 36: {
                 if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_CHUNG_1,
-                        new int[] { 748, 749, 750, 751, 886 }, new int[] { 10, 10, 10, 10, 1 }, 0, 5000000, -1, false,
+                        new int[]{748, 749, 750, 751, 886}, new int[]{10, 10, 10, 10, 1}, 0, 5000000, -1, false,
                         -1)) {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_NOI_BANH_4;
@@ -1737,7 +1759,7 @@ public class MenuBoard {
             }
             case 37: {
                 if (this.session.myCharz().requestOpenUIItem(npcId, mResources.SAY_REQUEST_BANH_CHUNG_1,
-                        new int[] { 748, 749, 750, 751, 886 }, new int[] { 10, 10, 10, 10, 1 }, 0, 5000000, -1, true,
+                        new int[]{748, 749, 750, 751, 886}, new int[]{10, 10, 10, 10, 1}, 0, 5000000, -1, true,
                         -1)) {
                     this.session.myCharz().addNauBanh(npcId, 300, 753);
                 }
@@ -1745,9 +1767,9 @@ public class MenuBoard {
             }
             case 38: {
                 if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.YOU_GIFT_TET,
-                        new int[] { 1182, 1184 }, new int[] { 1, 1 }, 0, -1, -1, false, -1)) {
+                        new int[]{1182, 1184}, new int[]{1, 1}, 0, -1, -1, false, -1)) {
                     this.session.myCharz().clientInput.openClientInput(15, mResources.QUANTITY_GIFT_TET,
-                            new String[] { mResources.QUANTITY_GIFT_TET_KEY }, new int[] { 0 });
+                            new String[]{mResources.QUANTITY_GIFT_TET_KEY}, new int[]{0});
                 }
                 break;
             }
@@ -1826,7 +1848,7 @@ public class MenuBoard {
                     this.session.service.openUISay(npcId, mResources.INVATE_BANG_CHU, -1);
                 } else {
                     this.session.myCharz().clientInput.openClientInput(7, mResources.SELECT_LEVEL_2,
-                            new String[] { mResources.LEVEL }, new int[] { 0 });
+                            new String[]{mResources.LEVEL}, new int[]{0});
                 }
                 break;
             }
@@ -2057,7 +2079,7 @@ public class MenuBoard {
                     this.session.myCharz().addInfo1(String.format(mResources.BAG_FULL_2, 1));
                 } else if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
                     if (this.session.myCharz().requestOpenUIItem(this.npcId, mResources.SAY_QUA_TRUNG12,
-                            new int[] { 2006, 2008, 457 }, new int[] { 200, 5, 15 }, 0, -1, -1, true, 1)) {
+                            new int[]{2006, 2008, 457}, new int[]{200, 5, 15}, 0, -1, -1, true, 1)) {
                         if (this.session.myCharz().getDuaHau(50, 6546).second - ((System.currentTimeMillis() / 1000L)
                                 - this.session.myCharz().getDuaHau(50, 6546).last) <= 0) {
                             this.session.myCharz().duahaus.remove(this.session.myCharz().getDuaHau(50, 6546));
@@ -2069,14 +2091,14 @@ public class MenuBoard {
                             Item item = new Item(templateId, false, 1, ItemOption.getOption(templateId, 0, 0),
                                     mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                             // option 1
-                            int option1 = new int[] { 0, 6, 7 }[Util.gI().nextInt(3)];
+                            int option1 = new int[]{0, 6, 7}[Util.gI().nextInt(3)];
                             if (option1 == 0) {
                                 item.options.add(new ItemOption(0, Util.gI().nextInt(150, 300)));
                             } else {
                                 item.options.add(new ItemOption(option1, Util.gI().nextInt(1500, 3000)));
                             }
                             // option 2
-                            int option2 = new int[] { 103, 94, 77, 50, 108 }[Util.gI().nextInt(5)];
+                            int option2 = new int[]{103, 94, 77, 50, 108}[Util.gI().nextInt(5)];
                             item.options.add(new ItemOption(option2, 1));
                             this.session.myCharz().addItemBag(0, item);
                         }
@@ -2127,14 +2149,14 @@ public class MenuBoard {
 
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
                     if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId,
-                            mResources.SAY_QUA_TRUNG12, new int[] { 2006 }, new int[] { 2 }, 0, 50000000, -1, true,
+                            mResources.SAY_QUA_TRUNG12, new int[]{2006}, new int[]{2}, 0, 50000000, -1, true,
                             1)) {
                         this.session.myCharz().getDuaHau(50, 6546).second -= 3600;
                         this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau,
                                 this.session.myCharz().getDuaHau(50, 6546).duaHauIndex,
                                 (int) (this.session.myCharz().getDuaHau(50, 6546).second
                                         - ((System.currentTimeMillis() / 1000L)
-                                                - this.session.myCharz().getDuaHau(50, 6546).last)));
+                                        - this.session.myCharz().getDuaHau(50, 6546).last)));
                     }
                 }
                 break;
@@ -2151,14 +2173,14 @@ public class MenuBoard {
 
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
                     if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId,
-                            mResources.SAY_QUA_TRUNG12, new int[] { 2006 }, new int[] { 15 }, 0, 1000000000, -1, true,
+                            mResources.SAY_QUA_TRUNG12, new int[]{2006}, new int[]{15}, 0, 1000000000, -1, true,
                             1)) {
                         this.session.myCharz().getDuaHau(50, 6546).second -= 36000;
                         this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau,
                                 this.session.myCharz().getDuaHau(50, 6546).duaHauIndex,
                                 (int) (this.session.myCharz().getDuaHau(50, 6546).second
                                         - ((System.currentTimeMillis() / 1000L)
-                                                - this.session.myCharz().getDuaHau(50, 6546).last)));
+                                        - this.session.myCharz().getDuaHau(50, 6546).last)));
                     }
                 }
                 break;
@@ -2175,14 +2197,14 @@ public class MenuBoard {
 
                 if (this.session.myCharz().canProceed() && this.session.myCharz().isHaveDuaHau(50, 6546)) {
                     if (this.session.myCharz().requestOpenUIItem(this.session.myCharz().menuBoard.npcId,
-                            mResources.SAY_QUA_TRUNG12, new int[] { 2006, 457 }, new int[] { 30, 4 }, 0, -1, -1, true,
+                            mResources.SAY_QUA_TRUNG12, new int[]{2006, 457}, new int[]{30, 4}, 0, -1, -1, true,
                             1)) {
                         this.session.myCharz().getDuaHau(50, 6546).second -= 86400;
                         this.session.myCharz().eggEffStatus(115, 312, this.session.myCharz().getDuaHau(50, 6546).duahau,
                                 this.session.myCharz().getDuaHau(50, 6546).duaHauIndex,
                                 (int) (this.session.myCharz().getDuaHau(50, 6546).second
                                         - ((System.currentTimeMillis() / 1000L)
-                                                - this.session.myCharz().getDuaHau(50, 6546).last)));
+                                        - this.session.myCharz().getDuaHau(50, 6546).last)));
                     }
                 }
                 break;
@@ -2211,7 +2233,7 @@ public class MenuBoard {
                             .getStrTime(this.session.myCharz().clan.lastChangeShortName - System.currentTimeMillis())));
                 } else {
                     this.session.myCharz().clientInput.openClientInput(13, mResources.NHAP_SHORT_NAME,
-                            new String[] { mResources.KEY_SHORT_NAME }, new int[] { 1 });
+                            new String[]{mResources.KEY_SHORT_NAME}, new int[]{1});
                 }
                 break;
             }
@@ -2227,7 +2249,7 @@ public class MenuBoard {
                     this.session.myCharz().addInfo1(String.format(mResources.USE_PETZ_LEVEL,
                             this.session.myCharz().usePetFollowz.getParamOption(72)));
                 } else if (this.session.myCharz().canProceed()) {
-                    int[] arr_percent = new int[] { 100, 50, 30, 20, 10, 5, 4, 3, 2, 1 };
+                    int[] arr_percent = new int[]{100, 50, 30, 20, 10, 5, 4, 3, 2, 1};
                     this.session.myCharz().resetMenu();
                     this.chat = String.format(mResources.SAY_DR_BRIEF_4,
                             this.session.myCharz().usePetFollowz.template.name,
@@ -2253,12 +2275,12 @@ public class MenuBoard {
                     if (this.session.myCharz().requestOpenUIItem(npcId,
                             String.format(mResources.SAY_DR_BRIEF_5, this.session.myCharz().usePetFollowz.template.name,
                                     this.session.myCharz().usePetFollowz.getParamOption(72) + 1),
-                            new int[] { 2007, 2009 },
-                            new int[] { this.session.myCharz().usePetFollowz.getParamOption(72) + 1,
-                                    this.session.myCharz().usePetFollowz.getParamOption(72) + 1 },
+                            new int[]{2007, 2009},
+                            new int[]{this.session.myCharz().usePetFollowz.getParamOption(72) + 1,
+                                    this.session.myCharz().usePetFollowz.getParamOption(72) + 1},
                             0, -1, -1, true, -1)) {
-                        boolean flag = Util.gI().nextInt(100) <= new int[] { 100, 50, 30, 20, 10, 5, 4, 3, 2,
-                                1 }[this.session.myCharz().usePetFollowz.getParamOption(72) + 1];
+                        boolean flag = Util.gI().nextInt(100) <= new int[]{100, 50, 30, 20, 10, 5, 4, 3, 2,
+                                1}[this.session.myCharz().usePetFollowz.getParamOption(72) + 1];
                         if (!flag) {
                             this.session.myCharz().addInfo1(mResources.FAILD);
                         } else {
@@ -2298,10 +2320,10 @@ public class MenuBoard {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().arrItem != null
                         && this.session.myCharz().arrItem.length == 1
                         && this.session.myCharz().arrItemBag[this.session.myCharz().arrItem[0].indexUI] == this.session
-                                .myCharz().arrItem[0]
+                        .myCharz().arrItem[0]
                         && this.session.myCharz().arrItem[0].template.id == 2005) {
                     this.session.myCharz().useItemBag(this.session.myCharz().arrItem[0].indexUI, 1);
-                    this.session.myCharz().addDuaHau(50, new int[] { 6546 }, 0, 2592000, 6546);
+                    this.session.myCharz().addDuaHau(50, new int[]{6546}, 0, 2592000, 6546);
                 }
                 this.session.myCharz().resetMenu();
                 break;
@@ -2332,7 +2354,7 @@ public class MenuBoard {
                     this.session.service.openUISay(npcId, mResources.INVATE_BANG_CHU, -1);
                 } else {
                     this.session.myCharz().clientInput.openClientInput(3, mResources.SELECT_LEVEL,
-                            new String[] { mResources.LEVEL }, new int[] { 0 });
+                            new String[]{mResources.LEVEL}, new int[]{0});
                 }
             }
             case 91: {
@@ -2437,7 +2459,7 @@ public class MenuBoard {
             }
             case 98: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(npcId,
-                        mResources.YEU_CAU, new int[] { 457 }, new int[] { 52 }, 0, -1, -1, true, 1)) {
+                        mResources.YEU_CAU, new int[]{457}, new int[]{52}, 0, -1, -1, true, 1)) {
                     this.session.myCharz().addItemBag(0, new Item(2006, false, 99, ItemOption.getOption(2006, 0, 0),
                             mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 }
@@ -2445,7 +2467,7 @@ public class MenuBoard {
             }
             case 99: {
                 if (this.session.myCharz().canProceed() && this.session.myCharz().requestOpenUIItem(npcId,
-                        mResources.YEU_CAU, new int[] { 457 }, new int[] { 42 }, 0, -1, -1, true, 1)) {
+                        mResources.YEU_CAU, new int[]{457}, new int[]{42}, 0, -1, -1, true, 1)) {
                     this.session.myCharz().addItemBag(0, new Item(2009, false, 99, ItemOption.getOption(2009, 0, 0),
                             mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 }
@@ -2670,7 +2692,7 @@ public class MenuBoard {
             }
             case 118: {
                 this.session.myCharz().clientInput.openClientInput(16, mResources.QUANTITY_FLOWER_BLUE,
-                        new String[] { mResources.QUANTITY_FLOWER_BLUE_KEY }, new int[] { 0 });
+                        new String[]{mResources.QUANTITY_FLOWER_BLUE_KEY}, new int[]{0});
                 break;
             }
             case 119: {
@@ -2683,7 +2705,7 @@ public class MenuBoard {
             }
             case 120: {
                 this.session.myCharz().clientInput.openClientInput(17, mResources.QUANTITY_FLOWER_POT_BLUE,
-                        new String[] { mResources.QUANTITY_FLOWER_POT_BLUE_KEY }, new int[] { 0 });
+                        new String[]{mResources.QUANTITY_FLOWER_POT_BLUE_KEY}, new int[]{0});
                 break;
             }
             case 121: {
@@ -3142,7 +3164,7 @@ public class MenuBoard {
             }
             case 161: {
                 this.session.myCharz().clientInput.openClientInput(18, mResources.INPUT_QUANTITY,
-                        new String[] { mResources.QUANTITY_KEY }, new int[] { 0 });
+                        new String[]{mResources.QUANTITY_KEY}, new int[]{0});
                 break;
             }
             case 162: {
@@ -3155,7 +3177,7 @@ public class MenuBoard {
             }
             case 163: {
                 this.session.myCharz().clientInput.openClientInput(19, mResources.INPUT_QUANTITY,
-                        new String[] { mResources.QUANTITY_KEY }, new int[] { 0 });
+                        new String[]{mResources.QUANTITY_KEY}, new int[]{0});
                 break;
             }
             case 164: {
@@ -3431,12 +3453,12 @@ public class MenuBoard {
             }
             case 194: {
                 this.session.myCharz().clientInput.openClientInput(20, mResources.INPUT_NUMBER,
-                        new String[] { mResources.INPUT_NUMBER2 }, new int[] { 0 });
+                        new String[]{mResources.INPUT_NUMBER2}, new int[]{0});
                 break;
             }
             case 196: {
                 this.session.myCharz().clientInput.openClientInput(21, mResources.INPUT_NUMBER,
-                        new String[] { mResources.INPUT_NUMBER2 }, new int[] { 0 });
+                        new String[]{mResources.INPUT_NUMBER2}, new int[]{0});
                 break;
             }
             case 198: {
@@ -3582,7 +3604,7 @@ public class MenuBoard {
                         && (int) info.p < NapThe.PRICE.length) {
                     this.session.myCharz().cardLoad.price = NapThe.PRICE[(int) info.p];
                     this.session.myCharz().clientInput.openClientInput(22, mResources.NAP_THE1,
-                            new String[] { mResources.NAP_THE2, mResources.NAP_THE3 }, new int[] { 1, 1 });
+                            new String[]{mResources.NAP_THE2, mResources.NAP_THE3}, new int[]{1, 1});
                 }
                 break;
             }
@@ -3596,7 +3618,7 @@ public class MenuBoard {
             }
             case 208: {
                 this.session.myCharz().clientInput.openClientInput(2, mResources.GIFT_CODE,
-                        new String[] { mResources.GIFT_CODE }, new int[] { 1 });
+                        new String[]{mResources.GIFT_CODE}, new int[]{1});
                 break;
             }
             case 209: {
@@ -3681,7 +3703,7 @@ public class MenuBoard {
             }
             case 216: {
                 this.session.myCharz().clientInput.openClientInput(6, mResources.INPUT_THOI_VANG,
-                        new String[] { mResources.INPUT_THOI_VANG }, new int[] { 0 });
+                        new String[]{mResources.INPUT_THOI_VANG}, new int[]{0});
                 break;
             }
             case 217: {
@@ -4430,7 +4452,7 @@ public class MenuBoard {
                 break;
             }
             case 294: {
-                if (!this.session.myCharz().isGoiRong) {
+                if (this.session.myCharz().isGoiRong) {
                     this.session.myCharz().menuRong();
                 }
                 break;
@@ -4602,7 +4624,7 @@ public class MenuBoard {
                         String.format(mResources.INPUT_TILE_LUCKY_NUMBER,
                                 LuckyNumber.gI().arrNumber[this.session.myCharz().nLuckyIndex][0],
                                 LuckyNumber.gI().arrNumber[this.session.myCharz().nLuckyIndex][1]),
-                        new String[] { mResources.INPUT_SELECT_LUCKY_NUMBER }, new int[] { 0 });
+                        new String[]{mResources.INPUT_SELECT_LUCKY_NUMBER}, new int[]{0});
                 break;
             }
             case 308: {
@@ -4634,7 +4656,7 @@ public class MenuBoard {
                 if (this.session.myCharz().securityCode != -1
                         && this.session.myCharz().securityCode == this.session.myCharz().securityCode2) {
                     this.session.myCharz().clientInput.openClientInput(1, mResources.CODE_NEW,
-                            new String[] { mResources.CODE_INFO }, new int[] { 0 });
+                            new String[]{mResources.CODE_INFO}, new int[]{0});
                 }
                 break;
             }
@@ -4795,7 +4817,7 @@ public class MenuBoard {
             }
             case 325: {
                 this.session.myCharz().clientInput.openClientInput(23, mResources.SELECT_LEVEL,
-                        new String[] { mResources.LEVEL }, new int[] { 0 });
+                        new String[]{mResources.LEVEL}, new int[]{0});
                 break;
             }
             case 326: {
@@ -5194,7 +5216,7 @@ public class MenuBoard {
                 break;
             }
             case 344: {
-                int id = new int[] { 1144, 897 }[Util.gI().nextInt(2)];
+                int id = new int[]{1144, 897}[Util.gI().nextInt(2)];
                 this.session.myCharz().addItemBag(0, new Item(id, false, 1, ItemOption.getOption(id, 0, 0),
                         mResources.EMPTY, mResources.EMPTY, mResources.EMPTY));
                 break;
@@ -5307,7 +5329,8 @@ public class MenuBoard {
                 if (this.session.myCharz().canProceed()) {
                     int num = Integer.parseInt(info.strMenu.split("\nX")[1]);
                     int indexUI = Integer.parseInt(info.arrayStr0[1]);
-                    nangcap: {
+                    nangcap:
+                    {
                         int i = 1;
                         for (; i <= num; i++) {
                             Object array[] = this.session.myCharz().checkString(info.stm, 0);
@@ -5346,7 +5369,7 @@ public class MenuBoard {
                 this.chat = mResources.SAY_SUKIEN3;
                 this.arrMenu.add(new MenuInfo(
                         String.format(mResources.POINT_SEASON, 2000, this.session.myCharz().myObj().pointEventVIP), 361,
-                        new int[] { 0, 1, 0 }));
+                        new int[]{0, 1, 0}));
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -5356,7 +5379,7 @@ public class MenuBoard {
                 this.chat = mResources.SAY_SUKIEN4;
                 this.arrMenu.add(new MenuInfo(
                         String.format(mResources.POINT_SEASON, 500, this.session.myCharz().myObj().pointEventVIP), 361,
-                        new int[] { 0, 2, 0 }));
+                        new int[]{0, 2, 0}));
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -5366,7 +5389,7 @@ public class MenuBoard {
                 this.chat = mResources.SAY_SUKIEN5;
                 this.arrMenu.add(new MenuInfo(
                         String.format(mResources.POINT_SEASON, 200, this.session.myCharz().myObj().pointEventVIP), 361,
-                        new int[] { 0, 3, 0 }));
+                        new int[]{0, 3, 0}));
                 this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                 this.openUIConfirm(npcId, null, null, -1);
                 break;
@@ -5376,8 +5399,8 @@ public class MenuBoard {
                 if (array[0] == 0 && this.session.myCharz().myPet != null) {
                     this.session.myCharz().resetMenu();
                     this.chat = mResources.SAY_SUKIEN6;
-                    this.arrMenu.add(new MenuInfo(mResources.AGREE, 361, new int[] { 1, array[1], 0 }));
-                    this.arrMenu.add(new MenuInfo(mResources.NOT_RECEIVED_PET, 361, new int[] { 1, array[1], 1 }));
+                    this.arrMenu.add(new MenuInfo(mResources.AGREE, 361, new int[]{1, array[1], 0}));
+                    this.arrMenu.add(new MenuInfo(mResources.NOT_RECEIVED_PET, 361, new int[]{1, array[1], 1}));
                     this.arrMenu.add(new MenuInfo(mResources.CLOSE, 0));
                     this.openUIConfirm(npcId, null, null, -1);
                 } else {
@@ -5620,47 +5643,47 @@ public class MenuBoard {
                     public void execute() {
                         if (super.myItem.size() == 2 && super.checkBagOK()
                                 && super.myItem.get(0).template.type == super.myItem.get(1).template.type && (
-                        // Trai dat
-                        (super.isHaveItem(555) && super.isHaveItem(1048)) || // ao
-                                (super.isHaveItem(556) && super.isHaveItem(1051)) || // quan
-                                (super.isHaveItem(562) && super.isHaveItem(1054)) || // gang
-                                (super.isHaveItem(563) && super.isHaveItem(1057)) || // giay
-                        // Namek
-                                (super.isHaveItem(557) && super.isHaveItem(1049)) || // ao
-                                (super.isHaveItem(558) && super.isHaveItem(1052)) || // quan
-                                (super.isHaveItem(564) && super.isHaveItem(1055)) || // gang
-                                (super.isHaveItem(565) && super.isHaveItem(1058)) || // giay
-                        // Xayda
-                                (super.isHaveItem(559) && super.isHaveItem(1050)) || // ao
-                                (super.isHaveItem(560) && super.isHaveItem(1053)) || // quan
-                                (super.isHaveItem(566) && super.isHaveItem(1056)) || // gang
-                                (super.isHaveItem(567) && super.isHaveItem(1059)) || // giay
+                                // Trai dat
+                                (super.isHaveItem(555) && super.isHaveItem(1048)) || // ao
+                                        (super.isHaveItem(556) && super.isHaveItem(1051)) || // quan
+                                        (super.isHaveItem(562) && super.isHaveItem(1054)) || // gang
+                                        (super.isHaveItem(563) && super.isHaveItem(1057)) || // giay
+                                        // Namek
+                                        (super.isHaveItem(557) && super.isHaveItem(1049)) || // ao
+                                        (super.isHaveItem(558) && super.isHaveItem(1052)) || // quan
+                                        (super.isHaveItem(564) && super.isHaveItem(1055)) || // gang
+                                        (super.isHaveItem(565) && super.isHaveItem(1058)) || // giay
+                                        // Xayda
+                                        (super.isHaveItem(559) && super.isHaveItem(1050)) || // ao
+                                        (super.isHaveItem(560) && super.isHaveItem(1053)) || // quan
+                                        (super.isHaveItem(566) && super.isHaveItem(1056)) || // gang
+                                        (super.isHaveItem(567) && super.isHaveItem(1059)) || // giay
 
-                                (super.isHaveItem(561)
-                                        && (super.isHaveItem(1060) || super.isHaveItem(1061) || super.isHaveItem(1062))) // nhan
+                                        (super.isHaveItem(561)
+                                                && (super.isHaveItem(1060) || super.isHaveItem(1061) || super.isHaveItem(1062))) // nhan
                         )) {
                             short templateId = (short) (
-                            // Trai dat
-                            super.isHaveItem(555) ? 0
-                                    : super.isHaveItem(556) ? 6
+                                    // Trai dat
+                                    super.isHaveItem(555) ? 0
+                                            : super.isHaveItem(556) ? 6
                                             : super.isHaveItem(562) ? 21 : super.isHaveItem(563) ? 27 :
-                            // namek
-                                                    super.isHaveItem(557) ? 1
-                                                            : super.isHaveItem(558) ? 7
-                                                                    : super.isHaveItem(564) ? 22
-                                                                            : super.isHaveItem(565) ? 28 :
-                            // Xayda
-                                                                                    super.isHaveItem(559) ? 2
-                                                                                            : super.isHaveItem(560) ? 8
-                                                                                                    : super.isHaveItem(
-                                                                                                            566) ? 23
-                                                                                                                    : super.isHaveItem(
-                                                                                                                            567) ? 29
-                                                                                                                                    :
+                                            // namek
+                                            super.isHaveItem(557) ? 1
+                                                    : super.isHaveItem(558) ? 7
+                                                    : super.isHaveItem(564) ? 22
+                                                    : super.isHaveItem(565) ? 28 :
+                                                    // Xayda
+                                                    super.isHaveItem(559) ? 2
+                                                            : super.isHaveItem(560) ? 8
+                                                            : super.isHaveItem(
+                                                            566) ? 23
+                                                            : super.isHaveItem(
+                                                            567) ? 29
+                                                            :
 
-                                                                                                                                    super.isHaveItem(
-                                                                                                                                            561) ? 12
-                                                                                                                                                    : -1);
+                                                            super.isHaveItem(
+                                                                    561) ? 12
+                                                                    : -1);
                             if (super.type == 0) {
                                 super.session.myCharz().requestOpenUIItem(npcId,
                                         String.format(mResources.MAKE_SKH, ItemTemplate.get(templateId).name));
@@ -5727,7 +5750,7 @@ public class MenuBoard {
             case 389: {
                 if (this.session.myCharz().clan != null && Clan.UPGRADE_CLAN.length >= this.session.myCharz().clan.level
                         && Clan.UPGRADE_CLAN[this.session.myCharz().clan.level
-                                - 1] <= this.session.myCharz().clan.clanPoint) {
+                        - 1] <= this.session.myCharz().clan.clanPoint) {
                     this.session.myCharz().clan.level++;
                     this.session.myCharz().clan.maxMember++;
                     this.session.myCharz().addInfo1(
@@ -5998,9 +6021,9 @@ public class MenuBoard {
                 int cuoc = (int) info.p;
                 this.session.myCharz().resetMenu();
                 this.chat = String.format(mResources.SAY_KEO_BUA_BAO2, Util.gI().getFormatNumber(cuoc));
-                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[] { cuoc, 0 }));
-                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[] { cuoc, 1 }));
-                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[] { cuoc, 2 }));
+                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[]{cuoc, 0}));
+                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[]{cuoc, 1}));
+                this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[]{cuoc, 2}));
                 this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO34, 405));
                 this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO35, 0));
                 this.openUIConfirm(npcId, null, null, -1);
@@ -6015,8 +6038,8 @@ public class MenuBoard {
                                 Util.gI().numberTostring(array[0] - this.session.myCharz().xu)));
                     } else {
                         this.session.myCharz().resetMenu();
-                        String array2[] = new String[] { mResources.KEO_BUA_BAO31, mResources.KEO_BUA_BAO32,
-                                mResources.KEO_BUA_BAO33 };
+                        String array2[] = new String[]{mResources.KEO_BUA_BAO31, mResources.KEO_BUA_BAO32,
+                                mResources.KEO_BUA_BAO33};
                         if ((array[1] == 0 && status == 1) || (array[1] == 1 && status == 2)
                                 || (array[1] == 2 && status == 0)) {
                             this.session.myCharz().updateXu(-array[0], 1);
@@ -6029,9 +6052,9 @@ public class MenuBoard {
                             this.chat = String.format(mResources.SAY_KEO_BUA_BAO33, array2[array[1]], array2[status],
                                     Util.gI().getFormatNumber(array[0]));
                         }
-                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[] { array[0], 0 }));
-                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[] { array[0], 1 }));
-                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[] { array[0], 2 }));
+                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO31, 407, new int[]{array[0], 0}));
+                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO32, 407, new int[]{array[0], 1}));
+                        this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO33, 407, new int[]{array[0], 2}));
                         this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO34, 405));
                         this.arrMenu.add(new MenuInfo(mResources.KEO_BUA_BAO35, 0));
                         this.openUIConfirm(npcId, null, null, -1);
@@ -6121,7 +6144,7 @@ public class MenuBoard {
                 this.session.service.npcChat(this.npcId, mResources.UM_BALA);
                 boolean flag = Util.gI().nextInt(100) < 20;
                 if (flag) {
-                    Item item = new Item(new int[] { 1044, 1211, 1212 }[Util.gI().nextInt(3)], false, 1, null,
+                    Item item = new Item(new int[]{1044, 1211, 1212}[Util.gI().nextInt(3)], false, 1, null,
                             mResources.EMPTY, mResources.EMPTY, mResources.EMPTY);
                     for (int i = Util.gI().nextInt(3); i >= 0; i--) {
                         item.options.add(new ItemOption(217, 0));

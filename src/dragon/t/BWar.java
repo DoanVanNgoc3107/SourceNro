@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * 
+ *
  * @author TGDD
  */
 public class BWar {
@@ -130,7 +130,7 @@ public class BWar {
                                             }
                                         }
                                     } catch (Exception e) {
-                                        e.printStackTrace(); // Câu lệnh in này để tránh lỗi vô hạn vòng lặp
+                                        System.out.println(e.getMessage());
                                     }
                                 }
                             }

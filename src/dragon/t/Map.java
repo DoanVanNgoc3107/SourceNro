@@ -578,9 +578,9 @@ public class Map {
 
     public static Map getMapServer(int mapTemplateId) {
         synchronized (MAPS_SERVER) {
-            for (int i = 0; i < MAPS_SERVER.size(); i++) {
-                if (MAPS_SERVER.get(i).templateId == mapTemplateId) {
-                    return MAPS_SERVER.get(i);
+            for (Map map : MAPS_SERVER) {
+                if (map.templateId == mapTemplateId) {
+                    return map;
                 }
             }
         }

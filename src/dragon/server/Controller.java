@@ -23,7 +23,7 @@ import java.sql.Statement;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
-import dragon.t.ArchivementTask;
+import dragon.t.AchievementTask;
 import dragon.t.BgItem;
 import dragon.t.CaiTrang;
 import dragon.t.Char;
@@ -421,7 +421,7 @@ public class Controller implements IMessageHandler {
                             } else if (!chat.isEmpty() && chat.length() <= 50) {
                                 this.session.myCharz().timeKTG = 120000;
                                 this.session.myCharz().chatWorld(chat, 1000000);
-                                // Server.gI().Player_ChatTheGoi(this.session.myCharz(), chat);
+                                Server.gI().Player_ChatTheGoi(this.session.myCharz(), chat);
                             }
                         }
                         break;
@@ -1483,11 +1483,11 @@ public class Controller implements IMessageHandler {
                                                         JSONArray arrTask = (JSONArray) JSONValue.parseWithException(red6.getString(1));
                                                         for (int i = 0; i < arrTask.size(); i++) {
                                                             JSONArray task = (JSONArray) arrTask.get(i);
-                                                            ArchivementTask t = new ArchivementTask();
+                                                            AchievementTask t = new AchievementTask();
                                                             t.id = Short.parseShort(task.get(0).toString());
                                                             t.count = Long.parseLong(task.get(1).toString());
                                                             t.isFinish = Boolean.parseBoolean(task.get(2).toString());
-                                                            t.isRecieve = Boolean.parseBoolean(task.get(3).toString());
+                                                            t.isReceive = Boolean.parseBoolean(task.get(3).toString());
                                                             newChar.archivements.add(t);
                                                         }
                                                     }

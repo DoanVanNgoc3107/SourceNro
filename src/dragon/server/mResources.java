@@ -9,7 +9,7 @@ public class mResources {
     public static final String EMPTY = "";
 
     public static final String PATH_IMG = "res/x%d/%s.png";
-    public static final String EVENT_OPENNING = "Các sự kiện đang diễn ra: ";
+    public static final String EVENT_OPENING = "Các sự kiện đang diễn ra: ";
     public static final String LOGIN_USER_PASS = "Thông tin tài khoản hoặc mật khẩu không chính xác";
     public static final String QUERY_SELECT_USER_FORMAT = "SELECT * FROM `users` WHERE (LOWER(`username`) LIKE LOWER('%s') AND `password` LIKE '%s') LIMIT 1;";
     public static final String QUERY_SELECT_CHARS_FORMAT = "SELECT * FROM `options` WHERE `playerId` = '%d' LIMIT 1;";
@@ -186,7 +186,7 @@ public class mResources {
     public static final String SAY_TO_SU_KAIO_2 = "Con muốn nâng giới hạn sức mạnh cho bản thân hay cho đệ tử?";
     public static final String SAY_TO_SU_KAIO_3 = "Ta sẽ truyền năng lượng giúp con mở giới hạn sức mạnh\ncủa bản thân lên %s\nLưu ý: từ 40 tỉ trở lên sức mạnh của con sẽ tăng chậm đáng kể";
     public static final String SAY_OSIN = "Ta có thể giúp gì cho ngươi ?";
-    public static final String SAY_MIAN = "Con cần ta giúp gì ?\n Vàng thỏi %d, Ngọc xanh %d, Ngọc đỏ %d";
+    public static final String SAY_MIAN = "Con cần ta giúp gì ? Hiện tại con đang có:\n Số dư tài khoản: %s VND, Vàng thỏi: %d, Ngọc xanh %d, Ngọc đỏ %d";
     public static final String NHAN_VANG = "Nhận 500m vàng";
     public static final String NHAN_NGOC = "Nhận 50k ngọc";
     public static final String SAY_CA_LICH = "Chào chú, cháu có thể giúp gì?";
@@ -943,10 +943,10 @@ public class mResources {
 
     public static final String EVENT_TETNGUYENDAN = "Sự Kiện\nTết 2026";
     //=========================================
-    public static final String SAY_QUY_LAO_KAME_20 = "Sự Kiện Tết Nguyên Đán 2026 nhận quả khủng đang diễn ra\nChi tiết sự kiện tại Group và Page Dragon Rose";
+    public static final String SAY_QUY_LAO_KAME_20 = "Sự Kiện Tết Nguyên Đán 2026 nhận quả khủng đang diễn ra\nChi tiết sự kiện tại Fanpage Dragon ";
     public static final String TB_ACC = "Chức năng bảo trì để đăng ký tài khoản truy cập trang chủ để đăng ký.";
     public static final String AD_SDHPKI_TEXT = "+50k sức đánh, HP,KI";
-    public static final String YOU_INVATE_DRAGON_3 = "Bạn có muốn gọi Rồng Băng không?";
+    public static final String YOU_INVATE_DRAGON_3 = "Bạn có muốn triệu hồi Rồng Băng không?";
     public static final String SAY_RONG_THAN_5 = "Ta sẽ ban cho ngươi 1 điều ước, ngươi có 5 phút, hãy chọn đi:\n1) Đổi kỹ năng 3 và 4 của đệ tử (Lưu ý: Kỹ năng mới có cấp 1 và vẫn có thể trùng lại với kỹ năng vốn có).\n2) 1 giờ x2 TN,SM đánh quái.\n3) Quả trứng Mabu 7 ngày.\n4) +50k sức đánh, HP, KI trong 1 giờ.";
     public static final String GO_HOME2 = "Về nhà";
     public static final String THE_EARTH = "Trái đất";
@@ -1143,7 +1143,7 @@ public class mResources {
     public static final String SAY_DUA_HAU2 = "Cây đã lớn rồi? Bạn có muốn thu hoạch không?";
     public static final String THU_HOACH = "Thu hoạch";
     public static final String TRONG_CAY_DUA_HAU = "Cây dưa hấu vừa được trồng tại nhà bạn";
-    public static final String SAY_HUNG_VUONG1 = "Muốn đổi quà hãy mang lễ vật tới đây";
+    public static final String SAY_HUNG_VUONG1 = "Ta là Hùng Vương đời thứ 18, ra có một cô con gái tên Mị Nương rất xinh đẹp. Nhưng đã đến tuổi gả chồng, nếu ngươi cũng muốn cưới con gái ta thì hãy\n Mang voi chín ngà, gà chín cựa, ngựa chín hồng mao rồi ta sẽ gả con gái cho!\n Quên không nói cho cậu là còn 2 chàng trai là Sơn Tinh và Thủy Tinh cũng tham dự đó. ";
     public static final String EVENT_KING = "Sự kiện\nGiỗ tổ";
     public static final String SAY_EVENT_KING1 = "Đưa lễ vật tới gặp Vua Hùng có điều bất ngờ đó";
     public static final String MAM_LE_BAC = "Mâm lễ\nbạc";

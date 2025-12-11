@@ -39,9 +39,9 @@ public class Dragon {
     public static boolean isEvent_TrungThu = false;
     public static boolean isEvent_Halloween = false;
     public static boolean isEvent_WorldCup2022 = false;
-    public static boolean isEvent_TetNguyenDan = true;
+    public static boolean isEvent_TetNguyenDan = false;
     public static boolean isEvent_Girl = false;
-    public static boolean isEvent_HungVuong = false;
+    public static boolean isEvent_HungVuong = true;
     public static boolean isEvent_HE2023 = false;
     public static boolean isEvent_DIET_SAU_BO_2023 = false;
     public static boolean isEvent_VIP = false;
@@ -62,7 +62,7 @@ public class Dragon {
         BgItem.init();
         GameInfo.init();
         Server.gI().initEvent();
-        Server.gI().initAnTrom();
+        // Server.gI().initAnTrom();
         Server.gI().initNpc();
         NamekBall.gI().initNamekBall();
         Server.gI().openPrize();
@@ -88,7 +88,7 @@ public class Dragon {
             return data;
         } catch (IOException e) {
             System.out.println("Path " + url);
-//            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -105,8 +105,8 @@ public class Dragon {
             fos.write(ab);
             fos.flush();
             fos.close();
-        } catch (IOException e) {
-//            e.printStackTrace();
+        } catch (IOException e) {   
+            System.out.println(e.getMessage());
         }
     }
 

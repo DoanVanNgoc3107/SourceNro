@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
-import dragon.t.ArchivementTask;
+import dragon.t.AchievementTask;
 import dragon.t.Char;
 import dragon.t.DuaHau;
 import dragon.t.Friend;
@@ -106,7 +106,7 @@ public class Session_ME implements ISession {
                     try {
                         TimeUnit.MILLISECONDS.sleep(Server.SESSION_DELAY_MILISECOND);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        System.out.println(e.getMessage());
                     }
                 }
             } catch (Exception _) {
@@ -664,12 +664,12 @@ public class Session_ME implements ISession {
                             //WRITE arrTask
                             JSONArray arrTask = new JSONArray();
                             for (int i = 0; i < this.myCharz().archivements.size(); i++) {
-                                ArchivementTask t = this.myCharz().archivements.get(i);
+                                AchievementTask t = this.myCharz().archivements.get(i);
                                 JSONArray tj = new JSONArray();
                                 tj.add(t.id);
                                 tj.add(t.count);
                                 tj.add(t.isFinish);
-                                tj.add(t.isRecieve);
+                                tj.add(t.isReceive);
                                 arrTask.add(tj);
                             }
                             //arrTask

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * File này dùng để lưu thông tin thành tựu
  * @author TGDD
  */
-public class Archivement {
+public class Achievement {
     
     public int id;
     public int type;
@@ -18,9 +18,9 @@ public class Archivement {
     public int max;
     public int gold;
     public boolean isFinish;
-    public boolean isRecieve;
+    public boolean isReceive;
     
-    public Archivement(ResultSet res) throws SQLException {
+    public Achievement(ResultSet res) throws SQLException {
         this.id = res.getShort(1);
         this.type = res.getByte(2);
         this.info1 = res.getString(3);
@@ -30,7 +30,7 @@ public class Archivement {
         this.gold = res.getInt(7);
     }
     
-    public Archivement(int id, int type, String info1, String info2, int money) {
+    public Achievement(int id, int type, String info1, String info2, int money) {
         this.id = id;
         this.type = type;
         this.info1 = info1;
@@ -38,9 +38,9 @@ public class Archivement {
         this.money = money;
     }
     
-    public static ArrayList<Archivement> arrArchivement = new ArrayList<>();
+    public static ArrayList<Achievement> arrArchivement = new ArrayList<>();
     
-    public static Archivement get(int id) {
+    public static Achievement get(int id) {
         int i;
         for (i = 0; i < arrArchivement.size(); i++) {
             if (arrArchivement.get(i).id == id) {

@@ -118,8 +118,8 @@ public class BigBoss2 extends Mob {
             array[i] = this.aChar.get(i).charID;
             array2[i] = super.atkPlayer(super.maxHp / 200, this.aChar.get(i));
         }
-        super.pointx = (short) this.aChar.get(0).cx;
-        super.pointy = super.zone.mapTemplate.touchY(this.aChar.get(0).cx, this.aChar.get(0).cy);
+        super.pointx = (short) this.aChar.getFirst().cx;
+        super.pointy = super.zone.mapTemplate.touchY(this.aChar.getFirst().cx, this.aChar.getFirst().cy);
         super.zone.bigBoss2Fly(array, array2);
     }
 
