@@ -19,36 +19,45 @@ public class MySQL {
         }
     }
     
+    // Helper to read DB host from the environment variable with fallback to localhost
+    private static String getHostFromEnv() {
+        String h = System.getenv("MYSQL_HOST");
+        if (h == null || h.trim().isEmpty()) {
+            return "localhost";
+        }
+        return h.trim();
+    }
+
     public static MySQL createData1() throws SQLException {
-        return new MySQL("localhost", "ae_data", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_data", "root", "31072005");
     }
     
     public static MySQL createData2() throws SQLException {
-        return new MySQL("localhost", "ae_game", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_game", "root", "31072005");
     }
     
     public static MySQL createData3() throws SQLException {
-        return new MySQL("localhost", "ae_player", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_player", "root", "31072005");
     }
     
     public static MySQL createData4() throws SQLException {
-        return new MySQL("localhost", "ae_rank", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_rank", "root", "31072005");
     }
     
     public static MySQL createData5() throws SQLException {
-        return new MySQL("localhost", "ae_lucky", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_lucky", "root", "31072005");
     }
     
     public static MySQL createData6() throws SQLException {
-        return new MySQL("localhost", "ae_option", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_option", "root", "31072005");
     }
     
     public static MySQL createData7() throws SQLException {
-        return new MySQL("localhost", "ae_effect", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_effect", "root", "31072005");
     }
     
     public static MySQL createData8() throws SQLException {
-        return new MySQL("localhost", "ae_game2", "root", "");
+        return new MySQL(getHostFromEnv(), "ae_game2", "root", "31072005");
     }
     
     public void close() {

@@ -1,36 +1,16 @@
-Name=Whis zoneId=6 mapName=Hành tinh Bill 2: 13h05 11/12/2025
-Name=Beerus zoneId=6 mapName=Hành tinh Bill 2: 13h05 11/12/2025
-Name=Tiểu đội trưởng zoneId=19 mapName=Núi khỉ đen: 13h05 11/12/2025
-Name=Số 1 zoneId=19 mapName=Núi khỉ đen: 13h05 11/12/2025
-Name=Số 2 zoneId=19 mapName=Núi khỉ đen: 13h05 11/12/2025
-Name=Số 3 zoneId=19 mapName=Núi khỉ đen: 13h05 11/12/2025
-Name=Số 4 zoneId=19 mapName=Núi khỉ đen: 13h05 11/12/2025
-Name=Fide Đại Ca 1 zoneId=17 mapName=Núi khỉ vàng: 13h05 11/12/2025
-Name=Android 19 zoneId=7 mapName=Đảo Balê: 13h05 11/12/2025
-Name=Dr.Kôrê zoneId=7 mapName=Đảo Balê: 13h05 11/12/2025
-Name=Android 15 zoneId=8 mapName=Sân sau siêu thị: 13h05 11/12/2025
-Name=Android 14 zoneId=8 mapName=Sân sau siêu thị: 13h06 11/12/2025
-Name=Pic zoneId=1 mapName=Ngọn núi phía bắc: 13h06 11/12/2025
-Name=Poc zoneId=1 mapName=Ngọn núi phía bắc: 13h06 11/12/2025
-Name=King Kong zoneId=1 mapName=Ngọn núi phía bắc: 13h06 11/12/2025
-Name=Xên bọ hung zoneId=7 mapName=Thị trấn Ginder: 13h06 11/12/2025
-Name=Xên hoàn thiện zoneId=10 mapName=Võ đài Xên bọ hung: 13h06 11/12/2025
-Name=Black Goku zoneId=11 mapName=Thành phố phía đông: 13h06 11/12/2025
-Name=Cooler zoneId=7 mapName=Hang băng: 13h06 11/12/2025
-Name=Bojack zoneId=2 mapName=Rừng Bamboo: 13h07 11/12/2025
-Name=Bido zoneId=2 mapName=Rừng Bamboo: 13h07 11/12/2025
-Name=Zangya zoneId=2 mapName=Rừng Bamboo: 13h07 11/12/2025
-Name=Kogu zoneId=2 mapName=Rừng Bamboo: 13h07 11/12/2025
-Name=Bujin zoneId=2 mapName=Rừng Bamboo: 13h07 11/12/2025
-Name=Tiểu đội trưởng zoneId=14 mapName=Thung lũng Maima: 13h07 11/12/2025
-Name=Số 1 zoneId=14 mapName=Thung lũng Maima: 13h07 11/12/2025
-Name=Số 2 zoneId=14 mapName=Thung lũng Maima: 13h07 11/12/2025
-Name=Số 3 zoneId=14 mapName=Thung lũng Maima: 13h07 11/12/2025
-Name=Số 4 zoneId=14 mapName=Thung lũng Maima: 13h07 11/12/2025
-Name=Chilld zoneId=11 mapName=Làng Plant nguyên thủy: 13h07 11/12/2025
-Name=Whis zoneId=12 mapName=Hành tinh Bill 2: 13h20 11/12/2025
-Name=Beerus zoneId=12 mapName=Hành tinh Bill 2: 13h20 11/12/2025
-Name=Tiểu đội trưởng zoneId=5 mapName=Hang khỉ đen: 13h20 11/12/2025
-Name=Số 1 zoneId=5 mapName=Hang khỉ đen: 13h20 11/12/2025
-Name=Số 2 zoneId=5 mapName=Hang khỉ đen: 13h20 11/12/2025
-Name=Số 3 zoneId=5 mapName=Hang khỉ đen: 13h20 11/12/2025
+Name=Whis zoneId=3 mapName=Hành tinh Bill 2: 11h56 13/12/2025
+Name=Beerus zoneId=3 mapName=Hành tinh Bill 2: 11h56 13/12/2025
+Name=Tiểu đội trưởng zoneId=10 mapName=Hang khỉ đen: 11h57 13/12/2025
+Name=Số 1 zoneId=10 mapName=Hang khỉ đen: 11h57 13/12/2025
+Name=Số 2 zoneId=10 mapName=Hang khỉ đen: 11h57 13/12/2025
+Name=Số 3 zoneId=10 mapName=Hang khỉ đen: 11h57 13/12/2025
+Name=Số 4 zoneId=10 mapName=Hang khỉ đen: 11h57 13/12/2025
+Name=Fide Đại Ca 1 zoneId=16 mapName=Núi khỉ vàng: 11h57 13/12/2025
+Name=Android 19 zoneId=15 mapName=Thành phố phía nam: 11h57 13/12/2025
+Name=Dr.Kôrê zoneId=15 mapName=Thành phố phía nam: 11h57 13/12/2025
+Name=Android 15 zoneId=12 mapName=Sân sau siêu thị: 11h57 13/12/2025
+Name=Android 14 zoneId=12 mapName=Sân sau siêu thị: 11h58 13/12/2025
+Name=Pic zoneId=9 mapName=Thành phố phía bắc: 11h58 13/12/2025
+Name=Poc zoneId=9 mapName=Thành phố phía bắc: 11h58 13/12/2025
+Name=King Kong zoneId=9 mapName=Thành phố phía bắc: 11h58 13/12/2025
+Name=Xên bọ hung zoneId=15 mapName=Thị trấn Ginder: 11h58 13/12/2025
